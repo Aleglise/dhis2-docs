@@ -1,0 +1,95 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>21.2.&nbsp;Importing data</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch21.html" title="Chapter&nbsp;21.&nbsp;Import and export"><link rel="prev" href="ch21.html" title="Chapter&nbsp;21.&nbsp;Import and export"><link rel="next" href="ch21s03.html" title="21.3.&nbsp;Exporting data and meta-data"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">21.2.&nbsp;Importing data</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch21.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;21.&nbsp;Import and export</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch21s03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="import"></a>21.2.&nbsp;Importing data</h2></div></div></div>
+    
+    <p>The import option allows different instance of DHIS 2 to receive standardised sets of data in the absence of a networked system. The functionality can also be used to import data produced by another system (perhaps on a regular basis) or to import legacy data which has been transformed into a format which DHIS2 can understand. Typically, a data set is exported from one DHIS2 instance (e.g. a district level system) to another system (e.g. a provincial level system).  DHIS 2 is also capable of importing data directly from a DHIS 1.4 Access database. Each of these options will be discussed in the following sections. </p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="import_another_instance"></a>21.2.1.&nbsp;XML data import</h3></div></div></div>
+      
+      <p>To import data in XML format, simply select Services-&gt;Import-export-&gt;XML data
+        import. Similar options to the XML meta-data import facility are available. Please refer to
+        the Developer guide &gt; Web API &gt; Data values chapter on XML data import for details on the
+        XML format which is used by DHIS2 for aggregate data import. </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="importCSVdata"></a>21.2.2.&nbsp;Importing CSV data</h3></div></div></div>
+      
+      <p>DHIS2 supports import of data in the CSV (Comma Separated Values)  format. This can be used to import exchange file produced by DHIS2 itself. It also comes in handy when you want to import data from a third-party system as CSV is widely supported in applications and is easy to produce manually.</p>
+      <p>To import a CSV data exchange file navigate to the <span class="italic">CSV Data
+          Import </span>item in the left-side menu. Upload the exchange file and click <span class="italic">Import</span>. CSV files can be imported both as plain text file or as
+        compressed ZIP file archive.</p>
+      <p>Please refer to the Developer guide &gt; Web API &gt; Data values chapter on CSV data import
+        for a description of the CSV format to use.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3845"></a>21.2.3.&nbsp;Event data import</h3></div></div></div>
+      
+      <p>Event data can also be easily imported with the "Event data import" function. Refer to the section in the WebAPI for more information on the format used for importing events. Otherwise, the functionality is the same as the XML data import used for aggregate data. </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="importPDFdata"></a>21.2.4.&nbsp;Importing PDF data</h3></div></div></div>
+      
+      <p>DHIS2 supports import of data in the PDF format. This can be used to import data produced by off-line PDF data entry forms. Please refer to the section "Data set management" for details on how to produce a PDF form which can be used for off-line data entry. </p>
+      <p>To import a PDF data file, navigate to the <span class="italic">PDF Data Import </span>item in the left-side menu. Upload the completed PDF file and click <span class="italic">Import</span>.</p>
+      <p>After the import process is finished, you can follow the link to the import summary, which will inform you about the outcome of the import process in terms of number of records imported, updated and ignored and potential conflicts.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="dhis14import"></a>21.2.5.&nbsp;Importing data from DHIS 1.4</h3></div></div></div>
+      
+      <p>There are two ways to import data from a DHIS 1.4 database; 1) through the 1.4 XML-based export files, or 2) directly from the DHIS 1.4 data file (.mdb). Both are accessible from the DHIS 1.4 Import menu under Import in the Import-Export module.</p>
+      <p>It is critical that all data integrity violations which are present in the DHIS 1.4
+        database be fully resolved before attempting an import into DHIS2. You can check the data
+        integrity of DHIS 1.4 through the CORE Module-&gt;Advanced-&gt;Data integrity checks. A
+        report will be generated of all data integrity violations which should be resolved prior to
+        importing into DHIS2.</p>
+      <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="resources/images/admon/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top">
+        <p>When data is imported from DHIS 1.4, both the meta-data as well as data are imported. You should therefore be exceedingly careful that the meta-data present in DHIS 1.4 is compatible with your DHIS2 data, otherwise during a DHIS 1.4 data import, the meta-data in the DHIS2 system will be potentially overwritten by the i</p>
+      </td></tr></table></div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e3861"></a>21.2.5.1.&nbsp;DHIS 1.4 File (database) Import</h4></div></div></div>
+        
+        <p>This method is recommend when doing large imports from 1.4, and especially when importing into a new  DHIS2 database.</p>
+        <p><span class="bold"><strong>DHIS 1.4 File Configuration</strong></span> </p>
+        <p>Before you can start the 1.4 file import you need to provide a  few details about the 1.4 database:</p>
+        <p><span class="italic">Datafile(#):</span> Here you put the full path to the DHIS 1.4 data file you want to import from, e.g. C:\DHIS14\DHIS_#LR_LIBERIA.mdb. </p>
+        <p><span class="italic">Username:</span>  Leave blank (unless you have set up extra security measures on the file)</p>
+        <p><span class="italic">Password:</span> Leave blank (unless you have set up extra security measures on the file)</p>
+        <p><span class="italic">Levels:</span> Provide the number of levels in the orgunit hierarchy in your 1.4 database, e.g. 5.</p>
+        <p>Click "Save" and you will return to the DHIS 1.4 File Import window. </p>
+        <p><span class="bold"><strong>Import Type:</strong></span></p>
+        <p>As with other imports you have the options to Import (directly), Preview, or Analyse the import. We recommend using the Analyse option first to check that the 1.4 database is OK and ready to be imported. </p>
+        <p>When importing a large database into a new blank DHIS 2 database we recommend using the Import option to save time. </p>
+        <p>For smaller incremental imports the Preview is OK.</p>
+        <p><span class="bold"><strong>Last Updated:</strong></span> </p>
+        <p>If you want the full import, all the data in the 1.4 database you leave this field blank.</p>
+        <p>If you only want to do an incremental import into an already existing DHIS 2 database you can use this field to filter which data values to import. Only values added or edited after the date you specify will be imported. This filter makes use of the LastUpdated column in the RoutineData table in the DHIS 1.4 data file.</p>
+        <p><span class="bold"><strong>Import process:</strong></span></p>
+        <p>When you are done selecting Method, and LastUpdated you can begin the import by
+          clicking on the Import button. This process might take a long time, depending on how many
+          data values you are importing. On a reasonable spec. computer the import takes about 2
+          million records per 30 minutes.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e3888"></a>21.2.5.2.&nbsp;DHIS 1.4 XML Import</h4></div></div></div>
+        
+        <p>Import though XML data from DHIS 1.4 is also possible using the standard DHIS 1.4
+          export format. Just be sure that the DHIS 1.4 export format has been set to "DHIS
+          2" as illustrated in the screen shot below. After the data has been exported by
+          DHIS 1.4, you can import the data by choosing "Services-&gt;Import-Export-&gt;DHIS
+          1.4 Import-&gt;DHIS 1.4 XML Import" and proceeding via the procedure outline in the
+            <a class="link" href="ch21s02.html#import_another_instance" title="21.2.1.&nbsp;XML data import">previous section</a>. </p>
+        <div class="screenshot">
+          <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td align="center"><img src="resources/images/import_export/dhis14_export.png" align="middle" width="100%"></td></tr></table></div>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e3896"></a>21.2.5.3.&nbsp;Limitations to DHIS 1.4 imports</h4></div></div></div>
+        
+        <p>Although it is possible to import and export data between instances of DHIS 1.4 and
+          DHIS 2, there are significant limitations. Currently, the import of some metadata is not
+          supported from DHIS 1.4 to DHIS 2. This includes:</p>
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>Organisational unit alternate names</p>
+          </li><li class="listitem">
+            <p>Compulsory data element pairings</p>
+          </li><li class="listitem">
+            <p>Custom data entry forms</p>
+          </li><li class="listitem">
+            <p>Dataset data entry levels</p>
+          </li></ul></div>
+        <p>It is also important that the aggregation operator defined in DHIS 1.4 be set to the correct value. Some data, such as population, should have their aggregation operator set to "Average" in DHIS2, as this controls how the aggregation of data is handled over time (but not within the organisational unit hierarchy). </p>
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch21.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch21.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch21s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;21.&nbsp;Import and export&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;21.3.&nbsp;Exporting data and meta-data</td></tr></table></div></body></html>

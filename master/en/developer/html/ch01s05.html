@@ -1,0 +1,23 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.5.&nbsp;Identifier Schemes</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s04.html" title="1.4.&nbsp;Date and period format"><link rel="next" href="ch01s06.html" title="1.6.&nbsp;Browsing the Web API"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.5.&nbsp;Identifier Schemes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s04.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s06.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e239"></a>1.5.&nbsp;Identifier Schemes</h2></div></div></div>
+    
+    <p>Throughout the Web API we refer to different kinds of id schemes, this section will give a
+      explanation to how they can be used. Please note that not all schemes works for all web-api
+      calls, and not not all schemes can be used for both input and output (this is outlined in the
+      sections explaining the web-apis themself). Setting the <span class="italic">idScheme</span> allows you to override the default for <span class="italic">all</span> schemes, but if other schemes are declared like <span class="italic">dataElementIdScheme</span> this this will be used instead.</p>
+    <p>The full range of scheme parameters available
+      are:</p><pre class="screen">idScheme, dataElementIdScheme, categoryOptionComboIdScheme, orgUnitIdScheme,
+programIdScheme, programStageIdScheme, trackedEntityIdScheme, trackedEntityAttributeIdScheme</pre>
+    <p>The default scheme for all parameters are what we call the <span class="italic">stable
+        identifiers</span> i.e. UIDs, but we also have different schemes depending on how you
+      want object matching to behave.</p><div class="table"><a name="d5e249"></a><p class="title"><b>Table&nbsp;1.3.&nbsp;Scheme Values</b></p><div class="table-contents">
+        
+        <table summary="Scheme Values" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Scheme</th><th>Description</th></tr></thead><tbody><tr><td>ID, UID</td><td>Match on DHIS 2 stable Identifier, this is the default id scheme.</td></tr><tr><td>CODE</td><td>Match on DHIS 2 Code, mainly used to exchange data with an external
+                system.</td></tr><tr><td>NAME</td><td>Match on DHIS 2 Name, please not that this uses what is available as <span class="italic">object.name</span>, and not the translated name. Also not that
+                names are not always unique, and in that case they can not be used.</td></tr><tr><td>ATTRIBUTE:ID</td><td>Match on metadata attribute, this attribute needs to be assigned to the type
+                you are matching on, and also that the unique property is set to <span class="italic">true</span>. The main usage of this is also to exchange data
+                with external systems, it has some advantages over <span class="italic">CODE</span> since multiple attributes can be added, so it can be used to
+                synchronize with more than one system.</td></tr></tbody></table>
+      </div></div><p><br class="table-break"></p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s04.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.4.&nbsp;Date and period format&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.6.&nbsp;Browsing the Web API</td></tr></table></div></body></html>

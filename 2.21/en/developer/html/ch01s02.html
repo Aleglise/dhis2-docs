@@ -1,0 +1,118 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.2.&nbsp;Authentication</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="next" href="ch01s03.html" title="1.3.&nbsp;Error and info messages"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.2.&nbsp;Authentication</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e65"></a>1.2.&nbsp;Authentication</h2></div></div></div>
+    
+    <p>The DHIS 2 Web API supports two protocols for authentication, Basic Authentication and
+      OAuth 2. You can verify and get information about the currently authenticated user by making a
+      GET request to the following URL:</p>
+    <pre class="screen">/api/me</pre>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e69"></a>1.2.1.&nbsp;Basic Authentication</h3></div></div></div>
+      
+      <p>The DHIS 2 Web API supports <span class="italic">Basic authentication</span>.
+        Basic authentication is a technique for clients to send login credentials over HTTP to a web
+        server. Technically speaking, the username is appended with a colon and the password,
+        Base64-encoded, prefixed Basic and supplied as the value of the <span class="italic">Authorization</span> HTTP header. More formally that is<code class="code"> Authorization: Basic
+          base64encode(username:password)</code> Most network-aware development frameworks provides
+        support for authentication using Basic, such as Apache HttpClient, Spring RestTemplate and
+        C# WebClient. An important note is that this authentication scheme provides no security
+        since the username and password is sent in plain text and can be easily decoded. Using it is
+        recommended only if the server is using SSL/TLS (HTTPS) to encrypt communication between
+        itself and the client. Consider it a hard requirement to provide secure interactions with
+        the Web API.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e75"></a>1.2.2.&nbsp;OAuth2</h3></div></div></div>
+      
+      <p>DHIS 2 support the OAuth2 protocol, which is an open standard for authorization, it
+        allows 3rd party clients to connect on behalf of a DHIS 2 user, and get a re-usable bearer
+        token for multiple requests to the web-api (without requiring getting the users permission
+        again). We do not support fine-grained OAuth2 roles, rather we gives the application access
+        based on the users DHIS 2 user role.</p>
+      <p>Each client for which you want to allow OAuth 2 authentication must be registered in
+        DHIS 2. To add a new OAuth2 client, go to <span class="italic">settings =&gt; OAuth2
+          Clients</span>, click add new and at least the name of client, and the grant types you
+        want supported.</p>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e80"></a>1.2.2.1.&nbsp;Adding a client using the web-api</h4></div></div></div>
+        
+        <p>An OAuth2 client can also be added through the Web API. As an example we can send a
+          payload like
+          this:</p><pre class="screen">{
+   "name" : "OAuth2 Demo Client",
+   "cid" : "demo",
+   "secret" : "1e6db50c-0fee-11e5-98d0-3c15c2c6caf6",
+   "grantTypes" : [
+      "password",
+      "refresh_token",
+      "authorization_code"
+   ],
+   "redirectUris" : [
+      "http://www.example.org"
+   ]
+}</pre>
+        <pre class="screen">SERVER="https://play.dhis2.org/dev"
+curl -X POST -H "Content-Type: application/json" -d @client.json -u admin:district $SERVER/api/oAuth2Clients</pre>
+        <p>We will use this client as the basis for our next grant type examples.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e86"></a>1.2.2.2.&nbsp;Grant type password</h4></div></div></div>
+        
+        <p>The simplest of all grant types is the <span class="bold"><strong>password</strong></span> grant
+          type. This grant type is similar to basic authenticaion in the sense that it requires the
+          client to collect the users username and password. As an example we can use our demo
+          server:</p>
+        <p>
+          </p><pre class="screen">SERVER="https://play.dhis2.org/dev"
+SECRET="1e6db50c-0fee-11e5-98d0-3c15c2c6caf6"
+
+curl -X POST -H "Accept: application/json" -u demo:$SECRET $SERVER/uaa/oauth/token 
+-d grant_type=password -d username=admin -d password=district</pre><p>
+        </p>
+        <p>This will give you a response similar to
+          this:</p><pre class="screen">{
+   "expires_in" : 43175,
+   "scope" : "ALL",
+   "access_token" : "07fc551c-806c-41a4-9a8c-10658bd15435",
+   "refresh_token" : "a4e4de45-4743-481d-9345-2cfe34732fcc",
+   "token_type" : "bearer"
+}</pre>
+        <p>For now, we will concentrate on the <span class="bold"><strong>access_token</strong></span>,
+          which is what we will use as our authentication (bearer) token. As an example we will get
+          all data elements using our
+          token:</p><pre class="screen">SERVER="https://play.dhis2.org/dev"
+curl -H "Authorization: Bearer 07fc551c-806c-41a4-9a8c-10658bd15435" $SERVER/api/dataElements.json</pre>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e97"></a>1.2.2.3.&nbsp;Grant type refresh_token</h4></div></div></div>
+        
+        <p>In general the access tokens have limited validity. You can have a look at the
+            <span class="bold"><strong>expires_in</strong></span> property of the response in the previous
+          example to understand when a token expires. To get a fresh <span class="bold"><strong>access_token</strong></span> you can make another roundtrip to the server and use <span class="bold"><strong>refresh_token</strong></span> which allows you to get an updated token without
+          needing to ask for the user credentials one more
+          time.</p><pre class="screen">SERVER="https://play.dhis2.org/dev"
+SECRET="1e6db50c-0fee-11e5-98d0-3c15c2c6caf6"
+REFRESH_TOKEN="a4e4de45-4743-481d-9345-2cfe34732fcc"
+
+curl -X POST -H "Accept: application/json" -u demo:$SECRET $SERVER/uaa/oauth/token 
+-d grant_type=refresh_token -d refresh_token=$REFRESH_TOKEN</pre>
+        <p>The response will be exactly the same as when you get an token to start with.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e105"></a>1.2.2.4.&nbsp;Grant type authorized_code</h4></div></div></div>
+        
+        <p>Authorized code grant type is the recommended approach if you don't want to store the
+          user credentials externally. It allows DHIS 2 to collect the username/password directly
+          from the user instead of the client collecting them and then authenticating on behalf of
+          the user. Please be aware that this approach uses the <span class="bold"><strong>redirect_uris</strong></span> part of the client payload.</p>
+        <p>Step 1 - Using a browser visit this URL (if you have more than one redirect URIs, you
+          might want to add &amp;redirect_uri=http://www.example.org)
+          :</p><pre class="screen">SERVER="https://play.dhis2.org/dev"
+
+$SERVER/uaa/oauth/authorize?client_id=demo&amp;response_type=code</pre>
+        <p>Step 2 - After the user have successfully logged in and accepted your client access,
+          it will redirect back to your redirect uri like
+          this:</p><pre class="screen">http://www.example.org/?code=XYZ</pre>
+        <p>Step 3 - This step is similar to what we did in the password grant type, using the
+          given code, we will now ask for a access
+          token:</p><pre class="screen">SERVER="https://play.dhis2.org/dev"
+SECRET="1e6db50c-0fee-11e5-98d0-3c15c2c6caf6"
+
+curl -X POST -u demo:$SECRET -H "Accept: application/json" $SERVER/token -d grant_type=authorized_code -d code=XYZ</pre>
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;1.&nbsp;Web API&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.3.&nbsp;Error and info messages</td></tr></table></div></body></html>

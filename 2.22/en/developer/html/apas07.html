@@ -1,0 +1,50 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>A.7.&nbsp;Using this DHIS2 Web API with R</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="apa.html" title="Appendix&nbsp;A.&nbsp;R and DHIS 2 Integration"><link rel="prev" href="apas06.html" title="A.6.&nbsp;Using PL/R with DHIS2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">A.7.&nbsp;Using this DHIS2 Web API with R</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apas06.html">Prev</a>&nbsp;</td><th width="60%" align="center">Appendix&nbsp;A.&nbsp;R and DHIS 2 Integration</th><td width="20%" align="right">&nbsp;</td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dhis2_r_web_api"></a>A.7.&nbsp;Using this DHIS2 Web API with R</h2></div></div></div>
+    
+    <p>DHIS2 has a powerful Web API which can be used to integrate applications together. In this section, we will illustrate a few trivial examples of the use of the Web API, and how we can retrieve data and metadata for use in R. The Web API uses basic HTTP authentication (as described in the Web API section of this document). Using two R packages "RCurl" and "XML", we will be able to work with the output of the API in R. In the first example, we will get some metadata from the database. </p>
+    <pre class="screen">#We are going to need these two libraries
+require(RCurl)
+require(XML)
+#This is a URL endpoint for a report table which we can 
+#get from the WebAPI. 
+
+url&lt;-"https://apps.dhis2.org/dev/api/reportTables/KJFbpIymTAo/data.csv"
+#Lets get the response and we do not need the headers
+#This site has some issues with its SSL certificate
+#so lets not verify it.
+response&lt;-getURL(url,userpwd="admin:district"
+,httpauth = 1L, header=FALSE,ssl.verifypeer = FALSE)
+#Unquote the data
+data&lt;-noquote(response)
+#here is the data.
+mydata&lt;-read.table(textConnection(data),sep=",",header=T)
+head(mydata)
+</pre>
+    <p>Here, we have shown how to get some aggregate data from the DHIS2 demo database using the DHIS2's Web API.</p>
+    <p>In the next code example, we will retrieve some metadata, namely a list of data elements and their unique identifiers.</p>
+    <pre class="screen">#Get the list of data elements. Turn off paging and links
+#This site has some issues with its SSL certificate
+#so lets not verify it.
+url&lt;-"https://apps.dhis2.org/dev/api/dataElements.xml?
+paging=false&amp;links=false"
+response&lt;-getURL(url,userpwd="admin:district",
+httpauth = 1L, header=FALSE,ssl.verifypeer = FALSE)
+#We ned to parse the result
+bri&lt;-xmlParse(response)
+#And get the root
+r&lt;-xmlRoot(bri)
+#Parse out what we need explicitly, in this case from the first node
+#Just get the names and ids as separate arrays
+de_names&lt;-xmlSApply(r[['dataElements']],xmlGetAttr,"name")
+de_id&lt;-xmlSApply(r[['dataElements']],xmlGetAttr,"id")
+#Lets bind them together
+#but we need to be careful for missing attribute values
+foo&lt;-cbind(de_names,de_id)
+#Recast this as a data frame
+data_elements&lt;-as.data.frame(foo,
+stringsAsFactors=FALSE,row.names=1:nrow(foo))
+head(data_elements)
+</pre>
+    <p>Note that the values which we are interested in are stored as XML attributes and were parsed into two separate matrices and then combined together into a single data frame. </p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apas06.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="apa.html">Up</a></td><td width="40%" align="right">&nbsp;</td></tr><tr><td width="40%" align="left" valign="top">A.6.&nbsp;Using PL/R with DHIS2&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;</td></tr></table></div></body></html>

@@ -1,0 +1,17 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>A.6.&nbsp;Using images</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_implementation_guide_en.html" title="DHIS2 Implementation Guide"><link rel="up" href="apa.html" title="Appendix&nbsp;A.&nbsp;DHIS 2 Documentation Guide"><link rel="prev" href="apas05.html" title="A.5.&nbsp;Editing the documentation"><link rel="next" href="apas07.html" title="A.7.&nbsp;Linking documents together"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">A.6.&nbsp;Using images</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apas05.html">Prev</a>&nbsp;</td><th width="60%" align="center">Appendix&nbsp;A.&nbsp;DHIS 2 Documentation Guide</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="apas07.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="docs_6"></a>A.6.&nbsp;Using images</h2></div></div></div>
+    
+    <p>Screen shots are very useful for providing information to users on how particular actions
+should be performed. DocBook has no intrinsic mechanisms to know exactly how an image should be rendered in the final document. Therefore, it is necessary to provide instructions through element attributes. The following XML code fragment demonstrates how an image can be specified to occupy 80% of the available page width. For screen shots in landscape format, this seems to be an appropriate amount. You may need to experiment a bit to obtain a proper width for your image. Alternatively, you can edit the resolution of the image itself, in order to obtain a proper size during rendering. </p>
+    <pre class="programlisting">&lt;screenshot&gt;
+ &lt;screeninfo&gt;DHIS2 Login screen&lt;/screeninfo&gt;
+  &lt;mediaobject&gt;
+   &lt;imageobject&gt; 
+    &lt;imagedata fileref="dhis2_login_screen.jpg" format="JPG" width="80%"/&gt;
+   &lt;/imageobject&gt;
+  &lt;/mediaobject&gt; 
+&lt;/screenshot&gt;</pre>
+    <p>For other images, depending on their size, a different value may be necessary. If you do
+not specify a width for you image, and its intrinsic size is larger than the available screen width, the image may overflow in certain document types with a fixed width, such as PDF. </p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apas05.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="apa.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="apas07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A.5.&nbsp;Editing the documentation&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_implementation_guide_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;A.7.&nbsp;Linking documents together</td></tr></table></div></body></html>

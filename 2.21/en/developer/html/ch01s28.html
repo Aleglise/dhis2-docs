@@ -1,0 +1,386 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.28.&nbsp;Event analytics</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s27.html" title="1.27.&nbsp;Analytics"><link rel="next" href="ch01s29.html" title="1.29.&nbsp;Geo features"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.28.&nbsp;Event analytics</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s27.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s29.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e3624"></a>1.28.&nbsp;Event analytics</h2></div></div></div>
+    
+    <p>The event analytics API lets you access aggregated event data and query <span class="italic">events</span> captured in DHIS 2. This resource lets you retrieve events
+      based on a program and optionally a program stage, and lets you retrieve and filter events on
+      any event dimensions. </p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3628"></a>1.28.1.&nbsp;Dimensions and items</h3></div></div></div>
+      
+      <p>Event dimensions include data elements, attributes, organisation units and periods. The
+        aggregated event analytics resource will return aggregated information such as counts or
+        averages. The query analytics resource will simply return events matching a set of criteria
+        and does not perform any aggregation. You can specify dimension items in the form of options
+        from option sets and legends from legend sets for data elements and attributes which are
+        associated with such. The event dimensions are listed in the table below.</p>
+      <div class="table"><a name="d5e3631"></a><p class="title"><b>Table&nbsp;1.47.&nbsp;Event dimensions</b></p><div class="table-contents">
+        
+        <table summary="Event dimensions" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Dimension</th><th>Dimension id</th><th>Description</th></tr></thead><tbody><tr><td>Data elements</td><td>&lt;id&gt;</td><td>Data element identifiers</td></tr><tr><td>Attributes</td><td>&lt;id&gt;</td><td>Attribute identifiers</td></tr><tr><td>Periods</td><td>pe</td><td>ISO periods and relative periods, see "date and period
+                format"</td></tr><tr><td>Organisation units</td><td>ou</td><td>Organisation unit identifiers</td></tr><tr><td>Organisation unit group sets</td><td>&lt;id&gt;</td><td>Organisation unit group set identifiers</td></tr></tbody></table>
+      </div></div><br class="table-break">
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3663"></a>1.28.2.&nbsp;Request query parameters</h3></div></div></div>
+      
+      <p>The analytics event API let you specify a range of query parameters.</p>
+      <div class="table"><a name="d5e3666"></a><p class="title"><b>Table&nbsp;1.48.&nbsp;Query parameters for both event query and aggregate analytics</b></p><div class="table-contents">
+        
+        <table summary="Query parameters for both event query and aggregate analytics" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup><thead><tr><th>Query parameter</th><th>Required</th><th>Description</th><th>Options</th></tr></thead><tbody><tr><td>program</td><td>Yes</td><td>Program identifier.</td><td>Any program identifier</td></tr><tr><td>stage</td><td>No</td><td>Program stage identifier.</td><td>Any program stage identifier</td></tr><tr><td>startDate</td><td>Yes</td><td>Start date for events.</td><td>Date in yyyy-MM-dd format</td></tr><tr><td>endDate</td><td>Yes</td><td>End date for events.</td><td>Date in yyyy-MM-dd format</td></tr><tr><td>dimension</td><td>Yes</td><td>Dimension identifier including data elements, attributes, program indicators,
+                periods, organisation units and organisation unit group sets. Parameter can be
+                repeated any number of times. Item filters can be applied to a dimension on the
+                format &lt;item-id&gt;:&lt;operator&gt;:&lt;filter&gt;. Filter values are
+                case-insensitive.</td><td>Operators can be EQ | GT | GE | LT | LE | NE | LIKE | IN</td></tr><tr><td>filter</td><td>No</td><td>Dimension identifier including data elements, attributes, periods, organisation
+                units and organisation unit group sets. Parameter can be repeated any number of
+                times. Item filters can be applied to a dimension on the format
+                &lt;item-id&gt;:&lt;operator&gt;:&lt;filter&gt;. Filter values are
+                case-insensitive.</td><td>&nbsp;</td></tr><tr><td>hierarchyMeta</td><td>No</td><td>Include names of organisation unit ancestors and hierarchy paths of
+                organisation units in the metadata</td><td>false | true</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <div class="table"><a name="d5e3715"></a><p class="title"><b>Table&nbsp;1.49.&nbsp;Query parameters for event query analytics only</b></p><div class="table-contents">
+        
+        <table summary="Query parameters for event query analytics only" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup><thead><tr><th>Query parameter</th><th>Required</th><th>Description</th><th>Options</th></tr></thead><tbody><tr><td>ouMode</td><td>No</td><td>The mode of selecting organisation units. Default is DESCENDANTS, meaning all
+                sub units in the hierarchy. CHILDREN refers to immediate children in the hierarchy;
+                SELECTED refers to the selected organisation units only.</td><td>DESCENDANTS, CHILDREN, SELECTED</td></tr><tr><td>asc</td><td>No</td><td>Dimensions to be sorted ascending, can reference event date, org unit name and
+                code and any item identifiers.</td><td>EVENTDATE | OUNAME | OUCODE | item identifier</td></tr><tr><td>desc</td><td>No</td><td>Dimensions to be sorted descending, can reference event date, org unit name and
+                code and any item identifiers.</td><td>EVENTDATE | OUNAME | OUCODE | item identifier</td></tr><tr><td>coordinatesOnly</td><td>No</td><td>Whether to only return events which have coordinates</td><td>false | true</td></tr><tr><td>page</td><td>No</td><td>The page number. Default page is 1.</td><td>Numeric positive value</td></tr><tr><td>pageSize</td><td>No</td><td>The page size. Default size is 50 items per page.</td><td>Numeric zero or positive value</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <div class="table"><a name="d5e3759"></a><p class="title"><b>Table&nbsp;1.50.&nbsp;Query parameters for aggregate event analytics only</b></p><div class="table-contents">
+        
+        <table summary="Query parameters for aggregate event analytics only" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup><thead><tr><th>Query parameter</th><th>Required</th><th>Description</th><th>Options</th></tr></thead><tbody><tr><td>value</td><td>No</td><td>Value dimension identifier. Can be a data element or an attribute which must be
+                of numeric value type.</td><td>Data element or attribute identifier.</td></tr><tr><td>aggregationType</td><td>No</td><td>Aggregation type for the value dimension. Default is AVERAGE.</td><td>AVERAGE | SUM | COUNT | STDDEV | VARIANCE | MIN | MAX</td></tr><tr><td>showHierarchy</td><td>No</td><td>Display full org unit hierarchy path together with org unit name.</td><td>false | true</td></tr><tr><td>displayProperty</td><td>No</td><td>Property to display for metadata.</td><td>NAME | SHORTNAME</td></tr><tr><td>sortOrder</td><td>No</td><td>Sort the records on the value column in ascending or descending order.</td><td>ASC | DESC</td></tr><tr><td>limit</td><td>No</td><td>The maximum number of records to return. Cannot be larger than 10 000.</td><td>Numeric positive value</td></tr><tr><td>outputType</td><td>No</td><td>Specify output type for analytical data which can be events, enrollments or
+                tracked entity instances. The two last options apply to programs with registration
+                only.</td><td>EVENT | ENROLLMENT | TRACKED_ENTITY_INSTANCE</td></tr><tr><td>collapseDataDimensions</td><td>No</td><td>Collapse all data dimensions (data elements and attributes) into a single
+                dimension in the response.</td><td>false | true</td></tr><tr><td>skipMeta</td><td>No</td><td>Exclude the meta data part of the response (improves performance).</td><td>false | true</td></tr><tr><td>skipData</td><td>No</td><td>Exclude the data part of the response.</td><td>false | true</td></tr><tr><td>skipRounding</td><td>No</td><td>Skip rounding of aggregate data values.</td><td>false | true</td></tr><tr><td>aggregateData</td><td>No</td><td>Produce aggregate values for the data dimensions (as opposed to dimension
+                items).</td><td>false | true</td></tr></tbody></table>
+      </div></div><br class="table-break">
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3833"></a>1.28.3.&nbsp;Event query analytics</h3></div></div></div>
+      
+      <p>The <span class="italic">events/query</span> resource lets you query for captured
+        events. This resource does not perform any aggregation, rather it lets you query and filter
+        for information about events. You can specify any number of dimensions and any number of
+        filters in a query. Dimension item identifiers can refer to any of data elements, person
+        attributes, person identifiers, fixed and relative periods and organisation units.
+        Dimensions can optionally have a query operator and a filter. Event queries should be on the
+        format described below.</p>
+      <pre class="screen">api/analytics/events/query/&lt;program-id&gt;?startDate=yyyy-MM-dd&amp;endDate=yyyy-MM-dd
+&amp;dimension=ou:&lt;ou-id&gt;;&lt;ou-id&gt;&amp;dimension=&lt;item-id&gt;&amp;dimension=&lt;item-id&gt;:&lt;operator&gt;:&lt;filter&gt;</pre>
+      <p>For example, to retrieve events from the "Inpatient morbidity and mortality"
+        program between January and October 2014, where the "Gender" and "Age"
+        data elements are included and the "Age" dimension is filtered on "18",
+        you can use the following query:</p>
+      <pre class="screen">api/analytics/events/query/eBAyeGv0exc?startDate=2014-01-01&amp;endDate=2014-10-31
+&amp;dimension=ou:O6uvpzGd5pu;fdc6uOvgoji&amp;dimension=oZg33kd9taw&amp;dimension=qrur9Dvnyt5:EQ:18</pre>
+      <p>To retrieve events for the "Birth" program stage of the "Child
+        programme" program between March and December 2014, where the "Weight" data
+        element, filtered for values larger than 2000:</p>
+      <pre class="screen">api/analytics/events/query/IpHINAT79UW?stage=A03MvHHogjR&amp;startDate=2014-03-01&amp;endDate=2014-12-31
+&amp;dimension=ou:O6uvpzGd5pu&amp;dimension=UXz7xuGCEhU:GT:2000</pre>
+      <p>Sorting can be applied to the query for the event date of the event and any dimensions.
+        To sort descending on the event date and ascending on the "Age" data element
+        dimension you can use:</p>
+      <pre class="screen">api/analytics/events/query/eBAyeGv0exc?startDate=2014-01-01&amp;endDate=2014-10-31
+&amp;dimension=ou:O6uvpzGd5pu&amp;dimension=qrur9Dvnyt5&amp;desc=EVENTDATE&amp;asc=qrur9Dvnyt5</pre>
+      <p>Paging can be applied to the query by specifying the page number and the page size
+        parameters. If page number is specified but page size is not, a page size of 50 will be
+        used. If page size is specified but page number is not, a page number of 1 will be used. To
+        get the third page of the response with a page size of 20 you can use a query like
+        this:</p>
+      <pre class="screen">api/analytics/events/query/eBAyeGv0exc?startDate=2014-01-01&amp;endDate=2014-10-31
+&amp;dimension=ou:O6uvpzGd5pu&amp;dimension=qrur9Dvnyt5&amp;page=3&amp;pageSize=20</pre>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e3846"></a>1.28.3.1.&nbsp;Filtering</h4></div></div></div>
+        
+        <p>Filters can be applied to data elements, person attributes and person identifiers. The
+          filtering is done through the query parameter value on the following format:</p>
+        <pre class="screen">&amp;dimension=&lt;item-id&gt;:&lt;operator&gt;:&lt;filter-value&gt;</pre>
+        <p>As an example, you can filter the "Weight" data element for values greater
+          than 2000 and lower than 4000 like this:</p>
+        <pre class="screen">&amp;dimension=UXz7xuGCEhU:GT:2000&amp;dimension=UXz7xuGCEhU:LT:4000</pre>
+        <p>You can filter the "Age" data element for multiple, specific ages using the
+          IN operator like this:</p><pre class="screen">&amp;dimension=qrur9Dvnyt5:IN:18;19;20</pre>
+        <p>You can specify multiple filters for a given item by repeating the operator and filter
+          components:</p>
+        <pre class="screen">&amp;dimension=qrur9Dvnyt5:GT:5;LT;15</pre>
+        <p>The available operators are listed below.</p>
+        <div class="table"><a name="d5e3857"></a><p class="title"><b>Table&nbsp;1.51.&nbsp;Filter operators</b></p><div class="table-contents">
+          
+          <table summary="Filter operators" border="1"><colgroup><col width="87.75pt" class="c1"><col width="368.25pt" class="c2"></colgroup><thead><tr><th>Operator</th><th>Description</th></tr></thead><tbody><tr><td>EQ</td><td>Equal to</td></tr><tr><td>GT</td><td>Greater than</td></tr><tr><td>GE</td><td>Greater than or equal to</td></tr><tr><td>LT</td><td>Less than</td></tr><tr><td>LE</td><td>Less than or equal to</td></tr><tr><td>NE</td><td>Not equal to</td></tr><tr><td>LIKE</td><td>Like (free text match)</td></tr><tr><td>IN</td><td>Equal to one of multiple values separated by ";"</td></tr></tbody></table>
+        </div></div><br class="table-break">
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e3891"></a>1.28.3.2.&nbsp;Response formats</h4></div></div></div>
+        
+        <p>The default response representation format is JSON. The requests must be using the
+          HTTP <span class="italic">GET</span> method. The following response formats are
+          supported.</p>
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>json (application/json)</p>
+          </li><li class="listitem">
+            <p>jsonp (application/javascript)</p>
+          </li><li class="listitem">
+            <p>xls (application/vnd.ms-excel)</p>
+          </li></ul></div>
+        <p>As an example, to get a response in Excel format you can use a file extension in the
+          request URL like this:</p>
+        <pre class="screen">api/analytics/events/query/eBAyeGv0exc.xls?startDate=2014-01-01&amp;endDate=2014-10-31
+&amp;dimension=ou:O6uvpzGd5pu&amp;dimension=oZg33kd9taw&amp;dimension=qrur9Dvnyt5</pre>
+        <p>You can set the hierarchyMeta query parameter to true in order to include names of all
+          ancestor organisation units in the meta-section of the response:</p>
+        <pre class="screen">api/analytics/events/query/eBAyeGv0exc?startDate=2014-01-01&amp;endDate=2014-10-31
+&amp;dimension=ou:YuQRtpLP10I&amp;dimension=qrur9Dvnyt5:EQ:50&amp;hierarchyMeta=true</pre>
+        <p>The default response JSON format will look similar to this:</p>
+        <pre class="screen">{
+    "headers": [
+    {
+        "name": "psi",
+        "column": "Event",
+        "type": "java.lang.String",
+        "hidden": false,
+        "meta": false
+    },
+    {
+        "name": "ps",
+        "column": "Program stage",
+        "type": "java.lang.String",
+        "hidden": false,
+        "meta": false
+    },
+    {
+        "name": "eventdate",
+        "column": "Event date",
+        "type": "java.lang.String",
+        "hidden": false,
+        "meta": false
+    },
+    {
+        "name": "coordinates",
+        "column": "Coordinates",
+        "type": "java.lang.String",
+        "hidden": false,
+        "meta": false
+    },
+    {
+        "name": "ouname",
+        "column": "Organisation unit name",
+        "type": "java.lang.String",
+        "hidden": false,
+        "meta": false
+    },
+    {
+        "name": "oucode",
+        "column": "Organisation unit code",
+        "type": "java.lang.String",
+        "hidden": false,
+        "meta": false
+    },
+    {
+        "name": "ou",
+        "column": "Organisation unit",
+        "type": "java.lang.String",
+        "hidden": false,
+        "meta": false
+    },
+    {
+        "name": "oZg33kd9taw",
+        "column": "Gender",
+        "type": "java.lang.String",
+        "hidden": false,
+        "meta": false
+    },
+    {
+        "name": "qrur9Dvnyt5",
+        "column": "Age",
+        "type": "java.lang.String",
+        "hidden": false,
+        "meta": false
+    } ],
+    "metaData": {
+        "names": {
+            "qrur9Dvnyt5": "Age",
+            "eBAyeGv0exc": "Inpatient morbidity and mortality",
+            "ImspTQPwCqd":&nbsp;"Sierra Leone",
+            "O6uvpzGd5pu":&nbsp;"Bo",
+            "YuQRtpLP10I": "Badjia",
+            "oZg33kd9taw": "Gender"
+        },
+        "ouHierarchy": {
+            "YuQRtpLP10I": "/ImspTQPwCqd/O6uvpzGd5pu"
+        },
+    },
+    "width": 8,
+    "height": 25,
+    "rows": [
+        ["yx9IDINf82o", "Zj7UnCAulEk", "2014-08-05", "[5.12, 1.23]", "Ngelehun CHC", "OU_559", "YuQRtpLP10I", "Female", "50"],
+        ["IPNa7AsCyFt", "Zj7UnCAulEk", "2014-06-12", "[5.22, 1.43]", "Ngelehun CHC", "OU_559", "YuQRtpLP10I", "Female", "50"],
+        ["ZY9JL9dkhD2", "Zj7UnCAulEk", "2014-06-15", "[5.42, 1.33]", "Ngelehun CHC", "OU_559", "YuQRtpLP10I", "Female", "50"],
+        ["MYvh4WAUdWt", "Zj7UnCAulEk", "2014-06-16", "[5.32, 1.53]", "Ngelehun CHC", "OU_559", "YuQRtpLP10I", "Female", "50"]
+    ]
+}</pre>
+        <p>The <span class="italic">headers</span> section of the response describes the
+          content of the query result. The event unique identifier, the program stage identifier,
+          the event date, the organisation unit name, the organisation unit code and the
+          organisation unit identifier appear as the first six dimensions in the response and will
+          always be present. Next comes the data elements, person attributes and person identifiers
+          which were specified as dimensions in the request, in this case the "Gender" and
+          "Age" data element dimensions. The header section contains the identifier of the
+          dimension item in the "name" property and a readable dimension description in
+          the "column" property.</p>
+        <p>The <span class="italic">metaData</span> section, <span class="italic">ou</span> object contains the identifiers of all organisation units present in the
+          response mapped to a string representing the hierarchy. This hierarchy string lists the
+          identifiers of the ancestors (parents) of the organistion unit starting from the root. The
+            <span class="italic">names</span> object contains the identifiers of all items in
+          the response mapped to their names.</p>
+        <p>The <span class="italic">rows</span> section contains the events produced by
+          the query. Each row represents exactly one event.</p>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3916"></a>1.28.4.&nbsp;Event aggregate analytics</h3></div></div></div>
+      
+      <p>In order to get <span class="italic">aggregated numbers</span> of events captured
+        in DHIS 2 you can work with the <span class="italic">analytics/events/aggregate</span> resource. This resource lets you retrieve aggregate
+        data based on a program and optionally a program stage, and lets you filter on any event
+        dimension. In other words, it does not return the event information itself, rather the
+        aggregate numbers of events matching the request query. Event dimensions include data
+        elements, person attributes, person identifiers, periods and organisation units.</p>
+      <p>Aggregate event queries should be on the format described below.</p>
+      <pre class="screen">api/analytics/events/aggregate/&lt;program-id&gt;?startDate=yyyy-MM-dd&amp;endDate=yyyy-MM-dd
+&amp;dimension=ou:&lt;ou-id&gt;;&lt;ou-id&gt;&amp;dimension=&lt;item-id&gt;&amp;dimension=&lt;item-id&gt;:&lt;operator&gt;:&lt;filter&gt;</pre>
+      <p>For example, to retrieve aggregate numbers for events from the "Inpatient morbidity
+        and mortality" program between January and October 2014, where the "Gender"
+        and "Age" data elements are included, the "Age" dimension item is
+        filtered on "18" and the "Gender" item is filtered on
+        "Female", you can use the following query:</p>
+      <pre class="screen">api/analytics/events/aggregate/eBAyeGv0exc?startDate=2014-01-01&amp;endDate=2014-10-31
+&amp;dimension=ou:O6uvpzGd5pu&amp;dimension=oZg33kd9taw:EQ:Female&amp;dimension=qrur9Dvnyt5:GT:50</pre>
+      <p>To retrieve data for fixed and relative periods instead of start and end date, in this
+        case May 2014 and last 12 months, and the organisation unit associated with the current
+        user, you can use the following query:</p>
+      <pre class="screen">api/analytics/events/aggregate/eBAyeGv0exc?dimension=pe:201405;LAST_12_MONTHS
+&amp;dimension=ou:USER_ORGUNIT;fdc6uOvgo7ji&amp;dimension=oZg33kd9taw</pre>
+      <p>In order to specify "Female" as a filter for "Gender" for the data
+        response, meaning "Gender" will not be part of the response but will filter the
+        aggregate numbers in it, you can use the following syntax:</p>
+      <pre class="screen">api/analytics/events/aggregate/eBAyeGv0exc?dimension=pe:2014;
+&amp;dimension=ou:O6uvpzGd5pu&amp;filter=oZg33kd9taw:EQ:Female</pre>
+      <p>To specify the "Bo" organisation unit and the period "2014" as
+        filters, and the "Mode of discharge" and Gender" as dimensions, where
+        "Gender" is filtered on the "Male" item, you can use a query like
+        this:</p>
+      <pre class="screen">api/analytics/events/aggregate/eBAyeGv0exc?filter=pe:2014&amp;filter=ou:O6uvpzGd5pu
+&amp;dimension=fWIAEtYVEGk&amp;dimension=oZg33kd9taw:EQ:Male</pre>
+      <p>To create a "Top 3 report" for "Mode of discharge" you can use the
+        limit and sortOrder query parameters similar to this:</p>
+      <pre class="screen">api/analytics/events/aggregate/eBAyeGv0exc?filter=pe:2014&amp;filter=ou:O6uvpzGd5pu
+&amp;dimension=fWIAEtYVEGk&amp;limit=3&amp;sortOrder=DESC</pre>
+      <p>To specify a value dimension with a corresponding aggregation type you can use the value
+        and aggregationType query parameters. Specifying a value dimension will make the analytics
+        engine return aggregate values for the values of that dimension in the response as opposed
+        to counts of events.</p>
+      <pre class="screen">api/analytics/events/aggregate/eBAyeGv0exc.json?stage=Zj7UnCAulEk&amp;dimension=ou:ImspTQPwCqd
+&amp;dimension=pe:LAST_12_MONTHS&amp;dimension=fWIAEtYVEGk&amp;value=qrur9Dvnyt5&amp;aggregationType=AVERAGE</pre>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e3935"></a>1.28.4.1.&nbsp;Ranges / legend sets</h4></div></div></div>
+        
+        <p>For aggregate queries you can specify a range / legend set for numeric data element
+          and attribute dimensions. The purpose is to group the numeric values into ranges. As an
+          example, instead of generating data for an "Age" data element for distinct years, you can
+          group the information into age groups. To achieve this, the data element or attribute must
+          be associated with the legend set. The format is described below:</p>
+        <pre class="screen">?dimension=&lt;item-id&gt;-&lt;legend-set-id&gt;</pre>
+        <p>An example looks like this:</p>
+        <pre class="screen">api/analytics/events/aggregate/eBAyeGv0exc.json?stage=Zj7UnCAulEk&amp;dimension=qrur9Dvnyt5-Yf6UHoPkdS6
+&amp;dimension=ou:ImspTQPwCqd&amp;dimension=pe:LAST_12_MONTHS</pre>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e3941"></a>1.28.4.2.&nbsp;Response formats</h4></div></div></div>
+        
+        <p>The default response representation format is JSON. The requests must be using the
+          HTTP <span class="italic">GET</span> method. The response will look similar to
+          this:</p>
+        <pre class="screen">{
+    "headers": [
+        {
+            "name": "oZg33kd9taw",
+            "column": "Gender",
+            "type": "java.lang.String",
+            "meta": false
+        },
+        {
+            "name": "qrur9Dvnyt5",
+            "column": "Age",
+            "type": "java.lang.String",
+            "meta": false
+        },
+        {
+            "name": "pe",
+            "column": "Period",
+            "type": "java.lang.String",
+            "meta": false
+        },
+        {
+            "name": "ou",
+            "column": "Organisation unit",
+            "type": "java.lang.String",
+            "meta": false
+        },
+        {
+            "name": "value",
+            "column": "Value",
+            "type": "java.lang.String",
+            "meta": false
+        }
+    ],
+    "metaData": {
+        "names": {
+            "eBAyeGv0exc": "Inpatient morbidity and mortality"
+        }
+    },
+    "width": 5,
+    "height": 39,
+    "rows": [
+        [
+            "Female",
+            "95",
+            "201405",
+            "O6uvpzGd5pu",
+            "2"
+        ],
+        [
+            "Female",
+            "63",
+            "201405",
+            "O6uvpzGd5pu",
+            "2"
+        ],
+        [
+            "Female",
+            "67",
+            "201405",
+            "O6uvpzGd5pu",
+            "1"
+        ],
+        [
+            "Female",
+            "71",
+            "201405",
+            "O6uvpzGd5pu",
+            "1"
+        ],
+        [
+            "Female",
+            "75",
+            "201405",
+            "O6uvpzGd5pu",
+            "14"
+        ],
+        [
+            "Female",
+            "73",
+            "201405",
+            "O6uvpzGd5pu",
+            "5"
+        ],
+    ]
+}</pre>
+        <p>Note that the max limit for rows to return in a single response is 10 000. If the
+          query produces more than the max limit, a <span class="italic">409 Conflict</span>
+          status code will be returned.</p>
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s27.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s29.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.27.&nbsp;Analytics&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.29.&nbsp;Geo features</td></tr></table></div></body></html>

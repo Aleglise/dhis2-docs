@@ -1,0 +1,144 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>30.3.&nbsp;Indicator evaluation</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch30.html" title="Chapter&nbsp;30.&nbsp;Program Indicators"><link rel="prev" href="ch30s02.html" title="30.2.&nbsp;Setup"><link rel="next" href="ch31.html" title="Chapter&nbsp;31.&nbsp;Program rules"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">30.3.&nbsp;Indicator evaluation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch30s02.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;30.&nbsp;Program Indicators</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch31.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e7126"></a>30.3.&nbsp;Indicator evaluation</h2></div></div></div>
+    
+    <p>Program indicators are evaluated based on the assigned aggregation type, expression and filter. The
+      order of evaluation is as follows:</p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p>The <span class="italic">filter</span> will filter the events which become part
+          of the evaluation / aggregation routine.</p>
+      </li><li class="listitem">
+        <p>The <span class="italic">expression</span> will be evaluated per event.</p>
+      </li><li class="listitem">
+        <p>All evaluated expression values will be <span class="italic">aggregated</span>
+          according to the aggregation type of the program indicator.</p>
+      </li></ol></div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e7139"></a>30.3.1.&nbsp;Aggregation type</h3></div></div></div>
+      
+      <p>The aggregation type determines how the program indicator
+        will be aggregated. The following aggregation types are available:</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>Average</p>
+        </li><li class="listitem">
+          <p>Sum</p>
+        </li><li class="listitem">
+          <p>Count</p>
+        </li><li class="listitem">
+          <p>Standard Deviation</p>
+        </li><li class="listitem">
+          <p>Variance</p>
+        </li><li class="listitem">
+          <p>Min</p>
+        </li><li class="listitem">
+          <p>Max</p>
+        </li><li class="listitem">
+          <p>Custom</p>
+        </li></ul></div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e7159"></a>30.3.1.1.&nbsp;Custom aggregation type</h4></div></div></div>
+        
+        <p>The "custom" aggregation type is special, as it allows you to specify the aggregation
+          type in-line in the expression. All other aggregation types are applied to the entire
+          expression.</p>
+        <p>Using the "custom" aggregation type might lead to an exception of the order of
+          evaluation described above where individual parts of the expression can be evaluated and
+          aggregated, as opposed to the entire expressio being evaluated prior to aggregation.</p>
+        <p>The following aggregation type operators can be used within expressions: sum, count,
+          stddev, variance, min, max.</p>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e7164"></a>30.3.2.&nbsp;Expression</h3></div></div></div>
+      
+      <p>The expression defines how the indicator is being calculated. The expression can contain
+        references to various entities which will be substituted with a related values when the
+        indicator is calculated:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>Data elements: Will be substituted with the value of the data element for the time
+              period and organisation unit for which the calculation is done. Refers to both program
+              stage and data element.</p>
+          </li><li class="listitem">
+            <p>Attributes: Will be substituted with the value of the attribute for the person /
+              tracked entity for which the calculation is done.</p>
+          </li><li class="listitem">
+            <p>Variables: Will be substituted with special values linked to the program,
+              including incident date and date of enrollment for the person, current date and count
+              of values in the expression for the time period and organisation unit for which the
+              calculation is done.</p>
+          </li><li class="listitem">
+            <p>Constants: Will be substituted with the value of the constant.</p>
+          </li></ul></div>
+      <p>The expression is a mathematical expression that can contain operators which include
+      multiply, divide, plus and minus. The expression will be evaluated <span class="italic">per event</span>, then aggregated according to its aggregation type.</p>
+      <div class="screenshot">
+        
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="60%"><tr><td align="center"><img src="resources/images/program_indicator/program-indicator-expression.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+      <p>An example expression that includes both attributes, data elements and constants looks like
+      this:</p><pre class="screen">(A{GPkGfbmArby} + #{mCXR7u4kNBW.NFkjsNiQ9PH}) * C{bCqvfPR02Im}</pre>
+      <p>An example expression which uses the custom aggregation type and hence can use inline
+      aggregation types looks like
+      this:</p><pre class="screen">(sum(#{mCXR7u4kNBW.K0A4BauXJDl} * #{mCXR7u4kNBW.NFkjsNiQ9PH}) / sum(#{mCXR7u4kNBW.NFkjsNiQ9PH})) * 100</pre>
+      <p>Notice how the "sum" aggregation operator is used inside the expression itself.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e7188"></a>30.3.3.&nbsp;Filter</h3></div></div></div>
+      
+      <p>The filter is applied to events and filters the data
+      source used for the calculation of the indicator. I.e. the filter is applied to the set of
+      events before the indicator expression is being evaluated. The filter must evaluate to either
+      true or false. It filter is applied to each individual event. If the filter evaluates to true
+      then the event is included later in the expression evaluation, if not it is ignored. The
+      filter can, in a similar way as expressions, contain references to data elements, attributes
+      and constants.</p>
+      <p>The indicator filter can in addition use logical operators including the
+        following:</p>
+      <div class="table"><a name="d5e7192"></a><p class="title"><b>Table&nbsp;30.1.&nbsp;Operators</b></p><div class="table-contents">
+        
+        <table summary="Operators" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Operator</th><th>Description</th></tr></thead><tbody><tr><td>and</td><td>Logical AND</td></tr><tr><td>or</td><td>Logical OR</td></tr><tr><td>==</td><td>Equal to</td></tr><tr><td>!=</td><td>Not equal to</td></tr><tr><td>&lt;</td><td>Less than</td></tr><tr><td>&lt;=</td><td>Less than or equal to</td></tr><tr><td>&gt;</td><td>Greater than</td></tr><tr><td>&gt;=</td><td>Greater than or equal to</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <p>These operators can be used to form logical expressions which ultimately evaluate to either
+        true or false. For example. one can assert that multiple data elements must be a specific value, or
+        that specific attributes must have numerical values less or greater than a constant.</p>
+      <div class="screenshot">
+        
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="60%"><tr><td align="center"><img src="resources/images/program_indicator/program-indicator-filter.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+      <p>You can switch between data elements, attributes, variables and constants by using the
+      tabs. You can include such items into expressions and filters by double-clicking in the list.
+      The buttons below the expression area can be used to insert operators.</p>
+      <p>An example filter that uses both attributes and data elements looks like
+      this:</p><pre class="screen">A{cejWyOfXge6} == 'Female' and #{A03MvHHogjR.a3kGcGDCuk6} &lt;= 2</pre>
+      <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="resources/images/admon/tip.png"></td><th align="left">Tip</th></tr><tr><td align="left" valign="top">
+        <p>DHIS 2 is using the JEXL library
+      for evaluating expressions which supports additional syntax beyond what is covered in this
+      documentation. See the reference at the <a class="ulink" href="http://commons.apache.org/proper/commons-jexl/reference/syntax.html" target="_top">project home page</a> to learn how you can create more sophisticated expressions</p>
+      </td></tr></table></div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e7238"></a>30.3.4.&nbsp;Functions</h3></div></div></div>
+      
+      <p>The indicator expression and filter support a range of functions. The functions can be
+        applied to data elements and attributes:</p>
+      <div class="table"><a name="d5e7241"></a><p class="title"><b>Table&nbsp;30.2.&nbsp;Functions</b></p><div class="table-contents">
+        
+        <table summary="Functions" border="1"><colgroup><col class="c1"><col class="newCol2"><col class="c2"></colgroup><thead><tr><th>Function</th><th>Arguments</th><th>Description</th></tr></thead><tbody><tr><td>d2:daysBetween</td><td>(date, date)</td><td>Produces the number of days between two data elements/attributes of type date. The static date format is 'yyyy-MM-dd'.</td></tr><tr><td>d2:condition</td><td>(boolean-expr, true-val, false-val)</td><td>Evaluates the conditional expression and if true returns the true value, if false returns the false value. The conditional expression must be quoted.</td></tr><tr><td>d2:zing</td><td>(number)</td><td>Evaluates the data element/attribute of type number to zero if the value is negative, otherwise to the value itself.</td></tr><tr><td>d2:oizp</td><td>(number)</td><td>Evaluates the data element/attribute of type number to one if the value is zero or positive, otherwise to zero. </td></tr><tr><td>d2:zpvc</td><td>(object, [,object, object,...])</td><td>Returns the number of numeric zero and positive values among the given object arguments. Can be provided any number of arguments.</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <p>An example expression that uses the "zing" and "oizp" functions looks like
+        this:</p><pre class="screen">d2:zing(A{GPkGfbmArby}) + d2:oizp(#{mCXR7u4kNBW.NFkjsNiQ9PH}))</pre>
+      <p>An example expression that uses the "daysBetween" function looks like
+        this:</p><pre class="screen">d2:daysBetween(#{mCXR7u4kNBW.k8ja2Aif1Ae},'2015-06-01')</pre>
+      <p>An example expression that uses the "condition" function looks like
+        this:</p><pre class="screen">d2:condition('#{mCXR7u4kNBW.NFkjsNiQ9PH} &gt; 100',150,50)</pre>
+      <p>An example expression that uses the "zpvc" function looks like
+        this:</p><pre class="screen">d2:zpvc(A{GPkGfbmArby}),#{mCXR7u4kNBW.NFkjsNiQ9PH}),4,-1)</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e7281"></a>30.3.5.&nbsp;Variables</h3></div></div></div>
+      
+      <p>The indicator expression and filter support a range of variables:</p>
+      <div class="table"><a name="d5e7284"></a><p class="title"><b>Table&nbsp;30.3.&nbsp;Variables</b></p><div class="table-contents">
+        
+        <table summary="Variables" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Variable</th><th>Description</th></tr></thead><tbody><tr><td>event_date</td><td>The date of when the event took place.</td></tr><tr><td>due_date</td><td>The date of when an event is due.</td></tr><tr><td>incident_date</td><td>The date of the incidence of the event.</td></tr><tr><td>enrollment_date</td><td>The date of when the tracked entity instance was enrolled in the program.</td></tr><tr><td>current_date</td><td>The current date.</td></tr><tr><td>value_count</td><td>The number of non-null values in the expression part of the event.</td></tr><tr><td>zero_pos_value_count</td><td>The number of numeric positive values in the expression part of the event.</td></tr><tr><td>event_count</td><td>The count of events (useful in combination with filters).</td></tr><tr><td>enrollment_count</td><td>The count of enrollments (useful in combination with filters).</td></tr><tr><td>tei_count</td><td>The count of tracked entity instances (useful in combination with filters).</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <p>An example expression that uses the "value count" variable looks like
+        this:</p><pre class="screen">(#{A03MvHHogjR.a3kGcGDCuk6} + #{A03MvHHogjR.wQLfBvPrXqq}) / V{value_count}</pre>
+      <p>An example expression that uses the "event_date" and "incident_date" variables looks
+        like this:</p><pre class="screen">d2:daysBetween(V{incident_date},V{event_date})</pre><p>
+      </p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch30s02.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch30.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch31.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">30.2.&nbsp;Setup&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;31.&nbsp;Program rules</td></tr></table></div></body></html>

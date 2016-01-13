@@ -1,0 +1,80 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>7.2.&nbsp;Thematic mapping</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_end_user_manual.html" title="DHIS 2 End-user Manual"><link rel="up" href="ch07.html" title="Chapter&nbsp;7.&nbsp;Using GIS"><link rel="prev" href="ch07.html" title="Chapter&nbsp;7.&nbsp;Using GIS"><link rel="next" href="ch07s03.html" title="7.3.&nbsp;Tools"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.2.&nbsp;Thematic mapping</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch07.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;7.&nbsp;Using GIS</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07s03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e701"></a>7.2.&nbsp;Thematic mapping</h2></div></div></div>
+    
+    <p>This section describes the four vector layers which the user has at his disposal for thematic mapping: "Event Layer", "Facility layer", "Boundary layer" and "Thematic layer" 1-4.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisEventMap"></a>7.2.1.&nbsp;Event layer</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_event_layer.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>The purpose of the event layer is to display the geographical location of events
+        registered in the DHIS 2 tracker. This layer enables you to drill down from the aggregated
+        data displayed in the thematic layers to the underlying individual events or cases. </p>
+      <p>To work with this layer, click the event layer icon on the map toolbar and select "Edit
+        layer". Select a program and then select a program stage. If there is only one stage
+        available for the selected program, the stage will be automatically selected. A list of data
+        elements and attributes will appear in the "Available data elements" panel. You are free to
+        select and use any data element or attribute from this list as part of your query. To select
+        you can either double-click a data element or (multi) select and use the single-arrow
+        downward button. The double-arrow button will select all data elements in the list. All
+        selected data elements will get their own row in the "Selected data elements". You can also
+        use an element multiple times in your query by clicking the + button. For data elements of
+        type text you will get two choices: "Contains" implies that the query will match all values
+        which contains your search value, and "Is exact" implies that only values which is
+        completely identical to your search query will be returned. For data elements of type option
+        set, you can select any of the options from the drop down box by using the down-wards arrow
+        or by start typing directly in the box to filter for options.</p>
+      <p>The event layer also requires you to select the time span for when the events took place
+        using the "start date" and "end date" date pickers under the "Periods" section, as well as
+        the organisation units to include in the query under the "Organisation units"
+        section.</p>
+      <p>To get information for an event you can simply click on it. This will open a dialog
+        which displays all available information for that event.</p>
+      <p>The layer menu also offers to put labels on the map and to close the layer, which completely resets the layer content.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisFacilityMap"></a>7.2.2.&nbsp;Facility layer</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_facility_layer.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>This layer displays icons that represent facilities based on the facility type. Polygons will not show up on the map, so make sure to select an organisation unit level that has facilities. Click an icon on the map to open the context menu with two options. "Show information sheet" provides you with data for several data elements for this organisation unit. The data element group and period type are "system settings" called "Infrastructural data elements" and "Infrastructural period type". The second option in the context menu is "Relocate" and lets you graphically move the organisation unit to a different location. The new coordinate will be stored permanently. Browser cache must be deleted to see the change if you reload the page.</p>
+      <p>In the "Edit layer" window will find "surrounding areas" in addition to group set, level
+        and parent. This lets you draw a circle around each facility with a desired radius in
+        kilometers.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisBoundaryMap"></a>7.2.3.&nbsp;Boundary layer</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_boundary_layer.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>The purpose of the boundary layer is to display the boundaries/coordinates in the
+        system. No data will be shown. This layer is useful if you are offline and thus have no
+        background map. Click the boundary/globe icon on the toolbar and select "Edit layer". You
+        can select the organisation units you want to show on the map by selecting a level and a
+        parent. That means "show all organisations units at this level that are children of this
+        parent". When there are visible organisation units on the map, you can easily navigate up
+        and down in the hierarchy without using the level/parent user interface. By clicking one of
+        the organisation units a context menu will open, then select "drill down" or
+        "float up". The drill down option will be disabled if you are already on the
+        lowest level or if there are no coordinates available on the level below. Vice versa goes
+        for floating up.</p>
+      <p>The layer menu also offers to put on labels and to locate an organisation unit in the map.</p>
+      <p>The final option in the layer menu is "Close". This completely resets the layer content, the edit layer form and the legend panel.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisThematicMap"></a>7.2.4.&nbsp;Thematic layer 1-4</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_thematic_mapping.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>The four thematic layer panels let you use your data for thematic mapping. All you need to do is selecting your desired combination of indicator/dataelement, period and map combination. Then the organisation unit level and parent to define the boundaries. If your database has coordinates and aggregated data values for these organisation units they will appear on the map. Note that the DHIS2 data mart must be run in order to have aggregated values available.</p>
+      <p>You may choose between legend types: <span class="guimenuitem">automatic</span> and <span class="guimenuitem">predefined</span>. Automatic means that the application will create a legend set for you based on your what method, number of classes, low color and high color you select. Method alludes to the size of the legend classes. Set to <span class="guimenuitem">Equal intervals</span> they will be &#8220;highest map value &#8211; lowest map value / number of classes&#8221;. Set to <span class="guimenuitem">Equal group count</span> the legend creator will try to distribute the organisation units evenly. The legend will appear as an even gradation from the start color to the end color. Predefined legend sets are described in  <a class="xref" href="ch07s03.html#gisLegendSet" title="7.3.2.&nbsp;Create predefined legend sets">Section&nbsp;7.3.2, &#8220;Create predefined legend sets&#8221;</a> .</p>
+      <p>Low radius and high radius only have effect on points (facilities) and decides the
+        circle radius for points with the lowest and highest value.</p>
+      <p>Thematic layer 1-4 menu have a "Filter" option in addition to the boundary layer menu options. It lets you apply value filters to the organisation units on the map. The filter is removed when you close the filter window.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch07.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;7.&nbsp;Using GIS&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_end_user_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;7.3.&nbsp;Tools</td></tr></table></div></body></html>

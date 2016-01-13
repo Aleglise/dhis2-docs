@@ -1,0 +1,126 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.38.&nbsp;Short Message Service</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s37.html" title="1.37.&nbsp;Translations"><link rel="next" href="ch01s39.html" title="1.39.&nbsp;Users"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.38.&nbsp;Short Message Service</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s37.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s39.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e4718"></a>1.38.&nbsp;Short Message Service</h2></div></div></div>
+    
+    <p>This section covers the sms API exposed for sending and collecting(receiving) text messages.</p> 
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e4721"></a>1.38.1.&nbsp;OutBound sms service</h3></div></div></div>
+      
+      <p>The Web API supports sending outgoing sms using POST method. Sms can be sent to single or multiple destinations. Gateway needs to be configured before using this service. Sms will NOT be sent if there is no gateway configured.&#8232; 
+        It needs a Set of recipients and message text in JSON format as shown below. 
+      </p>
+      <pre class="screen">/api/sms/outbound</pre>
+      <pre class="screen">{&#8232;
+  "message":"Sms Text",&#8232; 
+  "recipient": [
+  "47XXXXXX1",
+  "47XXXXXX2"
+  ]&#8232;
+}</pre>
+      <p>Outbound service can be tested like with parameters, BUT parametric API can only be used for sending sms to single destination.
+      </p>
+      <pre class="screen">/api/sms/outbound?message=text&amp;recipient=47XXXXXX</pre>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e4728"></a>1.38.2.&nbsp;InBound sms service</h3></div></div></div>
+      
+      <p>The Web API supports collecting incoming sms using POST method. For collecting incoming messages routed towards dhis can be received using this api. API collects inbound sms and provide it to&#8232;  
+        listeners for parsing based on the sms text.
+        An example payload is JSON is given below. text, originator, receiveddate and sentdat are mendatory parameters. Rest of them are optional but system will store default value for these parameters.</p>
+      <pre class="screen">/api/sms/inbound</pre>
+      <pre class="screen">{
+  "text": "sample text",
+  "originator": "47XXXXXXXX",
+  "gatewayid" : "unknown",
+  "receiveddate" : "2016-05-01",
+  "sentdate" :"2016-05-01",
+  "smsencoding" : "1",
+  "smsstatus" :"1"          
+}</pre>
+      <p>Api also supports query parameters.</p>
+      <pre class="screen">/api/sms/inbound?message=text&amp;originator=47XXXXXX&amp;gateway=clickatel</pre>
+      <div class="table"><a name="d5e4735"></a><p class="title"><b>Table&nbsp;1.63.&nbsp;User query parameters</b></p><div class="table-contents">
+        
+        <table summary="User query parameters" border="1"><colgroup><col class="c1"><col class="newCol2"><col class="c2"></colgroup><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>gateway</td><td>Text</td><td>This is optional parameter which gives gateway id. If not present default text "UNKNOWN" will be stored</td></tr><tr><td>receiveTime</td><td>Date</td><td>This is optional parameter. It is timestemp at which message was received by gateway.</td></tr></tbody></table>
+      </div></div><br class="table-break">
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e4755"></a>1.38.3.&nbsp;Sms Service Administration</h3></div></div></div>
+      
+      <p>Dhis2 supports Sms service API for service administraiton.</p>
+      <p>Sms service can be started using POST method.</p>
+      <pre class="screen">/api/sms/services/</pre>
+      <p>Sms service can be stopped using DELETE method.</p>
+      <pre class="screen">/api/sms/services/</pre>
+      <p>Sms configurations can be reloaded using PUT method.</p>
+      <pre class="screen">/api/sms/services/</pre>
+      <p>Sms service status can be retrived using GET method.</p>
+      <pre class="screen">/api/sms/services/</pre>
+      
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e4766"></a>1.38.4.&nbsp;Gateway Service Administration</h3></div></div></div>
+      
+      <p>Dhis2 expose Web APIs to provide a convinient way for configuring and updating sms gateway configurations. A list is given below with a small description of the exposed resource.</p>
+      <p>List of different gateways configured can be retrieved using GET method.</p>
+      <pre class="screen">/api/sms/gateways</pre>
+      <p>Configurations can also be retrieved for specific gateway type using GET method.</p>
+      <pre class="screen">/api/sms/gateways/{uid}</pre>
+      <p>Configurations can be removed for specific gateway type using DELETE method.</p>
+      <pre class="screen">/api/sms/gateways/{uid}</pre>     
+      <p>Default gateway can be retrived by GET method.</p>
+      <pre class="screen">/api/sms/gateways/default</pre>
+      <p>Default gateway can be set by PUT method.</p>
+      <pre class="screen">/api/sms/gateways/default/{uid}</pre>
+      
+      <p>Dhis2 expose Web APIs for create and update of gateway configuraitons. For each different type of Gateway, there are different 
+        parameters in JSON payload. Sample JSON for each different gateway is given below. POST is used to create and PUT to update configurations. </p>
+      
+      <p>Clickatell</p>
+      <pre class="screen">{
+  "name" : "clickatell",
+  "username": "clickatelluser",
+  "password": "abc123",
+  "apiid": "12121"
+}</pre>
+      <p>Bulksms</p>
+      <pre class="screen">{ 
+  "name": "bulkSMS",
+  "password": "abc123",
+  "region": "Spain"
+}</pre>
+      <p>GenericHttp</p>
+      <pre class="screen">{
+  "name" : "generic",
+  "username": "genericUser",
+  "password": "abc123", "Url Template":
+  "http://localhost:template"
+}</pre>
+      <p>SMPP</p>
+      <pre class="screen">{
+  "name" : "smpp",
+  "username": "smppUser",
+  "password": "abc123",
+  "Address": "http://localhost:template",
+  "Address" : "sample.smpp.com" ,
+  "Port" : "8143"
+}</pre>
+      <p>Modem</p>
+      <pre class="screen">{
+  "name": "modem",
+  "Port": "COM1",
+  "BaudRate": "1000",
+  "Poolinterval" : "10",
+  "Manufacturer" : "Nokia" ,
+  "Model" : "8124",
+  "PIN" : "1212"
+}</pre>
+      
+      
+      <div class="table"><a name="d5e4790"></a><p class="title"><b>Table&nbsp;1.64.&nbsp;Gateway api end points</b></p><div class="table-contents">
+        
+        <table summary="Gateway api end points" border="1"><colgroup><col class="c1"><col class="newCol2"><col class="c2"></colgroup><thead><tr><th>Gatway Type</th><th>Method</th><th>API End Points</th></tr></thead><tbody><tr><td>Clickatell</td><td>POST/PUT</td><td>/api/sms/gateways/clickatell</td></tr><tr><td>Bulksms</td><td>POST/PUT</td><td>/api/sms/gateways/bulksms</td></tr><tr><td>Generichttp</td><td>POST/PUT</td><td>/api/sms/gateways/generichttp</td></tr><tr><td>SMPP</td><td>POST/PUT</td><td>/api/sms/gateways/smpp</td></tr><tr><td>Modem</td><td>POST/PUT</td><td>/api/sms/gateways/modem</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      
+      
+    </div>
+    
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s37.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s39.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.37.&nbsp;Translations&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.39.&nbsp;Users</td></tr></table></div></body></html>

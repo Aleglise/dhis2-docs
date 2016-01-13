@@ -1,0 +1,151 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>7.&nbsp; The Business Layer</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS, Technical requirements, Project structure, Document"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ar01.html" title="DHIS 2 Technical Architecture"><link rel="prev" href="ar01s06.html" title="6.&nbsp; The Persistence Layer"><link rel="next" href="ar01s08.html" title="8.&nbsp; The Presentation Layer"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.&nbsp; The Business Layer </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s06.html">Prev</a>&nbsp;</td><th width="60%" align="center">DHIS 2 Technical Architecture</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ar01s08.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="technicalBusinessLayer"></a>7.&nbsp; The Business Layer </h2></div></div></div>
+    
+    <p>All major classes, like those responsible for persistence, business logic, and presentation, are mapped as Spring managed beans. &#8220;Bean&#8221; is Spring terminology and simply refers to a class that is instantiated, assembled, and otherwise managed by the Spring IoC container. Dependencies between beans are injected by the IoC container, which allows for loose coupling, re-configuration and testability. For documentation on Spring, please refer to springframework.org.</p>
+    <p>The services found in the dhis-service-core project basically provide methods that delegate to a corresponding method in the persistence layer, or contain simple and self-explanatory logic. Some services, like the ones found in the dhis-service-datamart, dhis-service-import-export,  dhis-service-jdbc, and dhis-service-reporting projects are more complex and will be elaborated in the following sections.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5580"></a>7.1.&nbsp;The JDBC Service Project</h3></div></div></div>
+      
+      <p>The JDBC service project contains a set of components dealing with JDBC connections and SQL statements.</p>
+      <div class="screenshot">
+        <div align="center"><img src="resources/images/dhis2_technical_architecture/JDBC_BatchHandler_diagram.jpg" align="middle"></div>
+      </div>
+      <p>Fig. JDBC BatchHandler diagram</p>
+      <p>The <span class="italic">BatchHandler</span> interface provides methods for inserting, updating and verifying the existence of objects. The purpose is to provide high-performance operations and is relevant for large amounts of data. The BatchHandler object inserts objects using the <span class="italic">multiple insert SQL</span> syntax behind the scenes and can insert thousands of objects on each database commit. A typical use-case is an import process where a class using the BatchHandler interface will call the <span class="italic">addObject( Object, bool ) </span>method for every import object. The BatchHandler will after an appropriate number of added objects commit to the database transparently. A BatchHandler can be obtained from the <span class="italic">BatchHandlerFactor</span>y component. BatchHandler implementations exist for most objects in the API.</p>
+      <p>The <span class="italic">JdbcConfiguration</span> interface holds information about the current DBMS JDBC configuration, more specifically dialect, driver class, connection URL, username and password. A JdbcConfiguration object is obtained from the <span class="italic">JdbcConfigurationProvider</span> component, which currently uses the internal Hibernate configuration provider to derive the information.</p>
+      <p>The <span class="italic">StatementBuilder</span> interface provides methods that represents SQL statements. A StatementBuilder object is obtained from the <span class="italic">StatementBuilderFactory</span>, which is able to determine the current runtime DBMS and provide an appropriate implementation. Currently implementations exist for PostgreSQL, MySQL, H2, and Derby.</p>
+      <p>The <span class="italic">IdentifierExtractor</span> interface provides methods for retrieving the last generated identifiers from the DBMS. An IdentifierExtractor is obtained from the <span class="italic">IdentifierExtractorFactory</span>, which is able to determine the runtime DBMS and provide an appropriate implementation.</p>
+      <div class="screenshot">
+        <div align="center"><img src="resources/images/dhis2_technical_architecture/JDBC_statement_manager_diagram.jpg" align="middle"></div>
+      </div>
+      <p>Fig. JDBC StatementManager diagram</p>
+      <p>The <span class="italic">StatementHolder</span> interface holds and provides JDBC connections and statements. A StatementHolder object can be obtained from the <span class="italic">StatementManager</span> component. The StatementManager can be initialized using the<span class="italic"> initalise()</span> method closed using the <span class="italic">destroy()</span> method. When initialized, the StatementManager will open a database connection and hold it in a ThreadLocal variable, implying that all subsequent requests for a StatementHolder will return the same instance. This can be used to improve performance since a database connection or statement can be reused for multiple operations. The StatementManager is typically used in the persistence layer for classes working directly with JDBC, like the DataMartStore.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5608"></a>7.2.&nbsp;The Data Mart Project</h3></div></div></div>
+      
+      <p>The data mart component is responsible for producing aggregated data from the raw data in the time and space dimension. The aggregated data is represented by the <span class="italic">AggregatedDataValue</span> and <span class="italic">AggregatedIndicatorValue</span> objects. The <span class="italic">DataSetCompletenessResult</span> object is also included in the data mart and is discussed in the section covering the reporting project. These objects and their corresponding database tables are referred to as the<span class="italic"> data mart.</span></p>
+      <p>The following section will list the rules for aggregation in DHIS 2.</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>Data is a aggregated in the time and space dimension. The time dimension is represented by the Period object and the space dimension by the OrganisationUnit object, organised in a parent-child hierarchy.</p>
+        </li><li class="listitem">
+          <p>Data registered for all periods which intersects with the aggregation start and end date is included in the aggregation process. Data for periods which are not fully within the aggregation start and end date is weighed according to a factor &#8220;number of days within aggregation period / total number of days in period&#8221;.</p>
+        </li><li class="listitem">
+          <p>Data registered for all children of the aggregation OrganisationUnit is included in the aggregation process.</p>
+        </li><li class="listitem">
+          <p>Data registered for a data element is aggregated based on the aggregation operator and data type of the data element. The aggregation operator can be <span class="italic">sum </span>(values are summarized), <span class="italic">average</span> (values are averaged) and <span class="italic">count</span> (values are counted). The data type can be <span class="italic">string</span> (text), <span class="italic">int</span> (number), and <span class="italic">bool</span> (true or false). Data of type <span class="italic">string</span> can not be aggregated. </p>
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+              <p>Aggregated data of type <span class="italic">sum</span> &#8211; <span class="italic">int</span> is presented as the summarized value. </p>
+            </li><li class="listitem">
+              <p>Aggregated data of type <span class="italic">sum</span> &#8211; <span class="italic">bool</span> is presented as the number of true registrations. </p>
+            </li><li class="listitem">
+              <p>Aggregated data of type <span class="italic">average</span> &#8211; <span class="italic">int</span> is presented as the averaged value.</p>
+            </li><li class="listitem">
+              <p>Aggregated data of type <span class="italic">average</span> &#8211; <span class="italic">bool</span> is presented as a percentage value of true registrations in proportion to the total number of registrations.</p>
+            </li></ul></div>
+        </li><li class="listitem">
+          <p>An indicator represents a formula based on data elements. Only data elements with aggregation operator <span class="italic">sum</span> or <span class="italic">average</span> and with data type <span class="italic">int</span> can be used in indicators. Firstly, data is aggregated for the data elements included in the indicator. Finally, the indicator formula is calculated.</p>
+        </li><li class="listitem">
+          <p>A calculated data element represents a formula based on data elements. The difference from indicator is that the formula is on the form &#8220;data element * factor&#8221;. The aggregation rules for indicator apply here as well.</p>
+        </li></ul></div>
+      <div class="screenshot">
+        <div align="center"><img src="resources/images/dhis2_technical_architecture/data_mart_diagram.jpg" align="middle"></div>
+      </div>
+      <p>Fig. Data mart diagram</p>
+      <p>The <span class="italic">AggregationCache</span> component provides caching in ThreadLocal variables. This caching layer is introduced to get optimal caching [9]. The most frequently used method calls in the data mart component is represented here.</p>
+      <p>The <span class="italic">DataElementAggregator</span> interface is responsible for retrieving data from the crosstabulated temporary storage and aggregate data in the time and space dimension. This happens according to the combination of data element aggregation operator and data type the class represents. One implementation exist for each of the four variants of valid combinations, namely <span class="italic">SumIntDataElementAggregator</span>, <span class="italic">SumBoolDataElementAggregator</span>, <span class="italic">AverageIntDataElementAggregator</span> and <span class="italic">AverageBoolAggregtor</span>. </p>
+      <p>The <span class="italic">DataElementDataMart</span> component utilizes a <span class="italic">DataElementAggregator</span> and is responsible for writing aggregated data element data to the data mart for a given set of data elements, periods, and organisation units.</p>
+      <p>The <span class="italic">IndicatorDataMart</span> component utilizes a set of <span class="italic">DataElementAggregators</span> and is responsible for writing aggregated indicator data to the data mart for a given set of indicators, periods, and organisation units.</p>
+      <p>The <span class="italic">CalculatedDataElementDataMart</span> component utilizes a set of <span class="italic">DataElementAggregators</span> and is responsible for writing aggregated data element data to the data mart for a given set of calculated data elements, periods, and organisation units.</p>
+      <p>The <span class="italic">DataMartStore</span> is responsible for retrieving aggregated data element and indicator data, and data from the temporary crosstabulated storage.</p>
+      <p>The <span class="italic">CrossTabStore</span> is responsible for creating, modifying and dropping the temporary crosstabulated table. The CrossTabService is responsible for populating the temporary crosstabulated table. This table is used in an intermediate step in the aggregation process. The raw data is de-normalized on the data element dimension, in other words the crosstabulated table gets one column for each data element. This step implies improved performance since the aggregation process can be executed against a table with a reduced number of rows compared to the raw data table.</p>
+      <p>The <span class="italic">DataMartService</span> is the central component in the data mart project and controls the aggregation process. The order of operations is:</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>Existing aggregated data for the selected parameters is deleted.</p>
+        </li><li class="listitem">
+          <p>The temporary crosstabulated table is created and populated using the <span class="italic">CrossTabService</span> component.</p>
+        </li><li class="listitem">
+          <p>Data element data for the previously mentioned valid variants is exported to the data mart using the <span class="italic">DataElementDataMart</span> component.</p>
+        </li><li class="listitem">
+          <p>Indicator data is exported to the data mart using the <span class="italic">IndicatorDataMart</span> component.</p>
+        </li><li class="listitem">
+          <p>Calculated data element data is exported to the data mart using the <span class="italic">CalculatedDataElementDataMart</span> component.</p>
+        </li><li class="listitem">
+          <p>The temporary crosstabulated table is removed.</p>
+        </li></ul></div>
+      <p>The data element tables are called &#8220;aggregateddatavalue&#8221; and &#8220;aggregatedindicatorvalue&#8221; and are used both inside DHIS 2 for e.g. report tables and by third-party reporting applications like MS Excel.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5700"></a>7.3.&nbsp;The Reporting Project</h3></div></div></div>
+      
+      <p>The reporting project contains components related to reporting, which will be described in the following sections.</p>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5703"></a>7.3.1.&nbsp;Report table</h4></div></div></div>
+        
+        <p>The <span class="italic">ReportTable</span> object represents a crosstabulated database table. The table can be crosstabulated on any number of its three dimensions, which are the descriptive dimension (which can hold data elements, indicators, or data set completeness), <span class="italic">period</span> dimension, and <span class="italic">organisation</span><span class="italic"> unit</span> dimension. The purpose is to be able to customize tables for later use either in third-party reporting tools like BIRT or directly in output formats like PDF or HTML inside the system. Most of the logic related to crosstabulation is located in the ReportTable object. A ReportTable can hold:</p>
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>Any number of data elements, indicators, data sets, periods, and organisation units.</p>
+          </li><li class="listitem">
+            <p>A <span class="italic">RelativePeriods</span> object, which holds 10 variants of relative periods. Examples of such periods are<span class="italic"> last 3 months</span>, <span class="italic">so far this year</span>, and <span class="italic">last 3 to 6 months</span>. These periods are relative to the reporting month. The purpose of this is to make the report table re-usable in time, i.e. avoid the need for the user to replace periods in the report table as time goes by.</p>
+          </li><li class="listitem">
+            <p>A <span class="italic">ReportParams</span> object, which holds report table parameters for reporting month, parent organisation unit, and current organisation unit. The purpose is to make the report table re-usable across the organisation unit hierarchy and in time, i.e. make it possible for the user to re-use the report table across organisation units and as time goes by.</p>
+          </li><li class="listitem">
+            <p>User options such as regression lines. Value series which represents regression values can be included when the report table is crosstabulated on the period dimension.</p>
+          </li></ul></div>
+        <div align="center"><img src="resources/images/dhis2_technical_architecture/report_table_diagram.jpg" align="middle"></div>
+        <p>Fig. Report table diagram</p>
+        <p>The <span class="italic">ReportTableStore</span> is responsible for persisting ReportTable objects, and currently has a Hibernate implementation.</p>
+        <p>The <span class="italic">ReportTableService</span> is responsible for performing business logic related to report tables such as generation of relative periods, as well as delegating CRUD operations to the <span class="italic">ReportTableStore</span>.</p>
+        <p>The <span class="italic">ReportTableManager</span> is responsible for creating and removing report tables, as well as retrieving data.</p>
+        <p>The <span class="italic">ReportTableCreator</span> is the key component, and is responsible for:</p>
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>Exporting relevant data to the data mart using the <span class="italic">DataMartExportService</span> or the <span class="italic">DataSetCompletenessService</span>. Data will later be retrieved from here and used to populate the report table.</p>
+          </li><li class="listitem">
+            <p>Create the report table using the <span class="italic">ReportTableManager</span>.</p>
+          </li><li class="listitem">
+            <p>Include potential regression values.</p>
+          </li><li class="listitem">
+            <p>Populate the report table using a <span class="italic">BatchHandler</span>.</p>
+          </li><li class="listitem">
+            <p>Remove the report table using the <span class="italic">ReportTableManager</span>.</p>
+          </li></ul></div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5751"></a>7.3.2.&nbsp;Chart</h4></div></div></div>
+        
+        <p>The <span class="italic">Chart</span> object represents preferences for charts. Charts are either <span class="italic">period based</span> or <span class="italic">organisation unit based</span>. A chart has tree dimensions, namely the <span class="italic">value, category</span>, and <span class="italic">filter</span> dimension. The value dimension contains any numbers of indicators. In the period based chart, the category dimension contains any number of periods while the filter dimension contains a single organisation unit. In the organisation unit based chart, the category dimension contains any number of organisation units while the filter dimension contains a single period. Two types of charts are available, namely bar charts and line charts. Charts are materialized using the JFreeChart library. The bar charts are rendered with a BarRenderer [2], the line charts with a LineAndShapeRenderer [2], while the data source for both variants is a DefaultCategoryDataSet [3]. The <span class="italic">ChartService</span> is responsible for CRUD operations, while the <span class="italic">ChartService</span> is responsible for creating JfreeCharts instances based on a <span class="italic">Chart</span> object.</p>
+        <div align="center"><img src="resources/images/dhis2_technical_architecture/chart_diagram.jpg" align="middle"></div>
+        <p>Fig. Chart diagram</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5764"></a>7.3.3.&nbsp;Data set completeness</h4></div></div></div>
+        
+        <p>The purpose of the data set completeness functionality is to record the number of data sets that have been completed. The definition of when a data set is complete is subjective and based on a function in the data entry screen where the user can mark the current data set as complete. This functionality provides a percentage completeness value based on the number of reporting organisation units with completed data sets compared to the total number of reporting organisation units for a given data set. This functionality also provides the number of completed data sets reported <span class="italic">on-time</span>, more specifically reported before a defined number of days after the end of the reporting period. This date is configurable.</p>
+        <div align="center"><img src="resources/images/dhis2_technical_architecture/dataset_completeness_diagram.jpg" align="middle"></div>
+        <p>Fig. Data set completeness diagram</p>
+        <p>The <span class="italic">CompleteDataSetRegistration</span> object is representing a data set marked as complete by a user. This property holds the data set, period, organisation unit and date for when the complete registrations took place. The <span class="italic">CompleteDataSetRegistrationStore</span> is responsible for persistence of <span class="italic">CompleteDataSetRegistration</span> objects and provides methods returning collections of objects queried with different variants of data sets, periods, and organisation units as input parameters. The <span class="italic">CompleteDataSetRegistrationService</span> is mainly delegating method calls the store layer. These components are located in the dhis-service-core project.</p>
+        <p>The completeness output is represented by the <span class="italic">DataSetCompletenessResult</span> object. This object holds information about the request that produced it such as data set, period, organisation unit, and information about the data set completeness situation such as number of reporting organisation units, number of complete registrations, and number of complete registrations on-time. The <span class="italic">DataSetCompletenessService</span> is responsible for the business logic related to data set completeness reporting. It provides methods which mainly returns collections of DataSetCompletenessResults and takes different variants of period, organisation unit and data set as parameters. It uses the CompleteDataSetRegistrationService to retrieve the number of registrations, the DataSetService to retrieve the number of reporting organisation units, and performs calculations to derive the completeness percentage based on these retrieved numbers.</p>
+        <p>The <span class="italic">DataSetCompletenessExportService</span> is responsible for writing DataSetCompletenessResults to a database table called &#8220;aggregateddatasetcompleteness&#8221;. This functionality is considered to be part of the data mart as this data can be used both inside DHIS 2 for e.g. report tables and by third-party reporting applications like MS Excel. This component is retrieving data set completeness information from the <span class="italic">DataSetCompeletenessService</span> and is using the BatchHandler interface to write such data to the database.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5781"></a>7.3.4.&nbsp;Document</h4></div></div></div>
+        
+        <p>The <span class="italic">Document</span> object represents either a <span class="italic">document</span> which is uploaded to the system or a <span class="italic">URL</span>. The <span class="italic">DocumentStore</span> is responsible for persisting <span class="italic">Document</span> objects, while the <span class="italic">DocumentService</span> is responsible for business logic.</p>
+        <div align="center"><img src="resources/images/dhis2_technical_architecture/document_diagram.jpg" align="middle"></div>
+        <p>Fig. Document diagram</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5792"></a>7.3.5.&nbsp;Pivot table</h4></div></div></div>
+        
+        <p>The PivotTable object represents a pivot table. It can hold any number of indicators, periods, organisation units, and corresponding aggregated indicator values. It offers basic pivot functionality like pivoting and filtering the table on all dimensions. The business logic related to pivot tables is implemented in Javascript and is located in the presentation layer. The <span class="italic">PivotTableService</span> is reponsible for creating and populating PivotTable objects.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5796"></a>7.3.6.&nbsp;The External Project</h4></div></div></div>
+        
+        <p>The <span class="italic">LocationManager</span> component is responsible for the communication between DHIS 2 and the file system of the operating system. It contains methods which provide read access to files through File and InputStream instances, and write access to the file system through File and OutputStream instances. The target location is relative to a system property &#8220;dhis2.home&#8221; and an environment variable &#8220;DHIS2_HOME&#8221; in that order. This component is used e.g. by the HibernateConfigurationProvider to read in the Hibernate configuration file, and should be re-used by all new development efforts.</p>
+        <p>The <span class="italic">ConfigurationManager</span> is a component which facilitates the use of configuration files for different purposes in DHIS 2. It provides methods for writing and reading configuration objects to and from XML. The XStream library is used to implement this functionality. This component is typically used in conjunction with the <span class="italic">LocationManager</span>.</p>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5803"></a>7.4.&nbsp;The System Support Project</h3></div></div></div>
+      
+      <p>The system support project contains supportive classes that are general and can be reused througout the system.</p>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5806"></a>7.4.1.&nbsp;DeletionManager</h4></div></div></div>
+        
+        <p>The deletion manager solution is responsible for deletion of associated objects. When an object has a depdency to another object this association needs to be removed by the application before the latter object can be deleted (unless the association is defined to be cascading in the DBMS). Often an object in a peripheral module will have an associations to a core object. When deleting the core object this association must be removed  before deleting the core object.The core module cannot have a dependency to the peripheral module however due to the system design and the problem of cyclic dependencies. The deletion manager solves this by letting all objects implement a DeletionHandler which takes care of associations to other objects. A DeletionHandler should override methods for objects that, when deleted, will affect the current object in any way. The DeletionHandler can choose to disallow the deletion completely by overriding the allowDelete* method, or choose to allow the deletion and remove the associations by overriding the delete* method. Eg. a DeletionHandler for DataElementGroup should override the deleteDataElement(..) method which should remove the DataElement from all DataElementGroups. If one decide that DataElement which are a member of any DataElementGroups cannot be deleted, it should override the allowDeleteDataElement() method and return false if there exists DataElementGroups with associations to that DataElement.</p>
+        <p>First, all DeletionHandler implementations are registered with the DeletionManager through a Spring MethodInvokingFactoryBean in the Spring config file. This solution adheres to the observer design pattern.</p>
+        <p>Second, all method invocations that should make the DeletionManager execute are mapped to the DeletionInterceptor with Spring AOP advice in the Spring config file. The DeletionInterceptor in turn invokes the execute method of the DeletionManager. First, the DeletionManager will through reflection invoke the allowDelete* method on all DeletionHandlers. If no DeletionHandlers returned false it will proceed to invoke the delete* method on all DeletionHandlers. This way all DeletionHandlers get a chance to clean up associations to the object being deleted. Finally the object itself is deleted.</p>
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s06.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ar01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ar01s08.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.&nbsp; The Persistence Layer &nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;8.&nbsp; The Presentation Layer </td></tr></table></div></body></html>

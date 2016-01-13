@@ -1,0 +1,207 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.46.&nbsp;Tracked entity instance grid query</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s45.html" title="1.45.&nbsp;Tracked entity instance query"><link rel="next" href="ch01s47.html" title="1.47.&nbsp;Email"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.46.&nbsp;Tracked entity instance grid query</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s45.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s47.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e4910"></a>1.46.&nbsp;Tracked entity instance grid query</h2></div></div></div>
+    
+    <p>To query for tracked entity instances you can interact with the <span class="italic">/api/trackedEntityInstances/grid</span> resource. There are two types of queries: One
+      where a <span class="italic">query</span> query parameter and optionally <span class="italic">attribute</span> parameters are defined, and one where <span class="italic">attribute</span> and <span class="italic">filter</span> parameters
+      are defined. This endpoint uses a more compact "grid" format, and is an alternative to the
+      query in the previous section.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e4918"></a>1.46.1.&nbsp;Request syntax</h3></div></div></div>
+      
+      <div class="table"><a name="d5e4920"></a><p class="title"><b>Table&nbsp;1.66.&nbsp;Tracked entity instances query parameters</b></p><div class="table-contents">
+        
+        <table summary="Tracked entity instances query parameters" border="1"><colgroup><col class="c1"><col class="c3"></colgroup><thead><tr><th>Query parameter</th><th>Description</th></tr></thead><tbody><tr><td>query</td><td>Query string. Attribute query parameter can be used to define which attributes
+                to include in the response. If no attributes but a program is defined, the
+                attributes from the program will be used. If no program is defined, all attributes
+                will be used. There are two formats. The first is a plan query string. The second is
+                on the format &lt;operator&gt;:&lt;query&gt;. Operators can be EQ | LIKE. EQ implies
+                exact matches on words, LIKE implies partial matches on words. The query will be
+                split on space, where each word will form a logical AND query.</td></tr><tr><td>attribute</td><td>Attributes to be included in the response. Can also be used a filter for the
+                query. Param can be repeated any number of times. Filters can be applied to a
+                dimension on the format
+                &lt;attribute-id&gt;:&lt;operator&gt;:&lt;filter&gt;[:&lt;operator&gt;:&lt;filter&gt;].
+                Filter values are case-insensitive and can be repeated together with operator any
+                number of times. Operators can be EQ | GT | GE | LT | LE | NE | LIKE | IN. Filters
+                can be omitted in order to simply include the attribute in the response without any
+                constraints.</td></tr><tr><td>filter</td><td>Attributes to use as a filter for the query. Param can be repeated any number
+                of times. Filters can be applied to a dimension on the format
+                &lt;attribute-id&gt;:&lt;operator&gt;:&lt;filter&gt;[:&lt;operator&gt;:&lt;filter&gt;].
+                Filter values are case-insensitive and can be repeated together with operator any
+                number of times. Operators can be EQ | GT | GE | LT | LE | NE | LIKE | IN.</td></tr><tr><td>ou</td><td>Organisation unit idenfiers, separated by ";".</td></tr><tr><td>ouMode</td><td>The mode of selecting organisation units, can be SELECTED | CHILDREN |
+                DESCENDANTS | ACCESSIBLE | ALL. Default is SELECTED, which refers to the selected
+                organisation units only. See table below for explanations.</td></tr><tr><td>program</td><td>Program identifier. Restricts instances to being enrolled in the given
+                program.</td></tr><tr><td>programStatus</td><td>Status of the instance for the given program. Can be ACTIVE | COMPLETED |
+                CANCELLED.</td></tr><tr><td>followUp</td><td>Follow up status of the instance for the given program. Can be true | false or
+                omitted.</td></tr><tr><td>programStartDate</td><td>Start date of enrollment in the given program for the tracked entity
+                instance.</td></tr><tr><td>programEndDate</td><td>End date of enrollment in the given program for the tracked entity
+                instance.</td></tr><tr><td>trackedEntity</td><td>Tracked entity identifer. Restricts instances to the given tracked instance
+                type.</td></tr><tr><td>eventStatus</td><td>Status of any event associated with the given program and the tracked entity
+                instance. Can be ACTIVE | COMPLETED | VISITED | SCHEDULED | OVERDUE
+                |&nbsp;SKIPPED.</td></tr><tr><td>eventStartDate</td><td>Start date of event associated with the given program and event status.</td></tr><tr><td>eventEndDate</td><td>End date of event associated with the given program and event status.</td></tr><tr><td>skipMeta</td><td>Indicates whether meta data for the response should be included.</td></tr><tr><td>page</td><td>The page number. Default page is 1.</td></tr><tr><td>pageSize</td><td>The page size. Default size is 50 rows per page.</td></tr><tr><td>totalPages</td><td>Indicates whether to include the total number of pages in the paging response
+                (implies higher response time).</td></tr><tr><td>skipPaging</td><td>Indicates whether paging should be ignored and all rows should be
+                returned.</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <p>The available organisation unit selection modes are explained in the following
+        table.</p>
+      <div class="table"><a name="d5e4988"></a><p class="title"><b>Table&nbsp;1.67.&nbsp;Organisation unit selection modes</b></p><div class="table-contents">
+        
+        <table summary="Organisation unit selection modes" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Mode</th><th>Description</th></tr></thead><tbody><tr><td>SELECTED</td><td>Organisation units defined in the request.</td></tr><tr><td>CHILDREN</td><td>Immediate children, i.e. only the first level below, of the organisation units
+                defined in the request.</td></tr><tr><td>DESCENDANTS</td><td>All children, i.e. at only levels below, e.g. including children of children,
+                of the organisation units defined in the request.</td></tr><tr><td>ACCESSIBLE</td><td>All descendants of the data view organisation units associated with the current
+                user. Will fall back to data capture organisation units associated with the current
+                user if the former is not defined.</td></tr><tr><td>ALL</td><td>All organisation units in the system. Requires authority.</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <p>Note that you can specify attributes with filters for constraining the instances to
+        return, or attributes without filters in order to include the attribute in the response
+        without any constraints. Attributes will be included in the response, while filters will
+        only be used as criteria. </p>
+      <p>Certain rules apply to which attributes are defined when no attributes are specified in
+        the request:</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>If not specifying a program, the attributes defined to be displayed in lists with no
+            program will be included in the response.</p>
+        </li><li class="listitem">
+          <p>If specifying a program, the attributes linked to the program will be included in
+            the response.</p>
+        </li></ul></div>
+      <p>You can specify queries with words separated by space - in that situation the system
+        will query for each word independently and return records where each word is contained in
+        any attribute. A query item can be specified once as an attribute and once as a filter if
+        needed. The query is case insensitive. The following rules apply to the query
+        parameters.</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>At least one organisation unit must be specified using the <span class="italic">ou</span> parameter (one or many), or <span class="italic">ouMode=ALL</span> must be specified.</p>
+        </li><li class="listitem">
+          <p>Only one of the <span class="italic">program</span> and <span class="italic">trackedEntity</span> parameters can be specified (zero or
+            one).</p>
+        </li><li class="listitem">
+          <p>If <span class="italic">programStatus</span> is specified then <span class="italic">program</span> must also be specified.</p>
+        </li><li class="listitem">
+          <p>If <span class="italic">followUp</span> is specified then <span class="italic">program</span> must also be specified.</p>
+        </li><li class="listitem">
+          <p>If <span class="italic">programStartDate</span> or <span class="italic">programEndDate</span> is specified then <span class="italic">program</span> must also be specified.</p>
+        </li><li class="listitem">
+          <p>If <span class="italic">eventStatus</span> is specified then <span class="italic">eventStartDate</span> and <span class="italic">eventEndDate</span> must also be specified.</p>
+        </li><li class="listitem">
+          <p>A query cannot be specified together with filters.</p>
+        </li><li class="listitem">
+          <p>Attribute items can only be specified once.</p>
+        </li><li class="listitem">
+          <p>Filter items can only be specified once.</p>
+        </li></ul></div>
+      <p>A query for all instances associated with a specific organisation unit can look like
+        this:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?ou=DiszpKrYNg8</pre>
+      <p>A query on all attributes for a specific value and organisation unit, using an exact
+        word match:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?query=scott&amp;ou=DiszpKrYNg8</pre>
+      <p>A query on all attributes for a specific value, using a partial word match:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?query=LIKE:scott&amp;ou=DiszpKrYNg8</pre>
+      <p>You can query on multiple words separated by the the URL character for space which is
+        %20, will use a logical AND query for each word:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?query=isabel%20may&amp;ou=DiszpKrYNg8</pre>
+      <p>A query where the attributes to include in the response are specified:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?query=isabel&amp;attribute=dv3nChNSIxy&amp;attribute=AMpUYgxuCaE&amp;ou=DiszpKrYNg8</pre>
+      <p>To query for instances using one attribute with a filter and one attribute without a
+        filter, with one organisation unit using the descendants organisation unit query
+        mode:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?attribute=zHXD5Ve1Efw:EQ:A&amp;attribute=AMpUYgxuCaE&amp;ou=DiszpKrYNg8;yMCshbaVExv</pre>
+      <p>A query for instances where one attribute is included in the response and one attribute
+        us used as a filter:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?attribute=zHXD5Ve1Efw:EQ:A&amp;filter=AMpUYgxuCaE:LIKE:Road&amp;ou=DiszpKrYNg8</pre>
+      <p>A query where multiple operand and filters are specified for a filter item:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?ou=DiszpKrYNg8&amp;program=ur1Edk5Oe2n&amp;filter=lw1SqmMlnfh:GT:150:LT:190</pre>
+      <p>To query on an attribute using multiple values in an IN filter:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?ou=DiszpKrYNg8&amp;attribute=dv3nChNSIxy:IN:Scott;Jimmy;Santiago</pre>
+      <p>To constrain the response to instances which are part of a specific program you can
+        include a program query parameter:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?filter=zHXD5Ve1Efw:EQ:A&amp;ou=O6uvpzGd5pu&amp;ouMode=DESCENDANTS&amp;program=ur1Edk5Oe2n</pre>
+      <p>To specify program enrollment dates as part of the query:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?filter=zHXD5Ve1Efw:EQ:A
+&amp;ou=O6uvpzGd5pu&amp;program=ur1Edk5Oe2n
+&amp;programStartDate=2013-01-01&amp;programEndDate=2013-09-01</pre>
+      <p>To constrain the response to instances of a specific tracked entity you can include a
+        tracked entity query parameter:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?attribute=zHXD5Ve1Efw:EQ:A
+&amp;ou=O6uvpzGd5pu&amp;ouMode=DESCENDANTS&amp;trackedEntity=cyl5vuJ5ETQ</pre>
+      <p>By default the instances are returned in pages of size 50, to change this you can use
+        the page and pageSize query parameters:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?attribute=zHXD5Ve1Efw:EQ:A&amp;ou=O6uvpzGd5pu&amp;ouMode=DESCENDANTS&amp;page=2&amp;pageSize=3</pre>
+      <p>To query for instances which have events of a given status within a given time
+        span:</p>
+      <pre class="screen">api/trackedEntityInstances/grid.json?ou=O6uvpzGd5pu
+&amp;program=ur1Edk5Oe2n&amp;eventStatus=LATE_VISIT
+&amp;eventStartDate=2014-01-01&amp;eventEndDate=2014-09-01</pre>
+      <p>You can use a range of operators for the filtering:</p>
+      <div class="table"><a name="d5e5083"></a><p class="title"><b>Table&nbsp;1.68.&nbsp;Filter operators</b></p><div class="table-contents">
+        
+        <table summary="Filter operators" border="1"><colgroup><col width="87.75pt" class="c1"><col width="368.25pt" class="c2"></colgroup><thead><tr><th>Operator</th><th>Description</th></tr></thead><tbody><tr><td>EQ</td><td>Equal to</td></tr><tr><td>GT</td><td>Greater than</td></tr><tr><td>GE</td><td>Greater than or equal to</td></tr><tr><td>LT</td><td>Less than</td></tr><tr><td>LE</td><td>Less than or equal to</td></tr><tr><td>NE</td><td>Not equal to</td></tr><tr><td>LIKE</td><td>Like (free text match)</td></tr><tr><td>IN</td><td>Equal to one of multiple values separated by ";"</td></tr></tbody></table>
+      </div></div><br class="table-break">
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5117"></a>1.46.2.&nbsp;Response format</h3></div></div></div>
+      
+      <p>This resource supports JSON, JSONP, XLS and CSV resource representations.</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>json (application/json)</p>
+        </li><li class="listitem">
+          <p>jsonp (application/javascript)</p>
+        </li><li class="listitem">
+          <p>xml (application/xml)</p>
+        </li><li class="listitem">
+          <p>csv (application/csv)</p>
+        </li><li class="listitem">
+          <p>xls (application/vnd.ms-excel)</p>
+        </li></ul></div>
+      <p>The response in JSON comes is in a tabular format and can look like the following. The
+          <span class="italic">headers</span> section describes the content of each column.
+        The instance, created, last updated, org unit and tracked entity columns are always present.
+        The following columns correspond to attributes specified in the query. The <span class="italic">rows</span> section contains one row per instance.</p>
+      <pre class="screen">{
+    "headers": [{
+        "name": "instance",
+        "column": "Instance",
+        "type": "java.lang.String"
+    }, {
+        "name": "created",
+        "column": "Created",
+        "type": "java.lang.String"
+    }, {
+        "name": "lastupdated",
+        "column": "Last updated",
+        "type": "java.lang.String"
+    }, {
+        "name": "ou",
+        "column": "Org unit",
+        "type": "java.lang.String"
+    }, {
+        "name": "te",
+        "column": "Tracked entity",
+        "type": "java.lang.String"
+    }, {
+        "name": "zHXD5Ve1Efw",
+        "column": "Date of birth type",
+        "type": "java.lang.String"
+    }, {
+        "name": "AMpUYgxuCaE",
+        "column": "Address",
+        "type": "java.lang.String"
+    }],
+    "metaData": {
+        "names": {
+            "cyl5vuJ5ETQ": "Person"
+        }
+    },
+    "width": 7,
+    "height": 7,
+    "rows": [
+        ["yNCtJ6vhRJu", "2013-09-08 21:40:28.0", "2014-01-09 19:39:32.19", "DiszpKrYNg8", "cyl5vuJ5ETQ", "A", "21 Kenyatta Road"],
+        ["fSofnQR6lAU", "2013-09-08 21:40:28.0", "2014-01-09 19:40:19.62", "DiszpKrYNg8", "cyl5vuJ5ETQ", "A", "56 Upper Road"],
+        ["X5wZwS5lgm2", "2013-09-08 21:40:28.0", "2014-01-09 19:40:31.11", "DiszpKrYNg8", "cyl5vuJ5ETQ", "A", "56 Main Road"],
+        ["pCbogmlIXga", "2013-09-08 21:40:28.0", "2014-01-09 19:40:45.02", "DiszpKrYNg8", "cyl5vuJ5ETQ", "A", "12 Lower Main Road"],
+        ["WnUXrY4XBMM", "2013-09-08 21:40:28.0", "2014-01-09 19:41:06.97", "DiszpKrYNg8", "cyl5vuJ5ETQ", "A", "13 Main Road"],
+        ["xLNXbDs9uDF", "2013-09-08 21:40:28.0", "2014-01-09 19:42:25.66", "DiszpKrYNg8", "cyl5vuJ5ETQ", "A", "14 Mombasa Road"],
+        ["foc5zag6gbE", "2013-09-08 21:40:28.0", "2014-01-09 19:42:36.93", "DiszpKrYNg8", "cyl5vuJ5ETQ", "A", "15 Upper Hill"]
+    ]
+}</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s45.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s47.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.45.&nbsp;Tracked entity instance query&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.47.&nbsp;Email</td></tr></table></div></body></html>

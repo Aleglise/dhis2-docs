@@ -1,0 +1,29 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>A.7.&nbsp;Linking documents together</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_implementation_guide_en.html" title="DHIS2 Implementation Guide"><link rel="up" href="apa.html" title="Appendix&nbsp;A.&nbsp;DHIS 2 Documentation Guide"><link rel="prev" href="apas06.html" title="A.6.&nbsp;Using images"><link rel="next" href="apas08.html" title="A.8.&nbsp;Handling multilingual documentation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">A.7.&nbsp;Linking documents together</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apas06.html">Prev</a>&nbsp;</td><th width="60%" align="center">Appendix&nbsp;A.&nbsp;DHIS 2 Documentation Guide</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="apas08.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="docs_7"></a>A.7.&nbsp;Linking documents together</h2></div></div></div>
+    
+    <p>DocBook provides a modular framework where many separate documents can be linked together
+into a master document. Fragments from different documents can also be reused in different contexts. It is therefore important to consider whether your document should be constructed as an article or a chapter. Chapters are essentially portions of a book, and can therefore be linked together into a larger document very easily. Articles are essentially standalone documents, but they can also be assembled together into a larger document at the component level. </p>
+    <p>Should you wish to link several articles together into a book, DocBook provides a
+mechanism to assign an id to a section. In the example below, a section has been assigned an id. This id must be unique within the document. </p>
+    <p>
+</p><pre class="programlisting">  &lt;section id="mod2_1"&gt;
+&lt;title&gt;Getting started with DHIS2&lt;/title&gt; ....</pre><p> </p>
+    <p>In order to include an article into a book, an Xinclude statement must be used. The
+following example shows how. </p>
+    <p>
+</p><pre class="programlisting">&lt;chapter&gt;
+&lt;title&gt;Getting started with DHIS2&lt;/title&gt; 
+&lt;xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dhis2_user_man_mod2.xml"
+ xpointer="mod2_1" encoding="UTF-8"/&gt;
+... </pre><p>
+</p>
+    <p>Note that the file name and id have been assigned in the parent document, referring to the
+actual file (href) and particular fragment of the child document that should be referenced in the parent document (xpointer). </p>
+    <p>Including chapters in a book is very simple. The example below illustrates how: </p>
+    <pre class="programlisting">&lt;xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dhis2_user_man_
+mod1.xml" encoding="UTF-8"/&gt; </pre><p>
+</p>
+    <p>In this case, there is no need to explicitly reference a part of the document, unless you
+only want to include a portion of the chapter. If you want to use a section of the chapter, you can assign an id to that section, and then reference that section through an xpointer. </p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apas06.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="apa.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="apas08.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A.6.&nbsp;Using images&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_implementation_guide_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;A.8.&nbsp;Handling multilingual documentation</td></tr></table></div></body></html>

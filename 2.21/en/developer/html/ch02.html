@@ -1,0 +1,28 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;2.&nbsp;Apps</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="prev" href="ch01s55.html" title="1.55.&nbsp;Metadata repository"><link rel="next" href="ch02s02.html" title="2.2.&nbsp;Creating Apps"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;2.&nbsp;Apps</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s55.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s02.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d5e5324"></a>Chapter&nbsp;2.&nbsp;Apps</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="ch02.html#d5e5331">2.1. Purpose of packaged Apps</a></span></dt><dt><span class="section"><a href="ch02s02.html">2.2. Creating Apps</a></span></dt><dt><span class="section"><a href="ch02s03.html">2.3. Configuring DHIS 2 for Apps Installation</a></span></dt><dt><span class="section"><a href="ch02s04.html">2.4. Installing Apps into DHIS 2</a></span></dt><dt><span class="section"><a href="ch02s05.html">2.5. Launching Apps</a></span></dt><dt><span class="section"><a href="ch02s06.html">2.6. Web-API for Apps</a></span></dt><dt><span class="section"><a href="ch02s07.html">2.7. Adding the DHIS 2 menu to your app</a></span></dt></dl></div>
+  
+  <p>A packaged app is an <a class="ulink" href="https://developer.mozilla.org/en-US/docs/Open_Web_apps_and_Web_standards" target="_top">Open Web
+      App</a> that has all of its resources (HTML, CSS, JavaScript, app manifest, and so on)
+    contained in a zip file. It can be uploaded to a DHIS 2 installation directly through the user
+    interface at runtime. A packaged app is a ZIP file with an <a class="ulink" href="http://www.w3.org/2008/webapps/manifest/" target="_top">app manifest</a> in its root directory. The
+    manifest must be named <code class="filename">manifest.webapp</code>. A throrough description of apps can
+    be obtained <a class="ulink" href="https://developer.mozilla.org/en-US/Apps/Quickstart" target="_top">here</a>.</p>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5331"></a>2.1.&nbsp;Purpose of packaged Apps</h2></div></div></div>
+    
+    <p>The purpose of packaged apps is to extend the web interface of DHIS 2, without the need to
+      modify the source code of DHIS 2 itself. A system deployment will often have custom and unique
+      requirements. The apps provide a convenient extension point to the user interface. Through
+      apps, you can complement and customize the DHIS 2 core functionality with custom solutions in
+      a loosely coupled and clean manner.</p>
+    <p>Apps do not have permissions to interact directly with DHIS 2 Java API. Instead, apps are
+      expected to use functionality and interact with the DHIS 2 services and data by utilizing the
+      DHIS 2 Web API.</p>
+  </div>
+  
+  
+  
+  
+  
+  
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s55.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.55.&nbsp;Metadata repository&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;2.2.&nbsp;Creating Apps</td></tr></table></div></body></html>

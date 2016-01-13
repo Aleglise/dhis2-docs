@@ -1,0 +1,179 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.26.&nbsp;Dashboard</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s25.html" title="1.25.&nbsp;SQL views"><link rel="next" href="ch01s27.html" title="1.27.&nbsp;Analytics"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.26.&nbsp;Dashboard</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s25.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s27.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e3250"></a>1.26.&nbsp;Dashboard</h2></div></div></div>
+    
+    <p>The dashboard is designed to give you an overview of multiple analytical items like maps,
+      charts, pivot tables and reports which together can provide a comprehensive overview of your
+      data. Dashboards are available in the Web API through the <span class="italic">dashboards</span> resource. A dashboard contains a list of dashboard <span class="italic">items</span>. An item can represent a single resource, like a chart, map
+      or report table, or represent a list of links to analytical resources, like reports,
+      resources, tabular reports and users. A dashboard item can contain up to eight links.
+      Typically, a dashboard client could choose to visualize the single-object items directly in a
+      user interface, while rendering the multi-object items as clickable links. </p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3255"></a>1.26.1.&nbsp;Browsing dashboards</h3></div></div></div>
+      
+      <p>To get a list of your dashboards with basic information including identifier, name and
+        link in JSON format you can make a <span class="italic">GET</span> request to the
+        following URL:</p>
+      <pre class="screen">/api/dashboards.json</pre>
+      <p>The dashboards resource will provide a list of dashboards. Remember that the dashboard
+        object is shared so the list will be affected by the currently authenticated user. You can
+        retrieve more information about a specific dashboard by following its link, similar to
+        this:</p>
+      <pre class="screen">api/dashboards/vQFhmLJU5sK.json</pre>
+      <p>A dashboard contains information like name and creation date and an array of dashboard
+        items. The response in JSON format will look similar to this response (certain information
+        has been removed for the sake of
+        brevity).</p><pre class="screen">{
+"lastUpdated" : "2013-10-15T18:17:34.084+0000",
+"id" : "vQFhmLJU5sK",
+"created" : "2013-09-08T20:55:58.060+0000",
+"name" : "Mother and Child Health",
+"href" : "https://play.dhis2.org/demo/api/dashboards/vQFhmLJU5sK",
+"publicAccess" : "--------",
+"externalAccess" : false,
+"itemCount" : 17,
+"displayName" : "Mother and Child Health",
+"access" : {
+"update" : true,
+"externalize" : true,
+"delete" : true,
+"write" : true,
+"read" : true,
+"manage" : true
+},
+"user" : {
+"id" : "xE7jOejl9FI",
+"name" : "John Traore",
+"created" : "2013-04-18T15:15:08.407+0000",
+"lastUpdated" : "2014-12-05T03:50:04.148+0000",
+"href" : "https://play.dhis2.org/demo/api/users/xE7jOejl9FI"
+},
+"dashboardItems" : [{
+"id" : "bu1IAnPFa9H",
+"created" : "2013-09-09T12:12:58.095+0000",
+"lastUpdated" : "2013-09-09T12:12:58.095+0000"
+}, {
+"id" : "ppFEJmWWDa1",
+"created" : "2013-09-10T13:57:02.480+0000",
+"lastUpdated" : "2013-09-10T13:57:02.480+0000"
+}
+],
+"userGroupAccesses" : []
+}</pre>
+      <p>A more tailored response can be obtained by specifying specific fields in the request.
+        An example is provided below, which would return more detailed information about each object
+        on a users dashboard.</p>
+      <pre class="screen">api/dashboards/vQFhmLJU5sK/?fields=:all,dashboardItems[:all]</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3266"></a>1.26.2.&nbsp;Searching dashboards</h3></div></div></div>
+      
+      <p>When setting a dashboard it is convenient from a consumer point of view to be able to
+        search for various analytical resources using the <span class="italic">/dashboards/q</span> resource. This resource lets you search for matches on the name
+        property of the following objects: charts, maps, report tables, users, reports and
+        resources. You can do a search by making a <span class="italic">GET</span> request on
+        the following resource URL pattern, where my-query should be replaced by the preferred
+        search query:</p>
+      <pre class="screen">api/dashboards/q/my-query.json</pre>
+      <p>JSON and XML response formats are currently supported. The response in JSON format will
+        contain references to matching resources and counts of how many matches were found in total
+        and for each type of resource. It will look similar to this:</p>
+      <pre class="screen">{
+    "charts": [{
+        "name": "ANC: 1-3 dropout rate Yearly",
+        "id": "LW0O27b7TdD"
+    }, {
+        "name": "ANC: 1 and 3 coverage Yearly",
+        "id": "UlfTKWZWV4u"
+    }, {
+        "name": "ANC: 1st and 3rd trends Monthly",
+        "id": "gnROK20DfAA"
+    }],
+    "maps": [{
+        "name": "ANC: 1st visit at facility (fixed) 2013",
+        "id": "YOEGBvxjAY0"
+    }, {
+        "name": "ANC: 3rd visit coverage 2014 by district",
+        "id": "ytkZY3ChM6J"
+    }],
+    "reportTables": [{
+        "name": "ANC: ANC 1 Visits Cumulative Numbers",
+        "id": "tWg9OiyV7mu"
+    }],
+    "reports": [{
+        "name": "ANC: 1st Visit Cumulative Chart",
+        "id": "Kvg1AhYHM8Q"
+    }, {
+        "name": "ANC: Coverages This Year",
+        "id": "qYVNH1wkZR0"
+    }],
+    "searchCount": 8,
+    "chartCount": 3,
+    "mapCount": 2,
+    "reportTableCount": 1,
+    "reportCount": 2,
+    "userCount": 0,
+    "patientTabularReportCount": 0,
+    "resourceCount": 0
+}</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3274"></a>1.26.3.&nbsp;Creating, updating and removing dashboards</h3></div></div></div>
+      
+      <p>Creating, updating and deleting dashboards follow standard REST semantics. In order to
+        create a new dashboard you can make a <span class="italic">POST</span> request to the
+          <span class="italic">/api/dashboards</span> resource. From a consumer perspective
+        it might be convenient to first create a dashboard and later add items to it. JSON and XML
+        formats are supported for the request payload. To create a dashboard with the name "My
+        dashboard" you can use a payload in JSON like this:</p>
+      <pre class="screen">{
+  "name": "My dashboard"
+}</pre>
+      <p>To update, e.g. rename, a dashboard, you can make a <span class="italic">PUT</span> request with a similar request payload the same api/dasboards
+        resource.</p>
+      <p>To remove a dashboard, you can make a <span class="italic">DELETE</span> request
+        to the specific dashboard resource similar to this:</p>
+      <pre class="screen">api/dashboards/vQFhmLJU5sK</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3285"></a>1.26.4.&nbsp;Adding, moving and removing dashboard items and content</h3></div></div></div>
+      
+      <p>In order to add dashboard items a consumer can use the <span class="italic">/api/dashboards/&lt;dashboard-id&gt;/items/content</span> resource, where
+        &lt;dashboard-id&gt; should be replaced by the relevant dashboard identifier. The request
+        must use the <span class="italic">POST</span> method. The URL syntax and parameters
+        are described in detail in the following table.</p>
+      <div class="table"><a name="d5e3290"></a><p class="title"><b>Table&nbsp;1.44.&nbsp;Items content parameters</b></p><div class="table-contents">
+        
+        <table summary="Items content parameters" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Query parameter</th><th>Description</th><th>Options</th></tr></thead><tbody><tr><td>type</td><td>Type of the resource to be represented by the dashboard item</td><td>chart | map | reportTable | users | reports | reportTables | resources |
+                patientTabularReports</td></tr><tr><td>id</td><td>Identifier of the resource to be represented by the dashboard item</td><td>Resource identifier</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <p>A <span class="italic">POST</span> request URL for adding a chart to a specific
+        dashboard could look like this, where the last id query parameter value is the chart
+        resource identifier:</p>
+      <pre class="screen">/api/dashboards/vQFhmLJU5sK/items/content?type=chart&amp;id=LW0O27b7TdD</pre>
+      <p>When adding resource of type map, chart and report table, the API will create and add a
+        new item to the dashboard. When adding a resource of type users, reports, report tables and
+        resources, the API will try to add the resource to an existing dashboard item of the same
+        type. If no item of same type or no item of same type with less than eight resources
+        associated with it exists, the API will create a new dashboard item and the resource to
+        it.</p>
+      <p>In order to move a dashboard item to a new position within the list of items in a
+        dashboard, a consumer can make a <span class="italic">POST</span> request to the
+        following resource URL, where &lt;dashboard-id&gt; should be replaced by the identifier of
+        the dashboard, &lt;item-id&gt; should be replaced by the identifier of the dashboard item
+        and &lt;index&gt; should be replaced by the new position of the item in the dashboard, where
+        the index is
+        zero-based:</p><pre class="screen">/api/dashboards/&lt;dashboard-id&gt;/items/&lt;item-id&gt;/position/&lt;index&gt;</pre>
+      <p>To remove a dashboard item completely from a specific dashboard a consumer can make a
+          <span class="italic">DELETE</span> request to the below resource URL, where
+        &lt;dashboard-id&gt; should be replaced by the identifier of the dashboard and
+        &lt;item-id&gt; should be replaced by the identifier of the dashboard item. The dashboard
+        item identifiers can be retrieved through a GET request to the dashboard resource
+        URL.</p>
+      <pre class="screen">/api/dashboards/&lt;dashboard-id&gt;/items/&lt;item-id&gt;</pre>
+      <p>To remove a specific content resource within a dashboard item a consumer can make a
+          <span class="italic">DELETE</span> request to the below resource URL, where
+        &lt;content-resource-id&gt; should be replaced by the identifier of a resource associated
+        with the dasboard item; e.g. the identifier of a report or a user. For instance, this can be
+        used to remove a single report from a dashboard item of type reports, as opposed to removing
+        the dashboard item completely:</p>
+      <pre class="screen">/api/dashboards/&lt;dashboard-id&gt;/items/&lt;item-id&gt;/content/&lt;content-resource-id&gt;</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s25.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s27.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.25.&nbsp;SQL views&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.27.&nbsp;Analytics</td></tr></table></div></body></html>

@@ -1,0 +1,31 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.39.&nbsp;Configuration</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s38.html" title="1.38.&nbsp;Static content"><link rel="next" href="ch01s40.html" title="1.40.&nbsp;Internationalization"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.39.&nbsp;Configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s38.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s40.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e4413"></a>1.39.&nbsp;Configuration</h2></div></div></div>
+    
+    <p>To access configuration you can interact with the <span class="italic">configuration</span> resource. You can get XML and JSON responses through the <span class="italic">Accept</span> header or by using the .json or .xml extensions. You can
+        <span class="italic">GET</span> all properties of the configuration from:</p>
+    <pre class="screen">/api/configuration</pre>
+    <p>You can send <span class="italic">GET</span> and <span class="italic">POST</span> requests to the following specific resources:</p>
+    <pre class="screen">/api/configuration/systemId</pre>
+    <pre class="screen">/api/configuration/feedbackRecipients</pre>
+    <pre class="screen">GET  /api/configuration/offlineOrganisationUnitLevel</pre>
+    <pre class="screen">GET  /api/configuration/infrastructuralDataElements</pre>
+    <pre class="screen">GET  /api/configuration/infrastructuralIndicators</pre>
+    <pre class="screen">GET  /api/configuration/infrastructuralPeriodType</pre>
+    <pre class="screen">GET  /api/configuration/selfRegistrationRole</pre>
+    <pre class="screen">GET  /api/configuration/selfRegistrationOrgUnit</pre>
+    <pre class="screen">GET  /api/configuration/remoteServerUrl</pre>
+    <pre class="screen">GET  /api/configuration/remoteServerUsername</pre>
+    <p>For the CORS whitelist configuration you can make a POST request with an array of URLs to
+      whitelist as payload using "application/json" as content-type, for instance:</p>
+    <pre class="screen">["www.google.com", "www.dhis2.org", "www.who.int"]</pre>
+    <pre class="screen">/api/configuration/corsWhitelist</pre>
+    <p>For POST requests, the configuration value should be sent as the request payload as text.
+      The following table shows appropriate configuration values for each property.</p>
+    <div class="table"><a name="d5e4437"></a><p class="title"><b>Table&nbsp;1.58.&nbsp;Configuration values</b></p><div class="table-contents">
+      
+      <table summary="Configuration values" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Configuration property</th><th>Value</th></tr></thead><tbody><tr><td>feedbackRecipients</td><td>User group ID</td></tr><tr><td>offlineOrganisationUnitLevel</td><td>Organisation unit level ID</td></tr><tr><td>infrastructuralDataElements</td><td>Data element group ID</td></tr><tr><td>infrastructuralIndicators</td><td>Indicator group ID</td></tr><tr><td>infrastructuralPeriodType</td><td>Period type name (e.g. "Monthly")</td></tr><tr><td>selfRegistrationRole</td><td>User role ID</td></tr><tr><td>selfRegistrationOrgUnit</td><td>Organisation unit ID</td></tr><tr><td>smtpPassword</td><td>SMTP email server password</td></tr><tr><td>remoteServerUrl</td><td>URL to remote server</td></tr><tr><td>remoteServerUsername</td><td>Username for remote server authentication</td></tr><tr><td>remoteServerPassword</td><td>Password for remote server authentication</td></tr><tr><td>corsWhitelist</td><td>JSON list of URLs</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <p>As an example, to set the feedback recipients user group you can invoke the following curl
+      command:</p><pre class="screen">curl "localhost/api/configuration/feedbackRecipients" -d "wl5cDMuUhmF" -H "Content-Type:text/plain"-u admin:district -v</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s38.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s40.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.38.&nbsp;Static content&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.40.&nbsp;Internationalization</td></tr></table></div></body></html>

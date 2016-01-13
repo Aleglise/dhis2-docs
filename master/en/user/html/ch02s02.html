@@ -1,0 +1,37 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>2.2.&nbsp;Using the DHIS 2 live package</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;Getting started with DHIS 2"><link rel="prev" href="ch02.html" title="Chapter&nbsp;2.&nbsp;Getting started with DHIS 2"><link rel="next" href="ch02s03.html" title="2.3.&nbsp;Logging on to DHIS 2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.2.&nbsp;Using the DHIS 2 live package</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;2.&nbsp;Getting started with DHIS 2</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="mod2_1"></a>2.2.&nbsp;Using the DHIS 2 live package</h2></div></div></div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e272"></a>2.2.1.&nbsp;Starting the DHIS 2 Live package</h3></div></div></div>
+      
+      <p>The DHIS 2 Live package is the easiest way to get started with DHIS2 on your local computer. DHIS2 Live is appropriate for a stand-alone  installation and demos.  Simply download the application from <a class="ulink" href="http://www.dhis2.org/downloads" target="_top">here</a>. 
+        Once the file is downloaded,  you can simply double-click the downloaded file, and get started using DHIS 2. </p>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e276"></a>2.2.1.1.&nbsp;Prerequisites for DHIS 2 Live</h4></div></div></div>
+        
+        <p>You must be sure that you have a current version of the Java Runtime installed on your machine. Depending on your operating system, there are different ways of installing Java. The reader is referred to this <a class="ulink" href="http://java.sun.com/javase/downloads/index.jsp" target="_top">website</a> for detailed information on getting Java installed.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e280"></a>2.2.1.2.&nbsp;Starting up with a blank database</h4></div></div></div>
+        
+        <p>The live package comes with a demo database just like what you see on the <a class="ulink" href="http://apps.dhis2.org/demo/" target="_top">online demo</a> (which is based on the national Sierra Leone HMIS), and if you want to start with a blank system/database and build up your own system then you need to do the following:
+</p>
+        <p>1) Stop DHIS2 live if it is already running.  Right click on the tray icon  and select Exit.
+The tray icon is  the green symbol on the bottom right of your screen (on Windows) which  should say' DHIS 2 Server  running'  when you hover your mouse pointer over the icon.</p>
+        <p>2) Open the folder where the DHIS 2 live package is installed  and locate the folder called "conf".
+</p>
+        <p>3) In conf/ open the file called 'hibernate.properties' in a text editor (notepad or similar) and do the following modification:
+locate the string 'jdbc:h2:./database/dhis2' and replace the 'dhis2' part with any name that you want to give to your database (e.g. dhis2_test).</p>
+        <p>4) Save and close the hibernate.properties file.
+</p>
+        <p>5) Start DHIS 2 Live by double-clicking on the file dhis2-live.exe in the DHIS 2 Live installation folder or by using a desktop shortcut or menu link that you might have set up.
+</p>
+        <p>6) Wait for the browser window to open and the login screen to show, and then log in with username: admin and password: district
+</p>
+        <p>7) Now you will see a completely empty DHIS 2 system and you should start by adding your users, organisational hierarchy, data elements, and datasets etc. Please refer to the other sections of the user manual for instructions on how to do this.
+</p>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e291"></a>2.2.2.&nbsp;Downloading and installing the server version</h3></div></div></div>
+      
+      <p>The latest stable server version can be downloaded from this <a class="ulink" href="http://stable.dhis2.org/" target="_top">website</a>. For detailed information on how to install it please refer to the installation chapter in the implementation manual.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;2.&nbsp;Getting started with DHIS 2&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;2.3.&nbsp;Logging on to DHIS 2</td></tr></table></div></body></html>

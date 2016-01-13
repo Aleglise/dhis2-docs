@@ -1,0 +1,21 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>15.8.&nbsp;Constraints and tips</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch15.html" title="Chapter&nbsp;15.&nbsp;Using Pivot Table"><link rel="prev" href="ch15s07.html" title="15.7.&nbsp;Downloading data"><link rel="next" href="ch16.html" title="Chapter&nbsp;16.&nbsp;Using Data Visualizer"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">15.8.&nbsp;Constraints and tips</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch15s07.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;15.&nbsp;Using Pivot Table</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch16.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2361"></a>15.8.&nbsp;Constraints and tips</h2></div></div></div>
+    
+    <p>When selecting and arranging dimensions there are a few constraints that apply. All of
+      these constraints are validated and the pivot table module will provide feedback if any
+      constraint is violated.</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>At least one dimension must be selected on columns or rows.</p>
+      </li><li class="listitem">
+        <p>At least one period must be included in the pivot table.</p>
+      </li><li class="listitem">
+        <p>Data element group sets and reporting rates cannot appear in the same pivot
+          table.</p>
+      </li><li class="listitem">
+        <p>A table cannot contain more than the maximum number of analytics records which have been specified through the system settings. The maximum number of records could also be constrained by the maximum RAM which is available to your browser. Considering making more smaller tables, instead of one table which displays all of your data elements and indicators together.  </p>
+      </li></ul></div>
+    <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="resources/images/admon/tip.png"></td><th align="left">Tip</th></tr><tr><td align="left" valign="top">
+      <p>Pivot tables in DHIS2 are limited to a system set paramater, which controls the number of data values which can be returned. The reason for this is two fold. First, it would be easy to overwhelm the server with a very complicated request for a large pivot table. Second, the amount of data which is able to be rendered in a browser is fairly limited. If you are having problems with very large or complex tables, consider to try and reduce the number of items. It is usually more useful to have smaller, concise tables which are easier to understand and which address a particular analysis. </p>
+    </td></tr></table></div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch15s07.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch15.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch16.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">15.7.&nbsp;Downloading data&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;16.&nbsp;Using Data Visualizer</td></tr></table></div></body></html>

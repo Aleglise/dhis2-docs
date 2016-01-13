@@ -1,0 +1,50 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>8.6.&nbsp;Encryption setup</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_implementation_guide_en.html" title="DHIS2 Implementation Guide"><link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;Installation"><link rel="prev" href="ch08s05.html" title="8.5.&nbsp;LDAP configuration"><link rel="next" href="ch08s07.html" title="8.7.&nbsp;Complete configuration reference"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.6.&nbsp;Encryption setup</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s05.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;8.&nbsp;Installation</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s07.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e728"></a>8.6.&nbsp;Encryption setup</h2></div></div></div>
+    
+    <p>DHIS 2 allows for encryption of data. This however requires some extra setup.</p>
+      <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e731"></a>8.6.1.&nbsp;Java Cryptography Extension</h3></div></div></div>
+        
+        <p>DHIS 2 uses an encryption algorithm classified as strong and therefore requires the
+          <span class="emphasis"><em>Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy
+          Files</em></span> to be installed. These files can be installed through these steps:</p>
+    <p>
+      </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+          <p>Download the JCE Unlimited Strength Jurisdiction Policy Files for your java version
+            of Java from the Oracle Web site. Scroll down to the "Java Cryptography Extension (JCE)
+            Unlimited Strength Jurisdiction Policy Files" section. It is important that the version
+            of the files match the version of Java on your server.</p>
+          <p><a class="ulink" href="http://www.oracle.com/technetwork/java/javase/downloads/index.htm" target="_top">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
+        </li><li class="listitem">
+          <p>Extract the downloaded ZIP archive. It contains two JAR files: <span class="italic">local_policy.jar</span> and <span class="italic">US_export_policy.jar</span>.</p>
+        </li><li class="listitem">
+          <p>Locate the JDK directory of your Java installation. From there, navigate into the
+              <span class="italic">jre/security</span> directory. On Ubuntu it is often found
+            at <span class="italic">/usr/lib/jvm/java-8-oracle/jre/lib/security</span>.</p>
+        </li><li class="listitem">
+          <p>(Optional) Back up your existing <span class="italic">local_policy.jar</span>
+            and <span class="italic">US_export_policy.jar</span> in case you want to revert
+            to them later.</p>
+        </li><li class="listitem">
+          <p>Copy the <span class="italic">local_policy.jar</span> and <span class="italic">US_export_policy.jar</span> files into the security folder. You
+            should now have the following files which completes the installation. Remember to
+            restart your servlet container for it to take
+            effect.</p><pre class="screen">/usr/lib/jvm/java-8-oracle/jre/lib/security/local_policy.jar
+/usr/lib/jvm/java-8-oracle/jre/lib/security/US_export_policy.jar</pre>
+        </li></ol></div><p>
+    </p>
+      </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e758"></a>8.6.2.&nbsp;Password configuration</h3></div></div></div>
+      
+      <p>To provide security to the encryption alogorithm you will have to set a password in the
+          <span class="italic">dhis.conf</span> configuration file through the <span class="italic">encryption.password</span>
+        property:</p><pre class="screen">encryption.password = xxxx</pre>
+      <p>The password must be at least <span class="bold"><strong>24 characters long</strong></span> and it
+        is recommended to use a mix of numbers and lower- and uppercase letters. The encryption
+        password must be kept secret.</p>
+      <p><span class="italic">A word of caution:</span> It is not possible to recover
+        encrypted data if the encryption password is lost. Conversely, the encryption provides no
+        security if the password is exposed. Hence, great consideration should be given to storing
+        the password in a safe place.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s05.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.5.&nbsp;LDAP configuration&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_implementation_guide_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;8.7.&nbsp;Complete configuration reference</td></tr></table></div></body></html>

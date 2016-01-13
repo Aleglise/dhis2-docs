@@ -1,0 +1,42 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.23.&nbsp;Viewing analytical resource representations</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s22.html" title="1.22.&nbsp;Interpretations"><link rel="next" href="ch01s24.html" title="1.24.&nbsp;Plugins"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.23.&nbsp;Viewing analytical resource representations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s22.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s24.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2586"></a>1.23.&nbsp;Viewing analytical resource representations</h2></div></div></div>
+    
+    <p>DHIS 2 has several resources for data analysis. These resources include <span class="italic">charts</span>, <span class="italic">maps</span>, <span class="italic">reportTables</span>, <span class="italic">reports</span> and
+        <span class="italic">documents</span>. By visiting these resources you will retrieve
+      information about the resource. For instance, by navigating to <span class="italic">api/charts/R0DVGvXDUNP</span> the response will contain the name, last date of
+      modication and so on for the chart. To retrieve the analytical representation, for instance a
+      PNG representation of the chart, you can append <span class="italic">/data</span> to
+      all these resources. For instance, by visiting <span class="italic">api/charts/R0DVGvXDUNP/data</span> the system will return a PNG image of the
+      chart.</p>
+    <div class="table"><a name="d5e2597"></a><p class="title"><b>Table&nbsp;1.37.&nbsp;Analytical resources</b></p><div class="table-contents">
+      
+      <table summary="Analytical resources" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"><col class="newCol4"></colgroup><thead><tr><th>Resource</th><th>Description</th><th>Data URL</th><th>Resource representations</th></tr></thead><tbody><tr><td>charts</td><td>Charts</td><td>api/charts/&lt;identifier&gt;/data</td><td>png</td></tr><tr><td>eventCharts</td><td>Event charts</td><td>api/eventCharts/&lt;identifier&gt;/data</td><td>png</td></tr><tr><td>maps</td><td>Maps</td><td>api/maps/&lt;identifier&gt;/data</td><td>png</td></tr><tr><td>reportTables</td><td>Pivot tables</td><td>api/reportTables/&lt;identifier&gt;/data</td><td>json | jsonp | html | xml | pdf | xls | csv</td></tr><tr><td>reports</td><td>Standard reports</td><td>api/reports/&lt;identifier&gt;/data</td><td>pdf | xls | html</td></tr><tr><td>documents</td><td>Resources</td><td>api/documents/&lt;identifier&gt;/data</td><td>&lt;follows document&gt;</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <p>The data content of the analytical representations can be modified by providing a
+        <span class="italic">date</span> query parameter. This requires that the analytical
+      resource is set up for relative periods for the period dimension.</p>
+    <div class="table"><a name="d5e2643"></a><p class="title"><b>Table&nbsp;1.38.&nbsp;Data query parameters</b></p><div class="table-contents">
+      
+      <table summary="Data query parameters" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Query parameter</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td>date</td><td>Date in yyyy-MM-dd format</td><td>Basis for relative periods in report (requires relative periods)</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <div class="table"><a name="d5e2659"></a><p class="title"><b>Table&nbsp;1.39.&nbsp;Query parameters for png / image types (charts, maps)</b></p><div class="table-contents">
+      
+      <table summary="Query parameters for png / image types (charts, maps)" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Query parameter</th><th>Description</th></tr></thead><tbody><tr><td>width</td><td>Width of image in pixels</td></tr><tr><td>height</td><td>Height of image in pixels</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <p>Some examples of valid URLs for retrieving various analytical representations are listed
+      below.</p>
+    <pre class="screen">api/charts/R0DVGvXDUNP/data
+api/charts/R0DVGvXDUNP/data?date=2013-06-01
+
+api/reportTables/jIISuEWxmoI/data.html
+api/reportTables/jIISuEWxmoI/data.html?date=2013-01-01
+api/reportTables/FPmvWs7bn2P/data.xls
+api/reportTables/FPmvWs7bn2P/data.pdf
+
+api/maps/DHE98Gsynpr/data
+api/maps/DHE98Gsynpr/data?date=2013-07-01
+
+api/reports/OeJsA6K1Otx/data.pdf
+api/reports/OeJsA6K1Otx/data.pdf?date=2014-01-01</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s22.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s24.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.22.&nbsp;Interpretations&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.24.&nbsp;Plugins</td></tr></table></div></body></html>

@@ -1,0 +1,41 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>22.3.&nbsp;Maintenance</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch22.html" title="Chapter&nbsp;22.&nbsp;Data Administration"><link rel="prev" href="ch22s02.html" title="22.2.&nbsp;Data integrity"><link rel="next" href="ch22s04.html" title="22.4.&nbsp;Resource tables"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">22.3.&nbsp;Maintenance</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch22s02.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;22.&nbsp;Data Administration</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch22s04.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="maintenance"></a>22.3.&nbsp;Maintenance</h2></div></div></div>
+    
+    <p>The data maintenance module has five options, each described below. </p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>Clear analytics tables</p>
+        <p>Completely empties the analytics tables. These tables are used to generate aggregate
+          data for the pivot tables, GIS and reports. </p>
+      </li><li class="listitem">
+        <p>Clear data mart (aggregated indicator and data value values)</p>
+        <p>The data mart is where DHIS 2 stores aggregated data produced during the export to
+          data mart process. This function empties the database table which contains aggregated
+          indicator and data element values.</p>
+      </li><li class="listitem">
+        <p>Rebuild data mart index</p>
+        <p>Rebuilds the database indexes on the aggregated data generated during a data mart
+          process. </p>
+      </li><li class="listitem">
+        <p>Clear zero values</p>
+        <p>This function removes zero data values from the database. Values registered for data elements with aggregation operator <span class="italic">average</span> is not removed, as such values will be significant when aggregating the data, contrary to values registered for data elements with aggregation operator <span class="italic">sum</span>. Reducing the number of data values will improve system performance.</p>
+      </li><li class="listitem">
+        <p>Clear dataset completeness</p>
+        <p>This function empties the aggregated dataset completeness value table. This data is
+          produced and used by report tables.</p>
+      </li><li class="listitem">
+        <p>Prune periods</p>
+        <p>This function removes all periods which have no registered data values. Reducing the number of periods will improve system performance.</p>
+      </li><li class="listitem">
+        <p>Remove expired invitations</p>
+        <p>Will delete users which represent user account invitations that now have gone past
+          their expiry date.</p>
+      </li><li class="listitem">
+        <p>Create SQL views</p>
+      </li><li class="listitem">
+        <p>Will recreate all SQL views in the database.</p>
+      </li><li class="listitem">
+        <p>Update category option combinations</p>
+        <p>Rebuilds the category option combinations. This may be required after altering the category options which belong to a given category. </p>
+      </li></ul></div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch22s02.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch22.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch22s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">22.2.&nbsp;Data integrity&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;22.4.&nbsp;Resource tables</td></tr></table></div></body></html>

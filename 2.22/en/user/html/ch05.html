@@ -1,0 +1,169 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;5.&nbsp;Data elements</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="prev" href="ch04s02.html" title="4.2.&nbsp;Organisation unit maintenance"><link rel="next" href="ch05s02.html" title="5.2.&nbsp;Data element groups"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;5.&nbsp;Data elements</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s02.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d5e960"></a>Chapter&nbsp;5.&nbsp;Data elements</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="ch05.html#dataElement">5.1. Data elements</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#d5e995">5.1.1. Editing data elements</a></span></dt><dt><span class="section"><a href="ch05.html#d5e1103">5.1.2. Deleting a data element</a></span></dt><dt><span class="section"><a href="ch05.html#d5e1106">5.1.3. Cloning existing data elements</a></span></dt><dt><span class="section"><a href="ch05.html#d5e1109">5.1.4. Displaying data element details</a></span></dt></dl></dd><dt><span class="section"><a href="ch05s02.html">5.2. Data element groups</a></span></dt><dt><span class="section"><a href="ch05s03.html">5.3. Data element group editor</a></span></dt><dt><span class="section"><a href="ch05s04.html">5.4. Data element group sets</a></span></dt><dt><span class="section"><a href="ch05s05.html">5.5. Categories</a></span></dt><dt><span class="section"><a href="ch05s06.html">5.6. Category combinations</a></span></dt><dt><span class="section"><a href="ch05s07.html">5.7. Using category combinations as attributes</a></span></dt><dt><span class="section"><a href="ch05s08.html">5.8. Category option combination maintenance</a></span></dt><dt><span class="section"><a href="ch05s09.html">5.9. Category option groups and group sets</a></span></dt><dt><span class="section"><a href="ch05s10.html">5.10. Translations of data elements and other objects</a></span></dt><dd><dl><dt><span class="section"><a href="ch05s10.html#d5e1226">5.10.1. Data element translation</a></span></dt></dl></dd></dl></div>
+  
+  <p>When the &#8216;Data Elements and Indicators&#8217; options is chosen from the main Maintenance menu, the following screen appears:</p>
+  <div class="screenshot">
+    <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/maintainence/data_element_main_1.png" align="middle" width="100%"></td></tr></table></div>
+  </div>
+  <p>From the left side menu or by clicking on the sections listed in the central area you can access the various sections on data elements and indicators.</p>
+  <p>Each of the options for maintenance of  data elements will be described in the following section.</p>
+  <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+      <p>Data element</p>
+      <p>Create, modify, view and delete data elements. </p>
+    </li><li class="listitem">
+      <p>Data element group</p>
+      <p>Create, modify, view and delete data element groups. </p>
+    </li><li class="listitem">
+      <p>Data element group editor</p>
+      <p>Easily add or remove data elements to and from data element groups. </p>
+    </li><li class="listitem">
+      <p>Data element group set editor</p>
+      <p>Create, modify, view and delete data elements group sets.   </p>
+    </li><li class="listitem">
+      <p>Data element category options, categories and category combinations</p>
+      <p>Create, modify, view and delete data element categories. </p>
+    </li></ul></div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dataElement"></a>5.1.&nbsp;Data elements</h2></div></div></div>
+    
+    <p>Data elements form the basis of DHIS2. Data elements define what is actually recorded in system, e.g. number of immunisations or number of cases of malaria. The actual creation and definition of the data elements themselves are far beyond the scope of this manual to describe, but it is assumed that an administrator will be provided with a list of standardised data elements for inclusion into the DHIS2 system. </p>
+    <p>To access the data element maintenance module, choose Maintenance -&gt; Data elements and Indicators -&gt; Data element. </p>
+    <p>The 'Filter by name' will allow you to filter a range of data elements if you know either the full name of the data element, or just a part of it. Type the name
+               into the search field and any matching data elements are displayed below.
+
+ The 'Sort' button can be used to sort the data elements into alphabetical order. </p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/maintainence/data_element_main2.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p>To add a new data element, click the 'Add new' button. There are various options available from this page that allow the user to modify data elements already present in the database. Each of the options are described below in the "Editing data elements". </p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e995"></a>5.1.1.&nbsp;Editing data elements</h3></div></div></div>
+      
+      <p>To edit an existing data element, click the name of data element you wish to modify, and then select "Edit" from the context menu which will appear.</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p><span class="bold"><strong>Name:</strong></span> Define the precise name of the data element in this field. Each data element must have a unique name. </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Short name:</strong></span> Typically, an abbreviation of the full data element name. This attribute is often used in reports to display the name of the data element, where there is limited space available. </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Code:</strong></span> In many countries, data elements are assigned a code. This code can be entered in this field. </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Description:</strong></span> Allows a full textual description of the data element to be entered. The user should be as precise as possible, and include full information on how the data element is measured and what its meaning is. </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Form name:</strong></span> This allows you to provide an
+            alternative name that can be used in either section or automatic data entry forms. The
+            form name will be applied automatically </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Domain type:</strong></span> Defines whether a data element is an aggregate or patient type of data element. </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Value type: </strong></span>Defines the type of data this data
+              element will be used to record. </p>
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+              <p>Integer: Any whole number (positive and negative), including zero.</p>
+            </li><li class="listitem">
+              <p>Positive integer: Any whole number greater than (but not including) zero.</p>
+            </li><li class="listitem">
+              <p>Negative integer: Any whole number less than (but not including) zero.</p>
+            </li><li class="listitem">
+              <p>Positive of zero integer: Any positive whole number, including zero.</p>
+            </li><li class="listitem">
+              <p>Number: Any real numeric value with a single decimal point. Thousands separators and scientific notation is not supported.</p>
+            </li><li class="listitem">
+              <p>Unit interval: Any real  number greater than or equal to 0 and less than or equal to 1. </p>
+            </li><li class="listitem">
+              <p>Percentage: Whole numbers inclusive between 0 and 100.</p>
+            </li><li class="listitem">
+              <p>Coordinate: A point coordinate specified as longitude/latitude in decimal degrees. All coordinate should be specified in the format "-19.23 , 56.42" with a comma separating the longitude and latitude. <span class="emphasis"><em>(Since v2.21)</em></span></p>
+            </li><li class="listitem">
+              <p>Text: Textual value. The maximum number of allowed characters per value is
+                50,000.</p>
+            </li><li class="listitem">
+              <p>Long text: Textual value. Renders as text area in forms.</p>
+            </li><li class="listitem">
+              <p>File: A file resource which can be used to store external files, such as documents and photos. <span class="emphasis"><em>(Since v2.21)</em></span></p>
+            </li><li class="listitem">
+              <p>Date: Dates, will render as calendar widget in data entry.</p>
+            </li><li class="listitem">
+              <p>Username: This will be populated with the username of the user which performs data entry automatically during the data entry process. </p>
+            </li><li class="listitem">
+              <p>Yes/No: Boolean values, will render as drop-down lists in data entry.</p>
+            </li><li class="listitem">
+              <p>Yes only: True values, will render as check-boxes in data entry.</p>
+            </li></ul></div>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Aggregation type: </strong></span>Defines the default aggregation
+            operation that will be used on this data element. Most data elements should have the
+            "SUM" option set. This includes all data elements which should be added
+            together. Other data elements, such as staffing levels, should be set to use the
+            "AVERAGE" operator, when values along the time dimension should not be added
+            together, but rather averaged. The complete list of aggregation operators:</p>
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+              <p>Sum: Sum of data values in the period and organisation unit dimension</p>
+            </li><li class="listitem">
+              <p>Average (sum in orgunit hierarchy): Average of data values in the period dimension, sum in the
+                  organisation unit dimensions.</p>
+            </li><li class="listitem">
+              <p>Average: Average the values in both the period as well as the orgunit dimensions. </p>
+            </li><li class="listitem">
+              <p>Count: Count of data values.</p>
+            </li><li class="listitem">
+              <p>Standard deviation: Standard deviation (population-based) of data values.</p>
+            </li><li class="listitem">
+              <p>Variance: Variance (population-based) of data values.</p>
+            </li><li class="listitem">
+              <p>Min: Minimum of data values.</p>
+            </li><li class="listitem">
+              <p>Max: Maximum of data values.</p>
+            </li><li class="listitem">
+              <p>None: No aggregation is performed in any dimension.</p>
+            </li></ul></div>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Store zero data values</strong></span>: By default, DHIS2 will not
+            store zeros which are entered in the data entry module. If zeros need to be saved for a
+            particular reason, this option can be set to "Yes". </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>URL:</strong></span> A URL having an in-depth description of the data element can be entered in the &#8216;URL&#8217; field. This could be for instance, a link to a metadata repository or registry that contains detailed technical information about the definition and measurement of the data element. </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Category combination:</strong></span> Defines which category
+            combination the data element should have, also known as the "disaggregation". </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Option set for data values: </strong></span> Option sets are
+              predefined lists of options which can be used in data entry.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Option set for comments</strong></span>:  Option sets for
+              comments are predefined list of options which can be used to specify standardized
+              comments for data values in data entry.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Legend set</strong></span>: Legend sets can be used in the GIS
+              module to display certain data elements with certain icons. Refer to the GIS module
+              documentation for more information on legend sets. </p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Aggregation levels:</strong></span>  The Aggregation Levels option allows the data element to be aggregated at one or more levels. When the user clicks on the Aggregation levels option, a drop down menu appears which displays available aggregation levels. The desired aggregation level is then selected by clicking the &#8216;Add Selected&#8217; button. By default, the aggregation will start at the lowest assigned organisation unit. If e.g. Chiefdom is selected below it means that Chiefdom, District, and National aggregates will use Chiefdom (the  highest aggregation level available) as the data source, and PHU data will not be included. PHU data will still be available for the PHU level, but not included in aggregations to the levels above. If District and Chiefdom are both selected then the District and National level aggregates will use District data as their source, Chiefdom will use Chiefdom, and PHU will use PHU. Read more about aggregation levels in the Reporting chapter i the section on data sources for reporting.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Attributes</strong></span>: This section is only applicable if attributes have been defined  in Data Adminisrtation -&gt; Attributes. As an example "Classification," "Collection Method," "Rationale" and "Unit of measure" are all  data element attributes and are discussed below.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Data element group sets: </strong></span> Data element group sets are only applicable if they have been defined. If data element group sets have been defined, each will appear in the "Data element groups" section. Select each data element group from the list of group sets provided. Groups can be selected based on if the data element is of aggregate or tracker type. </p>
+        </li></ul></div>
+      <p>After making all the required changes, click &#8216;Save&#8217;. The &#8216;Cancel&#8217; button aborts all changes made.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1103"></a>5.1.2.&nbsp;Deleting a data element</h3></div></div></div>
+      
+      <p>In order to delete a data element, click the name of the data element you wish to delete, and then select "Remove" from the context menu. Note that this operation is only possible if there is no data attached to the data element itself.  The user will be prompted to ensure that the data element should be deleted.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1106"></a>5.1.3.&nbsp;Cloning existing data elements</h3></div></div></div>
+      
+      <p>Cloning existing data elements is easy by selecting "Clone" from the context menu. Once a data element is cloned, you can simply edit the details which need to be changed and then press "Save".  This can save time when creating many similar data elements, which differ in only a few details. </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1109"></a>5.1.4.&nbsp;Displaying data element details</h3></div></div></div>
+      
+      <p>This operation displays an in-line panel in the browser which displays all metadata about a given data element. Click the name of the data element and then select "Show details" from the context menu. </p>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.2.&nbsp;Organisation unit maintenance&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;5.2.&nbsp;Data element groups</td></tr></table></div></body></html>

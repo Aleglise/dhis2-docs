@@ -1,0 +1,25 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>31.3.&nbsp;Program rule anatomy</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch31.html" title="Chapter&nbsp;31.&nbsp;Program rules"><link rel="prev" href="ch31s02.html" title="31.2.&nbsp;Setup"><link rel="next" href="ch31s04.html" title="31.4.&nbsp; Adding source fields"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">31.3.&nbsp;Program rule anatomy</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch31s02.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;31.&nbsp;Program rules</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch31s04.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e7351"></a>31.3.&nbsp;Program rule anatomy</h2></div></div></div>
+    
+    <p>
+            During data entry, program rules <span class="bold"><strong>expressions</strong></span> are evaluated
+            each time the user interface is displayed, and each time a data element is changed. Most types
+            of actions will take effect immediately as the user enters
+            values in tracker or event capture.
+        </p>
+    <p>
+            Each program rule is given a name and description (see section "Program rule details"). These 
+            fields are not shown to the end user, and are only meant for the program administrator. The 
+            active part of a program rule consists of an <span class="bold"><strong>expression</strong></span> (consult <a class="xref" href="ch31s05.html" title="31.5.&nbsp; Defining expressions">Section&nbsp;31.5, &#8220; Defining expressions &#8221;</a> for details) more <span class="bold"><strong>actions</strong></span>(see 
+            section <a class="xref" href="ch31s06.html#program_rules_defining_actions">Section&nbsp;31.6, &#8220; Defining actions &#8221;</a> for details) that will be performed if the expression
+            is true. </p>
+    <p>The expression is built from operators, user-defined static  values     and      and <span class="bold"><strong>source fields</strong></span>             (see <a class="xref" href="ch31s04.html#program_dules_adding_source_fields">Section&nbsp;31.4, &#8220; Adding source fields &#8221;</a>  for details). The source fields
+represent attribute and data element values which will be evaluated as part of  the 
+            expression.
+        </p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/program_rules/program-rule-edit.png" width="100%"></td></tr></table></div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch31s02.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch31.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch31s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">31.2.&nbsp;Setup&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;31.4.&nbsp; Adding source fields </td></tr></table></div></body></html>

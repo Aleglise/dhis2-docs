@@ -1,0 +1,394 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>8.4.&nbsp;Reverse proxy configuration</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_implementation_guide_en.html" title="DHIS2 Implementation Guide"><link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;Installation"><link rel="prev" href="ch08s03.html" title="8.3.&nbsp;Server setup"><link rel="next" href="ch08s05.html" title="8.5.&nbsp;DHIS 2 Live setup"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.4.&nbsp;Reverse proxy configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;8.&nbsp;Installation</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s05.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e565"></a>8.4.&nbsp;Reverse proxy configuration</h2></div></div></div>
+    
+    <p>A reverse proxy is a proxy server that acts on behalf of a server. Using a reverse proxy in combination with a servlet container is optional but has many advantages:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>Requests can be mapped and passed on to multiple servlet containers - this improves flexibility and makes it easier to run multiple instances of DHIS on the same server. It also makes it possible to change the internal server setup without affecting clients.</p>
+      </li><li class="listitem">
+        <p>The DHIS application can be run as a non-root user on a port different than 80 which reduces the consequences of session hijacking.</p>
+      </li><li class="listitem">
+        <p>The reverse proxy can  act as a single SSL server and be configured to inspect requests for malicious content, log requests and responses and provide non-sensitive error messages which will improve security.</p>
+      </li></ul></div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e575"></a>8.4.1.&nbsp;Basic setup for nginx</h3></div></div></div>
+      
+      <p>We recommend using <a class="ulink" href="http://www.nginx.org" target="_top">nginx</a>  as reverse proxy due to its low memory
+        footprint and ease of use. To install invoke the following:</p>
+      <pre class="screen">sudo apt-get install nginx</pre>
+      <p>nginx can now be started, reloaded and stopped with the following commands:</p>
+      <pre class="screen">sudo /etc/init.d/nginx start
+sudo /etc/init.d/nginx reload
+sudo /etc/init.d/nginx stop</pre>
+      <p>Now that we have installed nginx we will now continue to configure regular proxying of
+        requests to our Tomcat instance, which we assume runs at <span class="italic">http://localhost:8080</span>. To configure nginx you can open the configuration file
+        by invoking:</p>
+      <pre class="screen">sudo nano /etc/nginx/nginx.conf</pre>
+      <p>nginx configuration is built around a hierarchy of blocks representing http, server and
+        location, where each block inherit settings from parent blocks. The following snippet will
+        configure nginx to proxy pass (redirect) requests from port 80 (which is the port nginx will
+        listen on by default) to our Tomcat instance. Include the following configuration in
+        nginx.conf:</p>
+      <pre class="screen">http {
+  gzip on; # Enables compression
+
+  server {
+    listen               80;
+    root  /home/dhis/tomcat/webapps/ROOT; # Update path!
+    client_max_body_size 10M;
+
+    # Serve static files
+
+    location ~ (\.js|\.css|\.gif|\.woff|\.ttf|\.eot|\.ico|(/dhis-web-commons/|/images/|/icons/).*\.png)$ {
+      add_header  Cache-Control public;
+      expires     14d;
+    }
+
+    # Proxy pass to servlet container
+
+    location / {
+      proxy_pass                http://localhost:8080/;
+      proxy_redirect            off;
+      proxy_set_header          Host               $host;
+      proxy_set_header          X-Real-IP          $remote_addr;
+      proxy_set_header          X-Forwarded-For    $proxy_add_x_forwarded_for;
+      proxy_set_header          X-Forwarded-Proto  http;
+      proxy_buffer_size         128k;
+      proxy_buffers             8 128k;
+      proxy_busy_buffers_size   256k;
+    }
+  }
+}</pre>
+      <p>You can now access your DHIS instance at <span class="italic">http://localhost</span>. Since the reverse proxy has been set up we can improve
+        security by making Tomcat only listen for local connections. In <span class="italic">/conf/server.xml</span> you can add an <span class="italic">address</span>
+        attribute with the value <span class="italic">localhost</span> to the Connector
+        element for HTTP 1.1 like this:</p>
+      <pre class="screen">&lt;Connector address="localhost" protocol="HTTP/1.1" ... &gt;</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e596"></a>8.4.2.&nbsp;Enabling SSL on nginx</h3></div></div></div>
+      
+      <p>In order to improve security it is recommended to configure the server running DHIS to
+        communicate with clients over an encrypted connection and to identify itself to clients
+        using a trusted certificate. This can be achieved through SSL which is an cryptographic
+        communication protocol running on top of TCP/IP. First, install the required <span class="italic">openssl</span> library:</p>
+      <pre class="screen">sudo apt-get install openssl</pre>
+      <p>To configure nginx to use SSL you will need a proper SSL certificate from an SSL provider. The cost of a certificate varies a lot depending on encryption strength. An affordable certificate from <a class="ulink" href="http://www.rapidsslonline.com" target="_top">Rapid SSL Online</a> should serve most purposes. To generate the CSR (certificate signing request) you can invoke the  command below. When you are prompted for the <span class="italic">Common Name</span>, enter the fully qualified domain name for the site you are securing.</p>
+      <pre class="screen">openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr</pre>
+      <p>When you have received your certificate files (.pem or .crt) you will need to place it
+        together with the generated server.key file in a location which is reachable by nginx. A
+        good location for this can be the same directory as where your nginx.conf file is
+        located.</p>
+      <p>Below is an nginx server block where the certificate files are named server.crt and server.key. Since SSL connections usually occur on port 443 (HTTPS) we pass requests on that port (443) on to the DHIS instance running on <span class="italic">http://localhost:8080</span> The first server block will rewrite all requests connecting to port 80 and force the use of HTTPS/SSL. This is also necessary because DHIS is using a lot of redirects internally which must be passed on to use HTTPS. Remember to replace <span class="italic">&lt;server-ip&gt;</span> with the  IP of your server. These blocks should replace the  one from the previous section.</p>
+      <pre class="screen">http {
+  gzip on; # Enables compression
+
+  # HTTP server - rewrite to force use of SSL
+
+  server {
+    listen     80;
+    rewrite    ^ https://&lt;server-url&gt;$request_uri? permanent;
+  }
+
+  # HTTPS server
+
+  server {
+    listen               443 ssl;
+    root  /home/dhis/tomcat/webapps/ROOT; # Update path!
+    client_max_body_size 10M;
+
+    ssl                  on;
+    ssl_certificate      server.crt;
+    ssl_certificate_key  server.key;
+
+    ssl_session_cache    shared:SSL:20m;
+    ssl_session_timeout  10m;
+
+    ssl_protocols              TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers                RC4:HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+
+    # Serve static files
+
+    location ~ (\.js|\.css|\.gif|\.woff|\.ttf|\.eot|\.ico|(/dhis-web-commons/|/images/|/icons/).*\.png)$ {
+      add_header  Cache-Control public;
+      expires     14d;
+    }
+
+    # Proxy pass to servlet container
+
+    location / {
+      proxy_pass                http://localhost:8080/;
+      proxy_redirect            off;
+      proxy_set_header          Host               $host;
+      proxy_set_header          X-Real-IP          $remote_addr;
+      proxy_set_header          X-Forwarded-For    $proxy_add_x_forwarded_for;
+      proxy_set_header          X-Forwarded-Proto  https;
+      proxy_buffer_size         128k;
+      proxy_buffers             8 128k;
+      proxy_busy_buffers_size   256k;
+    }
+  }
+}</pre>
+      <p>Note the last "https" header value which is required to inform the servlet container
+        that the request is coming over HTTPS. In order for tomcat to properly produce Location URLs
+        using https you also need to add two other parameters to the Connector in tomcat's
+        server.xml file:</p>
+      <pre class="screen">&lt;Connector scheme="https" proxyPort="443" ... &gt;</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e613"></a>8.4.3.&nbsp;Enabling caching and SSL on nginx</h3></div></div></div>
+      
+      <p>Requests for reports, charts, maps and other analysis-related resources will often take
+        some time to respond and might utilize a lot of server resources. In order to improve
+        response times, reduce the load on the server and hide potential server downtime we can
+        introduce a cache proxy in our server setup. The cached content will be stored in directory
+        /var/cache/nginx, and up to 250 MB of storage will be allocated. Nginx will create this
+        directory automatically.</p>
+      <pre class="screen">http {
+  # ...
+  root              /home/dhis/tomcat/webapps/ROOT; # Update path!
+  proxy_cache_path  /var/cache/nginx  keys_zone=dhis:250m  inactive=1d;
+  gzip              on;
+
+  # HTTP server - rewrite to force use of HTTPS
+
+  server {
+    listen     80;
+    rewrite    ^ https://&lt;server-ip&gt;$request_uri? permanent;
+  }
+
+  # HTTPS server
+
+  server {
+    listen               443 ssl;
+    client_max_body_size 10M;
+
+    ssl                  on;
+    ssl_certificate      server.crt;
+    ssl_certificate_key  server.key;
+
+    ssl_session_timeout  30m;
+
+    ssl_protocols              SSLv2 SSLv3 TLSv1;
+    ssl_ciphers                HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+
+    # Serve static files
+
+    location ~ (\.js|\.css|\.gif|\.woff|\.ttf|\.eot|\.ico|(/dhis-web-commons/|/images/|/icons/).*\.png)$ {
+      add_header  Cache-Control public;
+      expires     14d;
+    }
+
+    # Proxy pass to servlet container and potentially cache response
+
+    location / {
+      proxy_pass                http://localhost:8080/;
+      proxy_redirect            off;
+      proxy_set_header          Host               $host;
+      proxy_set_header          X-Real-IP          $remote_addr;
+      proxy_set_header          X-Forwarded-For    $proxy_add_x_forwarded_for;
+      proxy_set_header          X-Forwarded-Proto  https;
+      proxy_buffer_size         128k;
+      proxy_buffers             8 128k;
+      proxy_busy_buffers_size   256k;
+      proxy_cache               dhis;
+    }
+  }
+}
+
+</pre>
+      <div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Important"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="resources/images/admon/important.png"></td><th align="left">Important</th></tr><tr><td align="left" valign="top">
+        <p>Be aware that a server side cache shortcuts the DHIS 2 security features in the sense
+          that requests which hit the server side cache will be served directly from the cache
+          outside the control of DHIS 2 and the servlet container. This implies that request URLs
+          can be guessed and reports retrieved from the cache by unauthorized users. Hence, if you
+          capture sensitive information, setting up a server side cache is not recommended.</p>
+      </td></tr></table></div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e619"></a>8.4.4.&nbsp;Starting tomcat on boot-time</h3></div></div></div>
+      
+      <p>In certain situations a server might reboot unexpectedly. It is hence preferable to have
+        Tomcat start automatically when the server starts. To achieve that the first step is to
+        create init scripts. Create a new file called <code class="code">tomcat</code> and paste the below
+        content into it (adjust the HOME variable to your environment):</p>
+      <pre class="screen">#!/bin/sh
+#Tomcat init script
+
+HOME=/home/dhis/tomcat/bin
+
+case $1 in
+start)
+        sh ${HOME}/startup.sh
+        ;;
+stop)
+        sh ${HOME}/shutdown.sh
+        ;;
+restart)
+        sh ${HOME}/shutdown.sh
+        sleep 5
+        sh ${HOME}/startup.sh
+        ;;
+esac
+exit 0</pre>
+      <p>Move the script to the init script directory and make them executable by
+        invoking:</p>
+      <pre class="screen">sudo mv tomcat /etc/init.d
+sudo chmod +x /etc/init.d/tomcat</pre>
+      <p>Next make sure the tomcat init script will be invoked during system startup and
+        shutdown:</p>
+      <pre class="screen">sudo /usr/sbin/update-rc.d -f tomcat defaults 81</pre>
+      <p>Tomcat will now be started at system startup and stopped at system shutdown. If you
+        later need to revert this you can replace <code class="code">defaults</code> with <code class="code">remove</code> and
+        invoke the above commands again.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e631"></a>8.4.5.&nbsp;Making resources available with nginx</h3></div></div></div>
+      
+      <p>In some scenarios it is desirable to make certain resources publicly available on the Web without requiring authentication. One example is when you want to make data analysis related resources in the Web API available in a Web portal. The following example will allow access to charts, maps, reports, report table and document resources through basic authentication by injecting an <span class="italic">Authorization</span> HTTP  header into the request. It will remove the Cookie header from the request and the Set-Cookie header from the response in order to avoid changing the currently logged in user. It is recommended to create a user for this purpose given only the minimum authorities required. The Authorization value can be constructed by Base64-encoding the username appended with a colon and the password and prefix it "Basic ", more precisely "Basic base64_encode(username:password)". It will check the HTTP method used for requests and return <span class="italic">405 Method Not Allowed</span> if anything but GET is detected.</p>
+      <p>It can be favorable to set up a separate domain for such public users when using this approach. This is because we don't want to change the credentials for already logged in users when they access the public resources. For instance, when your server is deployed at somedomain.com, you can set a dedicated subdomain at api.somedomain.com, and point URLs from your portal to this subdomain.</p>
+      <pre class="screen">server {
+  listen       80;
+  server_name  api.somedomain.com;
+    
+  location ~ ^/(api/(charts|chartValues|reports|reportTables|documents|maps|organisationUnits)|dhis-web-commons/javascripts|images|dhis-web-commons-ajax-json|dhis-web-mapping|dhis-web-visualizer) {
+    if ($request_method != GET) {
+      return 405;
+    }
+
+    proxy_pass         http://localhost:8080;
+    proxy_redirect     off;
+    proxy_set_header   Host               $host;
+    proxy_set_header   X-Real-IP          $remote_addr;
+    proxy_set_header   X-Forwarded-For    $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto  http;
+    proxy_set_header   Authorization      "Basic YWRtaW46ZGlzdHJpY3Q=";
+    proxy_set_header   Cookie             "";
+    proxy_hide_header  Set-Cookie;
+  }
+}</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e638"></a>8.4.6.&nbsp;App setup with nginx</h3></div></div></div>
+      
+      <p>DHIS 2 supports installation of apps. To avoid having to re-install your apps every time
+        you update and replace the DHIS 2 WAR file it is beneficial to deploy apps on the server
+        file system outside the DHIS 2 webapp directory. To install apps directly in nginx you can
+        follow these steps. First create a directory which will be used as the app installation
+        folder.</p>
+      <pre class="screen">sudo mkdir /usr/share/nginx/apps</pre>
+      <p>Make sure that the directory is owned by the user which runs Tomcat in order to allow
+        the Tomcat process to save apps to this directory when they are uploaded. If the user
+        running Tomcat is <span class="italic">dhis</span> you can use the below
+        command.</p>
+      <pre class="screen">sudo chown dhis:dhis /usr/share/nginx/apps</pre>
+      <p>You must add an <span class="italic">apps</span> location in the nginx.conf
+        configuration file like below. Note that we omit the apps directory itself in the root
+        directive. </p>
+      <pre class="screen">server {
+  ...
+  location /apps/ {
+    root      /usr/share/nginx;
+    expires   max;
+  }
+  ...
+}  </pre>
+      <p>Finally navigate to the app configuration screen in your DHIS 2 instance by going to App
+        management &gt; Settings and adjust the settings accordingly.</p>
+      <p>The <span class="italic">app installation folder</span> should point to the base
+        directory path on the server file system:</p>
+      <pre class="screen">/usr/share/nginx/apps</pre>
+      <p>The <span class="italic">app base URL</span> should point to the URL where DHIS 2
+        can find the apps. Replace www.domain.com with your real domain name and according to how
+        you have deployed DHIS 2.</p>
+      <pre class="screen">http://www.domain.com/apps</pre>
+      <p>You should now be ready to upload apps from the App management screen. Remember to
+        reload the nginx configuration. </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e656"></a>8.4.7.&nbsp;Basic reverse proxy setup with Apache</h3></div></div></div>
+      
+      <p>The Apache HTTP server is the most common </p>
+      <div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Important"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="resources/images/admon/important.png"></td><th align="left">Important</th></tr><tr><td align="left" valign="top">
+        <p>Using nginx is the preferred option as reverse proxy with DHIS2 and you should not attempt to install both nginx and Apache on the same server. If you have installed nginx please ignore this section. </p>
+      </td></tr></table></div>
+      <p>The Apache HTTP server is the most widely used HTTP server currently. Depdenign on your exact nature of deployment, you may need to use Apache as a reverse proxy for your DHIS2 server. In this section, we will describe how to implement a simple reverse proxy setup with Apache. </p>
+      <p>First we need to install a few necessary programs modules for Apache and enable the modules. </p>
+      <pre class="screen">sudo apt-get install apache2 libapache2-mod-proxy-html libapache2-mod-jk
+a2enmod proxy proxy_ajp proxy_connect</pre>
+      <p>Lets define an AJP connector which Apache HTTP server will use to connect to Tomcat with. The Tomcat <code class="filename">server.xml</code> file should be located in the /conf/ director of your Tomcat installation. Be sure this line is uncommented.You can set the port to anything you like which is unused.</p>
+      <pre class="screen">&lt;Connector port="8009" protocol="AJP/1.3" redirectPort="8443" /&gt;
+</pre><p>Now, we need to make the adjustments to the Apache HTTP server which will answer requests on port 80 and pass them to the Tomcat server through an AJP connector. Edit the file <code class="filename">/etc/apache2/mods-enabled/proxy.conf</code> so that it looks like the example below.  Be sure that the port defined in the configuration file matches the one from Tomcat.</p>
+      <pre class="screen">&lt;IfModule mod_proxy.c&gt;
+
+ProxyRequests Off
+ProxyPass /dhis  ajp://localhost:8009/dhis
+ProxyPassReverse /dhis  ajp://localhost:8009/dhis
+
+&lt;Location "/dhis"&gt;
+  Order allow,deny
+  Allow from all
+&lt;/Location&gt;     
+&lt;/IfModule&gt;
+</pre>
+      <p>You now can restart Tomcat and the Apache HTTPD server and your DHIS 2 instance should be available on http://<span class="emphasis"><em>myserver</em></span>/dhis where <span class="emphasis"><em>myserver</em></span> is the hostname of your server. </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e675"></a>8.4.8.&nbsp;Basic load-balancing with Apache and Tomcat</h3></div></div></div>
+      
+      <p>Load balancing may be employed to more evenly distribute system load across multiple Tomcat instances in situations where user load is too high to be handled by a single server instance. In this example, we will create a simple load-balanced architecture using "sticky sessions" to distribute users across two instances of Tomcat. </p>
+      <p>First, we need at least two instances of Tomcat running DHIS2, which are connected to the same database. There are various architectures, such as running the application servers (Tomcat) on separate (virtual) machines connected to a single database server, or perhaps running multiple Tomcat instances and a database on a single-high capacity machine in situations with I/O is not an issue, but when CPU usage of a single Tomcat instance limits overall system performance. In this scenario, we will configure connect two Tomcat instances running on the same machine to a single database through a load-balanced reverse proxy. Apache will take care of the details of determining which Tomcat instance a particular client is interfaced to with the </p>
+      <p>The first step is to configure our  Tomcat instances. The previous sections have detailed how this should be done. Importantly, both Tomcat instances should be configured to use the same database server. Some modifications need to be made to the server.xml file of each Tomcat instance, which will be used to uniquely identify each instance. Two copies of Tomcat should be extracted to a directory of your choice. Modify the server.xml file so that the following lines are unique for each instance. </p>
+      <pre class="screen">&lt;Server port="<span class="emphasis"><em>800<span class="emphasis"><em>5</em></span></em></span>" shutdown="SHUTDOWN"&gt;
+...
+&lt;Connector port=<span class="emphasis"><em>"8009</em></span>" protocol="AJP/1.3" redirectPort="8444" /&gt;
+...
+
+&lt;Engine name="Catalina" defaultHost="localhost" jvmRoute="<span class="emphasis"><em>jvm1</em></span>"&gt;</pre>
+      <p>The important parameters here are the server port, the AJP connector port, and the <em class="parameter"><code>jvmRoute</code></em> identifier. The <em class="parameter"><code>jvmRoute</code></em> identifier will be appended to the JSESSIONID so that Apache will know which Tomcat instance a particular session should be routed to. The parameters must be unique for each Tomcat instance. After configuring Tomcat, setup DHIS2 according to the normal procedures detailed in other sections.  </p>
+      <p>Next, we will configure the Apache HTTP server to perform load balancing. Incoming client requests will be assigned to one of the instances with a sticky session. Alter the <code class="filename">/etc/apache2/apache2.conf </code>file (or other appropriate file depending on your exact configuration) to define a proxy load balancer and a proxy and reverse proxy path. Note that the port numbers and <em class="parameter"><code>route</code></em> parameters must match the Tomcat port and <em class="parameter"><code>jvmRoute</code></em> parameters which were defined earlier in the Tomcat configuration.</p>
+      <pre class="screen">&lt;Proxy balancer://dhiscluster&gt;
+Order Allow,Deny
+Allow from all
+&lt;/Proxy&gt;
+
+&lt;Proxy balancer://dhiscluster&gt;
+BalancerMember ajp://127.0.0.1:8009/dhis route=dhis1
+BalancerMember ajp://127.0.0.1:9009/dhis route=dhis2
+
+ProxySet lbmethod=byrequests
+ProxySet stickysession=JSESSIONID
+&lt;/Proxy&gt;
+
+ProxyVia Off
+ProxyPass /dhis/ balancer://dhiscluster/ stickysession=JSESSIONID nofailover=on
+
+ProxyPassReverse /dhis/ balancer://dhiscluster/ stickysession=JSESSIONID|jsessionid
+</pre>
+      <p>Finally, start both Tomcat instances, and then restart Apache HTTP. </p>
+      <p>This example demonstrates how to implement a simple load balanced system with sticky sessions using Apache HTTP server.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e696"></a>8.4.9.&nbsp;Basic SSL encryption with Apache</h3></div></div></div>
+      
+      <p>Using Apache and the reverse proxy  setup described in the previous section, we can easily implement encrypted transfer of data between clients and the server over HTTPS. This section will describe how to use self-signed certificates, although  the same procedure could be used if you have fully-signed certificates as well. </p>
+      <p>First (as root), generate the necessary private key files and CSR (Certificate Signing Request) </p>
+      <pre class="screen">mkdir /etc/apache2/ssl
+cd /etc/apache2/ssl
+openssl genrsa -des3 -out server.key 1024
+openssl req -new -key server.key -out server.csr</pre>
+      <p>We need to remove the password from the key, otherwise Apache will not be able to use it. </p>
+      <pre class="screen">cp server.key server.key.org
+openssl rsa -in server.key.org -out server.key</pre>
+      <p>Next, generate a self-signed certificate which will be valid for one year.</p>
+      <pre class="screen">openssl x509 -req -days 365 -in server.csr -signkey \ server.key -out server.crt</pre>
+      <p>Now, lets configure Apache by enabling the SSL modules and creating a default site.</p>
+      <pre class="screen">a2enmod ssl
+a2ensite default-ssl</pre>
+      <p>Now, we need to edit the default-ssl (located at <code class="filename">/etc/apache2/sites-enabled/default-ssl</code>) file in order to enable the SSL transfer functionality of Apache. </p>
+      <pre class="screen">&lt;VirtualHost *:443&gt;
+        ServerAdmin wemaster@mydomain.org
+       SSLEngine On
+       SSLCertificateFile /etc/apache2/ssl/server.crt
+       SSLCertificateKeyFile /etc/apache2/ssl/server.key
+...</pre>
+      <p>Be sure that the *:80 section of this file is changed to port *:443, which is the default SSL port. Also, be sure to change the ServerAdmin to the webmaster's email. Lastly, we need to be sure that the hostname is setup properly in /etc/hosts. Just under the "localhost" line, be sure to add the server's IP address and domain name. </p>
+      <pre class="screen">127.0.0.1 localhost
+XXX.XX.XXX.XXX foo.mydomain.org</pre>
+      <p>Now, just restart Apache and you should be able to view https://foo.mydomain.org/dhis. </p>
+      <pre class="screen">/etc/init.d/apache2 restart</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.3.&nbsp;Server setup&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_implementation_guide_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;8.5.&nbsp;DHIS 2 Live setup</td></tr></table></div></body></html>

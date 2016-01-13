@@ -1,0 +1,75 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>24.4.&nbsp;SMS Command</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch24.html" title="Chapter&nbsp;24.&nbsp;Mobile"><link rel="prev" href="ch24s03.html" title="24.3.&nbsp;J2ME GPRS/3G Client"><link rel="next" href="ch25.html" title="Chapter&nbsp;25.&nbsp;Using Event Capture"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">24.4.&nbsp;SMS Command</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch24s03.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;24.&nbsp;Mobile</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch25.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="mobile_sms_command"></a>24.4.&nbsp;SMS Command</h2></div></div></div>
+  
+  <p>SMS command feature helps DHIS system receiving SMS from users, patients, or even anonymous. A SMS command is an object containing the configurations for each SMS
+form: reporting data from phones or j2me apps, alerting users, registering patient or user, etc. </p>
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5385"></a>24.4.1.&nbsp;Set up SMS command</h3></div></div></div>
+    
+    <p>This is where you can create a new SMS command</p>
+    <p>
+        </p><div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_sms/mobile-sms-startup-link.png" align="middle" width="100%"></td></tr></table></div>
+      </div><p>
+      </p>
+    <p>
+        </p><div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_sms/mobile-sms-startup-link-sms-command.png" align="middle" width="100%"></td></tr></table></div>
+      </div><p>
+    </p>
+    <p>Usually each SMS command has it own property, then the setting up process may be different from each other. Currently, we have 4 types of SMS command:</p>
+    <p>
+        </p><div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_sms/mobile-sms-conf-sms-command-types.png" align="middle" width="100%"></td></tr></table></div>
+      </div><p>
+      </p>
+    <p>With KEY_VALUE_PARSER and J2ME_PARSER, the SMS command will have dataset because those are used for reporting data</p>
+    <p>
+        </p><div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_sms/mobile-sms-conf-sms-command-dataset.png" align="middle" width="100%"></td></tr></table></div>
+      </div><p>
+      </p>
+    <p>With ALERT_PARSER and UNREGISTERED_PARSER, the SMS command will have user group because those are used for sending message such as SMS, DHIS conversation, email.</p>
+    <p>
+        </p><div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_sms/mobile-sms-conf-sms-command-user-group.png" align="middle" width="100%"></td></tr></table></div>
+      </div><p>
+      </p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5416"></a>24.4.2.&nbsp;SMS Command Type</h3></div></div></div>
+    
+    <p>The SMS command is basically defined by its parser type. In other word, each SMS command has one unique parser to parse the plain text SMS, then the result will be used for the purpose of that SMS command.</p>
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5419"></a>24.4.2.1.&nbsp;SMS Command for Reporting Data</h4></div></div></div>
+      
+      <p>In order to report data for example data set (aggregation), we use SMS commands which have KEY_VALUE_PARSER (for phone's plain text), or J2ME_PARSER (for j2me apps)</p>
+      <p>
+        </p><div class="screenshot">
+          <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_sms/mobile-sms-cofig-sms-command-format-reportingdata.png" align="middle" width="100%"></td></tr></table></div>
+        </div><p>
+      </p>
+      <p>If the command has name "report", and a list of data element with code like above. The format should be: [command's name] [code][value] [code][value] [code][value]....,the [value] of course might be changed depends on real data, so you have to preapre a SMS text like this example: <span class="bold"><strong>report vo2 vn5 a2 b6 z3 x1</strong></span></p>
+      <p>In case the command has a separator for instance ".", the SMS text should be:</p>
+      <p>                <span class="bold"><strong>report vo.2.vn.5.a.2.b.6.z.3.x.1</strong></span></p>
+      <p>or <span class="bold"><strong>
+          <span class="bold"><strong>report vo.2|vn.5|a.2|b.6|z.3|x.1</strong></span>
+        </strong></span></p>
+      <p>With the J2ME_PARSER, you don't need to prepare those SMS text, because the J2ME will do this job</p>
+      <div class="screenshot">
+          <div class="mediaobject" align="center"><img src="resources/images/dhis2_mobile_sms/mobile_sms_custom_message.PNG" align="middle" width="243"></div>
+        </div>
+      <p>User  can set the custom response message for "Wrong format message", "No User Message", "User belong to more than one OrgUnit message" and "Success message". If no custom message is being set, system will use the default message.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5442"></a>24.4.2.2.&nbsp;SMS Command for Alerting, Registering</h4></div></div></div>
+      
+      <p>In order to alert users or register patients, users, we use SMS commands which have ALERT_PARSER (for phone's plain text), or UNREGISTERED_PARSER (for j2me apps)</p>
+      <p>
+        </p><div class="screenshot">
+          <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_sms/mobile-sms-cofig-sms-command-format-alert.png" align="middle" width="100%"></td></tr></table></div>
+        </div><p>
+      </p>
+      <p>The format of those command will be: [command's name] [text], for example: </p>
+      <p><span class="bold"><strong>alert one emergency case in A town</strong></span></p>
+      <p>Commands which has  ALERT_PARSER will be received from users only</p>
+    </div>
+  </div>
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch24s03.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch24.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch25.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">24.3.&nbsp;J2ME GPRS/3G Client&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;25.&nbsp;Using Event Capture</td></tr></table></div></body></html>

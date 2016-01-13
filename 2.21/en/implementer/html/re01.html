@@ -1,0 +1,64 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>dhis2-instance-create</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_implementation_guide_en.html" title="DHIS2 Implementation Guide"><link rel="up" href="ch20s04.html" title="20.4.&nbsp;DHIS2 tools reference"><link rel="prev" href="ch20s04.html" title="20.4.&nbsp;DHIS2 tools reference"><link rel="next" href="re02.html" title="dhis2-startup"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">dhis2-instance-create</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch20s04.html">Prev</a>&nbsp;</td><th width="60%" align="center">20.4.&nbsp;DHIS2 tools reference</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="re02.html">Next</a></td></tr></table><hr></div><div class="refentry"><a name="d5e1357"></a><div class="titlepage"></div>
+      
+      <div class="refnamediv"><h2>Name</h2><p>
+        dhis2-instance-create
+         &#8212; Creates a new dhis2 instance
+      </p></div>
+
+      <div class="refsynopsisdiv"><h2>Synopsis</h2>
+        <div class="cmdsynopsis"><p>
+          <code class="command">/usr/bin/dhis2-instance-create</code> 
+           [
+            <code class="option">OPTIONS</code>
+          ]
+            name 
+        </p></div>
+      </div>
+
+      <div class="refsect1"><a name="d5e1370"></a><h2>Description</h2>
+        
+        <p>Use this tool to create a new dhis2 instance in a tomcat container. The name that is
+          specified will be used to create a new user and a new database with the name of that user.
+          The user will be assigned to the <span class="bold"><strong>dhis2</strong></span> group. The user
+          will have a home directory created in /var/lib/dhis2/&lt;username&gt;. This directory acts as
+          both the <span class="bold"><strong>DHIS2_HOME</strong></span> directory and also the <span class="bold"><strong>CATALINA_BASE</strong></span> directory for the tomcat servlet container.</p>
+        <p>By default the instance is allocated 2G of heap space RAM. This can be adjusted by
+          editing the parameters in <span class="bold"><strong>/var/lib/dhis2/&lt;name&gt;/bin/setenv.sh</strong></span>.</p>
+        <p>The servlet container is configured to run with an http connector pool of a maximum of
+          100 threads. This parameter can be adjusted by editing <span class="bold"><strong>/var/lib/dhis2/&lt;name&gt;/conf/server.conf</strong></span>.</p>
+        <p>The servlet container configuration has been specially tweaked for running DHIS2. For
+          example tomcat filters are used to ensure that all static content from the web application
+          are cacheable by web proxy servers such as nginx or apache. The lib directory of the
+          webapp has been explicitly placed in the application classpath so that additional jars
+          such as java compiled apache camel routes can be made available to the DHIS2
+          application.</p>
+        <p>Note that a dhis2 war file is not deployed by default. See the manual page for
+            <span class="bold"><strong>dhis2-deploy-war</strong></span> for instructions to deploy a dhis2 war
+          file over the internet from the latest stable global build, latest trunk build or from a
+          user specified war file on the filesystem. </p>
+        <p>You need to be a member of the <span class="bold"><strong>dhis2-admin</strong></span> group to
+          use these and other tools for managing the instance. See the manual page for <span class="bold"><strong>dhis2-create-admin</strong></span>.</p>
+      </div>
+      <div class="refsect1"><a name="d5e1386"></a><h2>OPTIONS</h2>
+        
+        <div class="variablelist"><dl class="variablelist"><dt><span class="term">-p</span></dt><dd>
+              <p>http port</p>
+            </dd><dt><span class="term">-n</span></dt><dd>
+              <p>DO NOT create the database when creating the instance. Note if you use this
+                option you will have to manually edit the properties file at
+                /var/lib/dhis2/&lt;instance&gt;/hibernate.properties.</p>
+            </dd></dl></div>
+      </div>
+      <div class="refsect1"><a name="d5e1397"></a><h2>Examples</h2>
+        
+        <p><span class="command"><strong>dhis2-instance-create -p 8080 hmis</strong></span></p>
+        <p>Creates a new instance called hmis listening on http port 8080.</p>
+      </div>
+      <div class="refsect1"><a name="d5e1402"></a><h2>See also</h2>
+        
+        <p>dhis2-create-admin (1), dhis2-deploy-war (1), dhis2-startup (1), dhis2-shutdown (1),
+          dhis2-deploy-war (1) and dhis2-log (1).</p>
+      </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch20s04.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch20s04.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="re02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">20.4.&nbsp;DHIS2 tools reference&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_implementation_guide_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;dhis2-startup</td></tr></table></div></body></html>

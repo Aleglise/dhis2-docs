@@ -1,0 +1,89 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.6.&nbsp;Working with the metadata API</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s05.html" title="1.5.&nbsp;Browsing the Web API"><link rel="next" href="ch01s07.html" title="1.7.&nbsp;Metadata object filter"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.6.&nbsp;Working with the metadata API</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s05.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s07.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e315"></a>1.6.&nbsp;Working with the metadata API</h2></div></div></div>
+    
+    <p>The metadata resource can be accessed at <span class="italic">/api/metadata</span>.
+      This resource lets you read and write the full set of metadata. This section will give a basic
+      introduction to working with this API. For specific synchronization issues, please see the
+      integration chapter.</p>
+    <p>By default, interacting with<span class="italic"> /api/metadata</span> using the
+      GET HTTP method will give you all metadata rendered as XML. You can also be more specific
+      about the metadata elements you are interested in.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e321"></a>1.6.1.&nbsp;Content types</h3></div></div></div>
+      
+      <p>The Web API offers several content types for metadata.</p>
+      <p>
+        </p><div class="table"><a name="d5e325"></a><p class="title"><b>Table&nbsp;1.5.&nbsp;Available Content-Types</b></p><div class="table-contents">
+          
+          <table summary="Available Content-Types" border="1"><colgroup><col class="c1"><col class="newCol2"><col class="c2"></colgroup><thead><tr><th> Content-Type </th><th>URL extension</th><th> Description </th></tr></thead><tbody><tr><td>application/xml</td><td>.xml</td><td>Returns the metadata in XML representation</td></tr><tr><td>application/json</td><td>.json</td><td>Returns the metadata in JSON representation</td></tr><tr><td>application/pdf</td><td>.pdf</td><td>Returns the metadata as a PDF document</td></tr><tr><td>application/csv</td><td>.csv</td><td>Returns the metadata as a CSV file</td></tr><tr><td>application/vnd.ms-excel</td><td>.xls | .xlsx</td><td>Returns the metadata as an Excel workbook</td></tr></tbody></table>
+        </div></div><p><br class="table-break">
+      </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e357"></a>1.6.2.&nbsp;Query parameters</h3></div></div></div>
+      
+      <p>The following query parameters are available for customizing your request.</p>
+      <p>
+        </p><div class="table"><a name="d5e361"></a><p class="title"><b>Table&nbsp;1.6.&nbsp;Available Query Filters</b></p><div class="table-contents">
+          
+          <table summary="Available Query Filters" border="1"><colgroup><col><col><col><col><col></colgroup><thead><tr><th> Param </th><th> Type </th><th> Required </th><th> Options (default first) </th><th> Description </th></tr></thead><tbody><tr><td>assumeTrue</td><td>boolean</td><td>false</td><td>true | false</td><td>Indicates whether to get all resources or no resources by default.</td></tr><tr><td>viewClass</td><td>enum</td><td>false</td><td>export | basic | detailed</td><td>Alternative views of the metadata. Please note that only metadata exported
+                  with viewClass=export or detailed can be used for import.</td></tr><tr><td>dryRun</td><td>boolean</td><td>false</td><td>false | true</td><td>If you set this to true, the actual import will not happen. Instead the
+                  system will generate a summary of what would have been done.</td></tr><tr><td>{resources}</td><td>boolean</td><td>false</td><td>true | false (default depends on assumeTrue)</td><td>See <span class="italic">/api</span> for available resources.
+                  Indicates which resources to include in the response.</td></tr><tr><td>lastUpdated</td><td>date</td><td>false</td><td>Several formats are available: yyyy, yyyy-MM, yyyy-MM-dd, yyyyMM,
+                  yyyyMMdd</td><td>Filters the metadata based on the lastUpdated field.</td></tr><tr><td>preheatCache</td><td>boolean</td><td>false</td><td>true | false</td><td>Turn cache-map preheating on/off. This is on by default, turning this off
+                  will make initial load time for importer much shorter (but will make the import
+                  itself slower). This is mostly used for cases where you have a small XML/JSON file
+                  you want to import, and don't want to wait for cache-map preheating.</td></tr><tr><td>strategy</td><td>enum</td><td>false</td><td>CREATE_AND_UPDATE | CREATE | UPDATE | DELETE</td><td>Import strategy to use, see below for more information.</td></tr><tr><td>sharing</td><td>boolean</td><td>false</td><td>false |&nbsp;true</td><td>Should sharing be supported or not. The default is false, which is the old
+                  behavior. You can set this to true to allow updating user, publicAccess and
+                  userGroupAccesses fields (if not they are cleared out on create, and not touched
+                  on update).</td></tr><tr><td>mergeStrategy</td><td>enum</td><td>false</td><td>REPLACE, MERGE</td><td>Strategy for merging of objects when doing updates. REPLACE will just
+                  overwrite the propery with the new value provided, MERGE will only set the
+                  property if its not null (only if the property was provided).</td></tr><tr><td>async</td><td>boolean</td><td>false</td><td>false |&nbsp;true</td><td>Indicates wether the import should be done async or not, the default is false
+                  which means the client will wait until the import is done, this is probably what
+                  you want for small imports (as you will get the import summary directly back to
+                  you). For large imports, the client might time out, so async=true is recommended,
+                  and the client connection will be dropped when the payload is uploaded.</td></tr></tbody></table>
+        </div></div><p><br class="table-break">
+      </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e433"></a>1.6.3.&nbsp;Available strategies for import</h3></div></div></div>
+      
+      <p>When importing data using the metadata resource you can define various strategies for
+        import.</p>
+      <p>
+        </p><div class="table"><a name="d5e437"></a><p class="title"><b>Table&nbsp;1.7.&nbsp;Available Strategies</b></p><div class="table-contents">
+          
+          <table summary="Available Strategies" border="1"><colgroup><col><col></colgroup><thead><tr><th> Type </th><th> Description </th></tr></thead><tbody><tr><td>CREATE_AND_UPDATE</td><td>Allows creation and updating of objects.</td></tr><tr><td>CREATE</td><td>Allows creation of objects only.</td></tr><tr><td>UPDATE</td><td>Allows update of objects only.</td></tr><tr><td>DELETE</td><td>Allows deletes of objects only.</td></tr></tbody></table>
+        </div></div><p><br class="table-break">
+      </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e457"></a>1.6.4.&nbsp;Examples</h3></div></div></div>
+      
+      <p>
+        <span class="bold"><strong>Example: Get a filtered set of metadata that was updated since August
+          1, 2014</strong></span>
+      </p>
+      <p>As described in the last section, there is a number of options you can apply to
+          <span class="italic">/api/metadata</span> to give you a filtered view. The use-case
+        we will be looking into here is where you want a nightly job that synchronizes organisation
+        units. We will be using <span class="italic">cURL</span> as the HTTP
+        client.</p><pre class="screen">curl -H "Accept: application/xml" -u admin:district
+  "https://play.dhis2.org/demo/api/metadata?assumeTrue=false&amp;organisationUnits=true&amp;lastUpdated=2014-08-01"</pre>
+      <p><span class="bold"><strong>Example: Get metadata that was updated since February
+          2014</strong></span></p>
+      <p>This example will just the default <span class="italic">assumeTrue</span>
+        setting, along with getting the last updates from February 2014. This means that every
+        single type that has been updated will be
+        retrieved.</p><pre class="screen">curl -H "Accept: application/xml" -u admin:district "https://play.dhis2.org/demo/api/metadata?lastUpdated=2014-02"</pre>
+      <p><span class="bold"><strong>Example: Create metadata</strong></span></p>
+      <p>The metadata resource can also be used to create or update metadata by using the POST
+        HTTP method. The metadata content can be both XML and JSON, using
+        "application/xml" and "application/json" content type respectively. The
+        request payload content will be accepted in several formats, including plain text, zipped
+        and gzipped. POSTing a metadata payload can be done for example like this, where
+        metadata.xml is a file in the same directory with the metadata content:</p>
+      <pre class="screen">curl -H "Content-Type: application/xml" -u admin:district -d @metadata.xml "https://play.dhis2.org/demo/api/metadata" -X POST -v</pre>
+      <p>The import will happen in a asyncronous process which implies that the response will
+        return as soon as the process is started. The response status code to be expected is 204 No
+        Content.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s05.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.5.&nbsp;Browsing the Web API&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.7.&nbsp;Metadata object filter</td></tr></table></div></body></html>

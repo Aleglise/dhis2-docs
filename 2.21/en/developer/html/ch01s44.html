@@ -1,0 +1,100 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.44.&nbsp;Enrollment instance query</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s43.html" title="1.43.&nbsp;Tracked entity instance management"><link rel="next" href="ch01s45.html" title="1.45.&nbsp;Tracked entity instance query"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.44.&nbsp;Enrollment instance query</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s43.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s45.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e4611"></a>1.44.&nbsp;Enrollment instance query</h2></div></div></div>
+    
+    <p>To query for tracked entity instances you can interact with the <span class="italic">/api/enrollments</span> resource. </p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e4615"></a>1.44.1.&nbsp;Request syntax</h3></div></div></div>
+      
+      <div class="table"><a name="d5e4617"></a><p class="title"><b>Table&nbsp;1.61.&nbsp;Tracked entity instances query parameters</b></p><div class="table-contents">
+        
+        <table summary="Tracked entity instances query parameters" border="1"><colgroup><col class="c1"><col class="c3"></colgroup><thead><tr><th>Query parameter</th><th>Description</th></tr></thead><tbody><tr><td>ou</td><td>Organisation unit idenfiers, separated by ";".</td></tr><tr><td>ouMode</td><td>The mode of selecting organisation units, can be SELECTED | CHILDREN |
+                DESCENDANTS | ACCESSIBLE | ALL. Default is SELECTED, which refers to the selected
+                organisation units only. See table below for explanations.</td></tr><tr><td>program</td><td>Program identifier. Restricts instances to being enrolled in the given
+                program.</td></tr><tr><td>programStatus</td><td>Status of the instance for the given program. Can be ACTIVE | COMPLETED |
+                CANCELLED.</td></tr><tr><td>followUp</td><td>Follow up status of the instance for the given program. Can be true | false or
+                omitted.</td></tr><tr><td>programStartDate</td><td>Start date of enrollment in the given program for the tracked entity
+                instance.</td></tr><tr><td>programEndDate</td><td>End date of enrollment in the given program for the tracked entity
+                instance.</td></tr><tr><td>trackedEntity</td><td>Tracked entity identifer. Restricts instances to the given tracked instance
+                type.</td></tr><tr><td>trackedEntityInstsane</td><td>Tracked entity instance identifier. Should not be used together with
+                trackedEntity.</td></tr><tr><td>page</td><td>The page number. Default page is 1.</td></tr><tr><td>pageSize</td><td>The page size. Default size is 50 rows per page.</td></tr><tr><td>totalPages</td><td>Indicates whether to include the total number of pages in the paging response
+                (implies higher response time).</td></tr><tr><td>skipPaging</td><td>Indicates whether paging should be ignored and all rows should be
+                returned.</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <p>The available organisation unit selection modes are explained in the following
+        table.</p>
+      <div class="table"><a name="d5e4667"></a><p class="title"><b>Table&nbsp;1.62.&nbsp;Organisation unit selection modes</b></p><div class="table-contents">
+        
+        <table summary="Organisation unit selection modes" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Mode</th><th>Description</th></tr></thead><tbody><tr><td>SELECTED</td><td>Organisation units defined in the request (default).</td></tr><tr><td>CHILDREN</td><td>Immediate children, i.e. only the first level below, of the organisation units
+                defined in the request.</td></tr><tr><td>DESCENDANTS</td><td>All children, i.e. at only levels below, e.g. including children of children,
+                of the organisation units defined in the request.</td></tr><tr><td>ACCESSIBLE</td><td>All descendants of the data view organisation units associated with the current
+                user. Will fall back to data capture organisation units associated with the current
+                user if the former is not defined.</td></tr><tr><td>ALL</td><td>All organisation units in the system. Requires authority.</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <p>You can specify queries with words separated by space - in that situation the system
+        will query for each word independently and return records where each word is contained in
+        any attribute. A query item can be specified once as an attribute and once as a filter if
+        needed. The query is case insensitive. The following rules apply to the query
+        parameters.</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>At least one organisation unit must be specified using the <span class="italic">ou</span> parameter (one or many), or <span class="italic">ouMode=ALL</span> must be specified.</p>
+        </li><li class="listitem">
+          <p>Only one of the <span class="italic">program</span> and <span class="italic">trackedEntity</span> parameters can be specified (zero or
+            one).</p>
+        </li><li class="listitem">
+          <p>If <span class="italic">programStatus</span> is specified then <span class="italic">program</span> must also be specified.</p>
+        </li><li class="listitem">
+          <p>If <span class="italic">followUp</span> is specified then <span class="italic">program</span> must also be specified.</p>
+        </li><li class="listitem">
+          <p>If <span class="italic">programStartDate</span> or <span class="italic">programEndDate</span> is specified then <span class="italic">program</span> must also be specified.</p>
+        </li></ul></div>
+      <p>A query for all instances associated with a specific organisation unit can look like
+        this:</p>
+      <pre class="screen">api/enrollments.json?ou=DiszpKrYNg8</pre>
+      <p>To constrain the response to instances which are part of a specific program you can
+        include a program query parameter:</p>
+      <pre class="screen">api/enrollments.json?ou=O6uvpzGd5pu&amp;ouMode=DESCENDANTS&amp;program=ur1Edk5Oe2n</pre>
+      <p>To specify program enrollment dates as part of the query:</p>
+      <pre class="screen">api/enrollments.json?&amp;ou=O6uvpzGd5pu&amp;program=ur1Edk5Oe2n&amp;programStartDate=2013-01-01&amp;programEndDate=2013-09-01</pre>
+      <p>To constrain the response to instances of a specific tracked entity you can include a
+        tracked entity query parameter:</p>
+      <pre class="screen">api/enrollments.json?ou=O6uvpzGd5pu&amp;ouMode=DESCENDANTS&amp;trackedEntity=cyl5vuJ5ETQ</pre>
+      <p>To constrain the response to instances of a specific tracked entity instance you can
+        include a tracked entity instance query parameter, in this case we are restricted it to
+        available enrollments viewable for current
+        user:</p><pre class="screen">api/enrollments.json?ouMode=ACCESSIBLE&amp;trackedEntityInstance=tphfdyIiVL6</pre>
+      <p>By default the instances are returned in pages of size 50, to change this you can use
+        the page and pageSize query parameters:</p>
+      <pre class="screen">api/enrollments.json?ou=O6uvpzGd5pu&amp;ouMode=DESCENDANTS&amp;page=2&amp;pageSize=3</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e4727"></a>1.44.2.&nbsp;Response format</h3></div></div></div>
+      
+      <p>This resource supports JSON, JSONP, XLS and CSV resource representations.</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>json (application/json)</p>
+        </li><li class="listitem">
+          <p>jsonp (application/javascript)</p>
+        </li><li class="listitem">
+          <p>xml (application/xml)</p>
+        </li></ul></div>
+      <p>The response in JSON/XML is in object format and can look like the following (please
+        note that field filtering is supported, so if you want a full view, you might want to add
+        fields=*):</p>
+      <pre class="screen">{
+    "enrollments": [
+        {
+            "lastUpdated": "2014-03-28T05:27:48.512+0000",
+            "trackedEntity": "cyl5vuJ5ETQ",
+            "created": "2014-03-28T05:27:48.500+0000",
+            "orgUnit": "DiszpKrYNg8",
+            "program": "ur1Edk5Oe2n",
+            "enrollment": "HLFOK0XThjr",
+            "trackedEntityInstance": "qv0j4JBXQX0",
+            "followup": false,
+            "dateOfEnrollment": "2013-05-23T05:27:48.490+0000",
+            "dateOfIncident": "2013-05-10T05:27:48.490+0000",
+            "status": "ACTIVE"
+        }
+    ]
+}</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s43.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s45.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.43.&nbsp;Tracked entity instance management&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.45.&nbsp;Tracked entity instance query</td></tr></table></div></body></html>

@@ -1,0 +1,108 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.22.&nbsp;Interpretations</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s21.html" title="1.21.&nbsp;Messages"><link rel="next" href="ch01s23.html" title="1.23.&nbsp;Viewing analytical resource representations"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.22.&nbsp;Interpretations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s21.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s23.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2551"></a>1.22.&nbsp;Interpretations</h2></div></div></div>
+    
+    <p>For certain analysis-related resources in DHIS, like charts, maps and report tables, one
+      can write and share a data interpretation. An interpretation is simply a link to the the
+      relevant resource together with a text expressing some insight about the data. Interpretations
+      access control follows the access given for the interpreted object.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2554"></a>1.22.1.&nbsp;Reading interpretations</h3></div></div></div>
+      
+      <p>To read interpretations we will interact with the <span class="italic">api/interpretations</span> resource. The output in JSON response format could look
+        like below (use e.g. api/interpretations.json):</p>
+      <pre class="screen">{
+    "interpretations": [{
+        "created": "2013-10-07T11:37:19.273+0000",
+        "lastUpdated": "2013-10-07T12:08:58.028+0000",
+        "type": "map",
+        "href": "https://play.dhis2.org/demo/api/interpretations/d3BukolfFZI",
+        "id": "d3BukolfFZI"
+    }, {
+        "created": "2013-05-30T10:24:06.181+0000",
+        "lastUpdated": "2013-05-30T10:25:08.066+0000",
+        "type": "reportTable",
+        "href": "https://play.dhis2.org/demo/api/interpretations/XSHiFlHAhhh",
+        "id": "XSHiFlHAhhh"
+    }, {
+        "created": "2013-05-29T14:47:13.081+0000",
+        "lastUpdated": "2013-05-29T14:47:13.081+0000",
+        "type": "chart",
+        "href": "https://play.dhis2.org/demo/api/interpretations/kr4AnZmYL43",
+        "id": "kr4AnZmYL43"
+    }]
+}</pre>
+      <p>An interpretation contains properties for identifier, date of creation and date of last
+        modification. The type property refers to the kind of object is being interpreted, and is
+        useful to show an appropriate visual clue in a client. Valid options are "chart",
+        "map", "reportTable" and "dataSetReport". By following the
+        link given in the "href" property one can get more information about a specific
+        interpretation. In the case of the map interpretation, the response will look like
+        this:</p>
+      <pre class="screen">{
+    "created": "2013-10-07T11:37:19.273+0000",
+    "lastUpdated": "2014-10-07T12:08:58.028+0000",
+    "map": {
+        "name": "ANC: ANC 2 Coverage",
+        "created": "2014-11-13T12:01:21.918+0000",
+        "lastUpdated": "2014-11-13T12:01:21.918+0000",
+        "href": "https://play.dhis2.org/demo/api/maps/bhmHJ4ZCdCd",
+        "id": "bhmHJ4ZCdCd"
+    },
+    "text": "We can see that the ANC 2 coverage of Kasonko and Lei districts are under 40 %. What could be the cause for this?",
+    "comments": [{
+        "created": "2014-10-07T12:08:58.026+0000",
+        "lastUpdated": "2014-10-07T12:08:58.026+0000",
+        "text": "Due to the rural environment, getting women to the facilities is a challenge. Outreach campaigns might be helpful.",
+        "href": "https://play.dhis2.org/demo/api/null/iB4Etq8yTE6",
+        "id": "iB4Etq8yTE6"
+    }],
+    "type": "map",
+    "href": "https://play.dhis2.org/demo/api/interpretations/d3BukolfFZI",
+    "id": "d3BukolfFZI"
+}</pre>
+      <p>The map interpretation contains identifier and type information in the "id"
+        and "type" properties. The interpretation text is available in the
+        "text" property and references to any comments in the "comments" list.
+        It also contains information about the interpreted object, in this case the "map"
+        property. Note that you can follow the link to the actual map through the "href"
+        property. For all analytical objects you can append <span class="italic">/data</span>
+        to the URL to retrieve the data associated with the resource, as apposed to the metadata. As
+        an example, by following the map link and appending /data one can retrieve a PNG (image)
+        representation of the thematic map through the following URL:</p>
+      <pre class="screen">https://play.dhis2.org/demo/api/maps/bhmHJ4ZCdCd/data</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2564"></a>1.22.2.&nbsp;Writing interpretations</h3></div></div></div>
+      
+      <p>We will start by writing an interpretation for the chart with identifier <span class="italic">EbRN2VIbPdV</span>. To write chart interpretations we will interact with
+        the <a class="ulink" href="http://play.dhis2.org/demo/api/interpretations/chart/{chartId}" target="_top">http://play.dhis2.org/demo/api/interpretations/chart/{chartId}</a> resource.
+        The interpretation will be the request body. Based on this we can put together the following
+        request using cURL:</p>
+      <pre class="screen">curl -d "This chart shows a significant ANC 1-3 dropout" "https://play.dhis2.org/demo/api/interpretations/chart/EbRN2VIbPdV" \
+-H "Content-Type:text/plain" -u admin:district -v</pre>
+      <p>Second we will write a comment on the interpretation we just wrote. By looking at the
+        interpretation response you will see that a <span class="italic">Location</span>
+        header is returned. This header tells us the URL of the newly created interpretation and
+        from that we can read its identifier. This identifier is randomly generated so you will have
+        to replace the one in the command below with your own. To write a comment we can interact
+        with the <a class="ulink" href="http://play.dhis2.org/demo/api/interpretations/{interpretationId}/comment" target="_top">http://play.dhis2.org/demo/api/interpretations/{interpretationId}/comment</a> like
+        this:</p>
+      <pre class="screen">curl -d "An intervention is needed" "https://play.dhis2.org/demo/api/interpretations/j8sjHLkK8uY/comment" 
+-H "Content-Type:text/plain" -u admin:district -v</pre>
+      <p>You can also write interpretations for report tables in a similar way by interacting
+        with the <a class="ulink" href="http://app.dhis2.org/demo/api/interpretations/reportTable/{reportTableId}" target="_top">http://app.dhis2.org/demo/api/interpretations/reportTable/{reportTableId}</a>. For
+        report tables you can also provide an optional <span class="italic">ou</span> query
+        parameter to supply an organisation unit identifier in the case where the report table has
+        an organisation unit report parameter:</p>
+      <pre class="screen">curl -d "This table reveals poor data quality" "https://play.dhis2.org/demo/api/interpretations/reportTable/xIWpSo5jjT1?ou=O6uvpzGd5pu" 
+-H "Content-Type:text/plain" -u admin:district -v</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2578"></a>1.22.3.&nbsp;Creating, updating and removing interpretation comments</h3></div></div></div>
+      
+      <p> Creating comments to existing interpretations:
+        </p><pre class="screen">POST "plain-text comment" to /api/interpretations/ID/comments</pre>
+      <p> Updating comments in existing interpretations:
+        </p><pre class="screen">PUT "plain-text comment" to /api/interpretations/ID/comments/ID</pre>
+      <p> Removing comments in existing interpretations:
+        </p><pre class="screen">DELETE /api/interpretations/ID/comments/ID</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s21.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s23.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.21.&nbsp;Messages&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.23.&nbsp;Viewing analytical resource representations</td></tr></table></div></body></html>

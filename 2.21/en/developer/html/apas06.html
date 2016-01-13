@@ -1,0 +1,45 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>A.6.&nbsp;Using PL/R with DHIS2</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="apa.html" title="Appendix&nbsp;A.&nbsp;R and DHIS 2 Integration"><link rel="prev" href="apas05.html" title="A.5.&nbsp;Using R, DHIS2 and the Google Visualization API"><link rel="next" href="apas07.html" title="A.7.&nbsp;Using this DHIS2 Web API with R"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">A.6.&nbsp;Using PL/R with DHIS2</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apas05.html">Prev</a>&nbsp;</td><th width="60%" align="center">Appendix&nbsp;A.&nbsp;R and DHIS 2 Integration</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="apas07.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dhis2_r_plr"></a>A.6.&nbsp;Using PL/R with DHIS2</h2></div></div></div>
+    
+    <p>The procedural language for R is an extension to the core of PostgreSQL which allows data to be passed from the database to R, where calculations in R can be performed. The data can then be passed back to the database for further processing.. In this example, we will create a function to calculate some summary statistics which do not exist by default in SQL by using R. We will then create an SQL View in DHIS2 to display the results. The advantage of utilizing R in this context is that we do not need to write any significant amount of code to return these summary statistics, but simply utilize the built-in functions of R to do the work for us. </p>
+    <p> First, you will need to install <a class="ulink" href="http://www.joeconway.com/plr/" target="_top">PL/R</a>, which is described in detail <a class="ulink" href="http://www.joeconway.com/plr/doc/plr-install.html" target="_top">here.</a>. Following the example from the PL/R site, we will create some custom aggregate functions as detailed <a class="ulink" href="http://www.joeconway.com/plr/doc/plr-aggregate-funcs.html" target="_top">here.</a>  We will create two functions, to return the median and the skewness of a range of values.</p>
+    <pre class="screen">CREATE OR REPLACE FUNCTION r_median(_float8) returns float as '
+  median(arg1)
+' language 'plr';
+
+CREATE AGGREGATE median (
+  sfunc = plr_array_accum,
+  basetype = float8,
+  stype = _float8,
+  finalfunc = r_median
+);
+
+CREATE OR REPLACE FUNCTION r_skewness(_float8) returns float as '
+  require(e1071)
+  skewness(arg1)
+' language 'plr';
+
+CREATE AGGREGATE skewness (
+  sfunc = plr_array_accum,
+  basetype = float8,
+  stype = _float8,
+  finalfunc = r_skewness
+);</pre>
+    <p>Next, we will define an SQL query which will be used to retrieve the two new aggregate functions (median and skewness) which will be calculated using R. In this case, we will just get a single indicator from the data mart at the district level and calculate the summary values based on the name of the district which the values belong to. This query is very specific, but could be easily adapted to your own database.</p>
+    <pre class="screen">SELECT  ou.shortname,avg(dv.value),
+median(dv.value),skewness(dv.value) FROM aggregatedindicatorvalue dv
+INNER JOIN period p on p.periodid = dv.periodid
+INNER JOIN organisationunit ou on 
+dv.organisationunitid = ou.organisationunitid
+WHERE dv.indicatorid = 112670
+AND dv.level = 3
+AND dv.periodtypeid = 3
+AND p.startdate &gt;='2009-01-01'
+GROUP BY ou.shortname;</pre>
+    <p>We can then save this query in the form of SQL View in DHIS2. A clipped version of the results are shown below. </p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="66%"><tr><td align="center"><img src="resources/images/r/r_plr.PNG" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p>In this simple example, we have shown how to use PL/R with the DHIS2 database and web interface to display some summary statistics using R to  perform the calculations. </p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apas05.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="apa.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="apas07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A.5.&nbsp;Using R, DHIS2 and the Google Visualization API&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;A.7.&nbsp;Using this DHIS2 Web API with R</td></tr></table></div></body></html>

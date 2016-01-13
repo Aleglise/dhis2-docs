@@ -1,0 +1,85 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>25.2.&nbsp;Capturing events</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch25.html" title="Chapter&nbsp;25.&nbsp;Using Event Capture"><link rel="prev" href="ch25.html" title="Chapter&nbsp;25.&nbsp;Using Event Capture"><link rel="next" href="ch26.html" title="Chapter&nbsp;26.&nbsp;Using Event Reports"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">25.2.&nbsp;Capturing events</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch25.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;25.&nbsp;Using Event Capture</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch26.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5459"></a>25.2.&nbsp;Capturing events</h2></div></div></div>
+    
+    <p>To capture an event, the first step is to select an organisation unit from the left-side
+      organisation unit tree. After selecting an org unit, the list of programs will display the
+      programs which have been associated with the selected organisation unit and which have been
+      given access to the current user through user roles. Events are displayed in a tabular fashion
+      as shown in the figure below. As seen in the screenshot, each row corresponds to an event. The
+      columns display information about the events, more specifically they display data for data
+      elements which are part of the program.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/event_capture/event_list.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>All event related operations are accessible from the screen shown above. The operations
+      currently available are: </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+          <p><span class="bold"><strong>Capturing data:</strong></span> this available by clicking the
+            "Register event" button.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Showing/hiding colums: </strong></span>this is to allow users
+            decide which columns to show/hide in the table of events. This feature is especially
+            important when we have a long list of data elements assigned to a program stage.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Editing:</strong></span> the rows in the table are clickable,
+            clicking them shows three menus - <span class="bold"><strong>Edit</strong></span>, <span class="bold"><strong>Edit in grid</strong></span> and <span class="bold"><strong>Remove.</strong></span> The
+            edit function takes you to a new page where information for the selected event can be
+            updated. The edit in grid function allows you to edit the selected event within the
+            table but only those columns (data elements) visible in the grid. If more columns are
+            required it is possible to add using the "Show/Hide columns" button to speficy which
+            columns should be displayed in the list.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Sorting:</strong></span> this can be done by clicking the sorting
+            icon of each column header. A red sorting icon implies the current sorting column.
+            However, the sorting functionality works only within the page displayed. Currently, it
+            is not possible to do sorting from serverside.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Filtering:</strong></span> this is done by clicking the small
+            search icon shown to the right of each column header. Clicking them provides an input
+            field to type a filtering criteria. The system starts applying the filter the moment a
+            user starts to type. During filtering it is possible to define start and end dates for
+            date type data elements and lower and upper limits for number types. Server side
+            filtering is not-support at the moment.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Paging:</strong></span> The list of events can be paged by using
+            the paging section at the bootom of the list. Paging allows you to quickly move between
+            pages of events and to change the page size, i.e. the number of events per page.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Printing:</strong></span> The "Print list" button allows to print
+            the list of events. This button also changes its label accordingly - for example "Print
+            details" and "Print form" - and does the printing functionality.</p>
+        </li></ol></div>
+    <p>The event capture app works offline, in the sense that if Internet connectivity drops
+      during your working session, you can continue to capture events which will be stored locally
+      in your web browser (client). When connectivity has returned the system will ask to upload
+      locally stored data, and sends it to the server where it is stored. Note that if the Web
+      browser is closed while in offline-mode, it is not possible to reopen a new browser window and
+      continue the working session; however the data will still be saved locally and can be uploaded
+      to the server the next time the machine is online and the user has logged into the
+      server.</p>
+    <p>If the selected program's program stage is configured to capture GPS coordinate, the app
+      provides two ways of capturing coordinates. The first is two simple text boxes so that a user
+      can fillin proper latitude and longitude values. The second option is using google map, where
+      it is possible to point and click for coordinates. The google map option also displays
+      polygons and points that are defined for organisation units.</p>
+    <p>Another feature availble in the Event capture app is skip-logic and validation
+      functionality. Using program rules engine it is possible to put some rules for a program and
+      take some actions when the rules are met. Currently supported actions are skipping/hiding a
+      dataelement or an entire section, display warning for some soft-validations or display error
+      for hard-validations. For example if a rule defined says "DataElementA &gt; 100" and has action
+      as "show warning" and message "Datalelement A can not have value more than 100". What will
+      happen during data entry is - the moment a value greater than 100 is entered for data element
+      A, the warning message will be dsiplayed. Because, it is just a warning it is still possible
+      to keep the value more than 100. However, if the action is "Show error", the error message
+      will be displayed and the system will also ignore the value - i.e. it is not possible to store
+      a value that viloates the rule.</p>
+    <p>Together with the rules engine expression evaluation, on-the-fly indicator expression
+      evaluation is also supported.  If a program has indicators defined for it and the moment all
+      values related to the indicator expression are filled, the system will calcualte indicator and
+      display the result. A figure below demonstrates this.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/event_capture/event_editing.png" width="100%"></td></tr></table></div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch25.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch25.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch26.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;25.&nbsp;Using Event Capture&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;26.&nbsp;Using Event Reports</td></tr></table></div></body></html>

@@ -1,0 +1,40 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.34.&nbsp;Current user information and associations</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s33.html" title="1.33.&nbsp;Users"><link rel="next" href="ch01s35.html" title="1.35.&nbsp;System settings"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.34.&nbsp;Current user information and associations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s33.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s35.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e4303"></a>1.34.&nbsp;Current user information and associations</h2></div></div></div>
+    
+    <p>In order to get information about the currently authenticated user and its associations to
+      other resources you can work with the <span class="italic">me</span> resource (you can
+      also refer to it by its old name <span class="italic">currentUser</span>). The current
+      user related resources gives your information which is useful when building clients for
+      instance for data entry and user management. The following describes these resources and their
+      purpose.</p>
+    <p>Provides basic information about the user that you are currently logged in as, including
+      username, user credentials, assigned organisation units:</p>
+    <pre class="screen">/api/me</pre>
+    <p>Gives information about currently unread messages and interpretations:</p>
+    <pre class="screen">/api/me/dashboard</pre>
+    <p>Lists all messages and interpretations in the inbox (including replies):</p>
+    <pre class="screen">/api/me/inbox</pre>
+    <p>Gives the full profile information for current user. This endpoint support both <span class="italic">GET</span> to retrieve profile and <span class="italic">POST</span>
+      to update profile (the exact same format is used):</p>
+    <pre class="screen">/api/me/user-account</pre>
+    <p>Returns the set of authorities granted to the current user:</p>
+    <pre class="screen">/api/me/authorization</pre>
+    <p>Returns true or false, indicating whether the current user has been granted the given
+      &lt;auth&gt; authorization:</p>
+    <pre class="screen">/api/me/authorization/&lt;auth&gt;</pre>
+    <p>Lists all organisation units directly assigned to the user:</p>
+    <pre class="screen">/api/me/organisationUnits</pre>
+    <p>Gives all the datasets assigned to the users organisation units, and their direct
+      children. This endpoint contains all required information to build a form based on one of our
+      datasets. If you want all descendants of your assigned organisation units, you can use the
+      query parameter <span class="italic">includeDescendants=true</span> :</p>
+    <pre class="screen">/api/me/dataSets</pre>
+    <p>Gives all the programs assigned to the users organisation units, and their direct
+      children. This endpoint contains all required information to build a form based on one of our
+      datasets. If you want all descendants of your assigned organisation units, you can use the
+      query parameter <span class="italic">includeDescendants=true</span> :</p>
+    <pre class="screen">/api/me/programs</pre>
+    <p>Gives the data approval levels which are relenvant to the current user:</p>
+    <pre class="screen">/api/me/dataApprovalLevels</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s33.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s35.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.33.&nbsp;Users&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.35.&nbsp;System settings</td></tr></table></div></body></html>

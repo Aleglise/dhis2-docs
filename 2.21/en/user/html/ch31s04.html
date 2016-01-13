@@ -1,0 +1,62 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>31.4.&nbsp; Adding source fields</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch31.html" title="Chapter&nbsp;31.&nbsp;Program rules"><link rel="prev" href="ch31s03.html" title="31.3.&nbsp;Program rule anatomy"><link rel="next" href="ch31s05.html" title="31.5.&nbsp; Defining expressions"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">31.4.&nbsp; Adding source fields </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch31s03.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;31.&nbsp;Program rules</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch31s05.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e7368"></a>31.4.&nbsp; Adding source fields </h2></div></div></div>
+    
+    <p>
+            Source fields represent a uniform way to include data values 
+            and attribute values in expressions. The 
+                source fields is defined as needed when creating expressions           .  When creating your first expression, you will
+            typically have to define one or more source fields first,
+            as expressions usually contain at least one data element or attribute value to be meaningful.
+            The source fields is shared between all rules in your program,
+            and by creating several rules, these will share the same library of source 
+                fields.
+        </p>
+    <p>
+            To add a source field, click the "+ Add source field" button 
+            under the source fields list. This will open the following dialog:
+        </p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="50%"><tr><td><img src="resources/images/program_rules/program-rule-source-field.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>
+            </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>
+<span class="bold"><strong> Source type:</strong></span> The source types is determining how the source field is populated with a value:
+                        </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+                <p>
+<span class="bold"><strong> Data element newest event program: </strong></span>Populates a source field with the newest data value collected
+                                    for one data element within the enrollment. The newest data value is determined with event date.
+                                </p>
+              </li><li class="listitem">
+                <p>
+<span class="bold"><strong> Data element newest event program stage:</strong></span> Populates a source field with the newest data value collected
+                                    for one data element within a specified program stage. In case of several events within the program
+                                    stage, the newest data value will be selected by event date.
+                                </p>
+              </li><li class="listitem">
+                <p>
+<span class="bold"><strong> Tracked entity attribute:</strong></span> Populates the source field with a specified tracked entity attribute 
+                                    for the current enrollment. Note: When selecting this option, fields for selecting program stage and data
+                                    element is hidden, and a field for selecting tracked entity attribute is displayed instead.
+                                </p>
+              </li></ul></div><p>
+                    </p>
+        </li><li class="listitem">
+          <p>
+<span class="bold"><strong> Source program stage:</strong></span> In case of retrieving data value from a specific program stage, this field is used to
+                        define what program stage to retrieve data from.
+                    </p>
+        </li><li class="listitem">
+          <p>
+<span class="bold"><strong> Source data element:</strong></span> Used to select which data element to retrieve data value for.
+                    </p>
+        </li><li class="listitem">
+          <p>
+<span class="bold"><strong> Variable name</strong></span>: Specifying the name that is used for the source field when writing expressions. It is encouraged
+                        to use a name that makes the expressions readable.
+                    </p>
+        </li></ul></div><p>
+        </p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch31s03.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch31.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch31s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">31.3.&nbsp;Program rule anatomy&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;31.5.&nbsp; Defining expressions </td></tr></table></div></body></html>

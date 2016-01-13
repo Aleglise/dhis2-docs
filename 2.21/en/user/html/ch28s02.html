@@ -1,0 +1,58 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>28.2.&nbsp;TEI Searching/Registration</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch28.html" title="Chapter&nbsp;28.&nbsp;Using Tracker Capture"><link rel="prev" href="ch28.html" title="Chapter&nbsp;28.&nbsp;Using Tracker Capture"><link rel="next" href="ch28s03.html" title="28.3.&nbsp;TEI dashboard"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">28.2.&nbsp;TEI Searching/Registration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch28.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;28.&nbsp;Using Tracker Capture</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch28s03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5621"></a>28.2.&nbsp;TEI Searching/Registration</h2></div></div></div>
+    
+    <p>To proceed with the tracker capture one needs to have a TEI. As shown in the screenshot
+      below, the first page of the app provides two features for this - searching an existing one or
+      registering a new one.</p>
+    <p></p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="90%"><tr><td><img src="resources/images/tracker_capture/search_register.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>All searching and registration operations are accessible from the screen shown above.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+          <p>Searching: there are two modes of searching - simple and advanced. The simple one
+            works by typing a free text on the provided area. What is typed in the input box is
+            applied across all attributes for partial match. The advanced one, which is accessible
+            when the small drop-down button is clicked - works when various search criteria are
+            provided in the drop down window. Here, the match is exact match. Both search modes
+            return matching list of TEI displayed in a table. </p>
+          <p>If a program is selected, the app provides further filtering on the table based on
+            enrollment status which are All, Active, Completed, Cancelled.  as shown below.</p>
+          <div class="screenshot">
+            
+            <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="20%"><tr><td><img src="resources/images/tracker_capture/enrollment_status.png" width="100%"></td></tr></table></div>
+          </div>
+          <p>The advanced search also provides one more additional feature. Under normal
+            circumstances, advanced search is conducted for the selected orgunit (from left-hand
+            side tree) and scope (which could be Selected, Immediate children or All children).  The
+            left-hand side tree is generated based on the logged in user's assigned orgunits.
+            However, there could be cases to search for a TEI from another orgunit (which is not
+            neccessarily part of the assigned orgunits. To support such use case, advanced search
+            provides another orgunit tree. The tree displayed here depends on the role that the
+            logged in user has. If the user has role "Search Tracked Entity Instance in All Org
+            Units" or "ALL", a tree with all available orgunits is provided other wise the tree
+            displayed in advanced search is the same as the one on the left-hand side. Whichever
+            tree (or hierarchy of orgunits) is provided, if an orgunit is selected in advanced
+            search, the searching is conducted against this selected orgunit and scope.</p>
+          
+          <p>While in the TEI table, clicking on any row takes to the selected TEI's
+            dashboard.</p>
+        </li><li class="listitem">
+          <p>Registration: this is accessible through the "Register" button. During registration,
+            it is possible to stay on the same page and keep doing more registration or go straight
+            to the dashboard of the registered TEI. Selecting a program and doing registration also
+            performs enrollment at the background. If a TEI is registered without a program, then
+            enrollment is possible from the TEI dashboard. Both skip-logic and validation
+            error/warning messages are supported during registration.</p>
+        </li></ol></div>
+    <p></p>
+    <p>Both search and registration are dictated by a selected program. It is program attributes
+      which are being used as search criteria, registration attributes and also as columns names for
+      tracked entity list. If no program is selected, the system picks default attributes. If no
+      search criteria is assigned for an attribute, then the attribute has no effect on searching.
+      However to control the appearance or not of an attribute as a column list, one has to go
+      through a menu available under the small gear icon. </p>
+    <p>Once a TEI is obtained - either through searching or registration - the app presents the
+      selected TEI's dashboard.</p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch28.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch28.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch28s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;28.&nbsp;Using Tracker Capture&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;28.3.&nbsp;TEI dashboard</td></tr></table></div></body></html>

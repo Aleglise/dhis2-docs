@@ -1,0 +1,26 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.31.&nbsp;Maintenance</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s30.html" title="1.30.&nbsp;Generating resource and analytics tables"><link rel="next" href="ch01s32.html" title="1.32.&nbsp;System resource"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.31.&nbsp;Maintenance</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s30.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s32.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e4050"></a>1.31.&nbsp;Maintenance</h2></div></div></div>
+    
+    <p>To perform maintenance you can interact with the <span class="italic">maintenance</span> resource. You should use <span class="italic">POST</span> or
+        <span class="italic">PUT</span> as method for requests. The following requests are
+      available. </p>
+    <p>Period pruning will remove periods which are not linked to any data values:</p>
+    <pre class="screen">/api/maintenance/periodPruning</pre>
+    <p>Zero data value removal will delete zero data values linked to data elements where zero
+      data is defined as not significant:</p>
+    <pre class="screen">/api/maintenance/zeroDataValueRemoval</pre>
+    <p>Drop SQL views will drop all SQL views in the database. Note that it will not delete the
+      DHIS 2 SQL views.</p>
+    <pre class="screen">/api/maintenance/dropSqlViews</pre>
+    <p>Create SQL views will recreate all SQL views in the database.</p>
+    <pre class="screen">/api/maintenance/createSqlViews</pre>
+    <p>Category option combo update will remove obsolete and generate missing category option
+      combos for all category combinations:</p>
+    <pre class="screen">/api/maintenance/categoryOptionComboUpdate</pre>
+    <p>Cache clearing will clear the application Hibernate cache and the analytics partition
+      caches:</p>
+    <pre class="screen">/api/maintenance/cache</pre>
+    <p>Re-generate organisation unit path property (can be useful if you imported org units with
+      SQL):</p><pre class="screen">/api/maintenance/ouPathUpdate</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s30.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s32.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.30.&nbsp;Generating resource and analytics tables&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.32.&nbsp;System resource</td></tr></table></div></body></html>

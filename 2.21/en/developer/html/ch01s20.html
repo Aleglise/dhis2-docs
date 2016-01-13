@@ -1,0 +1,85 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.20.&nbsp;Data approval</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s19.html" title="1.19.&nbsp;Complete data set registrations"><link rel="next" href="ch01s21.html" title="1.21.&nbsp;Messages"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.20.&nbsp;Data approval</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s19.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s21.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2305"></a>1.20.&nbsp;Data approval</h2></div></div></div>
+    
+    <p>This section explains how to approve, unapprove and check approval status using the
+        <span class="italic">dataApprovals</span> resource. Approval is done per data set,
+      period, organisation unit and attribute option combo. </p>
+    <p>To get approval information for a data set you can issue a GET request similar to
+      this:</p>
+    <pre class="screen">api/dataApprovals?ds=aLpVgfXiz0f&amp;pe=2013&amp;ou=DiszpKrYNg8</pre>
+    <div class="table"><a name="d5e2311"></a><p class="title"><b>Table&nbsp;1.33.&nbsp;Data approval query parameters</b></p><div class="table-contents">
+      
+      <table summary="Data approval query parameters" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Query parameter</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td>ds</td><td>Yes</td><td>Data set identifier</td></tr><tr><td>pe</td><td>Yes</td><td>Period identifier</td></tr><tr><td>ou</td><td>Yes</td><td>Organisation unit identifier</td></tr><tr><td>cog</td><td>No</td><td>Attribute category option group identifier</td></tr><tr><td>cp</td><td>No</td><td>Attribute category option identifier(s), repeat the parameter for multiple
+              values</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <p>This will give you a response something like this:</p>
+    <pre class="screen">{
+  "mayApprove": false,
+  "mayUnapprove": false,
+  "mayAccept":false,
+  "mayUnaccept":false,
+  "state":"UNAPPROVED_ELSEWHERE"
+}</pre>
+    <p>The returned parameters are:</p>
+    <div class="table"><a name="d5e2346"></a><p class="title"><b>Table&nbsp;1.34.&nbsp;Data approval query parameters</b></p><div class="table-contents">
+      
+      <table summary="Data approval query parameters" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Return Parameter</th><th>Description</th></tr></thead><tbody><tr><td>mayApprove</td><td>Whether the current user may approve this data selection.</td></tr><tr><td>mayUnapprove</td><td>Whether the current user may unapprove this data selection.</td></tr><tr><td>mayAccept</td><td>Whether the current user may accept this data selection.</td></tr><tr><td>mayUnaccept</td><td>Whether the current user may unaccept this data selection.</td></tr><tr><td>state</td><td>One of the data approval states from the table below.</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <div class="table"><a name="d5e2371"></a><p class="title"><b>Table&nbsp;1.35.&nbsp;Data approval states</b></p><div class="table-contents">
+      
+      <table summary="Data approval states" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>State</th><th>Description</th></tr></thead><tbody><tr><td>UNAPPROVABLE</td><td>Data approval does not apply to this selection. (Data is neither
+              "approved" nor "unapproved".)</td></tr><tr><td>UNAPPROVED_WAITING</td><td>Data could be approved for this selection, but is waiting for some lower-level
+              approval before it is ready to be approved.</td></tr><tr><td>UNAPPROVED_ELSEWHERE</td><td>Data is unapproved, and is waiting for approval somewhere else (not approvable
+              here.)</td></tr><tr><td>UNAPPROVED_READY</td><td>Data is unapproved, and is ready to be approved for this selection.</td></tr><tr><td>APPROVED_HERE</td><td>Data is approved, and was approved here (so could be unapproved here.)</td></tr><tr><td>APPROVED_ELSEWHERE</td><td>Data is approved, but was not approved here (so cannot be unapproved here.) This
+              covers the following cases: <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                  <p>Data is approved at a higher level.</p>
+                </li><li class="listitem">
+                  <p>Data is approved for wider scope of category options.</p>
+                </li><li class="listitem">
+                  <p>Data is approved for all sub-periods in selected period.</p>
+                </li></ul></div> In the first two cases, there is a single data approval object that
+              covers the selection. In the third case there is not. </td></tr><tr><td>ACCEPTED_HERE</td><td>Data is approved and accepted here (so could be unapproved here.)</td></tr><tr><td>ACCEPTED_ELSEWHERE</td><td>Data is approved and accepted, but elsewhere.</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <p>Note that when querying for the status of data approval, you may specify any combination
+      of the query parameters. The combination you specify does not need to describe the place where
+      data is to be approved at one of the approval levels. For example:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>The organisation unit might not be at an approval level. The approval status is
+          determined by whether data is approved at an approval level for an ancestor of the
+          organisation unit.</p>
+      </li><li class="listitem">
+        <p>You may specify individual attribute category options. The approval status is
+          determined by whether data is approved for an attribute category option combination that
+          includes one or more of these options.</p>
+      </li><li class="listitem">
+        <p>You may specify a time period that is longer than the period for the data set at which
+          the data is entered and approvede. The approval status is determined by whether the data
+          is approved for all the data set periods within the period you specify.</p>
+      </li></ul></div>
+    <p>To approve data you can issue a <span class="italic">POST</span> request to the
+      dataApprovals resource. To un-approve data you can issue a <span class="italic">DELETE</span> request to the dataApprovals resource.</p>
+    <p>To accept data you can issue a <span class="italic">POST</span> request to the
+      dataApprovals/acceptances resource. To un-accept data you can issue a <span class="italic">DELETE</span> request to the dataApprovals/acceptances resource.</p>
+    <p>These requests contain the following parameters:</p>
+    <div class="table"><a name="d5e2427"></a><p class="title"><b>Table&nbsp;1.36.&nbsp;Data approval action parameters</b></p><div class="table-contents">
+      
+      <table summary="Data approval action parameters" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Action parameter</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td>ds</td><td>Yes</td><td>Data set identifier</td></tr><tr><td>pe</td><td>Yes</td><td>Period identifier</td></tr><tr><td>ou</td><td>Yes</td><td>Organisation unit identifier</td></tr><tr><td>cog</td><td>No</td><td>Attribute category option group identifier. Required if approving for an approval
+              level that contains a category option group set, otherwise must not be
+              present.</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <p>Note that, unlike querying the data approval status, you must specify parameters that
+      correspond to a selection of data that could be approved. In particular, all of the following
+      must be true:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>The organisation unit's level must be specified by an approval level.</p>
+      </li><li class="listitem">
+        <p>The category option group (if specified) must be a member of an approval level's
+          category option group set (if specified) for an approval level with the same organisation
+          unit level.</p>
+      </li><li class="listitem">
+        <p>The time period specified must match the period type of the data set.</p>
+      </li><li class="listitem">
+        <p>The data set must specify that data can be approved for this data set.</p>
+      </li></ul></div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s19.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s21.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.19.&nbsp;Complete data set registrations&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.21.&nbsp;Messages</td></tr></table></div></body></html>

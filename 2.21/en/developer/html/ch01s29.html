@@ -1,0 +1,37 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.29.&nbsp;Geo features</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s28.html" title="1.28.&nbsp;Event analytics"><link rel="next" href="ch01s30.html" title="1.30.&nbsp;Generating resource and analytics tables"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.29.&nbsp;Geo features</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s28.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s30.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e3948"></a>1.29.&nbsp;Geo features</h2></div></div></div>
+    
+    <p>The <span class="italic">geoFeatures</span> resource lets you retrieve geospatial
+      information from DHIS 2. Geo features are stored together with organisation units, and the
+      syntax for retrieving features is identical to the syntax used for the organisation unit
+      dimension for the analytics resource. It is recommended to read up on the analytics api
+      resource before continuing reading this section. You must use the GET request type, and only
+      JSON response format is supported.</p>
+    <p>As an example, to retrieve geo features for all organisation units at level 3 in the
+      organisation unit hierarchy you can use a GET request with the following URL:</p>
+    <pre class="screen">api/geoFeatures.json?ou=ou:LEVEL-3</pre>
+    <p>To retrieve geo features for organisation units at level within the boundary of an
+      organisation unit (e.g. at level 2) you can use this URL:</p>
+    <pre class="screen">api/geoFeatures.json?ou=ou:LEVEL-4;O6uvpzGd5pu</pre>
+    <p>The semantics of the response properties are described in the following table.</p>
+    <div class="table"><a name="d5e3957"></a><p class="title"><b>Table&nbsp;1.52.&nbsp;Geo features response</b></p><div class="table-contents">
+      
+      <table summary="Geo features response" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Property</th><th>Description</th></tr></thead><tbody><tr><td>id</td><td>Organisation unit / geo feature identifier</td></tr><tr><td>na</td><td>Organisation unit / geo feature name</td></tr><tr><td>hcd</td><td>Has coordinates down, indicating whether one or more children organisation units
+              exist with coordinates (below in the hierarchy)</td></tr><tr><td>hcu</td><td>Has coordinates up, indicating whether the parent organisation unit has
+              coordinates (above in the hierarchy)</td></tr><tr><td>le</td><td>Level of this organisation unit / geo feature.</td></tr><tr><td>pg</td><td>Parent graph, the graph of parent organisation unit identifiers up to the root in
+              the hierarchy</td></tr><tr><td>pi</td><td>Parent identifier, the identifier of the parent of this organisation unit</td></tr><tr><td>pn</td><td>Parent name, the name of the parent of this organisation unit</td></tr><tr><td>ty</td><td>Geo feature type, 1 = point and 2 = polygon or multi-polygon</td></tr><tr><td>co</td><td>Coordinates of this geo feature</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3997"></a>1.29.1.&nbsp;GeoJSON</h3></div></div></div>
+      
+      <p>Support for GeoJSON output was added in 2.17, to export GeoJSON, you can simple add
+          <span class="italic">.geosjon</span> as an extension to the endpoint <span class="italic">/api/organisationUnits</span>, or you can use the <span class="italic">Accept</span> header <span class="italic">application/json+geojson</span>.</p>
+      <p>Two parameters are supported <span class="bold"><strong>level</strong></span> (defaults to 1) and
+          <span class="bold"><strong>parent</strong></span> (defaults to root organisation units), both can be
+        added multiple times, some examples follow.</p>
+      <p>Get all features at level 2 and 4:
+        </p><pre class="screen">api/organisationUnits.geojson?level=2&amp;level=4</pre>
+      <p>Get all features at level 3 with a boundary organisation
+        unit:</p><pre class="screen">api/organisationUnits.geojson?parent=fdc6uOvgoji&amp;level=3</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s28.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s30.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.28.&nbsp;Event analytics&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.30.&nbsp;Generating resource and analytics tables</td></tr></table></div></body></html>

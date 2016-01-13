@@ -1,0 +1,17 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>8.7.&nbsp;Working with the PostgreSQL database</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_implementation_guide_en.html" title="DHIS2 Implementation Guide"><link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;Installation"><link rel="prev" href="ch08s06.html" title="8.6.&nbsp;Backup"><link rel="next" href="ch08s08.html" title="8.8.&nbsp;Application logging"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.7.&nbsp;Working with the PostgreSQL database</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s06.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;8.&nbsp;Installation</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s08.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e740"></a>8.7.&nbsp;Working with the PostgreSQL database</h2></div></div></div>
+    
+    <p>Common operations when managing a DHIS instance are dumping and restoring databases. To
+      make a dump (copy) of your database, assuming the setup from the installation section, you can
+      invoke the following: </p>
+    <pre class="screen">pg_dump dhis2 -U dhis -f dhis2.sql</pre>
+    <p>The first argument (dhis2) refers to the name of the database. The second argument (dhis)
+      refers to the database user. The last argument (dhis2.sql) is the file name of the copy. If
+      you want to compress the file copy immediately you can do:</p>
+    <pre class="screen">pg_dump dhis2 -U dhis | gzip &gt; dhis2.sql.gz</pre>
+    <p>To restore this copy on another system, you first need to create an empty database as
+      described in the installation section. You also need to gunzip the copy if you created a
+      compressed version. You can the invoke:</p>
+    <pre class="screen">psql -d dhis2 -U dhis -f dhis2.sql</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s06.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s08.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.6.&nbsp;Backup&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_implementation_guide_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;8.8.&nbsp;Application logging</td></tr></table></div></body></html>

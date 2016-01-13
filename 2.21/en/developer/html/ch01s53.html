@@ -1,0 +1,30 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.53.&nbsp;FRED API</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s52.html" title="1.52.&nbsp;Synchronization"><link rel="next" href="ch01s54.html" title="1.54.&nbsp;Data store"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.53.&nbsp;FRED API</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s52.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s54.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5236"></a>1.53.&nbsp;FRED API</h2></div></div></div>
+    
+    <p>DHIS 2 from version 2.11 implements support for the current draft of the FRED API version
+      1.0. The project defines itself as <span class="quote">&#8220;<span class="quote">open standard for sharing and updating health
+        facility data</span>&#8221;</span>. The full specification, including representation format and basic
+      usage, can be found at <a class="ulink" href="http://facilityregistry.org/" target="_top">http://facilityregistry.org/</a>.</p>
+    <p>Since version 1.0 is not finalized there are parts of the current specification that has
+      not been implemented as we found it not to be in a stable enough state. Most notably we do not
+      currently support sorting (we do however sort on name by default) and filtering of
+      facilities.</p>
+    <p>The entry point for the implementation can be found at http://&lt;server-url&gt;/api-fred
+      and the current version is located at http://&lt;server-url&gt;/api-fred/v1.</p>
+    <p>This section will give some simple examples of using the API.</p>
+    <p>Get all facilities:</p>
+    <pre class="screen">curl -u username:password -X GET http://&lt;server-url&gt;/api-fred/v1/facilities.json</pre>
+    <p>Get a specific facility based on either identifier or UUID:</p>
+    <pre class="screen">curl -u username:password -X GET http://&lt;server-url&gt;/api-fred/v1/facilities/&lt;id&gt;.json
+curl -u username:password -X GET http://&lt;server-url&gt;/api-fred/v1/facilities/&lt;uuid&gt;.json</pre>
+    <p>Create a new facility:</p>
+    <pre class="screen">curl -u username:password -X POST -d @new_facility.json
+  -H "Content-Type: application/json" http://&lt;server-url&gt;/api-fred/v1/facilities.json</pre>
+    <p>Update a facility:</p>
+    <pre class="screen">curl -u username:password -X POST -d @updated_facility.json
+  -H "Content-Type: application/json" http://&lt;server-url&gt;/api-fred/v1/facilities/&lt;id&gt;.json
+
+curl -u username:password -X POST -d @updated_facility.json
+  -H "Content-Type: application/json" http://&lt;server-url&gt;/api-fred/v1/facilities/&lt;uuid&gt;.json</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s52.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s54.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.52.&nbsp;Synchronization&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.54.&nbsp;Data store</td></tr></table></div></body></html>

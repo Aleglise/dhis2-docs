@@ -1,0 +1,76 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.12.&nbsp;File resources</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s11.html" title="1.11.&nbsp;CSV metadata import"><link rel="next" href="ch01s13.html" title="1.13.&nbsp;Data values"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.12.&nbsp;File resources</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s11.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s13.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="fileresource"></a>1.12.&nbsp;File resources</h2></div></div></div>
+    
+    <p><span class="italic">File resources</span> are objects used to represent and store
+      binary content. The <span class="italic">FileResource</span> object itself contains the
+      file meta-data (name, Content-Type, size, etc) as well as a key allowing retrieval of the
+      contents from a database-external file store. The <span class="italic">FileResource</span> object is stored in the database like any other but the content
+      (file) is stored elsewhere and is retrievable using the contained reference <span class="italic">(storageKey)</span>.</p>
+    <p>The contents of a file resources is not directly accessible but is referenced from other
+      objects (such as data values) to store binary content of virtually unlimited size.</p>
+    <p>Creation of the file resource itself is done through the <span class="italic">api/fileResources</span> endpoint as a multipart upload
+      POST-request:</p><pre class="screen">curl -X POST -v -F "file=@/Path/to/file;filename=name-of-file.png" https://server/api/fileResources</pre>
+    <p>The only form parameter required is the <span class="italic">file</span> which is
+      the file to upload. The filename and content-type should also be included in the request (this
+      is handled for you by any Web browser) but will be replaced by defaults when not
+      supplied.</p>
+    <p>On successfully creating a file resource the returned data will contain a <span class="italic">response</span> field which in turn contains the <span class="italic">fileResource</span> like
+      this:</p><pre class="screen">{
+"httpStatus": "Accepted",
+    "httpStatusCode": 202,
+    "status": "OK",
+    "response": {
+    "responseType": "FileResource",
+        "fileResource": {
+            "name": "name-of-file.png",
+            "created": "2015-10-16T16:34:20.654+0000",
+            "lastUpdated": "2015-10-16T16:34:20.667+0000",
+            "externalAccess": false,
+            "publicAccess": "--------",
+            "user": { ... },
+            "displayName": "name-of-file.png",
+            "contentType": "image/png",
+            "contentLength": 512571,
+            "contentMd5": "4e1fc1c3f999e5aa3228d531e4adde58",
+            "storageStatus": "PENDING",
+            "id": "xm4JwRwke0i"
+        }
+    }
+}</pre>
+    <p>Note that the response is a <span class="italic">202 Accepted</span>, indicating
+      that the returned resource has been submitted for background processing (persisting to the
+      external file store in this case). Also note the <span class="italic">storageStatus</span> field which indicates whether the contents have been stored or
+      not. At this point the persistance to the external store is not yet finished (it is likely
+      being uploaded to a cloud-based store somewhere) as seen by the <span class="italic">PENDING</span> status.</p>
+    <p>Even though the content has not been fully stored yet the file resource can now be used,
+      for example as referenced content in a data value (see <a class="xref" href="ch01s13.html#datavalue_file" title="1.13.6.1.&nbsp;Working with file data values">Section&nbsp;1.13.6.1, &#8220;Working with file data values&#8221;</a>). If
+      we need to check the updated <span class="italic">storageStatus</span> or otherwise
+      retrieve the meta-data of the file, the <span class="italic">fileResources</span>
+      endpoint can be
+      queried.</p><pre class="screen">curl -v https://server/api/fileResources/xm4JwRwke0i -H "Accept: application/json"</pre>
+    <p>This request will return the <span class="italic">FileResource</span> object as
+      seen in the response of the above example.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1298"></a>1.12.1.&nbsp;File resource constraints</h3></div></div></div>
+      
+      <p>
+        </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>File resources <span class="bold"><strong>must</strong></span> be referenced (assigned) from
+              another object in order to be persisted in the long term. A file resource which is
+              created but not referenced by another object such as a data value is considered to be
+              in <span class="italic">staging</span>. Any file resources which are in this
+              state and are older than <span class="bold"><strong>two hours</strong></span> will be marked for
+              deletion and will eventually be purged from the system. </p>
+          </li><li class="listitem">
+            <p>The ID returned by the initial creation of the file resource is not retrievable
+              from any other location unless the file resource has been referenced (in which the ID
+              will be stored as the reference), so losing it will require the POST request to be
+              repeated and a new object to be created. The <span class="italic">orphaned</span> file resource will be cleaned up automatically.</p>
+          </li><li class="listitem">
+            <p>File resource objects are <span class="italic">immutable</span>, meaning
+              modification is not allowed and requires creating a completely new resource
+              instead.</p>
+          </li></ul></div><p>
+      </p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s11.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s13.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.11.&nbsp;CSV metadata import&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.13.&nbsp;Data values</td></tr></table></div></body></html>

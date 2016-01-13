@@ -1,0 +1,369 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>24.3.&nbsp;J2ME GPRS/3G Client</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch24.html" title="Chapter&nbsp;24.&nbsp;Mobile"><link rel="prev" href="ch24s02.html" title="24.2.&nbsp;Mobile browser based data entry"><link rel="next" href="ch24s04.html" title="24.4.&nbsp;SMS Command"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">24.3.&nbsp;J2ME GPRS/3G Client</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch24s02.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;24.&nbsp;Mobile</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch24s04.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="mobile_j2me_gprs_3g"></a>24.3.&nbsp;J2ME GPRS/3G Client</h2></div></div></div>
+  
+  <p>The DHIS2 GPRS/3G mobile module provides a mechanism for remote clients using mobile phones to enter data directly into the DHIS2 system. There are two functions of the client, namely:</p>
+  <p>The solution relies on the mobile phone having a data connection available (i.e.
+    GPRS, Edge, 3G), over which it communicates with a DHIS2 instance which must be publicly
+    available on the internet, as any other web server. The client application on the phone downloads the data entry forms to the phone from the
+    server, and the forms can therefore be updated without installing a new application. This is also a crucial feature 
+    for community reporting, which relies on regularly downloading activity plans from the server.
+    </p>
+  <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+      <p>Facility reporting, for data entry and
+    reporting of regular DHIS2 aggregate data,</p>
+    </li><li class="listitem">
+      <p>Activity reporting, for supporting individual
+    activity reporting with the Community module.</p>
+    </li></ul></div>
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5010"></a>24.3.1.&nbsp;Data connection availability</h3></div></div></div>
+    
+    <p>Data connection availability can be a problem in many of the contexts where DHIS2 mobile
+      reporting would otherwise be a good solution for getting data directly into DHIS2. If that is
+      the case for you, you might want to consider trying the SMS based solution described in a
+      separate document. Keep in mind that even though a data connection is currently required for
+      communication between the server and the mobile phone, it is only required when initializing
+      or updating the mobile application and when sending reports to the server. The phone stores
+      all entered data locally, so it can work fine with only temporary access to a data connection
+      on a regular basis. </p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="mobile_j2me_gprs_3g_facility_reporting"></a>24.3.2.&nbsp;J2ME GPRS 3G facility reporting client</h3></div></div></div>
+    
+    <p>The server side component of the web based solution  is included in the general build of DHIS2.</p>
+    <p>In order to configure the DHIS2 web-based mobile reporting, you should follow the following steps. </p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>
+          Set the "Available for Mobile Reporting" flag for the data sets you want reported:
+          Under <span class="emphasis"><em>Maintenance-&gt;DataSet</em></span>-&gt;<span class="italic">Edit</span> mark the &#8220;Available for Mobile Reporting&#8221; check box and save.
+        </p>
+      </li><li class="listitem">
+        <p>Create a user role for the mobile user. Select <span class="italic">Maintenance-&gt;Users-&gt;User Role-&gt;Add new</span>.  Add a user role name and description. Add the desired data sets for the role. The mobile user role will need to have at least privileges for DHIS Web API. Save the user role by clicking "Save". </p>
+      </li><li class="listitem">
+        <p>Create a user which will be used by the client to login from <span class="italic">Maintenance-&gt;Users-&gt;User -&gt;Add new</span>. Fill in all of the required details, keeping in mind that the password must be at least 8 digits long, contain one capital letter,and one digit. Assign the desired user role to the user which was created in the previous step. </p>
+        <div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Important"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="resources/images/admon/important.png"></td><th align="left">Important</th></tr><tr><td align="left" valign="top">
+            <p>Assign the  user to exactly <span class="bold"><strong>one</strong></span> organisation unit. Each mobile reporting client will need their own user name and password.  </p>
+          </td></tr></table></div>
+      </li></ul></div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="mobile_j2me_gprs_3g_activity_reporting"></a>24.3.3.&nbsp;J2ME GPRS 3G program reporting client</h3></div></div></div>
+    
+    <p>Like facility reporting module, sever side of activity reporting included in DHIS2 war file.</p>
+    <p>Basically, server side setup for activity does not require any additional step. The mobile application use the same user name and password as  the web-based application. Make sure that the user is assigned to the correct organization unit.</p>
+    <p>In short, if a user is able to enter data for activity reporting in DHIS2 web-based application, he/she is able to download and enter data in mobile application.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5037"></a>24.3.4.&nbsp;Detailed configuration of data sets and reporting forms</h3></div></div></div>
+    
+    <p>Though the previous steps is all that should be needed for testing the solution more detail configuration of the datasets may be required and are described in the following sections. </p>
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5040"></a>24.3.4.1.&nbsp;The mapping of data sets to form layout on the phone</h4></div></div></div>
+      
+      <p>By default, a data set is mapped to a single form on the phone. If the data set is
+        divided into sections, each section is displayed as a separate page on the phone. If a data
+        element has more than one category option combo it will be displayed as a heading with the
+        category combination options following.</p>
+      <div class="table"><a name="d5e5043"></a><p class="title"><b>Table&nbsp;24.1.&nbsp;</b></p><div class="table-contents">
+        
+        <table summary="" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><tbody><tr><td>
+                <span class="bold"><strong>Form design element</strong></span>
+              </td><td>
+                <span class="bold"><strong>DHIS2 Metadata</strong></span>
+              </td><td>
+                <span class="bold"><strong>Metadata element</strong></span>
+              </td></tr><tr><td>Form title</td><td>Data set</td><td>Short Name if it exists, otherwise Name</td></tr><tr><td>Page tile</td><td>Section</td><td>Section name (or form name if no sections)</td></tr><tr><td>Question</td><td>Data element </td><td>Alternative name if it exists, otherwise Name</td></tr><tr><td>Question name if combos</td><td>Category option combo</td><td>name</td></tr></tbody></table>
+      </div></div><br class="table-break">
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5073"></a>24.3.4.2.&nbsp;Sorting of forms</h4></div></div></div>
+      
+      <p>By default, data elements will be sorted according to the global sorting assigned in DHIS2. If sections are used, their section specific sorting order  will be used.
+      In some cases, when sections are not used, a data element might be used in multiple data sets, and conflict in the way it should be sorted in individual data sets. A work around for this situation is to wrap the whole dataset in one section (note that this will only work if the data elements have the same category option combo)</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5076"></a>24.3.4.3.&nbsp;Versioning of data sets</h4></div></div></div>
+      
+      <p>To make it possible to compare and update the data sets on the mobile phone with the 
+        version on the server, data sets are automatically versioned when you edit the data set structure. Some changes which occur on the DHIS2 server, will cause the mobile client to update its forms with a new version. </p>
+      <div class="itemizedlist"><p class="title"><b>Changes that currently trigger a new data set version</b></p><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>Create DataSet</p>
+        </li><li class="listitem">
+          <p>Edit DataSet</p>
+        </li><li class="listitem">
+          <p>Create/edit/delete Section in DataSet</p>
+        </li><li class="listitem">
+          <p>Sort Section Order</p>
+        </li><li class="listitem">
+          <p>Update DataElement (affect many related DataSets)</p>
+        </li><li class="listitem">
+          <p>Delete DataElement (affect many related DataSets)</p>
+        </li><li class="listitem">
+          <p>Edit DataElement Category</p>
+        </li><li class="listitem">
+          <p>Edit DataElement Category Combo</p>
+        </li></ul></div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5097"></a>24.3.4.4.&nbsp;Language support</h4></div></div></div>
+      
+      <p>Multi-language support is available.</p>
+      <p>DataSet and DataElement are translated through web-based function. Default language on server is used on mobile in cases requested language from mobile is not available.</p>
+      <div align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/dhis_mobile/translateDataSet.jpg" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5103"></a>24.3.5.&nbsp;Mobile application setup</h3></div></div></div>
+    
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5105"></a>24.3.5.1.&nbsp;Installation and initialization</h4></div></div></div>
+      
+      <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e5107"></a>24.3.5.1.1.&nbsp;Installation</h5></div></div></div>
+        
+        <p>Download the jar packages from the DHIS 2 homepage: <a class="ulink" href="www.dhis2.org/downloads" target="_top">www.dhis2.org/downloads</a></p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e5111"></a>24.3.5.1.2.&nbsp;Initialization</h5></div></div></div>
+        
+        <p>Initialization should be performed before the phones are delivered end-users.  Given the large variation in possible phone configurations, it is impossible to describe the exact steps which are required in order to enable the client on the phone. However, for most phones, simply copying the DHIS Web Mobile client "JAR" file to the phone with a USB cable or via Bluetooth is sufficient. Of course, GPRS/3G connectivity must be enabled. Contact your mobile service provider for exact details on the configuration of the phones and networks. </p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="260"><tr><td align="center"><img src="resources/images/dhis_mobile/mobile_login_screen.png" align="middle" width="260"></td></tr></table></div>
+          </div><p>Once the client has been installed on the phone, an initialization process
+          must occur by providing a user name, password and server URL. </p>
+        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+            <p>Logging into the server for the first time.  </p>
+            <p>The first time the client logins to the server, or if the client is reinitialized, the username, password and server URL must be entered.</p>
+            <p>If the client is unable to login, there could be several possible error messages which you see. </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                  <p>Connection Not Found: The specified server URL is not correct. Check the server address, ensure that the server is actually reachable, and try again.</p>
+                </li><li class="listitem">
+                  <p>Invalid User Name Or Password: the username or password is incorrect</p>
+                </li><li class="listitem">
+                  <p>Application not authorized to access restricted APIs : The server can be
+                    contacted, but the user does not have the necessary permissions to access the
+                    mobile reporting module</p>
+                </li></ul></div><p> </p>
+          </li><li class="listitem">
+            <p>Setting the PIN number: After the initial login process, a PIN number can be entered by the user. This will make the login process much easier, as the user only has to remember the four digit pin number, as opposed to typing in the user name and password each time. The PIN number can be preset if the phone is initialized prior to delivery, or it can be set by the users themselves if they have been provided with usernames and passwords.</p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="260"><tr><td align="center"><img src="resources/images/dhis_mobile/mobile_enter_pin.png" align="middle" width="260"></td></tr></table></div>
+            </div>
+            <p>After entering the PIN, press (Menu)-&gt;Next. </p>
+          </li><li class="listitem">
+            <p>Download all forms: After the PIN has been specified, all forms will be downloaded from the server and stored locally on the phone..</p>
+            <p>If the user has been configured to report on aggregate datasets, a list of
+              appropriate datasets will be displayed. If the user is responsible for community based
+              reporting, the list of assigned activities is displayed.</p>
+            <p><span class="underline">Notes</span>: If the Health Worker is responsible for both Facility Reporting and Community Reporting, DHIS server will send all forms of both Facility Reporting and Community Reporting to mobile and on mobile, there will be a screen to choose whether displaying Facility Reporting or Community Reporting.</p>
+            <p><span class="underline">Errors</span>:</p>
+          </li></ol></div>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5146"></a>24.3.5.2.&nbsp;Logging in (for regular use)</h4></div></div></div>
+      
+      <p>After starting the application, the PIN form is displayed. </p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>PIN: Enter the four digit number PIN.</p>
+        </li><li class="listitem">
+          <p>Reinitialize Command: this function will clear all data on mobile and we start from the login screen with username and password.</p>
+        </li><li class="listitem">
+          <p>Errors: Invalid PIN: If the user has entered an invalid PIN, they will need to enter the correct PIN, or reinitialize the application with the correct username and password.</p>
+        </li></ul></div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5156"></a>24.3.5.3.&nbsp;Facility Reporting Module</h4></div></div></div>
+      
+      <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e5158"></a>24.3.5.3.1.&nbsp;Entering data</h5></div></div></div>
+        
+        <p>After selecting an aggregate dataset from the "Select report form" window, the user will need to select an appropriate time period. A list of available time periods is automatically generated. </p>
+        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+            <p>After the user has entered their PIN, they can select from a list of available datasets. Select the appropriate dataset and press "Next". </p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><img src="resources/images/dhis_mobile/select_report_form.png" align="middle"></div>
+            </div>
+          </li><li class="listitem">
+            <p>Choosing periods: A list of available periods will be automatically displayed to the user. They can select the appropriate period from the list. </p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><img src="resources/images/dhis_mobile/aggregate_select_periods.png" align="middle"></div>
+            </div>
+          </li><li class="listitem">
+            <p>Fill in values: After choosing the period, the form can be displayed in two modes, depending on the </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p>Form with sections </p>
+                <p>Each form section is displayed in a single screen with the name of the section in the title window.</p>
+                <p>To navigate from screen to screen, push "Next".</p>
+              </li><li class="listitem">
+                <p>Forms without section (Datasets without sections)</p>
+                <p>All fields are displayed on one screen with the title that is the name of DataSet</p>
+              </li></ul></div>
+            <p>The user simply fills in each data element with the appropriate value. </p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><img src="resources/images/dhis_mobile/aggregate_data_entry_form.png" align="middle"></div>
+            </div>
+          </li><li class="listitem">
+            <p>Save and Complete:</p>
+            <p>After finishing data entry, the user can choose to save the data locally on the phone or to upload the data directly to the DHIS2 server.</p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><img src="resources/images/dhis_mobile/aggregate_save_complete.png" align="middle"></div>
+            </div>
+            <p>If the user saves the data form, they can edit the form at a later point in time
+              if they need to. When selecting a period once again, the period will be marked as
+              "Saved' as seen in the next screen shot.</p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><img src="resources/images/dhis_mobile/aggregate_data_entry_form_saved.png" align="middle"></div>
+            </div>
+            <p>If the user selects "Complete", and the data entry form is not complete,
+              the user will be asked if they are certain they wish to submit the form as incomplete.
+              Once the form has been submitted, a message should be displayed informing the user
+              that the transmission was successful. </p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><img src="resources/images/dhis_mobile/aggregate_report_success.png" align="middle"></div>
+            </div>
+          </li></ol></div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e5206"></a>24.3.5.3.2.&nbsp;Notes</h5></div></div></div>
+        
+        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+            <p>Period list:</p>
+            <p>Periods marked with an asterisk (*)  is the period that is completed or saved, depending on the status of the data entry.</p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><img src="resources/images/dhis_mobile/aggregate_save_completed_periods.png" align="middle"></div>
+            </div>
+            <p> All periods that are not in period list are considered old  and will be deleted automatically.</p>
+          </li><li class="listitem">
+            <p>Storing values duration</p>
+            <p>The number of saved forms on mobile are limited only by the effective amount of
+              storage of the mobile device. </p>
+            <p>Forms are saved for limited period only, depending on the frequency of collection of the particular dataset. </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p>Daily Forms: 2 months (current and previous month)</p>
+              </li><li class="listitem">
+                <p>Weekly Forms: 4 weeks (current and 3 previous week)</p>
+              </li><li class="listitem">
+                <p>Monthly Forms: 2 months (current and previous month)</p>
+              </li><li class="listitem">
+                <p>Quarterly Forms: 2 quarters (current and previous quarter)</p>
+              </li><li class="listitem">
+                <p>Yearly Forms: 2 years (current and previous year)</p>
+              </li></ul></div>
+          </li><li class="listitem">
+            <p>Completed forms - Uneditable forms</p>
+            <p>If the form has been completed, the user can view the form on their phone, but they cannot make any subsequent edits to the form. Each field is greyed out and inactive for editing.</p>
+          </li><li class="listitem">
+            <p>Re-Edit completed forms</p>
+            <p> If the user wishes to edit data which has already been submitted to the server, they can do so by pressing the "Edit" button. They are allowed to do this assuming that the dataset has not been locked for the period in question. If they attempt to upload the data, the user will be informed that the dataset has been locked, and it is not possible to upload the data. </p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><img src="resources/images/dhis_mobile/dataset_locked_upload_failed.png" align="middle"></div>
+            </div>
+          </li><li class="listitem">
+            <p>Update Forms:</p>
+            <p>This function is used to synchronize the forms on mobile and on server. The process is automatically triggered after entering PIN number.</p>
+            <p>Note: Checking and downloading updated forms process run in background. After finished, prompt is displayed to ask user whether refresh form list or stay where they are.</p>
+          </li><li class="listitem">
+            <p>Multi-Language Support:</p>
+            <p>This function help user to choose language of mobile's GUI (graphical user interface) and content's language (Forms).</p>
+            <p>The forms must be translated on server, otherwise, default language is used.</p>
+            <p>Default language of first login is English. Change language in Setting menu will affect both interface and content.</p>
+            <div align="center"><img src="resources/images/dhis_mobile/settingCmd.jpg" align="middle"></div>
+            <div align="center"><img src="resources/images/dhis_mobile/settingScreen.jpg" align="middle"></div>
+            <div align="center"><img src="resources/images/dhis_mobile/supportedLanguageList.jpg" align="middle"></div>
+            <p>Multi-Language Interface: In Setting menu, there are list of  supported language (downloaded from server). Language of GUI is only changed after restart application.</p>
+            <p>Multi-Language Content (forms): Form's language is change after click "Save". In case there are many forms, it take several minutes to save setting.</p>
+          </li></ol></div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e5259"></a>24.3.5.3.3.&nbsp;Troubleshooting</h5></div></div></div>
+        
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>Data has been entered on the phone but does not appear on the server</p>
+            <p>This usually occurs when users enter data on the phone, but cannot send it to the server. This may be because of the configuration of the phone, lack of credit on the phone, or lack of coverage. Usually an error message is displayed as shown below. </p>
+            <div class="screenshot">
+              <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="146"><tr><td align="center"><img src="resources/images/dhis_mobile/http_error_mobile_client.png" align="middle" width="146"></td></tr></table></div>
+            </div>
+            <p>Users should be informed that if  they see this error, then it means that their data has not been transmitted.</p>
+          </li></ul></div>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5270"></a>24.3.5.4.&nbsp;Community Reporting</h4></div></div></div>
+      
+      <p>The community based reporting function works in a similar manner as the aggregate reporting function, but patient based data elements.</p>
+      <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e5273"></a>24.3.5.4.1.&nbsp;Regular Use</h5></div></div></div>
+        
+        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+            <p>Activity Main Menu</p>
+            <div align="center"><img src="resources/images/dhis_mobile/activity_main_menu.png" align="middle"></div>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                  <p>Current Activity Plan: Contain all new activities that need to be completed.</p>
+                </li><li class="listitem">
+                  <p>Sent Activity Plan: Contain all the activities that have been completed and sent to server. This list is for review only.</p>
+                </li></ul></div>
+          </li><li class="listitem">
+            <p>Choose Village or Location</p>
+            <div align="center"><img src="resources/images/dhis_mobile/choose_village.png" align="middle"></div>
+            <p>From Activity main menu, select &#8220;Current Activity Plan&#8221;. You will be navigated to &#8220;Grampanchayat Name&#8221; screen where you can select the village. Use the &#8220;Up&#8221; or &#8220;Down&#8221; button on your mobile phone to focus on a village. Use &#8220;Select&#8221; button to select a village.</p>
+          </li><li class="listitem">
+            <p>Choose Beneficiary</p>
+            <div align="center"><img src="resources/images/dhis_mobile/choose_beneficiary.png" align="middle"></div>
+            <p>In a village, beneficiary name will be display in a list. User can use the "Select" button to view the activities of  the selected name.</p>
+          </li><li class="listitem">
+            <p>Choose Activity</p>
+            <div align="center"><img src="resources/images/dhis_mobile/choose_activity.png" align="middle"></div>
+            <p>Each Activity is represented by the name of the Beneficiary.  Select the name of the beneficiary you want to view. Note that the name start with &#8220;*&#8221; means that this is a late Activity.</p>
+          </li><li class="listitem">
+            <p>Beneficiary Detail</p>
+            <div align="center"><img src="resources/images/dhis_mobile/beneficiary_detail_screen.png" align="middle"></div>
+            <p>Select the "Detail" command on the left of the activity screen , a Beneficiary Detail screen will be displayed.  The detail screen may contain personal information and some additional information of the Beneficiary (depends on the setting from server). Select &#8220;OK&#8221; to go back to activity screen.</p>
+          </li><li class="listitem">
+            <p>Fill in values (Entry screen)</p>
+            <div align="center"><img src="resources/images/dhis_mobile/fill_in_values.png" align="middle"></div>
+            <p>On the top of the screen is the name of the Program Stage. Below is the form, a form include many fields for user to input data. Focus on a field by press the &#8220;Up&#8221; or &#8220;Down&#8221; button on your mobile phone. After the field is focused, you can start entering data. Press the &#8220;Up&#8221; or &#8220;Down&#8221; button to go to the next field. At the bottom is the menu with "Save", "Complete" and "Back" command. </p>
+            <div align="center"><img src="resources/images/dhis_mobile/popup_window.png" align="middle"></div>
+            <p><span class="bold"><strong>*Notes:</strong></span></p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                  <p>For the field with Yes/No value: press the select button on a focused field to open the popup menu then you can select &#8220;Yes&#8221;, &#8220;No&#8221; or &#8220;Select Option&#8221;. Select &#8220;Select Option&#8221; means that you have no data for that field.</p>
+                </li><li class="listitem">
+                  <p>For the field with pre-suggested values: press the select button to open the popup menu then you can choose one of the options. Select &#8220;Select Option&#8221; means that you have no data for that field..</p>
+                </li><li class="listitem">
+                  <p>For date-type value: </p>
+                  <p>- If server Date is available,  application will take server Date as default value.</p>
+                  <p>- If  server Date is not available, date filed will be leave blank for user to input manually.</p>
+                </li></ul></div>
+          </li><li class="listitem">
+            <p>Saving/Completing.</p>
+            <p>After finish step [4], you can choose either &#8220;Save&#8221; or &#8220;Complete&#8221; to finish your work.</p><div class="itemizedlist"><div align="center"><img src="resources/images/dhis_mobile/save_command.png" align="middle"></div><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                  <p><span class="bold"><strong>Save</strong></span>: you may want to use this option if you have not finished your work yet and you want to store the data to continue later.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+                        <p>Select &#8220;Menu&#8221; or &#8220;Option&#8221; at the bottom of your screen (The name &#8220;Menu&#8221; or &#8220;Option&#8221; depend on your mobile phone) and then select &#8220;Save&#8221;. A success message (&#8220;Form Saved&#8221;) will be display. Select &#8220;Done&#8221; or &#8220;Dismiss&#8221; to go back to Entry Screen.</p>
+                      </li><li class="listitem">
+                        <p>Your data will not be sent to server. It is stored in the Record Store of your mobile phone. To see the data again. Go back to step [2] and select the name of the Beneficiary that you have just entered data. Repeat step [3] and [4]. If you feel that you are ready to send data to server. Select &#8220;Complete&#8221;.</p>
+                      </li></ul></div>
+                  <div align="center"><img src="resources/images/dhis_mobile/complete_command.png" align="middle"></div>
+                </li><li class="listitem">
+                  <p><span class="bold"><strong>Complete</strong></span>: you may use this option when you fill the entire field on the form and make sure that your data is correct.
+      </p>
+                  <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+                        <p>Select &#8220;Menu&#8221; or &#8220;Option&#8221; at the bottom of your screen (The name &#8220;Menu&#8221; or &#8220;Option&#8221; depend on your mobile phone) and then select &#8220;Complete&#8221;. </p>
+                      </li><li class="listitem">
+                        <p>If you did not fill all the field in the form, a warning message will be display &#8220;x fields is not filled. Do you want to complete anyway?&#8221; With x is the number of empty field(s). Select &#8220;Yes&#8221; if you want to send data to server, select &#8220;No&#8221;, if you do not want to send and go back to Entry screen again. </p>
+                      </li><li class="listitem">
+                        <p>After select &#8220;Yes&#8221;, a security message will appear and inform that the application will connect to server. Select &#8220;Yes&#8221; to give the permission for the application to do so.</p>
+                        <div align="center"><img src="resources/images/dhis_mobile/security_message.png" align="middle"></div>
+                      </li><li class="listitem">
+                        <p>User will receive a success message: &#8220;Activity uploaded successfully&#8221;.</p>
+                        <div align="center"><img src="resources/images/dhis_mobile/success_message.png" align="middle"></div>
+                      </li><li class="listitem">
+                        <p>A finished activity (activity that is completed and data is send to server) will be move to "Completed Activity" and it will be display as "Uneditable Form". User can go to "Completed Activity" at "Activity Main Menu" to review.</p>
+                      </li></ul></div>
+                </li></ul></div>
+          </li><li class="listitem">
+            <p>Sent Activities</p>
+            <div align="center"><img src="resources/images/dhis_mobile/sent_activities.png" align="middle"></div>
+            <p>From "Activity Main Menu" screen, select "Sent Activities" to go to the list of all activities you sent to server. The structure of this screen is exactly the same as "Activity Plan List". Select "Detail" to see the detail of the activity of select "Select" to go to the "Uneditable Screen".</p>
+            <div align="center"><img src="resources/images/dhis_mobile/unediatble_form.png" align="middle"></div>
+            <p>In this screen, user can only review the form they sent to server. No edit or change is allowed. Select "Back" to go back to "Sent Activities" screen.</p>
+          </li></ol></div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e5367"></a>24.3.5.4.2.&nbsp;Updating Activity Plan and Program Form</h5></div></div></div>
+        
+        <p>After some days, weeks or months, new Activities may automatically generated from server, some Program Stage Data Element may be removed  from original form. In order to update these new changes, we have a "Automatic Update Activity Plan and Program" function.</p>
+        <div align="center"><img src="resources/images/dhis_mobile/activity_plan_blocked.png" align="middle"></div>
+        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+            <p>This function is completely automatic. After user start the application and enter PIN, a requested to be sent to server to update new data.</p>
+          </li><li class="listitem">
+            <p>While this function perform, the "Current Activity Plan" is temporarily blocked and it will be open again as soon as the updating process complete.</p>
+          </li><li class="listitem">
+            <p>This function update both "Activity Plan" and "Program Form".</p>
+            <p>&#8220;Update Completed&#8221; message will appear on the screen after the update process finish. Select &#8221;Dismiss&#8221; to close this window and go back to Activity Main Menu. Your Current Activity Plan is now updated.</p>
+          </li><li class="listitem">
+            <p>When a data element removed due to the changing of form structure, all data value that related to that data element will be hiding also. You are no longer seeing the value in the form. </p>
+          </li></ol></div>
+      </div>
+    </div>
+  </div>
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch24s02.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch24.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch24s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">24.2.&nbsp;Mobile browser based data entry&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;24.4.&nbsp;SMS Command</td></tr></table></div></body></html>

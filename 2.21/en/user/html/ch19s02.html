@@ -1,0 +1,142 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>19.2.&nbsp;How to create report tables</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch19.html" title="Chapter&nbsp;19.&nbsp;Setting up report functionality"><link rel="prev" href="ch19.html" title="Chapter&nbsp;19.&nbsp;Setting up report functionality"><link rel="next" href="ch19s03.html" title="19.3.&nbsp;Report table outcome"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">19.2.&nbsp;How to create report tables</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch19.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;19.&nbsp;Setting up report functionality</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch19s03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2807"></a>19.2.&nbsp;How to create report tables</h2></div></div></div>
+    
+    <p>To create a new report table, go to the Report tables section of the Reports module (Reports -&gt; Report Table). Above the list of standard reports, use the "Add report table" or "Add Dataelement Dimension Table" buttons. A regular report table can be used to hold data on data elements, indicators or dataset completeness, while Dataelement  dimension tables are used to include data element categories in report tables. Creating the tables are done in the same way, however, the only exception being when choosing data.</p>
+    <p>To create a report table, you start by making some general choices for the table, the most important of which is the crosstab dimension. Then, you choose which data elements, indicators,  datasets or data element dimensions you want to include. Finally you select which organisation units and time periods to use in the report table. Each of these steps are described in detail below.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2811"></a>19.2.1.&nbsp;General options</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/dhis2_creating_reporting/general_options.jpg" width="100%"></td></tr></table></div>
+      </div>
+      <p><span class="bold"><strong>Cross tab dimensions</strong></span></p>
+      <p>You can cross-tab one or more of the following dimensions: data element/indicator, orgunit, and period, which means that columns will be created based on the values of the dimensions chosen, e.g. if indicators is selected you will get column names in the table reflecting the names of the selected indicators. </p>
+      <p>
+For example, if you cross-tab on indicators and periods, the column headers will say "&lt;indicator title&gt; &lt;period&gt;". The organisation units will be listed as rows. See screenshot for clarification:
+</p>
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="50%"><tr><td><img src="resources/images/dhis2_creating_reporting/crosstab_ind-per.jpg" width="100%"></td></tr></table></div>
+      </div>
+      <p>
+If you cross-tab on indicators and organisation units, the column headers of the table will say "&lt;indicator title&gt; &lt;organisation unit&gt;". Now the periods will be listed as rows. See screenshot for clarification:
+</p>
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="50%"><tr><td><img src="resources/images/dhis2_creating_reporting/crosstab_ind-org.jpg" width="100%"></td></tr></table></div>
+      </div>
+      <p>Note that the options made here regarding crosstab dimensions may have consequences for what options are available when using the report table as a data source later, for example for standard reports.</p>
+      <p><span class="bold"><strong>Sort order</strong></span></p>
+      <p>Affects the rightmost column in the table, allows you to choose to sort it low to high or high to low.</p>
+      <p><span class="bold"><strong>Top limit</strong></span></p>
+      <p>Top limit allow you to set a maximum number of rows you want to include in the report table.</p>
+      <p><span class="bold"><strong>Include regression</strong></span></p>
+      <p>This adds additional columns with regression values that can be included in the report design, e.g. in line charts.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2843"></a>19.2.2.&nbsp;Selecting data</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/dhis2_creating_reporting/select_data.jpg" width="100%"></td></tr></table></div>
+      </div>
+      <p><span class="bold"><strong>Indicators/Data elements</strong></span></p>
+      <p>Here you select the data elements/indicators that you want to include in the report. Use the group filter to more easily find what you are looking for and double click on the items you want to include, or use the buttons to add/remove elements. You can have both data elements and indicators in the same report.</p>
+      <p><span class="bold"><strong>Data sets</strong></span></p>
+      <p>Here you select the data sets  that you want to include in the report. Including a data set will give you data on the data completeness of the given set, not data on its data elements. Double click on the items you want to include, or use the buttons. </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2856"></a>19.2.3.&nbsp;Selecting report parameters</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/dhis2_creating_reporting/relative_options.jpg" width="100%"></td></tr></table></div>
+      </div>
+      <p>There are two ways to select both what organisation units to include in a report, and what time periods should be included: relative, or fixed. Fixed organisation units and/or periods means that you select the units/periods to include in the report table when you create the report table. Using relative periods, you can select the time and/or units as parameters when the report table is populated, for example when running a standard report or creating a chart. A combination is also possible, for example to add some organisation units in the report permanently while letting the users choose additional. Report parameters is discussed below. In general, using fixed organisation units and/or time periods are an unnecessary restriction.</p>
+      <p><span class="bold"><strong>Fixed Organisation Units</strong></span></p>
+      <p>To add fixed organisation units, click "Toggle fixed organisation units". A panel will appear where  you can choose orgunits to always include in the report. If you leave it blank,  the users select orgunits when running the report through the use of  report parameters. Use the drop down menu to filter organisation units by level, double click or use the buttons to add/remove.</p>
+      <p><span class="bold"><strong>Fixed Periods</strong></span></p>
+      <p>To add fixed periods, click "Toggle fixed organisation units". A panel will appear where  you can choose periods to always include in the report. If you leave it blank,  the users select periods when running the report through the use of  report parameters. Use the drop down menu to choose period type (week, month, etc), the Prev and Next button to choose year,  and double click or use the buttons to add/remove.</p>
+      <p><span class="bold"><strong>Relative periods</strong></span></p>
+      <p>Instead of using fixed/static periods like 'Jan-2010' or 'Q1-2010', more generic periods can be used to create reusable report tables, e.g. for monthly reports the period 'Reporting month' will simply pick the current reporting month selected by the user when running the report. Note that all relative periods are relative to a "reporting month". The reporting month is  either selected by the users, otherwise the current month is used. Here is a description of the possible relative periods:
+
+</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p><span class="italic">Reporting month:</span></p>
+          <p>Use this for monthly reports. The month selected in the reporting month parameter will be used in the report.
+</p>
+        </li><li class="listitem">
+          <p><span class="italic">Months/Quarters this year</span>: </p>
+          <p>This will provide one value per month or quarter in the year. This is well suited for standard monthly or quarterly reports where all month/quarters need to be listed. Periods that still have no data will be empty, but will always keep the same column name.
+</p>
+        </li><li class="listitem">
+          <p><span class="italic">This year:</span> </p>
+          <p>This is the cumulative so far in the year, aggregating the periods from the beginning of the year up to and including the selected reporting month.
+</p>
+        </li><li class="listitem">
+          <p><span class="italic">Months/Quarters last year</span>: </p>
+          <p>This will provide one value per month or quarter last year, relative to the reporting month. This is well suited for standard monthly or quarterly reports where all month/quarters need to be listed. Periods that still have no data will be empty, but will always keep the same column name.
+</p>
+        </li><li class="listitem">
+          <p><span class="italic">Last year:</span> </p>
+          <p>This is the cumulative last year, relative to the reporting month, aggregating all the periods from last year.
+</p>
+        </li></ul></div>
+      <p><span class="bold"><strong>Example - relative periods</strong></span></p>
+      <p>Let's say we have chosen three indicators: A, B and C, and we have also chosen to use the relative periods 'Reporting month' and 'This year' when we created the report table. If the reporting month (selected automatically or by the user) is for example May 2010, the report table will calculate the values for the three selected indicators for May 2010 (= the 'Reporting month') and the accumulated values for the three selected indicators so far in 2010 (= so far 'This year').</p>
+      <p>Thus, we will end up with six values for each of the organisation units: "Indicator A May 2010", "Indicator B May 2010" "Indicator C May 2010", "Indicator A so far in 2010", "Indicator B so far in 2010" and "Indicator C so far in 2010".</p>
+      <p><span class="bold"><strong>Report parameters</strong></span></p>
+      <p>Report parameters make the reports more generic and reusable over time and for different organisation units. These parameters will pop up when generating the report table or running a report based on the report table. The users will select what they want to see in the report. There are four possible report parameters, and you can select none, all, or any combination.</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p><span class="italic">Reporting month:</span> </p>
+          <p>This decides which month will be used when the system is choosing the relative periods. If the box it not checked, the user will not be asked for the reporting month when the report is generated - the current month will then be used.
+</p>
+        </li><li class="listitem">
+          <p><span class="italic">Grand parent organisation unit:</span> </p>
+          <p>Select the grand parent of all the orgunit children and grand children you want listed in the report. E.g. a selected region will trigger the use of the region itself, all its district, and all their sub-districts.
+</p>
+        </li><li class="listitem">
+          <p><span class="italic">Parent organisation unit:</span> </p>
+          <p>Select the parent of all the orgunit children you want listed in the report. E.g. a selected district will trigger the use of the district itself and all its children/sub-districts.
+</p>
+        </li><li class="listitem">
+          <p><span class="italic">Organisation unit:</span> </p>
+          <p>This triggers the use of this orgunit in the report. No children are listed.
+</p>
+        </li></ul></div>
+      <p><span class="bold"><strong>Example - report parameters</strong></span></p>
+      <p>Continuing with the example on relative periods just above, let's say that in addition to 'Reporting month', we have chosen  'Parent organisation unit' as a report parameter when we created the report table. When we're running the report table, we will be asked to select an organisation unit. Now, let's say we choose "Region R" as the organisation unit. "Region R" has the children "District X" and "District Y".</p>
+      <p>When the report is run, the system will aggregate data for both "District X" and "District Y". The data will be aggregated from the lowest level where they have been collected. The values for the districts will be aggregated further to give an aggregated value for "Region R".</p>
+      <p>Thus, the report table will generate the six values presented in the previous example, for "District X", "District Y" and "Region R".</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2923"></a>19.2.4.&nbsp;Data element dimension tables</h3></div></div></div>
+      
+      <p>These tables enable the use of data element categories in report tables. There are two differences from regular report tables. The first is that it is not possible to select crosstab dimensions, as the columns will always be the disaggregations from the category combinations. The other is the actual choice of data. Only one category combination can be added per report, and only data elements from the same category combo can be selected. </p>
+      <p>Subtotals and the total will also be included in the table, e.g. a gender (male, female) + EPI age(&lt;1, &gt;1) category combo would give the following columns:
+male+&lt;1, male+&gt;1, Female+&lt;1, female+&gt;1, male, female,&lt;1, &gt;1, total.
+
+</p>
+      <p><span class="bold"><strong>Selecting data</strong></span></p>
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/dhis2_creating_reporting/catcombo.jpg" width="100%"></td></tr></table></div>
+      </div>
+      <p>Use the drop down menu to choose category combinations. The data elements using this category combination will be listed. Double click to add to the report, or use the buttons.
+</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2935"></a>19.2.5.&nbsp;Report table - best practices</h3></div></div></div>
+      
+      <p>To make the report tables reusable over time and across orgunits they can have  parameters. Four types of parameters are allowed; orgunit, parent orgunit (for listing of orgunits in one area), grand parent orgunit and reporting month. As a side note it can be mentioned that we are looking into expanding this to include reporting quarter and year, or to make that period parameter more generic with regard to period type somehow. The ability to use period as a parameter makes the report table reusable over time and as such fits nicely with report needs such as monthly, quarterly or annual reports. When a report is run by the user in DHIS 2, the user must specify the values for the report tables that are linked to the report. First the report table is re-generated (deleted and re-created with updated data), and then the report is run (in the background, in Jasper report engine).
+
+</p>
+      <p>Report tables can consist of  values related to data elements, indicators or data completeness, which is related to completeness of reporting across orgunits for a given month. Completeness reports will be covered in a separate section.</p>
+      <p>There are three dimensions in a report table that identify the data; indicators or data elements, orgunits and periods. For each of these dimensions the user can select which metadata values to include in the report. The user must select one or more data elements or indicators to appear in the report. The orgunit selection can be substituted with a parameter, either one specific orgunit or an orgunit parent (making itself and all its children appear in the report). If one or more orgunits are selected and no orgunit parameter is used, then the report is static with regard to which orgunits to include, which in most cases is an unnecessary restriction to a report.</p>
+      <p><span class="bold"><strong>Using relative periods</strong></span></p>
+      <p>The period selection is more advanced as it can in addition to specific periods like Jan-09, Q1-08, 2007 also contain what is called relative periods. As report usually is run routinely over time a specific period like Jan-09 is not very useful in a report. Instead, if you want to design a monthly report, you should use the relative period called Reporting Month. Then you must also include Reporting Month as one of your report parameters to let the system know what exactly is the Reporting Month on the time of report generation. There are many other relative periods available, and they all relate to the report parameter Reporting Month. E.g. the relative period called So far this year refers to the accumulative value for the year incl. the Reporting Month. If you want a trend report with multiple periods in stead of one aggregated period, you can select e.g. 'Months this year', which would give you values for each month so far in the year. You can do a similar report with quarters. The idea is to support as many generic report types as possible using relative periods, so if you have other report needs, please suggest new relative periods on the mailing list, and they might be added to the report table options.</p>
+      <p><span class="bold"><strong>Cross-tabbing dimensions</strong></span></p>
+      <p>Cross tabbing is a very powerful functionality in report design, as the typical DHIS 2 data table with references to period, data element/indicator and orgunit makes more advanced report design very difficult, as you cannot put e.g. specific indicators, periods or orgunits on specific columns. E.g. by cross-tabbing on the indicator dimension in an indicator report table you will get the indicator names on the column headers in your report, in addition to a column referencing orgunit, and another column referencing period. With such a table design you could drag and drop indicator names to specific columns or chart positions in the iReport software. Similarly you can cross tab on orgunits or periods to make their names specifically available to report design. E.g. by cross-tabbing on periods and selecting the two relative periods 'Reporting month' and 'This year', you can design reports with both the last month and the accumulative annual value for given month as they will be available as column headers in your report table. It is also possible to combine two dimensions in cross-tabbing, e.g. period and indicator, which makes it possible to e.g. look at three selected indicators for two specific relative periods. This would e.g. make it possible to make a table or chart based report with BCG, DPT3 and Measles coverage, both for the last month and the accumulative coverage so far in the year. 
+
+</p>
+      <p>All in all, by combining the functionality of cross tabbing, relative periods and report table parameters you should have a tool to support most report scenarios. If not, we would be very happy to receive suggestions to further improvements to report tables. As already mentioned, we have started to look at more fine-grained parameters for the period dimension as the 'Reporting month' does not cover enough, or at least is not intuitive enough, when it comes to e.g. quarterly reports.
+</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch19.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch19.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch19s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;19.&nbsp;Setting up report functionality&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;19.3.&nbsp;Report table outcome</td></tr></table></div></body></html>

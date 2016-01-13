@@ -1,0 +1,37 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>5.5.&nbsp;Categories</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch05.html" title="Chapter&nbsp;5.&nbsp;Data elements"><link rel="prev" href="ch05s04.html" title="5.4.&nbsp;Data element group sets"><link rel="next" href="ch05s06.html" title="5.6.&nbsp;Category combinations"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.5.&nbsp;Categories</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s04.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;5.&nbsp;Data elements</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05s06.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dataElementCategory"></a>5.5.&nbsp;Categories</h2></div></div></div>
+    
+    <p>Categories can be used to disaggregate data elements into individual atomic components. They can also be used to assign attributes to all data recorded in a specific dataset, such as "Implementing partner" and "Funding agency." </p>
+    <p> Data element categories are typically a concept, such as Gender, Age or  Disease Status. Data elements such as "Number of cases of confirmed malaria" are often broken into smaller component parts to determine, for instance, the number of confirmed malaria cases of particular age groups. As an example, three data element categories: Under 1, 1-5 and Over 5 could be created. They could be assigned as categories to the data element, which would then create in the data entry screens, three separate fields for this data element namely: </p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>Number of confirmed malaria cases (Under 1)</p>
+      </li><li class="listitem">
+        <p>Number of confirmed malaria cases (1-5)</p>
+      </li><li class="listitem">
+        <p>Number of confirmed malaria cases (Over 5)</p>
+      </li></ul></div>
+    <p>Effective use of data element categories greatly simplifies the process of setting up the DHIS2 system, as the data element categories can be reused to disaggregate many different data elements. Otherwise, each of the data elements listed above, would need to be created separately. Judicious use of data element categories will greatly simplify the DHIS2 implementation, and allow for subsequent advanced analysis. </p>
+    <p>Where possible, category options should be recycled. For instance, there might be two categories which might share a particular category option (e.g. &lt;1 year of age). When creating the  categories, this category option could be reused. This is important if particular category options (or category option combinations) need to be analyzed together. </p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p> All possible category options should be defined.</p>
+      </li><li class="listitem">
+        <p>Categories should be composed of multiple category options created in Step 1. </p>
+      </li><li class="listitem">
+        <p>Category combinations should be composed of either one, or multiple categories.</p>
+      </li><li class="listitem">
+        <p>Data elements should be created and assigned a particular category combination. </p>
+      </li></ol></div>
+    <p>A  category option consists of a name, along with an optional code, and a concept. </p>
+    <p>Categories can be added by accessing the "Data Element Category Option" dialog. (Maintenance -&gt; Data Elements and Indicators-&gt;Data Element Category Options" as seen below. The category option must consist of a name, an optional code, and a concept. </p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="50%"><tr><td align="center"><img src="resources/images/maintainence/data_element_category_options.PNG" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p>Once all category options have been defined for a particular category, the category can be defined with the "Data Element Category" dialog.(Maintenance -&gt; Data Elements and Indicators-&gt;Data Element Category). Enter the name of the data element category and press "Save". Once you have defined the name of the category, you can assign category options to it by selecting the category which you have just defined, clicking its name, and then selecting "Edit" from the context menu as seen below. </p>
+    <div class="screenshot">
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/maintainence/data_element_categories_add_new.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>Type the name of the new data element category in the "Name" field in the "Details" region and assign a concept to the category.  Category options can be added by moving category options from the left-side pane (Available category options) into the right-side pane(Selected category options). Category options can be reordered using the "Move Up"<img src="resources/images/dhis2_images/move_up.png" align="middle"> and "Move Down"<img src="resources/images/dhis2_images/move_down.png" align="middle"> buttons. . Once all data element categories options have been added to the data element category, press the <span class="guibutton">"Add"</span> button to save all changes or the <span class="guibutton">"Cancel"</span>  button to discard any changes.</p>
+    <p>A  category can have two types "Disaggregation" or "Attribute". For disaggregation of data elements, you should select "Disaggregation".  A dimension type of "Attribute" will allow the category to be used to assign a combination of categories to data recorded through a dataset.</p>
+    <p>If the "Use as data dimension" box is ticked, the category will be available to the analytics as another dimension, in addition to the standard dimensions of "Period" and "Organisation unit". </p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s04.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch05.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.4.&nbsp;Data element group sets&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;5.6.&nbsp;Category combinations</td></tr></table></div></body></html>

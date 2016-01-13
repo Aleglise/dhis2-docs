@@ -1,0 +1,73 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.25.&nbsp;SQL views</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s24.html" title="1.24.&nbsp;Plugins"><link rel="next" href="ch01s26.html" title="1.26.&nbsp;Dashboard"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.25.&nbsp;SQL views</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s24.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s26.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e3201"></a>1.25.&nbsp;SQL views</h2></div></div></div>
+    
+    <p>SQL views are useful for creating data views which may be more easily constructed with SQL
+      compared combining the multiple objects of the Web API. As an example, lets assume we have
+      been asked to provide a view of all organization units with their names, parent names,
+      organization unit level and name, and the coordinates listed in the database. The view might
+      look something like this: </p>
+    <pre class="screen">SELECT ou.name as orgunit, par.name as parent, ou.coordinates, ous.level, oul.name from organisationunit ou
+INNER JOIN _orgunitstructure ous ON ou.organisationunitid = ous.organisationunitid
+INNER JOIN organisationunit par ON ou.parentid = par.organisationunitid
+INNER JOIN orgunitlevel oul ON ous.level = oul.level
+WHERE ou.coordinates is not null
+ORDER BY oul.level, par.name, ou.name</pre>
+    <p>We will use <span class="italic">curl</span> to first execute the view on the DHIS
+      2 server. This is essentially a materialization process, and ensures that we have the most
+      recent data available through the SQL view when it is retrieved from the server. You can first
+      look up the SQL view from the api/sqlViews resource, then POST using the following
+      command:</p>
+    <pre class="screen">curl "https://play.dhis2.org/demo/api/sqlViews/dI68mLkP1wN/execute" -X POST -u admin:district -v</pre>
+    <p>The next step in the process is the retrieval of the data.The basic structure of the URL
+      is as follows</p>
+    <pre class="screen">http://{server}/api/sqlViews/{id}/data(.csv)</pre>
+    <p>The <em class="parameter"><code>{server}</code></em> parameter should be replaced with your own server. The
+      next part of the URL <em class="parameter"><code>/api/sqlViews/</code></em> should be appended with the
+      specific SQL view identifier. Append either <em class="parameter"><code>data</code></em> for XML data or
+        <em class="parameter"><code>data.csv</code></em> for comma delimited values. Support response formats are
+      json, xml, csv, xls, html and html+css. As an example, the following command would retrieve
+      XML data for the SQL view defined
+      above.</p><pre class="screen">curl "https://play.dhis2.org/demo/api/sqlViews/dI68mLkP1wN/data.csv" -u admin:district -v</pre>
+    <p>There are three types of SQL views:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p><span class="italic">SQL view:</span> Standard SQL views.</p>
+        </li><li class="listitem">
+          <p><span class="italic">Materialized SQL view:</span> SQL views which are
+            materialized, meaning written to disk. Needs to be updated to reflect changes in
+            underlying tables. Supports criteria to filter result set.</p>
+        </li><li class="listitem">
+          <p><span class="italic">SQL queries:</span> Plain SQL queries. Support inline
+            variables for customized queries.</p>
+        </li></ul></div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3227"></a>1.25.1.&nbsp;Criteria</h3></div></div></div>
+      
+      <p>You can do simple filtering on the columns in the result set by appending <span class="italic">criteria</span> query parameters to the URL, using the column names and
+        filter values separated by columns as parameter values, on the following format:</p>
+      <pre class="screen">/api/sqlViews/{id}/data?criteria=col1:value1&amp;criteria=col2:value2</pre>
+      <p>As an example, to filter the SQL view result set above to only return organisation units
+        at level 4 you can use the following URL:</p>
+      <pre class="screen">https://play.dhis2.org/demo/api/sqlViews/dI68mLkP1wN/data.csv?criteria=level:4</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e3234"></a>1.25.2.&nbsp;Variables</h3></div></div></div>
+      
+      <p>SQL views support variable subsitution. Variable subsitition is only available for SQL
+        view of type <span class="italic">query</span>, meaning SQL views which are not
+        created in the database but simply executed as regular SQL queries. Variables can be
+        inserted directly into the SQL query and must be on this
+        format:</p><pre class="screen">${variable-key}</pre>
+      <p>As an example, an SQL query that retrieves all data elements of a given value type where
+        the value type is defined through a variable can look like
+        this:</p><pre class="screen">select * from dataelement where valuetype = '${valueType}';</pre>
+      <p>These variables can then be supplied as part of the URL when requested through the
+          <span class="italic">sqlViews</span> Web API resource. Variables can be supplied on
+        the following
+        format:</p><pre class="screen">/api/sqlViews/{id}/data?var=key1:value1&amp;var=key2:value2</pre>
+      <p>An example query corresponding to the example above can look like
+        this:</p><pre class="screen">/api/sqlViews/dI68mLkP1wN/data.json?var=valueType:int</pre>
+      <p>The <span class="italic">valueType</span> variable will be subsituted with the
+          <span class="italic">int</span> value, and the query will return data elements with
+        int value type.</p>
+      <p>The variable parameter must contain alphanumeric characters only. The variables must
+        contain alphanumeric, dash, underscore and whitespace characters only.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s24.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s26.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.24.&nbsp;Plugins&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.26.&nbsp;Dashboard</td></tr></table></div></body></html>

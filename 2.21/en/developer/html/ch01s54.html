@@ -1,0 +1,100 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.54.&nbsp;Data store</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s53.html" title="1.53.&nbsp;FRED API"><link rel="next" href="ch01s55.html" title="1.55.&nbsp;Metadata repository"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.54.&nbsp;Data store</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s53.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s55.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5252"></a>1.54.&nbsp;Data store</h2></div></div></div>
+    
+    <p>Using the <span class="emphasis"><em>dataStore</em></span> resource, developers can store arbitrary data for
+      their apps in a key-value structure. Access to a datastore is limited to the user's access to
+      the corresponding app. For example a user with access to the "sampleApp" application will also
+      be able to use the sampleApp namespace in the datastore.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5256"></a>1.54.1.&nbsp;Get keys and namespaces</h3></div></div></div>
+      
+        <p>For a list of all existing namespaces:</p><pre class="screen">GET /api/dataStore</pre>
+        <p>Example curl request for
+          listing:</p><pre class="screen">curl "play.dhis2.org/demo/api/dataStore" -X GET -u admin:district -v</pre>
+        <p>Example response:</p>
+        <p>
+          </p><pre class="screen">[
+    "foo",
+    "bar"
+]</pre><p>
+        </p>
+        <p>For a list of all keys in a
+          namespace:</p><pre class="screen">GET /api/dataStore/&lt;namespace&gt;</pre>
+        <p>Example curl request for
+          listing:</p><pre class="screen">curl "play.dhis2.org/demo/api/dataStore/foo" -X GET -u admin:district -v</pre>
+        <p>Example response:</p>
+        <pre class="screen">[
+    "key_1",
+    "key_2"
+]</pre>
+      <p>To retrieve a value for an existing key from a
+        namespace:</p><pre class="screen">GET /api/dataStore/&lt;namespace&gt;/&lt;key&gt;</pre>
+      <p>Example curl request for
+        retrieval:</p><pre class="screen">curl "play.dhis2.org/demo/api/dataStore/foo/key_1" -X GET -u admin:district -v</pre>
+      <p>Example response:</p>
+      <pre class="screen">{
+    "foo":"bar"
+}</pre>
+      <p>To retrieve meta-data for en existing key from a namespace:
+        </p><pre class="screen">GET /api/dataStore/</pre>
+      <p>Example curl request for
+        retrieval:</p><pre class="screen">curl "play.dhis2.org/demo/api/dataStore/foo/key_1/metaData" -X GET -u admin:district -v</pre>
+      <p>Example
+        response:</p><pre class="screen">{  
+    "created": "...",
+    "user": {...},
+    "namespace": "foo",
+    "key": "key_1"
+}</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5283"></a>1.54.2.&nbsp;Create and update values</h3></div></div></div>
+      
+      <p>To create a new key and value for a
+        namespace:</p><pre class="screen">POST /api/dataStore/&lt;namespace&gt;/&lt;key&gt;</pre>
+      <p>Example curl request for create, assuming a valid json
+        payload:</p><pre class="screen">curl "play.dhis2.org/demo/api/dataStore/foo/key_1" -X POST -d "{\"foo\":\"bar\"}" -u admin:district -v</pre>
+      <p>Example
+        response:</p><pre class="screen">{
+    "httpStatus": "OK",
+    "httpStatusCode": 201,
+    "status": "OK",
+    "message": "Key 'key_1' created."
+  }</pre>
+      <p>To update a key that exists in a
+        namespace:</p><pre class="screen">PUT /api/dataStore/&lt;namespace&gt;/&lt;key&gt;</pre>
+      <p>Example curl request for update, assuming valid JSON
+        payload:</p><pre class="screen">curl "play.dhis2.org/demo/api/dataStore/foo/key_1" -X PUT -d "[1, 2, 3]" -H "Content-Type: application/json" -u admin:district -v</pre>
+      <p>Example
+        response:</p><pre class="screen">{
+    "httpStatus": "OK",
+    "httpStatusCode": 200,
+    "status": "OK",
+    "message": "Key 'key_1' updated."
+  }</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5297"></a>1.54.3.&nbsp;Delete keys</h3></div></div></div>
+      
+        <p>To delete an existing key from a
+          namespace:</p><pre class="screen">DELETE /api/dataStore/&lt;namespace&gt;/&lt;key&gt;</pre>
+        <p>Example curl request for
+          delete:</p><pre class="screen">curl "play.dhis2.org/demo/api/dataStore/foo/key_1" -X DELETE -u admin:district -v</pre>
+        <p>Example
+          response:</p><pre class="screen">{
+      "httpStatus": "OK",
+      "httpStatusCode": 200,
+      "status": "OK",
+      "message": "Key 'key_1' deleted from namespace 'foo'."
+    }</pre>
+      <p>To delete all keys in a
+        namespace:</p><pre class="screen">DELETE /api/dataStore/&lt;namespace&gt;</pre>
+      <p>Example curl request for
+        delete:</p><pre class="screen">curl "play.dhis2.org/demo/api/dataStore/foo" -X DELETE -u admin:district -v</pre>
+      <p>Example
+        response:</p><pre class="screen">{
+    "httpStatus": "OK",
+    "httpStatusCode": 200,
+    "status": "OK",
+    "message": "Namespace 'foo' deleted."
+  }</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s53.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s55.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.53.&nbsp;FRED API&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.55.&nbsp;Metadata repository</td></tr></table></div></body></html>

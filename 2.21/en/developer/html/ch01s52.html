@@ -1,0 +1,18 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.52.&nbsp;Synchronization</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s51.html" title="1.51.&nbsp;UI customization with Javascript and CSS files"><link rel="next" href="ch01s53.html" title="1.53.&nbsp;FRED API"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.52.&nbsp;Synchronization</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s51.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s53.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5224"></a>1.52.&nbsp;Synchronization</h2></div></div></div>
+    
+    <p>This section covers pull and push of data and metadata.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5227"></a>1.52.1.&nbsp;Data push</h3></div></div></div>
+      
+      <p>To initiate a data push to a remote server one must first configure the URL and
+        credentials for the relevant server from System settings &gt; Synchronization, then make a POST
+        request to the following resource:</p><pre class="screen">api/synchronization/dataPush</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5231"></a>1.52.2.&nbsp;Metadata pull</h3></div></div></div>
+      
+      <p>To initiate a metadata pull from a remote JSON document you can make a POST request with
+        a <span class="italic">url</span> query parameter to the following
+        resource:</p><pre class="screen">api/synchronization/metadataPull?url=&lt;url-to-json-document&gt;</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s51.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s53.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.51.&nbsp;UI customization with Javascript and CSS files&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.53.&nbsp;FRED API</td></tr></table></div></body></html>

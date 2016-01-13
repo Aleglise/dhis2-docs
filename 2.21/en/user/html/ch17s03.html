@@ -1,0 +1,56 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>17.3.&nbsp;Tools</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch17.html" title="Chapter&nbsp;17.&nbsp;Using GIS"><link rel="prev" href="ch17s02.html" title="17.2.&nbsp;Thematic mapping"><link rel="next" href="ch18.html" title="Chapter&nbsp;18.&nbsp;Setting up GIS"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">17.3.&nbsp;Tools</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch17s02.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;17.&nbsp;Using GIS</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch18.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2601"></a>17.3.&nbsp;Tools</h2></div></div></div>
+    
+    <p>This section describes the available GIS tools.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisFavoriteMapView"></a>17.3.1.&nbsp;Favorite maps</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_favorites.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>Click the "Favorites" button on the toolbar to open the "Manage favorites" window. To add a new favorite, click the "Add new" button. A new window opens. Enter a name and click the "Create" button. You will find your new favorite in the list.</p>
+      
+      <p>All favorites have four action buttons on the right hand side. Grey: Edit favorite name. Green: Save current map to this favorite (overwrite). Yellow: Add this favorite to dashboard. Red: Delete this favorite.</p>
+      
+      <p>You can search for favorites in the textfield above the favorites. The list will be filtered on every character that is entered. Click the "next" and "prev" buttons in the bottom right corner to navigate between pages.</p>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisLegendSet"></a>17.3.2.&nbsp;Create predefined legend sets</h3></div></div></div>
+      
+      <p>Click the "Legend" button on the map toolbar. To create a new set click the "Add new" button. Example usage (vaccination coverage): Firstly, give the legend set a name. Then create the legends you want in your legend set. The first one could be "Low bad" (name), 0 (start value), 50 (end value), red (color). Click "Add legend" and appears in the list below. Then create "Medium" / 50 / 80 / yellow, "High good" / 80 / 100 / green and finally "Too high" / 100 / 10000 / grey. Now, click the "Create" button in the bottom right corner. If your legend set has overlapping legends (e.g. 0-50 and 40-80) you will not be allowed to proceed. If your legend set has a gap between the legends (e.g. 0-50 and 60-80) you will get a warning, but are allowed to proceed.</p>
+      
+      <p>NOTE! Continuous legends are supposed to end and start on the same value, e.g. 0-50 and
+        50-80. This will automatically be taken care of by the application. Do not try to do this
+        yourself by setting legends to e.g. 0-50 and 51-80. This will cause a usually unwanted gap
+        in your legend set.</p>
+      
+      <p>You can assign a legend set to an indicator or a data element in the Indicator/Data element module. This legend set will then be automatically selected when such an indicator/data element is selected in the GIS.</p>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisImageExport"></a>17.3.3.&nbsp;Download map as image</h3></div></div></div>
+      
+      <p>Click the "Download" button on the map toolbar. Enter a name in the textfield and click "Download". The browser will download a PNG image. If the toolbar "Download" button is disabled you need to create a map first.</p>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisInterpretation"></a>17.3.4.&nbsp;Share map interpretation</h3></div></div></div>
+      
+      <p>Open a favorite or save a new map as a favorite. Then click the "Share" button on the map toolbar. Type in your interpretation and click "Share".</p>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisEmbed"></a>17.3.5.&nbsp;Embed maps in any web page</h3></div></div></div>
+      
+      <p>Certain analysis-related resources in DHIS, like pivot tables, charts and maps, can be embeded in any web page by using a plugin. If you have created a map in the GIS app you will get the plugin configuration for this map by clicking the "Share" button the toolbar and then "Embed as plugin". You will find more information about the plugins in the web api chapter.</p>
+    </div>
+    
+	  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2628"></a>17.3.6.&nbsp;Analysis integration</h3></div></div></div>
+		
+		<p>The analysis apps in DHIS 2 are completely integrated, so you can easily switch
+		  between pivot table, chart and map visualization of your data. When you have made a map
+		  you can click e.g. "Chart" in the top right corner and then select "Open this map as chart".</p>
+		<div class="screenshot">
+		  
+		  <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="25%"><tr><td><img src="resources/images/gis/chart_integration.png" width="100%"></td></tr></table></div>
+		</div>  
+	  </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch17s02.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch17.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch18.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">17.2.&nbsp;Thematic mapping&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;18.&nbsp;Setting up GIS</td></tr></table></div></body></html>

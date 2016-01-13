@@ -1,0 +1,49 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>20.5.&nbsp;Troubleshooting guide</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_implementation_guide_en.html" title="DHIS2 Implementation Guide"><link rel="up" href="ch20.html" title="Chapter&nbsp;20.&nbsp;DHIS2 Tools Guide"><link rel="prev" href="re08.html" title="dhis2-create-admin"><link rel="next" href="apa.html" title="Appendix&nbsp;A.&nbsp;DHIS 2 Documentation Guide"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">20.5.&nbsp;Troubleshooting guide</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="re08.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;20.&nbsp;DHIS2 Tools Guide</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="apa.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1564"></a>20.5.&nbsp;Troubleshooting guide</h2></div></div></div>
+    
+    <p>The following table shows some common problems which occur and likely remedies:</p>
+    <p>
+      </p><div class="table"><a name="d5e1568"></a><p class="title"><b>Table&nbsp;20.1.&nbsp;Troubleshooting guide</b></p><div class="table-contents">
+        
+        <table summary="Troubleshooting guide" border="1"><colgroup><col align="left" class="c1"><col align="left" class="c2"></colgroup><thead><tr><th align="left">Problem</th><th align="left">Solution</th></tr></thead><tbody><tr><td align="left">
+                <p> When you attempt to access the site with your browser it does not connect.
+                </p>
+              </td><td align="left">
+                <p> Either there is a network problem or nginx is not running. Check first to see
+                  if you can ping the host. If not you have a network problem. If you can ping the
+                  site, the most likely problem is that nginx is not installed or is not running.
+                  Verify that nginx is up and running and listening on ports 443 and 80 by typing: </p>
+                <p><code class="code">sudo netstat -ntlp</code>
+                </p>
+                <p>You should see the nginx process listening on those 2 ports</p>
+              </td></tr><tr><td align="left">
+                <p> You can access the site but you see a 502 gateway error in your browser.
+                </p>
+              </td><td align="left">
+                <p> This means that nginx is unable to connect to your backend dhis2 instance.
+                  Either the instance is not running or your nginx location configuration has an
+                  error. Running the same netstat command above should show your instance listening
+                  on 127.0.0.1 with a port number typically 8080 or whatever you have configured it
+                  as. </p>
+                <p> If its not running, try to start it with <code class="code">dhis2-startup [instance
+                  name]</code>
+                </p>
+                <p>If it is still not running, check the log file with <code class="code">dhis2-logview
+                  [instance name]</code> to see if there is any information indicating why it has
+                  failed to start.</p>
+                <p>If it is running and you can see it with netstat then you need to check your
+                  nginx configuration file to ensure that the locatio is correctly mapped.</p>
+              </td></tr><tr><td align="left">
+                <p>You can access the site but you see a blank page in your browser.
+                </p>
+              </td><td align="left">
+                <p>
+                  This usually means that the dhis2 instance is running, but you have forgotten
+                  to deploy a war file to it.  You need to run dhis2-deploy-war on that instance.
+                  See the reference section above for details of options.
+                </p>
+              </td></tr></tbody></table>
+      </div></div><p><br class="table-break">
+    </p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="re08.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch20.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="apa.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">dhis2-create-admin&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_implementation_guide_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Appendix&nbsp;A.&nbsp;DHIS 2 Documentation Guide</td></tr></table></div></body></html>

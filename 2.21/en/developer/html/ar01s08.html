@@ -1,0 +1,40 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>8.&nbsp; The Presentation Layer</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS, Technical requirements, Project structure, Document"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ar01.html" title="DHIS 2 Technical Architecture"><link rel="prev" href="ar01s07.html" title="7.&nbsp; The Business Layer"><link rel="next" href="ar01s09.html" title="9.&nbsp; Framework Stack"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.&nbsp; The Presentation Layer </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s07.html">Prev</a>&nbsp;</td><th width="60%" align="center">DHIS 2 Technical Architecture</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ar01s09.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="technicalPresentationLayer"></a>8.&nbsp; The Presentation Layer </h2></div></div></div>
+    
+    <p>The presentation layer of DHIS 2 is based on web modules which are assembled into a portal. This implies a modularized design where each module has its own domain, e.g. the dhis-web-reporting module deals with reports, charts, pivot tables, documents, while the dhis-web-maintenance-dataset module is responsible for data set management. The web modules are based on Struts and follow the MVC pattern [5]. The modules also follow the Maven standard for directory layout, which implies that Java classes are located in src/main/java, configuration files and other resources in src/main/resources, and templates and other web resources in src/main/webapp. All modules can be run as a standalone application.</p>
+    <p>Common Java classes, configuration files, and property files are located in the dhis-web-commons project, which is packaged as a JAR file. Common templates, style sheets and other web resources are located in the dhis-web-commons-resources project, which is packaged as a WAR file. These are closely related but are separated into two projects. The reason for this is that other modules must be able to have compile dependencies on the common Java code, which requires it to be packaged as a JAR file. For other modules to be able to access the common web resources, these must be packaged as a WAR file [6].</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5815"></a>8.1.&nbsp;The Portal</h3></div></div></div>
+      
+      <p>DHIS 2 uses a light-weight portal construct to assemble all web modules into one application. The portal functionality is located in the dhis-web-portal project. The portal solution is integrated with Struts, and the following section requires some prior knowledge about this framework, please refer to struts.apache.org for more information.</p>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5818"></a>8.1.1.&nbsp;Module Assembly</h4></div></div></div>
+        
+        <p>All web modules are packaged as WAR files. The portal uses the Maven WAR plug-in to assemble the common web modules and all web modules into a single WAR file. Which modules are included in the portal can be controlled simply through the dependency section in the POM file [7] in the dhis-web-portal project. The web module WAR files will be extracted and its content merged together.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5821"></a>8.1.2.&nbsp;Portal Module Requirements</h4></div></div></div>
+        
+        <p>The portal requires the web modules to adhere to a few principles:</p>
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>The web resources must be located in a folder <code class="filename">src/main/webapp/&lt;module-artifact-id &gt;</code>.</p>
+          </li><li class="listitem">
+            <p>The xwork.xml configuration file must extend the dhis-web-commons.xml configuration file.</p>
+          </li><li class="listitem">
+            <p>The action definitions in xwork.xml for a module must be in a package where the name is &lt;module-artifact-id&gt;, namespace is /&lt;module-artifact-id&gt;, and which extends the <span class="italic">dhis-web-commons</span> package.</p>
+          </li><li class="listitem">
+            <p>All modules must define a default action called <span class="italic">index</span>.</p>
+          </li><li class="listitem">
+            <p>The web.xml of the module must define a redirect filter, open-session-in-view filter, security filter, and the Struts FilterDispatcher [8].</p>
+          </li><li class="listitem">
+            <p>All modules must have dependencies to the dhis-web-commons and dhis-web-commons-resources projects.</p>
+          </li></ul></div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5840"></a>8.1.3.&nbsp;Common Look-And-Feel</h4></div></div></div>
+        
+        <p>Common look and feel is achieved using a back-bone Velocity template which includes a page template and a menu template defined by individual actions in the web modules. This is done by using static parameters in the Struts/Xwork xwork.xml configuration file. The action response is mapped to the back-bone template called <span class="italic">main.vm</span>, while static parameters called page and menu refers to the templates that should be included. This allows the web modules to display its desired content and left side menu while maintaining a common look-and-feel.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e5844"></a>8.1.4.&nbsp;Main Menu</h4></div></div></div>
+        
+        <p>The main menu contains links to each module. Each menu link will redirect to the index action of each module. The menu is updated dynamically according to which web modules are on the classpath. The menu is visibly generated using the <span class="italic">ModuleManager</span> component, which provides information about which modules are currently included. A module is represented by the <span class="italic">Module</span> object, which holds properties about the name, package name, and default action name. The <span class="italic">ModuleManager</span> detects web modules by reading the Struts Configuration and PackageConfig objects, and derives the various module names from the name of each package definition. The <span class="italic">Module</span> objects are loaded onto the Struts value stack by Struts interceptors using the <span class="italic">ModuleManager</span>. These values are finally used in the back-bone Velocity template to produce the menu mark-up.</p>
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s07.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ar01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ar01s09.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.&nbsp; The Business Layer &nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;9.&nbsp; Framework Stack </td></tr></table></div></body></html>

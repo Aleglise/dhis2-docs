@@ -1,0 +1,348 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>24.2.&nbsp;Mobile browser based data entry</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch24.html" title="Chapter&nbsp;24.&nbsp;Mobile"><link rel="prev" href="ch24.html" title="Chapter&nbsp;24.&nbsp;Mobile"><link rel="next" href="ch24s03.html" title="24.3.&nbsp;J2ME GPRS/3G Client"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">24.2.&nbsp;Mobile browser based data entry</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch24.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;24.&nbsp;Mobile</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch24s03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="mobile_web_based"></a>24.2.&nbsp;Mobile browser based data entry</h2></div></div></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e4495"></a>24.2.1.&nbsp;Getting started with mobile browser data entry</h3></div></div></div>
+    
+    <p>This approach is for data-entry on a smart phone with a mobile browser by navigating to
+      the URL of the DHIS2 instance, for example: the full URL link for demo on <a class="ulink" href="dhis2.org" target="_top">dhis2.org</a>
+      <a class="ulink" href="http://play.dhis2.org/dev/mobile/index.action" target="_top">http://play.dhis2.org/dev/mobile/index.action</a> . And your mobile browser will
+      automatically detect the DHIS2 application where the server URL is given (e.g.: <a class="ulink" href="http://play.dhis2.org/dev" target="_top">http://play.dhis2.org/dev</a>). Here is the login form
+      to access the application with user-name and password. Click on "Login" to continue
+      or "Reset" to reset:</p>
+    <div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-login.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+    <p>After logging in, there are the list of functions:</p>
+    <div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-menu.PNG" align="middle" width="100%"></td></tr></table></div>
+      </div>
+    <p><span class="bold"><strong>
+        <span class="bold"><strong>- Aggregate Reporting:</strong></span>
+      </strong></span> Entries for aggregate data with defined/assigned dataset by organisation-units</p>
+    <p>- <span class="bold"><strong>Tracking:</strong></span>  </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>Find Person: find person based on Name, Phone Number or ID, and Organization unit. </p>
+        </li><li class="listitem">
+          <p>Activity Plan: Entries data for the persons by organisation-units, persons and programs/program-stages</p>
+        </li><li class="listitem">
+          <p>Person Registration: Registry a new person</p>
+        </li><li class="listitem">
+          <p>Anonymous: Entries for anonymous person based on programs</p>
+        </li></ul></div>
+    <p><span class="bold"><strong>
+        <span class="bold"><strong>- Messages:</strong></span>
+      </strong></span> Manage the messages and discussions from the server. Message reply is available. User can send feedback message in Messages.</p>
+    <p><span class="bold"><strong>
+        <span class="bold"><strong>- Reports:</strong></span>
+      </strong></span>  The output reports from the server.</p>
+    <p>- <span class="bold"><strong>Settings:</strong></span> User-information (e.g.: First-name, Surname,
+      Phone number, E-mail) and the Interface language.</p>
+    <p><span class="bold"><strong>- Logout:</strong></span> to log out the application.</p>
+    <p><span class="bold"><strong>- Desktop version</strong></span>: navigate to the desktop version of DHIS2 for administration. This require a lot of resources from the client mobile, for example: the sufficient memory to load the pages. Not recommended for the normal GPRS/3G/... phones.</p>
+    <p>The list above will be explained in details:</p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Aggregate Reporting:</strong></span>
+          </strong></span> Entries for aggregate data with defined/assigned dataset by organisation-units.</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-aggregate-reporting.PNG" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>Click on the "Aggregate Reporting", then choose an Organisation Unit from the list and the list of the datasets will be appeared for entering aggregate data. See the below example:</p>
+        <p><span class="bold"><strong>Step 1: Select an Organisation Unit from the list</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-select-orgunit.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p><span class="bold"><strong>Step 2: Select a Dataset (entry form) from the list</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-select-dataset.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p><span class="bold"><strong>Step 3: Select a period (based on the period type of the chosen dataset) from the list</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-select-period.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p><span class="bold"><strong>Step 4: Entering the data</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-entry.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p><span class="bold"><strong>Step 5: Save the data entered after completing the data, choose the option for data completeness if having.</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-entry-complete-save.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Tracking:</strong></span>
+          </strong></span> <span class="bold"><strong>Find/Add Person, Visit Schedule, Person Registration, Anonymous</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-menu-2.PNG" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>2.1 <span class="italic">
+            <span class="bold"><strong>Find/Add Person</strong></span>
+          </span>: find person based on Name, Phone Number or ID, and Organization unit.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              <p>Step 1: insert Name, Phone Number or ID and select the Organization Unit, then click Search.</p>
+              <div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-find-person-1.PNG" align="middle" width="100%"></td></tr></table></div>
+                </div>
+            </li><li class="listitem">
+              <p>Step 2: select a person</p>
+              <div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-findPersonStep2.png" align="middle" width="100%"></td></tr></table></div>
+                </div>
+              <p>Then all the information of that person will be displayed</p>
+            </li><li class="listitem">
+              <p>Step 3: choose the next program stage for entering the data</p>
+              <div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-findPersonStep3.png" align="middle" width="100%"></td></tr></table></div>
+                </div>
+              <p>To view all the program stages, click on the name of that program (Child Heath Program as the screen shot)</p>
+              <div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-findPersonStep3.1.png" align="middle" width="100%"></td></tr></table></div>
+                </div>
+            </li></ul></div>
+        <p>2.2: <span class="italic"><span class="bold"><strong>Visit Schedule</strong></span>: </span>Choose An Organization Unit</p><div class="screenshot">
+              <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-choose-org.png" align="middle" width="100%"></td></tr></table></div>
+            </div><div class="screenshot">
+              <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-activityPlan.png" align="middle" width="100%"></td></tr></table></div>
+            </div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              <p>Current Activity Plan: the list of the beneficiaries registered, enrolled, not yet finish/complete a/many program and there is at least a program-stage open for data-entry.</p>
+              <p>+ <span class="italic">Step 1: Choose a Person for entry</span></p>
+              <div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-choose-BE.png" align="middle" width="100%"></td></tr></table></div>
+                </div>
+              <p>+ <span class="italic">Step 2: Choose a current and active program-stage for entering the data</span></p>
+              <div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-choose-PGS.png" align="middle" width="100%"></td></tr></table></div>
+                </div>
+              <p>You can also see the person's information (ID, gender, Date of Birth, and Blood Group) by clicking on the Details (on top of the list appeared)</p>
+              <div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-choose-details.png" align="middle" width="100%"></td></tr></table></div>
+                </div>
+              <p>The details information of the chosen person:</p>
+              <div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-details-info.png" align="middle" width="100%"></td></tr></table></div>
+                </div>
+            </li><li class="listitem">
+              <p>All Activity Plan: the list of all beneficiaries registered, enrolled, not yet finish/complete a/many program.</p>
+            </li><li class="listitem">
+              <p>Single Event: </p>
+              <div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-activityPlan-singleEvent.png" align="middle" width="100%"></td></tr></table></div>
+                </div>
+            </li></ul></div>
+        <p>2.3:  <span class="bold"><strong>Person Registration:</strong></span> Registry a new Person</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">Step 1: Entry personal information<div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-personRegistrationStep1.png" align="middle" width="100%"></td></tr></table></div>
+                </div></li><li class="listitem">Step 2: Enroll program for the person just been registered, then click "Enroll".<div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-personRegistrationStep2.png" align="middle" width="100%"></td></tr></table></div>
+                </div></li><li class="listitem">Step 3: Entry required information for the chosen program, then click "Enroll"<div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-personRegistrationStep3.png" align="middle" width="100%"></td></tr></table></div>
+                </div><p>Here is the result:</p><div class="screenshot">
+                  <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-personRegistrationStep4.png" align="middle" width="100%"></td></tr></table></div>
+                </div></li></ul></div>
+        <p>2.4: <span class="bold"><strong>Anonymous:</strong></span> Entries for anonymous person based on specific programs</p><div class="screenshot">
+              <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-tracking-anonymous.png" align="middle" width="100%"></td></tr></table></div>
+            </div><p> </p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Messages:</strong></span>
+          </strong></span> Manage the messages and discussions from the server. Message reply is available.</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-messages-menu.PNG" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>The number showed is the unread messages. Click on that to view the list of the messages (the unread messages are in bold and dark blue color):</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-message-conversations.PNG" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>Then you can pick up the message/topic for the discussions by leaving the reply message, see this example:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-messages-reply.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>User can create and send a feedback to server in messages section. After sending out the new feedback, the message (feedback) will be listed under "Messages" for further following up.</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Reports:</strong></span>
+          </strong></span> The output reports from the server</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-reports.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>(will be updated)</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Settings:</strong></span>
+          </strong></span> User-information (e.g.: First-name, Surname, Phone number, E-mail) and the
+          Interface language.</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-settings.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>Here is the form for setting the user account/access and the interface language. Click on "SAVE" for completing the settings, see the example below:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-settings-update.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Logout:</strong></span> to log out the application</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-logout.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p></p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Desktop version</strong></span>: navigate to the desktop version of DHIS2 for administration.</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-desktop-version.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>Here is the GUI of the desktop version (which require much memory for loading), not recommended for normal mobile. The example with DHIS2 Demo (from <a class="ulink" href="dhis2.org" target="_top">dhis2.org</a>)</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-desktop-version-GUI.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+      </li></ol></div>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-data-entry.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>After clicking on the "Namebased Data Entry", the next will guiding to the selections in the following steps:</p>
+        <p><span class="bold"><strong>Step 1: Choose an Organisation Unit</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-choose-org.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p><span class="bold"><strong>Step 2: Choose the Activity Type</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-choose-AC.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>(the screen-shot with an example with "Current Activity Plan" option)</p>
+        <p>There will be normally these two type of Activity: </p>
+        <p>+ "Current Activity Plan": the list of the beneficiaries registered, enrolled, not yet finish/complete a/many program and there is at least a program-stage open for data-entry.</p>
+        <p>+ "All Activity Plan":  the list of all beneficiaries registered, enrolled, not yet finish/complete a/many program.</p>
+        <p><span class="bold"><strong>Step 3: Choose a Beneficiary for entry</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-choose-BE.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>(the screen-shot with an example with "Hybia Welde" option)</p>
+        <p><span class="bold"><strong>Step 4: Choose a current and active program-stage for entering the data</strong></span> </p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-choose-PGS.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>(the screen-shot with an example with "16-24 months after birth" option)</p>
+        <p>You can also see the beneficiary's information (ID, gender, Date of Birth, and Blood Group) by clicking on the Details (on top of the list appeared)</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-choose-details.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>The details information of the chosen beneficiary:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-namebased-details-info.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Beneficiary Registration:</strong></span>
+          </strong></span> Registry a new beneficiary</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-registration.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p><span class="bold"><strong>Step 1: Choose an OrganisationUnit</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-registration-choose-OU.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p><span class="bold"><strong>Step 2: Fill in the Beneficiary Registration form</strong></span></p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-registration-form.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>There necessary information: Full Name, Gender, Date of Birth (and Blood Group).</p>
+        <p>Click on "SAVE" to register a new beneficiary.</p>
+        <p>A message "Successfully Saved" will appear when the beneficiary is created/registered successfully.</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-registration-form-success.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Beneficiary Enrollment:</strong></span>
+          </strong></span> Enroll a beneficiary to one or many programs</p>
+        <div class="screenshot">
+          <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-enrollment.png" align="middle" width="100%"></td></tr></table></div>
+        </div>
+        <p>Before enrolling a beneficiary to a program, the search function for a beneficiary is provided:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-enrollment-searchBF.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>If the beneficiary is found, the result will be listed. The simply click on the beneficiary name for navigating to the programs in which the beneficiary enrolled:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-enrollment-foundBF.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>The below screen-shot example describes the beneficiary named "Nguyen Van A":</p>
+        <p>- Has not enrolled any programs before</p>
+        <p>- There is one program: "Child Health Program" available for enrollment</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-enrollment-4BF.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>The list of the available programs for enrollment will be listed. Just click on the program for enrollment by specifying the date of enrollment and the date of incident. See the example:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-enrollment-date.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>After clicking on the "ENROLL" button, if successful, the program enrolled will be listed under "Enrolled Programs  for" + &lt;Name of the beneficiary&gt;, see the example:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-beneficiary-enrollment-success.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Messages:</strong></span>
+          </strong></span> Manage the messages and discussions from the server. Message reply is available.</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-messages.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>The number showed is the unread messages. Click on that to view the list of the messages (the unread messages are in bold and dark blue color):</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-messages-unread.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>Then you can pick up the message/topic for the discussions by leaving the reply message, see this example:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-messages-reply.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p></p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Reports:</strong></span>
+          </strong></span> The output reports from the server</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-reports.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>(will be updated)</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Settings:</strong></span>
+          </strong></span> User-information (e.g.: First-name, Surname, Phone number, E-mail) and the
+          Interface language.</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-settings.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>Here is the form for setting the user account/access and the interface language. Click on "SAVE" for completing the settings, see the example below:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-settings-update.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>
+            <span class="bold"><strong>Feedback:</strong></span>
+          </strong></span> the extra function for creating a new message to send to the server. The new created feedback from this will be listed under "<span class="bold"><strong>Messages</strong></span>"</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-feedback.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>After clicking on the "Feedback", there will be a form for editing/sending out  a new message/discussion. See the example below:</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-feedback-new.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>After sending out the new feedback, the message (feedback) will be listed under "Messages" for further following up.</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-feedback-listed-in-messages.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Logout:</strong></span> to log out the application</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-logout.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p></p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Desktop version</strong></span>: navigate to the desktop version of DHIS2 for administration.</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-desktop-version.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+        <p>Here is the GUI of the desktop version (which require much memory for loading), not recommended for normal mobile. The example with DHIS2 Demo (from <a class="ulink" href="dhis2.org" target="_top">dhis2.org</a>)</p>
+        <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/dhis2_mobile_web_based/mobile-browser-desktop-version-GUI.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+      </li></ol></div>
+  </div>
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch24.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch24.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch24s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;24.&nbsp;Mobile&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;24.3.&nbsp;J2ME GPRS/3G Client</td></tr></table></div></body></html>

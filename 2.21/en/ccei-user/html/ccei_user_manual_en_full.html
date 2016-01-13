@@ -1,0 +1,479 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>CCEI User Manual</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book"><div class="titlepage"><div><div><h1 class="title"><a name="d6456e1"></a>CCEI User Manual</h1></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="chapter"><a href="#d6456e3">1. Cold Chain Equipment Inventory (CCEI) System</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e5">1.1. Cold Chain Equipment Inventory (CCEI) System</a></span></dt><dt><span class="section"><a href="#d6456e8">1.2. Conceptual Framework</a></span></dt><dt><span class="section"><a href="#d6456e11">1.3. CCEI Architecture</a></span></dt><dt><span class="section"><a href="#d6456e18">1.4. Data types in CCEI</a></span></dt><dt><span class="section"><a href="#d6456e22">1.5. Service Module: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e24">1.5.1. Meta Data</a></span></dt><dt><span class="section"><a href="#d6456e41">1.5.2. Data flow</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e56">1.6. Model Attribute: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e58">1.6.1. Model Attribute</a></span></dt><dt><span class="section"><a href="#d6456e67">1.6.2. Operations on Model Attribute</a></span></dt><dt><span class="section"><a href="#d6456e95">1.6.3. Add a new model attribute</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e103">1.7. Model: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e105">1.7.1. Model</a></span></dt><dt><span class="section"><a href="#d6456e114">1.7.2. Operations on Model</a></span></dt><dt><span class="section"><a href="#d6456e166">1.7.3. Add New Model</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e175">1.8. Equipment Type Attribute: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e177">1.8.1. Equipment Type Attribute&gt;</a></span></dt><dt><span class="section"><a href="#d6456e186">1.8.2. Operations on Equipment Type Attributes</a></span></dt><dt><span class="section"><a href="#d6456e208">1.8.3. Add new Equipment Type Attribute</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e229">1.9. Equipment Type: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e231">1.9.1. Equipment Type</a></span></dt><dt><span class="section"><a href="#d6456e240">1.9.2. Operations on Equipment Type Attributes</a></span></dt><dt><span class="section"><a href="#d6456e275">1.9.3. Add new Equipment Type</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e296">1.10. Aggregation Engine: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e298">1.10.1. Aggregation Engine</a></span></dt><dt><span class="section"><a href="#d6456e312">1.10.2. Aggregation Query List</a></span></dt><dt><span class="section"><a href="#d6456e321">1.10.3. Operations on Aggregation Query List</a></span></dt><dt><span class="section"><a href="#d6456e349">1.10.4. Adding Aggregation Query</a></span></dt><dt><span class="section"><a href="#d6456e365">1.10.5. Use Cases</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e447">1.11. Aggregation of Data</a></span></dt></dl></dd></dl></div>
+  
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d6456e3"></a>Chapter&nbsp;1.&nbsp;Cold Chain Equipment Inventory (CCEI) System</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d6456e5">1.1. Cold Chain Equipment Inventory (CCEI) System</a></span></dt><dt><span class="section"><a href="#d6456e8">1.2. Conceptual Framework</a></span></dt><dt><span class="section"><a href="#d6456e11">1.3. CCEI Architecture</a></span></dt><dt><span class="section"><a href="#d6456e18">1.4. Data types in CCEI</a></span></dt><dt><span class="section"><a href="#d6456e22">1.5. Service Module: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e24">1.5.1. Meta Data</a></span></dt><dt><span class="section"><a href="#d6456e41">1.5.2. Data flow</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e56">1.6. Model Attribute: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e58">1.6.1. Model Attribute</a></span></dt><dt><span class="section"><a href="#d6456e67">1.6.2. Operations on Model Attribute</a></span></dt><dt><span class="section"><a href="#d6456e95">1.6.3. Add a new model attribute</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e103">1.7. Model: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e105">1.7.1. Model</a></span></dt><dt><span class="section"><a href="#d6456e114">1.7.2. Operations on Model</a></span></dt><dt><span class="section"><a href="#d6456e166">1.7.3. Add New Model</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e175">1.8. Equipment Type Attribute: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e177">1.8.1. Equipment Type Attribute&gt;</a></span></dt><dt><span class="section"><a href="#d6456e186">1.8.2. Operations on Equipment Type Attributes</a></span></dt><dt><span class="section"><a href="#d6456e208">1.8.3. Add new Equipment Type Attribute</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e229">1.9. Equipment Type: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e231">1.9.1. Equipment Type</a></span></dt><dt><span class="section"><a href="#d6456e240">1.9.2. Operations on Equipment Type Attributes</a></span></dt><dt><span class="section"><a href="#d6456e275">1.9.3. Add new Equipment Type</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e296">1.10. Aggregation Engine: Cold Chain Equipment Inventory (CCEI)</a></span></dt><dd><dl><dt><span class="section"><a href="#d6456e298">1.10.1. Aggregation Engine</a></span></dt><dt><span class="section"><a href="#d6456e312">1.10.2. Aggregation Query List</a></span></dt><dt><span class="section"><a href="#d6456e321">1.10.3. Operations on Aggregation Query List</a></span></dt><dt><span class="section"><a href="#d6456e349">1.10.4. Adding Aggregation Query</a></span></dt><dt><span class="section"><a href="#d6456e365">1.10.5. Use Cases</a></span></dt></dl></dd><dt><span class="section"><a href="#d6456e447">1.11. Aggregation of Data</a></span></dt></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e5"></a>1.1.&nbsp;Cold Chain Equipment Inventory (CCEI) System</h2></div></div></div>
+    
+    <p>The Cold Chain Equipment Inventory (CCEI) System can be used to manage the cold chain equipment requirements from health facilities and to monitor the working status of the equipments by tracking, thereby timely action can be taken in cold chain supply management.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e8"></a>1.2.&nbsp;Conceptual Framework</h2></div></div></div>
+    
+    <p>The CCEI application is developed to manage cold chain equipment in health facilities through routine data form equipments and a timely reporting of working condition of the equipment which plays a crucial role in cold chain management.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e11"></a>1.3.&nbsp;CCEI Architecture</h2></div></div></div>
+    
+    <p>The system is built on the two inputs data forms namely model data, equipment type/equipment data and two output data forms namely periodic and non-periodic data.</p>
+	<p>In the model data, the initial step is to define model type attributes, model type. This enables the system to provide fields to enter required data for model. Each model type will have its own model data. In other terms model data is attached to its model type. The definition of model type attributes, model type can be modified/updated when the actual model type is introduced or a new model comes in the market in future at any facility.</p>
+	<p>There are equipment type/equipment data with or without having model data. In order to capture equipment type data, define equipment type attributes and then add equipment type with its attributes. If the equipment type has model data, select the appropriate model type while adding equipment type and this enable to pull the data from the selected model type along with the data from equipment type. If the equipment type has no model data, then just define attributes and add equipment type with its attributes.</p>
+	<p>There are data related to equipment which need to be collected, processed and used for action. Every facility has some number of equipments and data needs to be captured from equipment. In order to monitor the working status of the equipment and its location (facility), periodic/non-periodic data is to be collected.</p>
+	<p>When it is periodic, equipment/facility wise dataset is designed and assigned to corresponding facilities. When it is non-periodic (for say, working status) data needs to be captured when there is any change in the process and this can be done using equipment type attributes. The user has to select the facility as the registering unit and the appropriate equipment type and the required data can be filled in equipment type attributes.</p>
+	</div>
+	<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e18"></a>1.4.&nbsp;Data types in CCEI</h2></div></div></div>
+    
+    <p>Non-periodic data which is data recorded only when there is any change in the process. For example, working condition of the equipment in a facility will be recorded, when it is working well or Not working or under repair condition. These data are recorded using equipment type attributes.</p>
+	<p>Periodic data are data recorded periodically to monitor the equipment function, performance and its efficiency and to monitor for any requirements of equipments in health facilities.</p>
+  </div>	
+
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e22"></a>1.5.&nbsp;Service Module: Cold Chain Equipment Inventory (CCEI)</h2></div></div></div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e24"></a>1.5.1.&nbsp;Meta Data</h3></div></div></div>
+		
+		<p>In cold chain Equipment Inventory, the super user has to define the metadata in the application.</p>
+		<p>To define model, the super user has to create attributes for model and then add the attributes with its model. The model here for say refrigerator and freezers and the attributes are capacity, dimension etc. The super user can add more models.</p>
+		<p>The model indicates the model name, for say Electrolux FG 432. To add a new model, select the model type and then add model.</p>
+		<p>Equipment Type Indicates the equipment for say Refrigerator, Cold Box, Cold Room etc. Equipment type has a particular model but equipment have machine specific data with addition to the general data which is common among the models. In order to record the equipment specific data, the super user has to define attributes for the equipment for say Unique ID, Serial No, manufacturer etc. User can add many numbers of attributes for equipment.</p>
+		<p>To add a new equipment type for say it is refrigerator and freezers, add it and select model for refrigerator and freezer. It will enable to pull data from selected model and also additional data which are specific to refrigerator and freezer by using equipment attributes.</p>
+		<p>In summary metadata defines
+		</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>Data about model attribute</p>
+        </li><li class="listitem">
+          <p>Data about model</p>
+        </li><li class="listitem">
+          <p>Data about equipment type attribute </p>
+        </li><li class="listitem">
+          <p>Data about equipment type</p>
+        </li></ul></div>
+	</div>
+  
+ 
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e41"></a>1.5.2.&nbsp;Data flow</h3></div></div></div>
+  	
+	<div class="screenshot">
+	 
+	  <div class="mediaobject"><img src="resources/images/ccei/periodicDataFlow.png"></div> 
+	</div>
+	<p>Periodic Data Flow monitors following : 
+	</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>Equipment: Monitor for any changes in equipment like temperature</p>
+        </li><li class="listitem">
+          <p>Facility: Monitor facilities for any requirements</p>
+        </li><li class="listitem">
+          <p>Period: Monitor any change of event timely</p>
+        </li></ul></div><p>
+		</p>
+	
+  </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e56"></a>1.6.&nbsp;Model Attribute: Cold Chain Equipment Inventory (CCEI)</h2></div></div></div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e58"></a>1.6.1.&nbsp;Model Attribute</h3></div></div></div>
+		
+		<p>To specify the model geometry and properties the user has to create model attributes where properties of each model defined.</p>
+		<p>To access Model Attribute user has to go to Maintenance -&gt; dhis-web-maintenance-ccei -&gt; Model attributes</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/modelAttribute.png"></div> 
+		</div>
+	</div>
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e67"></a>1.6.2.&nbsp;Operations on Model Attribute</h3></div></div></div>
+		
+		<p>
+		</p><div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/operationsOnModelAttribute.png"></div> 
+		</div><p>
+		</p>
+		<p>Filter Clear - Quick search and list the model type with edit and show details options</p>
+		<p>Add new - Add new model attribute</p>
+		<p>Edit - To edit model attribute</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/edit.png"></div> 
+		</div>
+		<p>Delete - To remove model attribute</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/delete.png"></div> 
+		</div>
+		<p>Show details - List shows name, description etc</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/detail.png"></div> 
+		</div>	
+	</div>
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e95"></a>1.6.3.&nbsp;Add a new model attribute</h3></div></div></div>
+	
+	<p>To add a new model attribute, the user has to click on 'Add new" button in the model type management page, user will be directed to the following screen as show below, where he/she can fill the details to add a new model attribute</p>
+	<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/add_model_attr.png"></div> 
+		</div>	
+    </div>
+  </div>
+  
+   <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e103"></a>1.7.&nbsp;Model: Cold Chain Equipment Inventory (CCEI)</h2></div></div></div>
+   
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e105"></a>1.7.1.&nbsp;Model</h3></div></div></div>
+	  
+	  <p>Model consists of geometry and properties of each equipment model type. To define model, the super user has to create attributes for model and then add the attributes with its model. The model here for say refrigerator and freezers and the attributes are capacity, dimension etc. The model indicates the model name, for say Electrolux FG 432.</p>
+	  <p>To access the model, user needs to click on the 'Model option' as seen on the extreme top left corner of the screen and user will get following screen</p>
+	  <div class="screenshot">
+		
+			<div class="mediaobject"><img src="resources/images/ccei/model.png"></div> 
+		</div>
+	</div>
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e114"></a>1.7.2.&nbsp;Operations on Model</h3></div></div></div>
+		
+		<p>Filter Clear - Quick search and list the model type with edit and show details options</p>
+		<p>Add new - Add new model attribute</p>
+		<p>To upload an image for the Model click on following button</p>
+		<div class="screenshot">
+		
+			<div class="mediaobject"><img src="resources/images/ccei/upload_default_image.png"></div> 
+		</div>
+		<p>Once user has clicked the Image, following screen will appear. User has to browse for the image of particular Model and click on Upload button, once the image is uploaded it will b edisplayed on the screen. The image uploaded once can later be updated by the same procedure.</p>
+		<div class="screenshot">
+		
+			<div class="mediaobject"><img src="resources/images/ccei/upload_image.png"></div> 
+		</div>
+		<p>Edit - To edit model attribute</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/edit.png"></div> 
+		</div>
+		<p>Delete - To remove model attribute</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/delete.png"></div> 
+		</div>
+		<p>Design Data Entry Screen - Data needs to be entered against the model attribute for particular model, user can design data entry screen for data entry by clicking on following icon.</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/data_entry_screen.png"></div> 
+		</div>
+		<p>Once data entry screen design button is clicked follwing screen will appear to design data entry screen. User will get the list of all model attribute of selected Model by clicking on "Model Attributr" button on Top right corner</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/design_data_entry_screen_model.png"></div> 
+		</div>
+		<p>Model attributes can be grouped as sections. To make a group list, the user should click on the required icon</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/group_list.png"></div> 
+		</div>
+		<p>Show details - List shows name, description etc</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/detail.png"></div> 
+		</div>
+	</div>
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e166"></a>1.7.3.&nbsp;Add New Model</h3></div></div></div>
+	
+	<p>To add new Model, user has to click on "Add new" button in model management page, once user has clicked on button he/she will be redirected to following page where user can fill detail to add new model.</p>
+	<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/add_model.png"></div> 
+	</div>
+	<p>User will get the list of all available model attributes, user can select the model attribute from the list which he/she wants to use for the model.</p>
+	</div>
+</div>
+
+<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e175"></a>1.8.&nbsp;Equipment Type Attribute: Cold Chain Equipment Inventory (CCEI)</h2></div></div></div>
+
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e177"></a>1.8.1.&nbsp;Equipment Type Attribute&gt;</h3></div></div></div>
+		
+		<p>Equipment type Attributes are the properties of Equipment type, in order to record the equipment specific data, the user has to define attributes for the equipment for say Unique ID, Serial No, manufacturer etc.</p>
+		<p>To access the Equipment Type Attribute user has to click Maintenance -&gt; dhis-web-maintenance-ccei -&gt; Equipment type attribute. After clicking on the link the user will be directed to Equipment type attribute management page</p>
+		<div class="screenshot">
+		
+			<div class="mediaobject"><img src="resources/images/ccei/equipment_type_attr.png"></div> 
+		</div>
+	</div>
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e186"></a>1.8.2.&nbsp;Operations on Equipment Type Attributes</h3></div></div></div>
+		
+		<p>Filter Clear - Quick search and list the Equipment Type Attributes with edit and show details options</p>
+		<p>Add new - Add new model attribute</p>
+		<p>Edit - To edit model attribute</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/edit.png"></div> 
+		</div>
+		<p>Delete - To remove model attribute</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/delete.png"></div> 
+		</div>
+		<p>Show details - List shows name, description etc</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/detail.png"></div> 
+		</div>
+	</div>
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e208"></a>1.8.3.&nbsp;Add new Equipment Type Attribute</h3></div></div></div>
+		
+		<p>User can add a new Equipment type Attribute by clicking on "Add New" button. After clicking "Add New" button user will get the following screen.</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/add_equip_type_attr.png"></div> 
+		</div>
+		<p>To create new equipment type attribute user has to enter following detail: 
+			</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+			  <p>Write the name for the attribute</p>
+			</li><li class="listitem">
+			  <p>Write the description for the equipment type attribute</p>
+			</li><li class="listitem">
+			  <p>Select the attribute mandatory as yes/no, based on whether the value to be entered is mandatory or not</p>
+			</li><li class="listitem">
+			  <p>Specify the number of the characters</p>
+			</li><li class="listitem">
+			  <p>Select the value type for the attribute as number, text etc</p>
+			</li></ul></div><p>
+		</p>
+		<p>Please note that the user has to keep in mind the details need to be collected for the equipment type and the attributes should be created accordingly. Once the attributes are created, then the attributes need to be added to its particular equipment.</p>
+	</div>
+  </div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e229"></a>1.9.&nbsp;Equipment Type: Cold Chain Equipment Inventory (CCEI)</h2></div></div></div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e231"></a>1.9.1.&nbsp;Equipment Type</h3></div></div></div>
+		
+		<p>Equipment Type Indicates the equipment for say Refrigerator, Cold Box, Cold Room etc. Equipment type has a particular model but equipment type have machine specific data with addition to the general data which is common among the models</p>
+		<p>To access the Equipment Type Attribute user has to click Maintenance -&gt; dhis-web-maintenance-ccei -&gt; Equipment type. After clicking on the link the user will be directed to Equipment type management page</p>
+		<div class="screenshot">
+		
+			<div class="mediaobject"><img src="resources/images/ccei/equipment_type.png"></div> 
+		</div>
+	</div>
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e240"></a>1.9.2.&nbsp;Operations on Equipment Type Attributes</h3></div></div></div>
+		
+		<p>Filter Clear - Quick search and list the Equipment Type Attributes with edit and show details options</p>
+		<p>Add new - Add new model attribute</p>
+		<p>Edit - To edit model attribute</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/edit.png"></div> 
+		</div>
+		<p>Delete - To remove model attribute</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/delete.png"></div> 
+		</div>
+		<p>Show details - List shows name, description etc</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/detail.png"></div> 
+		</div>
+		<p>Equipment Type: Dataset</p>
+		<p>Periodic dataentry have to be done for Equipment Type, for dataentry user has to assign dataset to individual Equipment Type, this can be done by clicking on following button</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/dataset.png"></div> 
+		</div>
+		<p>Once clicked on above button user will be redirected to following screen</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/dataset_assigning.png"></div> 
+		</div>
+	</div>
+	<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e275"></a>1.9.3.&nbsp;Add new Equipment Type</h3></div></div></div>
+		
+		<p>User can add a new Equipment type by clicking on 'Add New" button. After clicking "Add New" button user will get the following screen.</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/add_equip_type.png"></div> 
+		</div>
+		<p>To create new equipment type user has to enter following detail: 
+			</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+			  <p>Write the name for Equipment Type</p>
+			</li><li class="listitem">
+			  <p>Write the description for the equipment type</p>
+			</li><li class="listitem">
+			  <p>Select whether the Equipment needs to be track or not</p>
+			</li><li class="listitem">
+			  <p>Select the model from the list of availabel model list so that the properties of the selected model will be inherited to the Equipment</p>
+			</li><li class="listitem">
+			  <p>Select the Equipment Type Attribute form the list of available attribute, user has to selet the attribute which are the members of this Equipment.</p>
+			</li></ul></div><p>
+		</p>
+		<p>Once the Equipment Type Attributes have been selected then user can set the order of the attributes and user can select the attributes which needs to be displayed on user screen by checling particular attribute.</p>
+	</div>
+  </div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e296"></a>1.10.&nbsp;Aggregation Engine: Cold Chain Equipment Inventory (CCEI)</h2></div></div></div>
+		
+		<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e298"></a>1.10.1.&nbsp;Aggregation Engine</h3></div></div></div>
+			
+			<p>Aggregation builder helps user to get quantitative data. It transforms metadata to populate data by aggregation query.</p>
+			<p>For Example
+			</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+				  <p>In a facility number of refrigerators in use</p>
+				</li><li class="listitem">
+				  <p>In a facility number of refrigerators not in use</p>
+				</li><li class="listitem">
+				  <p>In a facility number of refrigerators unserviceable</p>
+				</li><li class="listitem">
+				  <p>In a facility number of refrigerators awaiting repair etc</p>
+				</li></ul></div><p>
+			</p>
+			<p>To create a query the user has to select aggregation query list where query can be made to transform metadata to populate data and to get aggregate populate data the user has to select manual aggregation.</p>
+		</div>
+		<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e312"></a>1.10.2.&nbsp;Aggregation Query List</h3></div></div></div>
+			
+			<p>This is the Aggregation Query List page where list of queries can be add, edit, translate, delete and details of a query can be seen.</p>
+			<p>To access the Aggregation Query List user has to click Maintenance -&gt; CCEI Setup -&gt; Aggregation Builder -&gt; Aggregation Query List</p>
+			<div class="screenshot">
+			
+			<div class="mediaobject"><img src="resources/images/ccei/aggregation_query_list.png"></div> 
+			</div>
+		</div>
+		<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e321"></a>1.10.3.&nbsp;Operations on Aggregation Query List</h3></div></div></div>
+		
+		<p>Filter Clear - Quick search and list the Aggregation Query List with edit and show details options</p>
+		<p>Add new - Add new Aggregation Query List</p>
+		<p>Edit - To edit Aggregation Query List</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/edit.png"></div> 
+		</div>
+		<p>Translate - To translate an aggregation query list, the person has to select translate option by clicking the query</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/translate.png"></div> 
+		</div>
+		<p>Remove - To remove Aggregation Query List</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/delete.png"></div> 
+		</div>
+		<p>Show details - List shows name, description etc</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/detail.png"></div> 
+		</div>
+		</div>
+		<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e349"></a>1.10.4.&nbsp;Adding Aggregation Query</h3></div></div></div>
+		
+		<p>Please note that before creating the Aggregation Query user has to create a aggregated data element, which will further be used for Aggrgation Query</p>
+		<p>User has to click on Add New buttin to create a new Aggregation Query and user will be redirected to following page</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/add_aggregation_query.png"></div> 
+		</div>
+		<p>User has to select the aggregated data element for creating Auery, so that the aggregated value generated by the query will be stored against the aggregated data element</p>
+		<p>Once the data element have been selected then user has to select the type for different Use cases as shown below</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/aggregation_query_type.png"></div> 
+		</div>
+		</div>
+		<div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d6456e365"></a>1.10.5.&nbsp;Use Cases</h3></div></div></div>
+		
+		<p>Based on the type selected with the data element there will be some use cases for creating Aggregation Queries</p>
+		<div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d6456e368"></a>1.10.5.1.&nbsp;Storage Capacity</h4></div></div></div>
+		
+		<p>The user can get storage capacity of each facility by selecting the appropriate data element. This gives the user to know whether shortage or surplus or sufficient storage available in a health facilities of a state.</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/storage_capacity.png"></div> 
+		</div>
+		</div>
+		<div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d6456e376"></a>1.10.5.2.&nbsp;Refrigerator working status by model</h4></div></div></div>
+		
+		<p>The user can get refrigerator working status by model of aggregate populate data from the facilities of state whether functioning or awaiting repair or unserviceable</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/ref_work_status.png"></div> 
+		</div>
+		<p>By selecting refrigerator status by model from type, all models of a refrigerator will be displayed and also working status option too. For each model type attribute three queries can be made like whether functioning or awaiting repair or unserviceable.</p>
+		<p>For Example
+			</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+				  <p>No of refrigerator MK 304 are functioning</p>
+				</li><li class="listitem">
+				  <p>No of refrigerator MK 304 are awaiting repair</p>
+				</li><li class="listitem">
+				  <p>No of refrigerator MK 304 are unserviceable</p>
+				</li></ul></div><p>
+		</p>
+		</div>
+		<div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d6456e393"></a>1.10.5.3.&nbsp;Refrigerator utilization</h4></div></div></div>
+		
+		<p>The user can get utilization of refrigerators in an aggregate populate data of the health facilities of a state whether in use or not in use or in store for allocation. This gives user to evaluate the utilization of refrigerator by model</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/ref_utilization.png"></div> 
+		</div>
+		<p>By selecting refrigerator utilization, the all models of a refrigerator will be displayed and also utilization option set too. For each model type attribute three queries can be made like whether in use or not in use or in store for allocation.</p>
+		<p>For Example
+			</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+				  <p>No of refrigerator HBD-116 are in use</p>
+				</li><li class="listitem">
+				  <p>No of refrigerator HBD-116 are not in use</p>
+				</li><li class="listitem">
+				  <p>No of refrigerator HBD-116 are in store for allocation</p>
+				</li></ul></div><p>
+		</p>
+		</div>
+		<div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d6456e410"></a>1.10.5.4.&nbsp;Refrigerator working status by type</h4></div></div></div>
+		
+		<p>The user can get refrigerator working status by type of aggregate populate data from the facilities of state whether functioning or awaiting repair or unserviceable</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/ref_work_status_by_type.png"></div> 
+		</div>
+		<p>By selecting refrigerator status by type, the all model type attributes of a refrigerator will be displayed and also working status option too. For each model type attribute three queries can be made like whether functioning or awaiting repair or unserviceable</p>
+		<p>For Example
+			</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+				  <p>No of Chest refrigerator are functioning</p>
+				</li><li class="listitem">
+				  <p>No of Chest refrigerator are awaiting repair</p>
+				</li><li class="listitem">
+				  <p>No of Chest refrigerator are unserviceable</p>
+				</li></ul></div><p>
+		</p>
+		</div>
+		<div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d6456e427"></a>1.10.5.5.&nbsp;Refrigerator temperature alarms</h4></div></div></div>
+		
+		<p>The user can get refrigerator temperature alarms whether high temperature alarms or low temperature alarms of the facilities and also number of refrigerators wise. This gives user to evaluate the temperature alarms by refrigerator and facility wise</p>
+		<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/ref_temperature_alarm.png"></div> 
+		</div>
+		<p>The options for the user to evaluate temperature alarms are
+			</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+				  <p>No of refrigerators with high temperature alarm</p>
+				</li><li class="listitem">
+				  <p>No of refrigerators with low temperature alarm</p>
+				</li><li class="listitem">
+				  <p>Facility with high temperature alarm</p>
+				</li><li class="listitem">
+				  <p>Facility with low temperature alarm</p>
+				</li><li class="listitem">
+				  <p>Facility with temperature alarms</p>
+				</li></ul></div><p>
+		</p>
+		</div>
+		</div>
+	</div>
+	
+	<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6456e447"></a>1.11.&nbsp;Aggregation of Data</h2></div></div></div>
+	
+	<p>Once Aggregation Queries are ready then its time to convert equipment data to aggregated data for the particular period</p>
+	<p>To get aggregate values of the health facilities, the user has to select Manual Aggregation under aggregation builder. The user will get the aggregated data of the equipments which can further be used for Other Analysis modules like GIS, Pivot tables and Data Visulizer</p>
+	<div class="screenshot">
+		
+		  <div class="mediaobject"><img src="resources/images/ccei/manual_aggregation.png"></div> 
+	</div>
+	<p>To get data aggregated user has to follow:
+		</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+			  <p>Select the period from period list for which aggregation needs to be performed</p>
+			</li><li class="listitem">
+			  <p>Select the facility or the parent facility from OrgUnit tree for which aggregation needs to be done, (In case if parent facility is selected then aggregation will run for whole child tree)</p>
+			</li><li class="listitem">
+			  <p>Click Aggregate Values button to aggregate data</p>
+			</li></ul></div><p>
+	</p>
+	</div>
+ </div>
+  </div></body></html>

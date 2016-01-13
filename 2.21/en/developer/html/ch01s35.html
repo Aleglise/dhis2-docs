@@ -1,0 +1,32 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.35.&nbsp;System settings</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s34.html" title="1.34.&nbsp;Current user information and associations"><link rel="next" href="ch01s36.html" title="1.36.&nbsp;User settings"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.35.&nbsp;System settings</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s34.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s36.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e4332"></a>1.35.&nbsp;System settings</h2></div></div></div>
+    
+    <p>You can manipulate system settings by interacting with the <span class="italic">systemSettings</span> resource. A system setting is a simple key-value pair, where both
+      the key and the value are plain text strings. To save or update a system setting you can make
+      a <span class="italic">POST</span> request to the following URL:</p>
+    <pre class="screen">/api/systemSettings/my-key?value=my-val</pre>
+    <p>Alternatively, you can submit the setting value as the request body, where content type is
+      set to "text/plain". As an example, you can use curl like this:</p>
+    <pre class="screen">curl "play.dhis2.org/demo/api/systemSettings/my-key" -d "My long value" -H "Content-Type: text/plain" -u admin:district -v</pre>
+    <p>To set system settings in bulk you can send a JSON object with a property -value pair for
+      each system setting key-value pair using a POST request:</p>
+    <pre class="screen">{
+  "keyApplicationNotification": "Welcome",
+  "keyApplicationIntro": "DHIS 2",
+  "keyApplicationFooter": "Read more at dhis2.org"
+}  </pre>
+    <p>You should replace my-key with your real key and my-val with your real value. To retrieve
+      the value for a given key in plain text you can make a <span class="italic">GET</span>
+      request to the following URL:</p>
+    <pre class="screen">/api/systemSettings/my-key</pre>
+    <p>Alternatively, you can specify the key as a query parameter:</p>
+    <pre class="screen">/api/systemSettings?key=my-key</pre>
+    <p>You can retrieve specific system settings as JSON by repeating the key query
+      parameter:</p>
+    <pre class="screen">curl "play.dhis2.org/demo/api/systemSettings?key=keyApplicationNotification&amp;key=keyApplicationIntro" -H "Content-Type: application/json" -u admin:district -v</pre>
+    <p>You can retrieve all system settings with a GET request:</p>
+    <pre class="screen">/api/systemSettings</pre>
+    <p>To delete a system setting, you can make a <span class="italic">DELETE</span>
+      request to the URL similar to the one used above for retrieval.</p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s34.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s36.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.34.&nbsp;Current user information and associations&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.36.&nbsp;User settings</td></tr></table></div></body></html>

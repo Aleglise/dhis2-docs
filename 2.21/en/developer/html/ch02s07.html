@@ -1,0 +1,122 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>2.7.&nbsp;Adding the DHIS 2 menu to your app</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;Apps"><link rel="prev" href="ch02s06.html" title="2.6.&nbsp;Web-API for Apps"><link rel="next" href="ch03.html" title="Chapter&nbsp;3.&nbsp;Infrastructure"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.7.&nbsp;Adding the DHIS 2 menu to your app</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s06.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;2.&nbsp;Apps</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5409"></a>2.7.&nbsp;Adding the DHIS 2 menu to your app</h2></div></div></div>
+    
+    <p>In order to maintain a uniform appearance within DHIS 2 it is possible to add your
+      app's icon to the top menu. To begin, we start with a screenshot of the top-menu of the
+      DHIS 2 user interface, where your app's icon will be placed. </p><div class="screenshot">
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/apps/top-menu.png" width="100%"></td></tr></table></div>
+      </div>
+    <p>The first step is to adding the menu is including the style-sheets and scripts that are required. All JavaScript files are found in <code class="filename">/dhis-web-commons/javascripts/dhis2/</code> while the CSS files are found in <code class="filename">/dhis-web-commons/font-awesome/css/font-awesome.min.css</code> and <code class="filename">/dhis-web-commons/css/menu.css</code>
+</p>
+    <p> The following list provides a description of each file:</p>
+    <p>
+      <span class="bold"><strong>Scripts:</strong></span>
+      </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p><code class="filename">jquery.min.js / jqLite / angular.element</code> : One of
+            the mentioned libraries needs to be present. DHIS 2 employs a stripped-down version of
+              <code class="classname">jqLite</code> that is present in <span class="emphasis"><em>Angular</em></span> for the
+            menu. This makes it compatible with jqLite and jQuery. </p>
+        </li><li class="listitem">
+          <p><code class="filename">dhis2.translate.js</code> : Translate script that
+            translates menu text to your current dhis language setting</p>
+        </li><li class="listitem">
+          <p><code class="filename">dhis2.menu.js</code> : Menu logic that deals with all
+            the ordering, searching of menu items etc.</p>
+        </li><li class="listitem">
+          <p><span class="italic">dhis2/dhis2.menu.ui.js</span> : Menu ui code that has
+            all the menu user interface related code for scrolling, shortcuts, HTML markup
+            etc.</p>
+        </li></ul></div><p>
+      <span class="bold"><strong>Stylesheets:</strong></span>
+      </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p><code class="filename">font-awesome.min.css</code> : Used for various icons in
+            the menu.</p>
+        </li><li class="listitem">
+          <p><code class="filename">menu.css</code> : The CSS used for the menu.</p>
+        </li><li class="listitem">
+          <p><code class="filename">dhis2.translate.js</code> : Translate script that
+            translates menu text to your current DHIS2 language setting</p>
+        </li></ul></div>
+    <p>For a app that will run using the same URL structure as the normal DHIS2 apps, only the
+      JavaScript files and style-sheets are required. If your app is running using a different URL
+      structure than the default one, you will need to specify a <em class="parameter"><code>base URL </code></em>before including the menu scripts. Including the scripts and style-sheets would
+      look something like the following:
+      </p><pre class="screen">&lt;!-- DHIS2 Settings initialization for a baseUrl that is used for the menu --&gt;
+&lt;script&gt;
+ window.dhis2 = window.dhis2 || {};
+ dhis2.settings = dhis2.settings || {};
+ dhis2.settings.baseUrl = 'dhis';
+&lt;/script&gt;
+
+&lt;!-- Menu scripts --&gt;
+ &lt;script type="text/javascript" src="./dhis-web-commons/javascripts/dhis2/dhis2.translate.js"&gt;
+&lt;/script&gt;
+ &lt;script type="text/javascript" src="./dhis-web-commons/javascripts/dhis2/dhis2.menu.js"&gt;
+&lt;/script&gt;
+ &lt;script type="text/javascript" src="./dhis-web-commons/javascripts/dhis2/dhis2.menu.ui.js"&gt;&lt;/script&gt;
+
+&lt;!-- Stylesheets related to the menu --&gt;
+&lt;link type="text/css" rel="stylesheet" href="./dhis-web-commons/font-awesome/css/font-awesome.min.css"/&gt;
+&lt;link type="text/css" rel="stylesheet" media="screen" href="./dhis-web-commons/css/menu.css"&gt;
+    </pre>
+    <p>To clarify, the following part will initialize some variables. If you do not use any other
+      DHIS2 libraries these will not be set and therefore will have to be set by you first. After
+      that the third line specifies a base URL of where your DHIS 2 instance is running on your web
+      server. For example: <span class="italic">dhis</span> in this case means the server is
+      running at <span class="italic">http://localhost:8080/dhis/</span>. Note that you will
+      only have to specify the part after the web address. So if your instance is running at
+        <span class="italic">http://www.example.com/myInstance/</span> you would only specify
+        <span class="italic">myInstance</span>
+      </p><pre class="screen">&lt;!-- Example setting for myInstance --&gt;
+&lt;script&gt;
+window.dhis2 = window.dhis2 || {};
+dhis2.settings = dhis2.settings || {};
+dhis2.settings.baseUrl = 'myInstance';
+&lt;/script&gt;</pre>
+    <p>The above will only include the necessary scripts to be able to show the menu. To actually
+      make it show up we have two possibilities. The first one is using a basic &lt;div&gt; element
+      with an id attribute.
+      </p><pre class="screen">&lt;div id="dhisDropDownMenu"&gt;&lt;/div&gt;      </pre><p>An alternative
+      is available when your application uses angular. We have included a directive to show the
+      menu. This would be used as follows: </p><pre class="screen">&lt;div d2-menu&gt;&lt;/div&gt;      </pre><p>The
+      element type in this case does not really matter. As long as you include the <span class="italic">d2-menu</span> directive. To be able to use the menu directive you would
+      also have to include the directive in your angular app. The angular module containing the
+      directive is called <span class="italic">d2Menu</span>.</p><pre class="screen">'use strict';
+
+var appMenu = angular.module('appMenu',
+  ['ngRoute', 
+  'ngCookies',
+  'd2Menu']);      </pre>
+    <p>The minimum amount of code to show the menu is shown below. You could use this as a
+      starting reference.
+      </p><pre class="screen">&lt;!DOCTYPE html&gt;
+&lt;html &gt;&lt;!--ng-app="appMenu"&gt; --&gt;
+    &lt;head&gt;
+        &lt;title&gt;Dhis2 Menu&lt;/title&gt;
+
+        &lt;!-- Stylesheets related to the menu --&gt;
+        &lt;link type="text/css" rel="stylesheet" href="./dhis-web-commons/font-awesome/css/font-awesome.min.css"/&gt;
+        &lt;link type="text/css" rel="stylesheet" media="screen" href="./dhis-web-commons/css/menu.css"&gt;
+    &lt;/head&gt;
+
+    &lt;body style="background-color: black;"&gt;
+
+        &lt;div id="dhisDropDownMenu"&gt;&lt;/div&gt;
+
+        &lt;!-- DHIS2 Settings initialization for a baseUrl that is used for the menu --&gt;
+        &lt;script&gt;
+            window.dhis2 = window.dhis2 || {};
+            dhis2.settings = dhis2.settings || {};
+            dhis2.settings.baseUrl = 'dhis';
+        &lt;/script&gt;
+
+        &lt;!-- Menu scripts --&gt;
+        &lt;script type="text/javascript" src="./dhis-web-commons/javascripts/jQuery/jquery.min.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="./dhis-web-commons/javascripts/dhis2/dhis2.translate.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="./dhis-web-commons/javascripts/dhis2/dhis2.menu.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="./dhis-web-commons/javascripts/dhis2/dhis2.menu.ui.js"&gt;&lt;/script&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s06.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.6.&nbsp;Web-API for Apps&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;3.&nbsp;Infrastructure</td></tr></table></div></body></html>

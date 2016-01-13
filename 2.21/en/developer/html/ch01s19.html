@@ -1,0 +1,41 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.19.&nbsp;Complete data set registrations</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s18.html" title="1.18.&nbsp;Indicators"><link rel="next" href="ch01s20.html" title="1.20.&nbsp;Data approval"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.19.&nbsp;Complete data set registrations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s18.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s20.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2219"></a>1.19.&nbsp;Complete data set registrations</h2></div></div></div>
+    
+    <p>This section is about complete data set registrations for data sets. A registration marks
+      as a data set as completely captured.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2222"></a>1.19.1.&nbsp;Completing and un-completing data sets</h3></div></div></div>
+      
+      <p>This section explains how you can register and un-register a data set as complete. To
+        complete or un-complete a data set you will interact with the completeDataSetRegistrations
+        resource:</p>
+      <pre class="screen">/api/completeDataSetRegistrations</pre>
+      <p>This resource supports the methods <span class="italic">POST</span> for
+        registration and <span class="italic">DELETE</span> for un-registration. The
+        following query parameters are supported:</p>
+      <div class="table"><a name="d5e2229"></a><p class="title"><b>Table&nbsp;1.31.&nbsp;Complete data set registrations query parameters</b></p><div class="table-contents">
+        
+        <table summary="Complete data set registrations query parameters" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Query parameter</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td>ds</td><td>Yes</td><td>Data set identifier</td></tr><tr><td>pe</td><td>Yes</td><td>Period identifier</td></tr><tr><td>ou</td><td>Yes</td><td>Organisation unit identifier</td></tr><tr><td>cc</td><td>No (must combine with cp)</td><td>Attribute combo identifier (for locking check)</td></tr><tr><td>cp</td><td>No (must combine with cp)</td><td>Attribute option identifiers, separated with ; for multiple values (for locking
+                check)</td></tr><tr><td>multiOu</td><td>No (default false)</td><td>Whether registration applies to sub units</td></tr></tbody></table>
+      </div></div><br class="table-break">
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2265"></a>1.19.2.&nbsp;Reading complete data set registrations</h3></div></div></div>
+      
+      <p>This section explains how to retrieve data set completeness registrations. We will be
+        using the <span class="italic">completeDataSetRegistrations</span> resource. The
+        query parameters to use are these:</p>
+      <div class="table"><a name="d5e2269"></a><p class="title"><b>Table&nbsp;1.32.&nbsp;Data value set query parameters</b></p><div class="table-contents">
+        
+        <table summary="Data value set query parameters" border="1"><colgroup><col width="95pt" class="c1"><col width="425pt" class="c2"></colgroup><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>dataSet</td><td>Data set identifier, can be specified multiple times</td></tr><tr><td>period</td><td>PeriodType</td></tr><tr><td>startDate</td><td>Start date for the time span of the values to export</td></tr><tr><td>endDate</td><td>End date for the time span of the values to export</td></tr><tr><td>orgUnit</td><td>Organisation unit identifier, can be specified multiple times</td></tr><tr><td>children</td><td>Whether to include the children in the hierarchy of the organisation
+                units</td></tr></tbody></table>
+      </div></div><br class="table-break">
+      <p>The dataSet and orgUnit parameters can be repeated in order to include multiple data
+        sets and organisation units. An example request looks like
+        this:</p><pre class="screen">curl "https://play.dhis2.org/demo/api/completeDataSetRegistrations?dataSet=pBOMPrpg1QX&amp;dataSet=pBOMPrpg1QX&amp;startDate=2014-01-01&amp;endDate=2014-01-31
+&amp;orgUnit=YuQRtpLP10I&amp;orgUnit=vWbkYPRmKyS&amp;children=true" -H "Accept:application/xml" -u admin:district -v</pre>
+      <p>You can get the response in <span class="italic">xml</span> and <span class="italic">json</span> format. You can indicate which response format you prefer
+        through the <span class="italic">Accept</span> HTTP header like in the example above.
+        For xml you use <span class="italic">application/xml</span>; for json you use
+          <span class="italic">application/json</span>.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s18.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s20.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.18.&nbsp;Indicators&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.20.&nbsp;Data approval</td></tr></table></div></body></html>

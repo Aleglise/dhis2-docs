@@ -1,0 +1,324 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>DHIS 2 Android User Manual</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book"><div class="titlepage"><div><div><h1 class="title"><a name="d6356e1"></a>DHIS 2 Android User Manual</h1></div><div><div class="authorgroup">
+    <div class="author"><h3 class="author"><span class="firstname">DHIS2</span> <span class="surname">Documentation Team</span></h3></div>
+</div></div><div><p class="releaseinfo">2.21</p></div><div><p class="copyright">Copyright &copy; 2006-2015 </p></div><div><div class="legalnotice"><a name="d6356e18"></a>
+    <p><a name="warranty"></a>
+        <b>Warranty:&nbsp;</b>
+         THIS DOCUMENT IS PROVIDED BY  THE AUTHORS ''AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHORS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS MANUAL AND PRODUCTS MENTIONED HEREIN, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    </p>
+    <p><a name="license"></a>
+        <b>License:&nbsp;</b>
+         Permission is granted to copy, distribute and/or modify this document
+            under the terms of the GNU Free Documentation License, Version 1.3
+            or any later version published by the Free Software Foundation;
+            with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+            A copy of the license is included in the source of this documentation, and is available here online:<a class="ulink" href="http://www.gnu.org/licenses/fdl.html" target="_top"> http://www.gnu.org/licenses/fdl.html</a>.
+    </p>
+</div></div><div><div class="revhistory"><table style="border-style:solid; width:100%;" summary="Revision History"><tr><th align="left" valign="top" colspan="2"><b>Revision History</b></th></tr><tr><td align="left">Revision Revision  1697</td><td align="left"></td></tr><tr><td align="left" colspan="2">Version 2.21 2015-12-18 09:16:53</td></tr></table></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="chapter"><a href="#d6356e30">1. Android Event Capture App</a></span></dt><dd><dl><dt><span class="section"><a href="#d6356e32">1.1. Overview</a></span></dt><dt><span class="section"><a href="#d6356e36">1.2. Installing and logging in</a></span></dt><dt><span class="section"><a href="#d6356e56">1.3. Viewing events</a></span></dt><dt><span class="section"><a href="#d6356e68">1.4. Creating events</a></span></dt><dt><span class="section"><a href="#d6356e88">1.5. Modifying events</a></span></dt><dt><span class="section"><a href="#d6356e96">1.6. Settings</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d6356e108">2. Android aggregate data capture app</a></span></dt><dd><dl><dt><span class="section"><a href="#d6356e110">2.1. Overview</a></span></dt><dt><span class="section"><a href="#d6356e113">2.2. Installation</a></span></dt><dt><span class="section"><a href="#d6356e117">2.3. Logging in</a></span></dt><dt><span class="section"><a href="#d6356e124">2.4. Entering and saving data</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d6356e136">3. Android Tracker Capture App</a></span></dt><dd><dl><dt><span class="section"><a href="#d6356e138">3.1. Overview</a></span></dt><dt><span class="section"><a href="#d6356e142">3.2. Installing and logging in</a></span></dt><dt><span class="section"><a href="#d6356e162">3.3. Viewing Enrollments</a></span></dt><dt><span class="section"><a href="#d6356e175">3.4. Creating and enrolling a tracked entity instance</a></span></dt><dt><span class="section"><a href="#d6356e192">3.5. Downloading tracker data from the online DHIS 2 instance</a></span></dt><dt><span class="section"><a href="#d6356e201">3.6. Modifying enrollment and tracked entity instance attribute values</a></span></dt><dt><span class="section"><a href="#d6356e209">3.7. Creating new events for Enrollment</a></span></dt><dt><span class="section"><a href="#d6356e229">3.8. Create relationships</a></span></dt><dt><span class="section"><a href="#d6356e237">3.9. Settings</a></span></dt></dl></dd></dl></div>
+  
+  
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d6356e30"></a>Chapter&nbsp;1.&nbsp;Android Event Capture App</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d6356e32">1.1. Overview</a></span></dt><dt><span class="section"><a href="#d6356e36">1.2. Installing and logging in</a></span></dt><dt><span class="section"><a href="#d6356e56">1.3. Viewing events</a></span></dt><dt><span class="section"><a href="#d6356e68">1.4. Creating events</a></span></dt><dt><span class="section"><a href="#d6356e88">1.5. Modifying events</a></span></dt><dt><span class="section"><a href="#d6356e96">1.6. Settings</a></span></dt></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e32"></a>1.1.&nbsp;Overview</h2></div></div></div>
+    
+    <p>The event capture Android app allows you capture, modify and list events. The event
+      capture app works with event-based programs in DHIS 2, which handles anonymous events not
+      linked to registered entities. These programs are suitable for handling scenarios such as
+      facility surveys, hospital registry summaries and training events. However the app is not tied
+      to any specific domain and can potentially be utilized for any scenario of event-based
+      information.</p>
+    <p>The event capture app allows you to capture events offline, i.e. without Internet
+      connectivity. The app will automatically synchronize events with the online DHIS 2 server
+      automatically when connectivity is present. This makes the app suitable for environments where
+      Internet connectivity is scarce or unstable.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e36"></a>1.2.&nbsp;Installing and logging in</h2></div></div></div>
+    
+    <p>The event capture add can be found on Google Play under the name "Event Capture for DHIS
+      2".</p>
+    <p><a class="ulink" href="https://play.google.com/store/apps/details?id=org.hisp.dhis.android.eventcapture" target="_top">Event Capture on Google Play</a></p>
+    <p>You can download the APK file directly from the GitHub release page.</p>
+    <p><a class="ulink" href="https://github.com/dhis2/dhis2-android-eventcapture/releases" target="_top">Event Capture GitHub releases</a></p>
+    <p>Click on the app to open it after the installation is done. This will bring up the login
+      screen.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/ec/android-ec-login.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>In the <span class="italic">URL</span> field, enter the full URL to the DHIS 2
+      instance (server) for which you want to capture and manage events for. Be careful to enter the
+        <span class="italic">http://</span> or <span class="italic">https://</span>
+      part of the URL as well. In the <span class="italic">username</span> and <span class="italic">password</span> field, enter the username and password for your account at
+      the given DHIS 2 instance. Note that you can use this login on the online DHIS 2 server as
+      well, i.e. you will be using the same account as you will use when logging into DHIS 2 using a
+      Web browser. After logging in the first time, the app will download meta-data from the online
+      instance. This could take a few minutes so please be patient.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e56"></a>1.3.&nbsp;Viewing events</h2></div></div></div>
+    
+    <p>The main screen will show an overview of events, as well as links to creating new ones.
+      Start by selecting organisation unit and program from the selectors at the upper part of the
+      screen.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/ec/android-ec-event-list.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>The <span class="italic">+</span> button below the selectors will take you to the
+      new event screen. Below this button, all events which have been registered for the selected
+      organisation unit and program will be listed. Each column is configurable, and could show
+      various types of information from each event. The column to the far right shows the
+      synchronization status. <span class="italic">Sent</span> means that the event has been
+      uploaded to the server, whereas <span class="italic">Offline</span> means that the
+      event is so far only stored at your device. Events will be synchronized automatically once an
+      Internet connection is present. You can swipe down on the screen in order to trigger a
+      synchronization attempt.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e68"></a>1.4.&nbsp;Creating events</h2></div></div></div>
+    
+    <p>Click on the <span class="italic">+</span> button to go to the new event form. The
+      new event will be associated with the organisation unit and program you selected previously.
+      The new event screen has a range of functions:</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/ec/android-ec-new-event-top.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>The back button in the top top-left corner will take you back to the main screen (list of
+      events). For programs that have specified sections, these sections will be displayed as a
+      selector at the centre of the top bar. There are also right and left arrows which you can use
+      to move between sections. You can use this selector and arrows to quickly navigate between
+      form sections. The save button in the top-right corner will save what you have entered for the
+      event so far. Data is also saved when you switch between sections.</p>
+    <p>The <span class="italic">Complete</span> button on the second bar will mark the
+      event as complete. The Validate button will trigger a check for validness of the information
+      you have entered based on the validation rules which have been set up for the program.</p>
+    <p>The first form field contains a date selector and indicators the time of when the event
+      took place. The label is customizable and will vary from system to system. The <span class="italic">Enter coordinates</span> field, which will be displayed if the program is
+      configured to store coordinates, lets you use the GPS capability of your device to set the
+      longitude and latitude of your current location by pressing the circle-like symbol to its
+      right. You can alternatively enter the coordinates directly.</p>
+    <p>The event entry form itself will be rendered below. The type of input field selector will
+      depend on the type of the data element representing the input field. For example, you will see
+      date selectors, free text input and numeric input fields. Data elements with predefined
+      options will be rendered using a special dialog where you can either click directly on options
+      or use a text input field to search for a specific option (useful if there is a high number of
+      options).</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/ec/android-ec-option-set-selector.png" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e88"></a>1.5.&nbsp;Modifying events</h2></div></div></div>
+    
+    <p>After an event has been created you can go back to or modify the event by simply clicking
+      on it in the event list. This will open the event form pre-populated with information that has
+      been captured so far.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/ec/android-ec-event-form.png" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e96"></a>1.6.&nbsp;Settings</h2></div></div></div>
+    
+    <p>The settings screen lets you do configure synchronization frequency and log out.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/ec/android-ec-settings.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>The <span class="italic">frequency of automatic synchronization attemps</span> can
+      be set form the drop-down, where options range from one minute to one day. This affects the
+      battery usage and bandwith consumption. The default of one hour is a sensible choice.</p>
+    <p>The <span class="italic">log out</span> button will log you out of the app, and
+      request you to enter the login information again. You are not intended to log out of the
+      application between each session. This is mostly useful when you want to log into another DHIS
+      2 online instance.</p>
+  </div>
+</div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d6356e108"></a>Chapter&nbsp;2.&nbsp;Android aggregate data capture app</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d6356e110">2.1. Overview</a></span></dt><dt><span class="section"><a href="#d6356e113">2.2. Installation</a></span></dt><dt><span class="section"><a href="#d6356e117">2.3. Logging in</a></span></dt><dt><span class="section"><a href="#d6356e124">2.4. Entering and saving data</a></span></dt></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e110"></a>2.1.&nbsp;Overview</h2></div></div></div>
+    
+    <p>The Data Capture for DHIS 2 app allows you to enter data into a DHIS2 server with an Android device. The app downloads instances of forms which are required to enter data from the server, and stores them on the device. This means that you can enter data offline and then upload it to the DHIS2 server when you have network coverage. </p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e113"></a>2.2.&nbsp;Installation</h2></div></div></div>
+    
+    <p>You can easily install the Data Capture for DHIS2 app by logging into the Google play store and searching for "<a class="ulink" href="https://play.google.com/store/apps/details?id=org.dhis2.mobile" target="_top">Data Capture for DHIS2</a>" </p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e117"></a>2.3.&nbsp;Logging in</h2></div></div></div>
+    
+    <p>After you install and launch the Data Capture app on your device, when you launch it for the first time, you will be required to enter the server URL address of the DHIS2 server and your user name and password. Be sure to specify the full address of the server and protocol (either https or http). Once you have specified all details, press "Log in" to authenticate with the server.</p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="60%"><tr><td align="center"><img src="resources/images/android/dc/android_dc_login.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e124"></a>2.4.&nbsp;Entering and saving data</h2></div></div></div>
+    
+    <p>Once you login, you will need to select the organisation unit, dataset and time period for which you wish to enter data. Once you have selected all of this, press the highlighted area to proceed to the data entry screen. </p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="60%"><tr><td align="center"><img src="resources/images/android/dc/android_dc_select.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p>Data entry in the android app is very straight-forward. Data elements are listed along with their category combination option. Just select the field for which you want to enter data by clicking it and entering the correct data value. Values will be saved locally to your device. When you finish entering data, press "Save" and data will be saved to the server. </p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="60%"><tr><td align="center"><img src="resources/images/android/dc/android_dc_enter.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+</div>
+      <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d6356e136"></a>Chapter&nbsp;3.&nbsp;Android Tracker Capture App</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d6356e138">3.1. Overview</a></span></dt><dt><span class="section"><a href="#d6356e142">3.2. Installing and logging in</a></span></dt><dt><span class="section"><a href="#d6356e162">3.3. Viewing Enrollments</a></span></dt><dt><span class="section"><a href="#d6356e175">3.4. Creating and enrolling a tracked entity instance</a></span></dt><dt><span class="section"><a href="#d6356e192">3.5. Downloading tracker data from the online DHIS 2 instance</a></span></dt><dt><span class="section"><a href="#d6356e201">3.6. Modifying enrollment and tracked entity instance attribute values</a></span></dt><dt><span class="section"><a href="#d6356e209">3.7. Creating new events for Enrollment</a></span></dt><dt><span class="section"><a href="#d6356e229">3.8. Create relationships</a></span></dt><dt><span class="section"><a href="#d6356e237">3.9. Settings</a></span></dt></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e138"></a>3.1.&nbsp;Overview</h2></div></div></div>
+    
+    <p>The Tracker Capture Android app allows you capture, modify and list tracked entity instances with its enrollments and events. The Tracker
+      Capture app works with multiple event-based programs in DHIS 2, which handles events
+      linked to registered entities. These programs are suitable for handling
+      disease programmes where multiple visits is required. The Tracker Capture app can be used for disease programmes such as tubercolosis and malaria.
+      However the app is not tied to any specific domain and can potentially be utilized for any scenario of multiple event-based
+      information.</p>
+    <p>The Tracker Capture app allows you to capture events offline, i.e. without Internet
+      connectivity. The app will automatically synchronize events with the online DHIS 2 server
+      automatically when connectivity is present. This makes the app suitable for environments where
+      Internet connectivity is scarce or unstable.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e142"></a>3.2.&nbsp;Installing and logging in</h2></div></div></div>
+    
+    <p>The Tracker Capture app can be found on Google Play under the name "DHIS 2 Tracker Capture".</p>
+    <p><a class="ulink" href="https://play.google.com/store/apps/details?id=org.hisp.dhis.android.trackercapture" target="_top">Tracker Capture on Google Play</a></p>
+    <p>You can download the APK file directly from the GitHub release page.</p>
+    <p><a class="ulink" href="https://github.com/dhis2/dhis2-android-trackercapture/releases" target="_top">Tracker Capture GitHub releases</a></p>
+    <p>Click on the app to open it after the installation is done. This will bring up the login
+      screen.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/tc/android-tc-login.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>In the <span class="italic">URL</span> field, enter the full URL to the DHIS 2
+      instance (server) for which you want to capture and manage data for. Be careful to enter the
+        <span class="italic">http://</span> or <span class="italic">https://</span>
+      part of the URL as well. In the <span class="italic">username</span> and <span class="italic">password</span> field, enter the username and password for your account at
+      the given DHIS 2 instance. Note that you can use this login on the online DHIS 2 server as
+      well, i.e. you will be using the same account as you will use when logging into DHIS 2 using a
+      Web browser. After logging in the first time, the app will download meta-data from the online
+      instance.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e162"></a>3.3.&nbsp;Viewing Enrollments</h2></div></div></div>
+    
+    <p>The main screen will show an overview of enrollments, as well as links to creating new ones.
+      After the first login, there will be <span class="italic">no</span> enrollments showing up in the list. 
+      Start by selecting organisation unit and program from the selectors at the upper part of the
+      screen. For downloading existing tracker data from the server on to your device, press the middle button.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/tc/android-tc-tei-list.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>The <span class="italic">+</span> button below the selectors will take you to the
+      new enrollment screen. Below this button, all enrollments which have been registered for the selected
+      organisation unit and program will be listed. Each column is configurable, and could show
+      various types of information from each enrollment. The column to the far right shows the
+      synchronization status. <span class="italic">Sent</span> means that the enrollment has been
+      uploaded to the server, whereas <span class="italic">Offline</span> means that the
+      enrollment is so far only stored at your device. Locally stored data will be synchronized automatically once an
+      Internet connection is present. You can swipe down on the screen in order to trigger a
+      synchronization attempt.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e175"></a>3.4.&nbsp;Creating and enrolling a tracked entity instance</h2></div></div></div>
+    
+    <p>Click on the <span class="italic">+</span> button to go to the new enrollment form. The
+      new enrollment will be associated with the organisation unit and program you selected previously and the tracked entity instance that you create with this form.
+      The new enrollment screen has a range of functions:</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/tc/android-tc-new-enrollment.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>The back button in the top top-left corner will take you back to the main screen (list of
+      enrollments). The save button in the top-right corner will automatically save what you have entered for the
+      enrollment so far.</p>  
+    <p>The first form field contains a date selector and indicators the time of when the enrollment
+      took place. If your program is selected to accept incident date, this will also be displayed.
+      The labels is customizable and will vary from system to system.</p> 
+    <p>The enrollment data entry form itself will be rendered below. The type of input field selector will
+      depend on the type of the data element representing the input field. For example, you will see
+      date selectors, free text input and numeric input fields. Data elements with predefined
+      options will be rendered using a special dialog where you can either click directly on options
+      or use a text input field to search for a specific option (useful if there is a high number of
+      options).</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/tc/android-tc-option-set-selector.png" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e192"></a>3.5.&nbsp;Downloading tracker data from the online DHIS 2 instance</h2></div></div></div>
+    
+    <p> From the main screen press the middle button for querying the server. Since this task requires an Internet connection, please make sure that you have one. This task will query the server with the organisation unit and programme that you have selected from the main screen. After you have pressed this button a dialog appears. In this dialog you can either specify your search by pressing the <span class="italic">detailed search</span> button. The detailed search queries the server for tracked entity instances that contains the values that you have specified in your query. When you are finished with your query, press the globe for displaying the results from the server. If you want to display all tracked entity instances from the selected organisation unit and programme, you can simply press the globe button without entering any details. Depending on your Internet connection, this task can take some time so please be patient. A new dialog will present a list of results from your query containing tracked entity instances. Select the tracked entity instances that you want to download by tapping on them (A green tick on the right side will indicate that you have selected the tracked entity instance). After you have selected all your tracked entity instances that you want to download, press the download button, that has an icon with a downwards arrow, at the top of the dialog screen. The tracked entity instances will be downloaded in the background and the synchronization wheel will be displayed. When a tracked entity instance is finished downloading it will appear in the list at the bottom of the main screen.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/tc/android-tc-detailed-query.png" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e201"></a>3.6.&nbsp;Modifying enrollment and tracked entity instance attribute values</h2></div></div></div>
+    
+    <p>After an enrollment has been created you can go back to or modify the event by simply clicking
+      on it in the enrollment list. This will open an overview screen of the enrolled tracked entity instance with information that has
+      been captured so far. To change the tracked entity instance attribute values that has been captured, simply press the profile box and a new screen will apppear. By default the data entry rows will be disabled. To enable the data entry rows press the edit button in the top-right corner. This form will save whenever you do any changes. To change enrollment details, press the Enrollment box from the overview screen. To make the rows editable, press the edit button in the top-right corner. Data is automatically saved whenever changes is done. In the Overview screen you can also choose to complete or terminate the enrollment for the tracked entity instance. When an enrollment is completed or terminated, you will not be able to modify the data</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/tc/android-tc-tei-profile.png" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e209"></a>3.7.&nbsp;Creating new events for Enrollment</h2></div></div></div>
+    
+    <p>In the main screen click on any enrollment in the list to go into the Overview screen. This screen displays the information of the enrollment and the tracked entity instance with its relationships and active events. Some events is auto generated with the enrollment and therefore is already displayed in the list. This is customizable from the server side. Click on the <span class="italic">new</span> button to generate a new event and go to the event form. The
+      new event will be associated with the enrollment that you selected previously.
+      The new event screen has a range of functions:</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/tc/android-tc-dataentry.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>The back button in the top top-left corner will take you back to the main screen (list of
+      events). For programs that have specified sections, these sections will be displayed as a
+      selector at the centre of the top bar. There are also right and left arrows which you can use
+      to move between sections. You can use this selector and arrows to quickly navigate between
+      form sections. The save button in the top-right corner will save what you have entered for the
+      event so far. Data is also saved when you switch between sections.</p>
+    <p>The <span class="italic">Complete</span> button on the second bar will mark the
+      event as complete. The Validate button will trigger a check for validness of the information
+      you have entered based on the validation rules which have been set up for the program.</p>
+    <p>The first form field contains a date selector and indicators the time of when the event
+      took place. The label is customizable and will vary from system to system. The <span class="italic">Enter coordinates</span> field, which will be displayed if the program is
+      configured to store coordinates, lets you use the GPS capability of your device to set the
+      longitude and latitude of your current location by pressing the circle-like symbol to its
+      right. You can alternatively enter the coordinates directly.</p>
+    <p>The event entry form itself will be rendered below. The type of input field selector will
+      depend on the type of the data element representing the input field. For example, you will see
+      date selectors, free text input and numeric input fields. Data elements with predefined
+      options will be rendered using a special dialog where you can either click directly on options
+      or use a text input field to search for a specific option (useful if there is a high number of
+      options).</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/ec/android-ec-option-set-selector.png" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+<div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e229"></a>3.8.&nbsp;Create relationships</h2></div></div></div>
+    
+    <p>Relationships let you create links between different tracked entity instances. This could be useful in cases where you want to map the relationships between parents and children or persons with malaria breeding sites. To add a new relationship, first press the 'new' button on the relationship box. Now a dialog is presented where you can choose which relationship you want to create from the 'Select relationship type' input field. Below there is a list of tracked entity instances that is already enrolled in the same programme and thus can be choosed. After choosing a tracked entity instance and confirming the relationship then it will show up in the Overview screen.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/tc/android-tc-register-relationship.png" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6356e237"></a>3.9.&nbsp;Settings</h2></div></div></div>
+    
+    <p>The settings screen lets you do configure synchronization frequency and log out.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="35%"><tr><td><img src="resources/images/android/ec/android-ec-settings.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>The <span class="italic">frequency of automatic synchronization attemps</span> can
+      be set form the drop-down, where options range from one minute to one day. This affects the
+      battery usage and bandwith consumption. The default of one hour is a sensible choice.</p>
+    <p>The <span class="italic">log out</span> button will log you out of the app, and
+      request you to enter the login information again. You are not intended to log out of the
+      application between each session. This is mostly useful when you want to log into another DHIS
+      2 online instance.</p>
+  </div>
+</div>
+</div></body></html>

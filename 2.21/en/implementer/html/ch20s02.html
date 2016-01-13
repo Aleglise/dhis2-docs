@@ -1,0 +1,36 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>20.2.&nbsp;Architecture</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_implementation_guide_en.html" title="DHIS2 Implementation Guide"><link rel="up" href="ch20.html" title="Chapter&nbsp;20.&nbsp;DHIS2 Tools Guide"><link rel="prev" href="ch20.html" title="Chapter&nbsp;20.&nbsp;DHIS2 Tools Guide"><link rel="next" href="ch20s03.html" title="20.3.&nbsp;Installation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">20.2.&nbsp;Architecture</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch20.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;20.&nbsp;DHIS2 Tools Guide</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch20s03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1314"></a>20.2.&nbsp;Architecture</h2></div></div></div>
+     
+    <p>
+      The figure below shows the main components involved in a DHIS2 system.
+      </p><div class="figure"><a name="d5e1317"></a><p class="title"><b>Figure&nbsp;20.1.&nbsp;Single machine all-in-one installation</b></p><div class="figure-contents">
+        
+        <div align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><object type="image/svg+xml" data="architecture.svg" width="100%" align="middle"></object></td></tr></table></div>
+      </div></div><p><br class="figure-break">
+      The dhis2-tools are primarily concerned with the creation and managing of the tomcat instances
+      which deliver the web application. As you can see in the diagram there may be one or more of these.
+      In addition the system requires a postgresql database server and an nginx web proxy server.  There
+      are many possible configurations where these can be running on a different server than the dhis2
+      instances.  These tools for the most part assume that they are all installed together on the one machine.
+      Some customisation is required to separate them.
+    </p>
+    <p>
+      When an instance is created with the dhis2-create-instance command, a new user is created with the name 
+      of the instance (lets say its called hmis). The home directory of that user is located at /var/lib/dhis2/hmis.
+      A database role is created also called hmis together with a database with the name of hmis.  The DHIS2_HOME
+      environment variable for the instance is set to the same home directory of the user.
+    </p>
+    <p>The essential components of a standalone tomcat instance are also created within the same directory 
+      (modelled after the ubuntu tomcat7-user package).  The web.xml file of that tomcat instance has been customized
+      to allow an upstream web proxy server (such as nginx) to cache the static content of the dhis2 application.
+    </p>
+    <p>
+      The user will also have a crontab configuration automatically setup to manage daily backups, start on computer restart
+      and log file rotation.
+    </p>
+    <p>
+      Note that postgresql optimization, as described in the dhis2 user documentation, is not managed by this package and
+      needs to be done as a post-installation step.
+    </p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch20.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch20.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch20s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;20.&nbsp;DHIS2 Tools Guide&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_implementation_guide_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;20.3.&nbsp;Installation</td></tr></table></div></body></html>

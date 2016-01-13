@@ -1,0 +1,30 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.17.&nbsp;Data integrity</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s16.html" title="1.16.&nbsp;Validation"><link rel="next" href="ch01s18.html" title="1.18.&nbsp;Indicators"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.17.&nbsp;Data integrity</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s16.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s18.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2124"></a>1.17.&nbsp;Data integrity</h2></div></div></div>
+    
+    <p>The data integrity capabilities of the data administration module are available through
+      the web API. This section describes how to run the data integrity process as well as
+      retrieving the result. The details of the analysis performed are described in the user
+      manual.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2127"></a>1.17.1.&nbsp;Running data integrity</h3></div></div></div>
+      
+      <p>The operation of measuring data integrity is a fairly resource (and time) demanding
+        task. It is therefore run as an asynchronous process and only when explicitly requested.
+        Starting the task is done by forming an empty POST request to the <span class="italic">dataIntegrity</span> endpoint like so (demonstrated in curl
+        syntax):</p><pre class="screen">curl -X POST https://dhis.domain/api/dataIntegrity</pre>
+      <p>If successful the request will return HTTP 202 immediately. The location header of the
+        response points to the resource used to check the status of the request. Forming a GET
+        request to the given location yields an empty JSON response if the task has not yet
+        completed and a JSON taskSummary object when the task is done. Polling (conservatively) to
+        this resource can hence be used to wait for the task to finish.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2133"></a>1.17.2.&nbsp;Fetching the result</h3></div></div></div>
+      
+      <p>Once data integrity is finished running the result can be fetched from the <span class="italic">system/taskSummaries</span> resource like
+        so:</p><pre class="screen">curl -X GET https://dhis.domain/api/system/taskSummaries/DATAINTEGRITY</pre>
+      <p>The returned object contains a summary for each point of analysis, listing the names of
+        the relevant integrity violations. As stated in the leading paragraph for this section the
+        details of the analysis (and the resulting data) can be found in the user manual chapter on
+        Data Administration.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s16.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s18.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.16.&nbsp;Validation&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.18.&nbsp;Indicators</td></tr></table></div></body></html>

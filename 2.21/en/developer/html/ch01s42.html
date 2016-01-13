@@ -1,0 +1,18 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.42.&nbsp;Tracked entity management</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s41.html" title="1.41.&nbsp;SVG conversion"><link rel="next" href="ch01s43.html" title="1.43.&nbsp;Tracked entity instance management"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.42.&nbsp;Tracked entity management</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s41.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s43.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e4529"></a>1.42.&nbsp;Tracked entity management</h2></div></div></div>
+    
+    <p>Tracked entity have full CRUD (create, read, update, delete) support in the Web-API. A
+      tracked entity only have two required property, <span class="italic">name</span> and
+        <span class="italic">description</span>.</p>
+    <p>
+      </p><pre class="screen">{
+  "name": "Name of tracked entity",
+  "description": "Description of tracked entity"
+}</pre><p>
+    </p>
+    <p>This payload can be sent to the <span class="italic">trackedEntities</span>
+      resource, both <span class="bold"><strong>POST</strong></span> and <span class="bold"><strong>PUT</strong></span>
+      are supported. For deleting a tracked entity you must use the <span class="bold"><strong>DELETE</strong></span> method at the <span class="italic">/api/trackedEntities/UID</span>
+      resource.</p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s41.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s43.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.41.&nbsp;SVG conversion&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.43.&nbsp;Tracked entity instance management</td></tr></table></div></body></html>

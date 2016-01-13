@@ -1,0 +1,72 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.8.&nbsp;Metadata field filter</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s07.html" title="1.7.&nbsp;Metadata object filter"><link rel="next" href="ch01s09.html" title="1.9.&nbsp;Metadata create, read, update, delete, validate"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.8.&nbsp;Metadata field filter</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s07.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s09.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e574"></a>1.8.&nbsp;Metadata field filter</h2></div></div></div>
+    
+    <p>In certain situations the default views of the metadata can be too verbose. A client might
+      only need a few fields from each object and want to remove unnecessary fields from the
+      response. To discover which fields are available for each object please see the <span class="italic">schema</span> section.</p>
+    <p>The format for include/exclude is very simple and allows for infinite recursion. To filter
+      at the "root" level you can just use the name of the field, i.e. <span class="italic">?fields=id,name</span> which would only display the <span class="italic">id</span> and <span class="italic">name</span> for every object.
+      For objects that are either collections or complex objects with properties on their own you
+      can use the format <span class="italic">?fields=id,name,dataSets[id,name]</span> which
+      would return <span class="italic">id</span>, <span class="italic">name</span> of
+      the root, and the <span class="italic">id</span> and <span class="italic">name</span> of every data set on that object. Negation can be done with the exclamation
+      operator, and we have a set of presets of field select (see below). Both XML and JSON are
+      supported.</p>
+    <p><span class="bold"><strong>Example</strong></span>: Get <span class="italic">id</span> and
+        <span class="italic">name</span> on the indicators
+      resource:</p><pre class="screen">/api/indicators?fields=id,name</pre>
+    <p><span class="bold"><strong>Example</strong></span>: Get <span class="italic">id</span> and
+        <span class="italic">name</span> from dataElements, and <span class="italic">id</span> and <span class="italic">name</span> from the dataSets on
+      dataElements:</p><pre class="screen">/api/dataElements?fields=id,name,dataSets[id,name]</pre>
+    <p>To exclude a field from the output you can use the exclamation (!) operator. This is
+      allowed anywhere in the query and will simply not include that property (as it might have been
+      inserted in some of the presets).</p>
+    <p>A few presets (selected fields groups) are available and can be applied using the
+      ':' operator.</p><div class="table"><a name="d5e601"></a><p class="title"><b>Table&nbsp;1.9.&nbsp;Property operators</b></p><div class="table-contents">
+        
+        <table summary="Property operators" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Operator</th><th>Description</th></tr></thead><tbody><tr><td>&lt;field-name&gt;</td><td>Include property with name, if it exists.</td></tr><tr><td>&lt;object&gt;[&lt;field-name&gt;, ...]</td><td>Includes a field within either a collection (will be applied to every object in
+                that collection), or just on a single object.</td></tr><tr><td>!&lt;field-name&gt;, &lt;object&gt;[!&lt;field-name&gt;</td><td>Do not include this field name, also works inside objects/collections. Useful
+                when you use a preset to inlude fields.</td></tr><tr><td>*, &lt;object&gt;[*]</td><td>Include all fields on a certain object, if applied to a collection, it will
+                include all fields on all objects on that collection.</td></tr><tr><td>:&lt;preset&gt;</td><td>Alias to select multiple fields. Three presets are currently available, see
+                table below for descriptions.</td></tr></tbody></table>
+      </div></div><p><br class="table-break"></p>
+    <div class="table"><a name="d5e626"></a><p class="title"><b>Table&nbsp;1.10.&nbsp;Field presets</b></p><div class="table-contents">
+      
+      <table summary="Field presets" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Preset</th><th>Description</th></tr></thead><tbody><tr><td>all</td><td>All fields of the object</td></tr><tr><td>*</td><td>Alias for all</td></tr><tr><td>identifiable</td><td>Includes id, name, code, created and lastUpdated fields</td></tr><tr><td>nameable</td><td>Includes id, name, shortName, code, description, created and lastUpdated
+              fields</td></tr><tr><td>persisted</td><td>Returns all persisted property on a object, does not take into consideration if
+              the object is the owner of the relation.</td></tr><tr><td>owner</td><td>Returns all persisted property on a object where the object is the owner of all
+              properties, this payload can be used to update through the web-api.</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <p><span class="bold"><strong>Example</strong></span>: Include all fields from dataSets except
+      organisationUnits:</p><pre class="screen">/api/dataSets?fields=:all,!organisationUnits</pre>
+    <p><span class="bold"><strong>Example</strong></span>: Include only id, name and the collection of
+      organisation units from a data set, but exclude the id from organisation
+      units:</p><pre class="screen">/api/dataSets/BfMAe6Itzgt?fields=id,name,organisationUnits[:all,!id]</pre>
+    <p><span class="bold"><strong>Example</strong></span>: Include nameable properties from all
+      indicators:</p><pre class="screen">/api/indicators.json?fields=:nameable</pre>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e663"></a>1.8.1.&nbsp;Field transformers</h3></div></div></div>
+      
+      <p>In DHIS 2.17 we introduced field transformers, the idea is to allow further
+        customization of the properties on the server side. For 2.17 we only supports one
+        transformer called <span class="bold"><strong>rename</strong></span>, it can be used like
+        this:</p><pre class="screen">/api/dataElements/ID?fields=id|rename(i),name|rename(n)</pre>
+      <p>This will rename the <span class="italic">id</span> property to <span class="italic">i</span> and <span class="italic">name</span> property to
+          <span class="italic">n</span>. <span class="italic">Please note that the format
+          should be considered beta in 2.17, and the format might be changed in
+        2.18.</span></p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e674"></a>1.8.2.&nbsp;Field converters</h3></div></div></div>
+      
+      <p>In DHIS 2.17 alongside transformers we also introduced field converters, while field
+        transformers usually do minor changes to the data stream (name changes etc), field
+        converters can completely change the output of the data. For 2.17 we are including 3 field
+          converters:</p><div class="table"><a name="d5e677"></a><p class="title"><b>Table&nbsp;1.11.&nbsp;Field converters</b></p><div class="table-contents">
+          
+          <table summary="Field converters" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>size</td><td>Gives sizes of strings (length) and collections, i.e.
+                  /api/dataElements?fields=dataSets::size</td></tr><tr><td>isEmpty</td><td>Is string or collection empty, i.e.
+                  /api/dataElements?fields=dataSets::isEmpty</td></tr><tr><td>isNotEmpty</td><td>Is string or collection not empty, i.e.
+                  /api/dataElements?fields=dataSets::isNotEmpty</td></tr></tbody></table>
+        </div></div><p><br class="table-break"></p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s07.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s09.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.7.&nbsp;Metadata object filter&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.9.&nbsp;Metadata create, read, update, delete, validate</td></tr></table></div></body></html>

@@ -1,0 +1,143 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>31.5.&nbsp; Defining expressions</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch31.html" title="Chapter&nbsp;31.&nbsp;Program rules"><link rel="prev" href="ch31s04.html" title="31.4.&nbsp; Adding source fields"><link rel="next" href="ch31s06.html" title="31.6.&nbsp; Defining actions"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">31.5.&nbsp; Defining expressions </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch31s04.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;31.&nbsp;Program rules</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch31s06.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="program_rules_expressions"></a>31.5.&nbsp; Defining expressions </h2></div></div></div>
+    
+    <p>
+            Each program rule has a single expression that determines whether rules action should be triggered, if the expression evaluates to true. If the expression is true the program rule
+            is in effect and the actions will be executed. If the 
+            expression is false, the program rule is no longer in effect and the 
+            actions will no longer be applied.
+        </p>
+    <p>
+As a simple example, an expression is defined below  using a single user-define static value, 
+                source fields(see previous chapter) and/or operators. Expressions
+            can be typed into the edit expression text box, but buttons are available for inserting operators and
+            source fields at the cursors position. To insert 
+                source fields, click the source field name within the list at the
+            left.
+        </p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="50%"><tr><td><img src="resources/images/program_rules/program-rule-expression.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>
+The folliwng list provides a comprehensive list of operators which can be used to define an expression.             </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>
+                        <span class="bold"><strong>+</strong></span> Add numbers together
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>-</strong></span> Subtract numbers from each other
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>*</strong></span> Multiply two numbers
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>/</strong></span> Divide two numbers
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>%</strong></span> The modulus of two numbers                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>&amp;&amp;</strong></span> Logical AND. True only when the expression on the
+                        left and right side is true. The left and right side can be yes/no, yes only or a subexpression 
+                        in parenthesis.
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>||</strong></span> Logical OR. True when either the expression on the left or
+                        the expression on the right side is true. The left and right side can be yes/no, yes only or a 
+                        subexpression in parenthesis.
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>&gt;</strong></span> Left number greater than right number
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>&gt;=</strong></span> Left number greater than or equal to right number
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>&lt;</strong></span> Left number less than right number
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>&lt;=</strong></span> Left number less than or equal to right number
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>==</strong></span> Left side equal to right side. Supports numbers, text, yes/no
+                        and yes only.
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>!=</strong></span> Left side not equal to right side. Supports numbers, text, 
+                        yes/no and yes only.
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>!</strong></span> Negates the following value. Can be used for yes/no, yes only
+                        or a subexpression in parenthesis.
+                    </p>
+        </li><li class="listitem">
+          <p>
+                        <span class="bold"><strong>()</strong></span> Parenthesis is used to group subexpressions. 
+                    </p>
+        </li></ul></div><p>
+In addition to the standard mathematical operators, a number of custom functions are also available.         </p>
+    <p>
+            </p><div class="table"><a name="d5e7458"></a><p class="title"><b>Table&nbsp;31.1.&nbsp;Functions</b></p><div class="table-contents">
+        
+        <table summary="Functions" border="1"><colgroup><col class="c1"><col class="newCol2"><col class="c2"></colgroup><thead><tr><th>Function</th><th>Arguments</th><th>Description</th></tr></thead><tbody><tr><td>d2:ceil</td><td>(number)</td><td>Rounds the input argument <span class="bold"><strong>up</strong></span> to the nearest whole number. <p>
+                                    Example:
+                                    </p><pre class="screen">d2:ceil(#{hemoglobinValue})</pre><p>
+                                </p></td></tr><tr><td>d2:floor</td><td>(number)</td><td>Rounds the input argument <span class="bold"><strong>down</strong></span> to the nearest whole number. <p>
+                                        An example producing the number of weeks the woman is pregnant. Notice that the subexpression
+                                        #{gestationalAgeDays}/7 is evaluated before the floor function is executed:
+                                        </p><pre class="screen">d2:floor(#{gestationalAgeDays}/7)</pre><p>
+                                </p></td></tr><tr><td>d2:round</td><td>(number)</td><td>Rounds the input argument to the nearest whole number.</td></tr><tr><td>d2:modulus</td><td>(number,number)</td><td>Produces the modulus when dividing the first with the second argument. <p>
+                                    An example producing the number of days the woman is into her current
+                                    pregnancy week:
+                                    </p><pre class="screen">d2:modulus(#{gestationalAgeDays},7)</pre><p>
+                                </p></td></tr><tr><td>d2:zing</td><td>(number)</td><td>Evaluates the argument of type number to zero if the value is negative, otherwise to the value itself.</td></tr><tr><td>d2:oizp</td><td>(number)</td><td>Evaluates the argument of type number to one if the value is zero or positive, otherwise to zero. </td></tr><tr><td>d2:concatenate</td><td>(object, [,object, object,...])</td><td>Produces a string concatenated string from the input parameters. Supports any number of parameters. Will mainly be in use in future action types, for example to display gestational age with d2:concatenate('weeks','+','gestationalageDays'). </td></tr><tr><td>d2:daysBetween</td><td>(date, date)</td><td>Produces the number of days between the first and second argument. If the second argument date is before the first argument the return value will be the negative number of days between the two dates. The static date format is 'yyyy-MM-dd'. <p>
+                                    Example, calculating the gestational age(in days) of a woman, based on 
+                                    the last menstrual period and the current event date:
+                                    </p><pre class="screen">d2:daysBetween(#{lastMenstrualDate},V{event_date})</pre><p>
+                                </p></td></tr><tr><td>d2:yearsBetween</td><td>(date, date)</td><td>Produces the number of years between the first and second argument. If the second argument date is before the first argument the return value will be the negative number of years between the two dates. The static date format is 'yyyy-MM-dd'.</td></tr><tr><td>d2:addDays</td><td>(date, number)</td><td>Produces a date based on the first argument date, adding the second argument number of days. <p>
+                                    An example calculating the pregnancy due date based on the last menstrual period:
+                                    </p><pre class="screen">d2:addDays(#{lastMenstrualDate},283)</pre><p>
+                                </p></td></tr><tr><td>d2:count</td><td>(sourcefield)</td><td>Counts the number of values that is entered for the source field in the argument. The source field parameter is the name of one of the defined source fields in the program - see example <p>
+                                    Example usage where #{previousPregnancyOutcome} is one of the source
+                                    fields in a repeatable program stage "previous pregnancy":
+                                    </p><pre class="screen">d2:count('previousPregnancyOutcome')</pre><p>
+                                </p></td></tr><tr><td>d2:countIfValue</td><td>(sourcefield,text)</td><td>Counts the number of matching values that is entered for the source field in the first argument. Only occurrences that matches the second argument is counted. The source field parameter is the name of one of the defined source fields in the program - see example. <p>
+                                    Example usage where #{previousPregnancyOutcome} is one of the source
+                                    fields in a repeatable program stage "previous pregnancy". The following function
+                                    will produce the number of previous pregnancies that ended with abortion:
+                                    </p><pre class="screen">d2:countIfValue('previousPregnancyOutcome','Abortion')
+                                    </pre><p>
+                                </p></td></tr><tr><td>d2:countIfZeroPos</td><td>(sourcefield)</td><td>Counts the number of values that is zero or positive entered for the source field in the argument. The source field parameter is the name of one of the defined source fields in the program - see example. <p>
+                                    Example usage where #{fundalHeightDiscrepancy} is one of the source
+                                    fields in program, and it can be either positive or negative. The following function
+                                    will produce the number of positive occurrences:
+                                    </p><pre class="screen">d2:countIfZeroPos('fundalHeightDiscrepancy')
+                                    </pre><p>
+                                </p></td></tr><tr><td>d2:hasValue</td><td>(sourcefield)</td><td>Evaluates to true of the argument source field contains a value, false if no value is entered. <p>
+                                    Example usage, to find if the source field #{currentPregnancyOutcome} is yet filled in:
+                                    </p><pre class="screen">d2:hasValue('currentPregnancyOutcome')
+                                    </pre><p>
+                                </p></td></tr><tr><td>d2:zpvc</td><td>(object, [,object, object,...])</td><td>Returns the number of numeric zero and positive values among the given object arguments. Can be provided with any number of arguments.</td></tr><tr><td>d2:condition</td><td>(boolean-expr, true-val, false-val)</td><td>Evaluates the conditional expression and if true returns the true value, if false returns the false value. The conditional expression must be quoted.</td></tr></tbody></table>
+      </div></div><p><br class="table-break">
+        </p>
+    <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="resources/images/admon/tip.png"></td><th align="left">Tip</th></tr><tr><td align="left" valign="top">
+      <p>unctions can be nested within each other and
+            with subexpressions to form more complex conditions. An example that produces the gestational age in weeks, 
+            based on last menstrual date:
+</p>
+      <pre class="screen">d2:floor( d2:daysBetween(#{lastMenstrualDate},V{event_date}) / 7 )</pre>
+    </td></tr></table></div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch31s04.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch31.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch31s06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">31.4.&nbsp; Adding source fields &nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;31.6.&nbsp; Defining actions </td></tr></table></div></body></html>

@@ -1,0 +1,113 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>31.6.&nbsp; Defining actions</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch31.html" title="Chapter&nbsp;31.&nbsp;Program rules"><link rel="prev" href="ch31s05.html" title="31.5.&nbsp; Defining expressions"><link rel="next" href="ch32.html" title="Chapter&nbsp;32.&nbsp;User profiles"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">31.6.&nbsp; Defining actions </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch31s05.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;31.&nbsp;Program rules</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch32.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e7557"></a>31.6.&nbsp; Defining actions </h2></div></div></div>
+    
+    <p>
+            Each program rule has one or more actions attached. These are the behaviors
+            that is triggered in the user interface when the expression(see previous chapter)
+            is true. Actions will be applied at once if the expression
+             is true, and will be reverted if the expression is no longer true.
+        </p>
+    <p>
+            To add a new action, click the "+ add action" button at the bottom of the program
+            rule page. Once actionshas been added, they can be removed again by clicking the 
+            - button at the right side of the actions row.
+        </p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/program_rules/program-rule-add-action.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>
+            There are several types of <span class="bold"><strong>actions</strong></span>, and the type is selected individually for each
+            action row. 
+        </p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e7568"></a>31.6.1.&nbsp; Hide field action </h3></div></div></div>
+      
+      <p>
+                A <span class="bold"><strong>hide field action</strong></span> is defined by selecting "Hide field" in the first column of the
+                action row. 
+            </p>
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/program_rules/program-rule-hide-field-action.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>
+                The second column is optional, and it allows defining a custom message to the end user in case the rule hides and 
+                blanks out the field after the end user typed in or selected a value.
+            </p>
+      <p>If a hide field action hides a field that contains a value, the field will always removed.
+                If no message is defined, a standard message will be displayed to alert the user</p>
+      <p>
+                The third column specifies which data element that the <span class="bold"><strong>hide field action</strong></span> should
+                hide.
+            </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e7581"></a>31.6.2.&nbsp; Hide section action </h3></div></div></div>
+      
+      <p>
+                A hide field action is defined by selecting "Hide section" in the first column of the
+                action row. 
+            </p>
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/program_rules/program-rule-hide-section-action.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>
+                The second column is optional, and it allows defining a custom message to the end user in case the rule hides a section that 
+                contains a field that again has a value. 
+            </p>
+      <p>
+                If a hide section action hides a section with one 
+                or more fields that contains a value, these fields will always be removed. If no message is defined, a standard message will 
+                be displayed to alert the user.                                
+            </p>
+      <p>
+                The third column specifies which section that the hide section action should hide.
+            </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e7592"></a>31.6.3.&nbsp; Show warning action </h3></div></div></div>
+      
+      <p>
+                A <span class="bold"><strong>show warning action</strong></span> is defined by selecting "show warning" in the first column of the
+                action row. A show warning action is used to give the user
+                a warning about the data being entered, but at the same time allowing the user to save and continue. Warnings can
+                be used to help the user avoid errors in the data entered, while at the same time allowing the user to consciously disregard
+                it and save a value that is outside preset expectations.
+            </p>
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/program_rules/program-rule-show-warning-action.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>
+                The second column is mandatory, and is used to define the message shown to the user when the expression
+                is true and the action is triggered.
+            </p>
+      <p>
+                The third column specifies which data element or attribute to link the warning to, and is meant to be a recommendation to the user regarding
+                where the cause of the warning can be rectified. In case several data elements or attributes are involved,  when defining the rule, you should choose the one that is most
+                likely that the user would need to consider.
+            </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e7603"></a>31.6.4.&nbsp; Show error action </h3></div></div></div>
+      
+      <p>
+                A <span class="bold"><strong>show error action</strong></span> is defined by selecting "show error" in the first column of the
+                action row. A show error action is used whenever there are rules which must strictly be adhered to. The show error action prevents the user from continuing until the error is resolved. Such
+                a strict validation should only be used whenever it is certain that the evaluated expression is never
+                true unless the user has made a mistake in data entry.
+            </p>
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/program_rules/program-rule-show-error-action.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>
+                The second column is mandatory, and is used to define the message shown to the user when the expression
+                is true and the action is triggered.
+            </p>
+      <p>
+                The third column specifies which data element or attribute to link the error to, and is meant to be a cue for the user regarding
+                where the cause of the error can be rectified. In case several data elements or attributes is involved, choose the one that is most
+                likely that the user would need to change.
+            </p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch31s05.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch31.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch32.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">31.5.&nbsp; Defining expressions &nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;32.&nbsp;User profiles</td></tr></table></div></body></html>

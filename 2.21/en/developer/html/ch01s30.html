@@ -1,0 +1,23 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.30.&nbsp;Generating resource and analytics tables</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s29.html" title="1.29.&nbsp;Geo features"><link rel="next" href="ch01s31.html" title="1.31.&nbsp;Maintenance"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.30.&nbsp;Generating resource and analytics tables</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s29.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s31.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e4011"></a>1.30.&nbsp;Generating resource and analytics tables</h2></div></div></div>
+    
+    <p>DHIS 2 features a set of generated database tables which are used as basis for various
+      system functionality. These tables can be executed immediately or scheduled to be executed at
+      regular intervals through the user interface. They can also be generated through the Web API
+      as explained in this section. This task is typically one for a system administrator and not
+      consuming clients. </p>
+    <p>The resource tables are used internally by the DHIS 2 application for various analysis
+      functions. These tables are also valuable for users writing advanced SQL reports. They can be
+      generated with a POST or PUT request to the following URL:</p>
+    <pre class="screen">api/resourceTables</pre>
+    <p>The analytics tables are optimized for data aggregation and used currently in DHIS 2 for
+      the pivot table module. The analytics tables can be generated with a POST or PUT request
+      to:</p>
+    <pre class="screen">api/resourceTables/analytics</pre>
+    <div class="table"><a name="d5e4018"></a><p class="title"><b>Table&nbsp;1.53.&nbsp;Analytics tables optional query parameters</b></p><div class="table-contents">
+      
+      <table summary="Analytics tables optional query parameters" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Query parameter</th><th>Options</th><th>Description</th></tr></thead><tbody><tr><td>skipResourceTables</td><td>false | true</td><td>Skip generation of resource tables</td></tr><tr><td>skipAggregate</td><td>false | true</td><td>Skip generation of aggregate data and completeness data</td></tr><tr><td>skipEvents</td><td>false | true</td><td>Skip generation of event data</td></tr><tr><td>lastYears</td><td>integer</td><td>Number of last years of data to include</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <p>These requests will return immediately and initiate a server-side process.</p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s29.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s31.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.29.&nbsp;Geo features&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.31.&nbsp;Maintenance</td></tr></table></div></body></html>

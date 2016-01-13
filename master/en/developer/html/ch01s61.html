@@ -1,0 +1,44 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.61.&nbsp;App store</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s60.html" title="1.60.&nbsp;Apps"><link rel="next" href="ch01s62.html" title="1.62.&nbsp;Data store"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.61.&nbsp;App store</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s60.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s62.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e6013"></a>1.61.&nbsp;App store</h2></div></div></div>
+    
+    <p>The Web API exposes the content of the DHIS 2 App Store as a JSON representation which can
+      found at the <span class="italic">api/appStore</span>
+      resource.</p>
+      <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e6017"></a>1.61.1.&nbsp;Get apps</h3></div></div></div>
+        
+        <p>You can retrieve apps with a GET request:
+          </p><pre class="screen">GET api/appStore</pre>
+    <p>A sample JSON response is described
+      below.
+      </p><pre class="screen">{
+  "name": "DHIS 2 App Store",
+  "description": "Send your apps with a description to us at apps@dhis2.org",
+  "apps": [
+    {
+      "name": "Tabular Tracker Capture",
+      "description": "Tabular Tracker Capture is an app that makes you more effective.",
+      "developer": "John Develop",
+      "img_large": "https://www.dhis2.org/images/appstore/tabular-tracker-capture.png",
+      "versions": [
+        {
+          "id": "upAPqrVgwK6",
+          "version": "1.2",
+          "min_platform_version": "2.17",
+          "max_platform_version": "2.20",
+          "download_url": "https://www.dhis2.org/download/appstore/tabular-tracker-capture-12.zip",
+          "demo_url": "http://play.dhis2.org/demo"
+        }
+      ]
+    }
+  ]
+}</pre>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e6023"></a>1.61.2.&nbsp;Install apps</h3></div></div></div>
+    
+    <p>You can install apps on your instance of DHIS 2 assuming you have the appropriate
+      permissions. An app is referred to using the <span class="italic">id</span> property of
+      the relevant <span class="italic">version</span> of the <span class="italic">app</span>. An app is installed with a POST request with the version id to the
+      following resource:</p><pre class="screen">POST api/appStore/{app-version-id}</pre>
+  </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s60.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s62.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.60.&nbsp;Apps&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.62.&nbsp;Data store</td></tr></table></div></body></html>

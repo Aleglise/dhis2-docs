@@ -1,0 +1,233 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>8.3.&nbsp;Server setup</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_implementation_guide_en.html" title="DHIS2 Implementation Guide"><link rel="up" href="ch08.html" title="Chapter&nbsp;8.&nbsp;Installation"><link rel="prev" href="ch08s02.html" title="8.2.&nbsp;Server specifications"><link rel="next" href="ch08s04.html" title="8.4.&nbsp;Reverse proxy configuration"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.3.&nbsp;Server setup</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s02.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;8.&nbsp;Installation</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch08s04.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e425"></a>8.3.&nbsp;Server setup</h2></div></div></div>
+    
+    <p>This section describes how to set up a server instance of DHIS 2 on Ubuntu 14.04 64 bit
+      with PostgreSQL as database system and Tomcat as Servlet container. This guide is not meant to
+      be a step-by-step guide per se, but rather to serve as a reference to how DHIS2 can be
+      deployed on a server. There are many possible deployment strategies, which will differ
+      depending on the operating system and database you are using, and other factors. The term
+        <span class="italic">invoke</span> refers to executing a given command in a terminal. </p>
+    <p>For a national server the recommended configuration is a quad-core 2 Ghz processor or
+      higher and 12 Gb RAM or higher. Note that a 64 bit operating system is required for utilizing
+      more than 4 Gb of RAM. </p>
+    <p>For this guide we assume that 8 Gb RAM is allocated for PostgreSQL and 8 GB RAM is
+      allocated for Tomcat/JVM, and that a 64-bit operating system is used. <span class="italic">If you are running a different configuration please adjust the suggested values accordingly!</span> We recommend that the available memory is split roughly equally
+      between the database and the JVM. Remember to leave some of the physical memory to the
+      operating system for it to perform its tasks, for instance around 2 GB. The steps marked as
+        <span class="italic">optional</span>, like the step for performance tuning, can be
+      done at a later stage.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e433"></a>8.3.1.&nbsp;Creating a user to run DHIS2</h3></div></div></div>
+      
+      <p>You should create a dedicated user for running DHIS - it is not recommended to run as
+        the root user. Create a new user called dhis by invoking:</p>
+      <pre class="screen">useradd -d /home/dhis -m dhis -s /bin/bash</pre>
+      <p>Then make the user able to perform operations temporarily as root user by
+        invoking:</p>
+      <pre class="screen">usermod -G sudo dhis</pre>
+      <p>Then to set the password for your account invoke:</p>
+      <pre class="screen">passwd dhis</pre>
+      <p>Make sure you set a strong password with at least 15 random characters. You might want
+        to disable remote login for the root account for improved security by invoking:</p>
+      <pre class="screen">sudo passwd -l root</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e443"></a>8.3.2.&nbsp;Setting server time zone and locale (optional)</h3></div></div></div>
+      
+      <p>It may be necessary to reconfigure the time zone of the server to match the time zone of
+        the location which the DHIS2 server will be covering. If you are using a virtual private
+        server, the default time zone may not correspond to the time zone of your DHIS2 location.
+        You can easily reconfigure the time zone by invoking the below and following the
+        instructions.</p>
+      <pre class="screen">sudo dpkg-reconfigure tzdata</pre>
+      <p>PostgreSQL is sensitive to locales so you might have to install your locale first. To
+        check existing locales and install new ones (e.g. Norwegian):</p>
+      <pre class="screen">locale -a
+sudo locale-gen nb_NO.UTF-8</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e449"></a>8.3.3.&nbsp;PostgreSQL installation</h3></div></div></div>
+      
+      <p>Install PostgreSQL 9.3 by invoking:</p>
+      <pre class="screen">sudo apt-get install postgresql-9.3</pre>
+      <p>Switch to the postgres user by invoking:</p>
+      <pre class="screen">sudo su postgres</pre>
+      <p>Create a non-privileged user called <span class="italic">dhis</span> by
+        invoking:</p>
+      <pre class="screen">createuser -SDRP dhis</pre>
+      <p>Enter a secure password at the prompt. Create a database by invoking:</p>
+      <pre class="screen">createdb -O dhis dhis2</pre>
+      <p>Return to your session by invoking <code class="code">exit</code> You now have a PostgreSQL user
+        called <span class="italic">dhis</span> and a database called <span class="italic">dhis2</span>.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e464"></a>8.3.4.&nbsp;PostgreSQL performance tuning</h3></div></div></div>
+      
+      <p>Tuning PostgreSQL is necessary to achieve a high-performing system but is optional in
+        terms of getting DHIS 2 to run. PostgreSQL is configured and tuned through the <span class="italic">postgresql.conf</span> file which can be edited like this:</p>
+      <pre class="screen">sudo nano /etc/postgresql/9.3/main/postgresql.conf</pre>
+      <p>and set the following properties:</p>
+      <pre class="screen">shared_buffers = 3200MB</pre>
+      <p>Determines how much memory should be allocated exclusively for PostgreSQL caching. This
+      setting controls the size of the kernel shared memory which should be reserved for PostgreSQL.
+      Should be set to around 40% of total memory dedicated for PostgreSQL.</p>
+      <pre class="screen">work_mem = 20MB</pre>
+      <p>Determines the amount of memory used for internal sort and hash operations. This setting
+      is per connection, per query so a lot of memory may be consumed if raising this too high.
+      Setting this value correctly is essential for DHIS 2 aggregation performance.</p>
+      <pre class="screen">maintenance_work_mem = 512MB</pre>
+      <p>Determines the amount of memory PostgreSQL can use for maintenance operations such as
+        creating indexes, running vacuum, adding foreign keys. Incresing this value might improve
+        performance of index creation during the analytics generation processes.</p>
+      <pre class="screen">effective_cache_size = 8000MB</pre>
+      <p>An estimate of how much memory is available for disk caching by the operating system (not
+      an allocation) and is used by PostgreSQL to determine whether a query plan will fit into
+      memory or not. Setting it to a higher value than what is really available will result in poor
+      performance. This value should be inclusive of the shared_buffers setting. PostgreSQL has two
+      layers of caching: The first layer uses the kernel shared memory and is controlled by the
+      shared_buffers setting. PostgreSQL delegates the second layer to the operating system disk
+      cache and the size of available memory can be given with the effective_cache_size
+      setting.</p>
+      <pre class="screen">checkpoint_segments = 32</pre>
+      <p>PostgreSQL writes new transactions to a log file called WAL segments which are 16MB in size. When a number of segments have been written a checkpoint occurs. Setting this number to a larger value will thus improve performance for write-heavy systems such as DHIS 2.</p>
+      <pre class="screen">checkpoint_completion_target = 0.8</pre>
+      <p>Determines the percentage of segment completion before a checkpoint occurs. Setting this to a high value will thus spread the writes out and lower the average write overhead.</p>
+      <pre class="screen">wal_buffers = 16MB</pre>
+      <p>Sets the memory used for buffering during the WAL write process. Increasing this value might improve throughput in write-heavy systems.</p>
+      <pre class="screen">synchronous_commit = off</pre>
+      <p>Specifies whether transaction commits will wait for WAL records to be written to the disk before returning to the client or not. Setting this to off will improve performance considerably. It also implies that there is a slight delay between the transaction is reported successful to the client and it actually being safe, but the database state cannot be corrupted and this is a good alternative for performance-intensive and write-heavy systems like DHIS 2.</p>
+      <pre class="screen">wal_writer_delay = 10000ms</pre>
+      <p>Specifies the delay between WAL write operations. Setting this to a high value will improve performance on write-heavy systems since potentially many write operations can be executed within a single flush to disk.</p>
+      <p>Restart PostgreSQL by invoking <code class="code">sudo /etc/init.d/postgresql restart</code></p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e500"></a>8.3.5.&nbsp;Database configuration</h3></div></div></div>
+      
+      <p>The database connection information is provided to DHIS 2 through a configuration file
+        called <span class="italic">hibernate.properties</span>. Create this file and save it
+        in a convenient location. A configuration file for PostgreSQL corresponding to the above
+        setup has these properties: </p>
+      <pre class="screen">hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+hibernate.connection.driver_class = org.postgresql.Driver
+hibernate.connection.url = jdbc:postgresql:dhis2
+hibernate.connection.username = dhis
+hibernate.connection.password = xxxx
+hibernate.hbm2ddl.auto = update
+encryption.password = xxxx</pre>
+      <p>The <span class="italic">encryption.password</span> property is the password used
+        when encrypting and decrypting data in the database. It applies for version 2.16 and later.
+        Note that the password must not be changed once it has been set and data has been encrypted
+        as the data can then no longer be decrypted. If the database is copied to another server the
+        encryption password must be identical. Remember to set a strong password of at least 8
+        characters. A system-provided password will be used if not set in the configuration file,
+        this can however not be considered secure.</p>
+      <p>A common mistake is to have a white-space after the last property value so make sure
+        there is no white-space at the end of any line. Also remember that this file contains the
+        clear text password for your DHIS 2 database so it needs to be protected from unauthorized
+        access. To do this invoke the following command which ensures that only the dhis user which
+        owns the file is allowed to read it:</p>
+      <pre class="screen">chmod 0600 hibernate.properties</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e510"></a>8.3.6.&nbsp;File store configuration (optional)</h3></div></div></div>
+      
+      <p>DHIS 2 is capable of capturing and storing files. By default files will be stored on the
+        file system of the server which runs DHIS 2 in a <span class="italic">files</span>
+        directory under the <span class="italic">DHIS2_HOME</span> external directory
+        location.</p>
+      <p>You can also configure DHIS 2 to store files on cloud-based storage providers.
+        Currently, AWS S3 is the only supported provider. To enable cloud-based storage you must
+        define the following addtional properties in your <span class="italic">hibernate.properties</span> file:</p>
+      <pre class="screen"># File store provider. Currently 'filesystem' and 'aws-s3' are supported.
+filestore.provider = filesystem
+
+# Directory / bucket name. Corresponds to folder within external directory on file system and 'bucket' on AWS S3.
+filestore.container = files
+
+# The following configuration is applicable only on non-filesystem providers (AWS S3).
+
+# Datacenter location. Not required but recommended for performance reasons.
+filestore.location = eu-west-1
+
+# Public identity / username.
+filestore.identity = xxxx
+
+# Secret key / password (sensitive).
+filestore.secret = xxxx</pre>
+      <p>This configuration is an example reflecting the defaults and should be changed to fit
+        your needs. In other words, you can omit it entirely if you plan to use the default values.
+        If you want to use an external provider the last block of properties need to be defined, as
+        well as the <span class="italic">provider</span> property being set to a supported
+        provider (currently only AWS S3).</p>
+      <p>For a production system the initial setup of the file store should be carefully
+        considered as moving files across storage providers while keeping the integrity of the
+        database references could be complex. Keep in mind that the contents of the file store might
+        contain both sensitive and integral information and protecting access to the folder as well
+        as making sure a backup plan is in place is recommended on a production
+        implementation.</p>
+      <p><span class="italic">A note on external provider support: AWS S3 is the only
+          supported provider at the moment but more providers are likely to be added, such as Google
+          Cloud Store and Rackspace Cloud Files. Let the developers know if you have inquiries about
+          adding support for more providers.</span></p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e523"></a>8.3.7.&nbsp;Java installation</h3></div></div></div>
+      
+      <p>Oracle Java 8 JDK is the recommended Java option as it provides the greates operating
+        system support, including Ubuntu LTS 14.04. The webupd8team Java PPA provides the necessary
+        packages.</p>
+      <pre class="screen">sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer</pre>
+      <p>Check that your installation is okay by invoking:</p>
+      <pre class="screen">java -version</pre>
+      <p>You can also ensure that the appropriate environment variables are set by installing this
+        package:</p>
+      <pre class="screen">sudo apt-get install oracle-java8-set-default</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e531"></a>8.3.8.&nbsp;Install Tomcat and DHIS2</h3></div></div></div>
+      
+      <p>To install the Tomcat servlet container we will utilize the Tomcat user package by
+        invoking:</p>
+      <pre class="screen">sudo apt-get install tomcat7-user</pre>
+      <p>This package lets us easily create a new Tomcat instance. The instance will be created
+        in the current directory. An appropriate location is the home directory of the dhis
+        user:</p>
+      <pre class="screen">tomcat7-instance-create tomcat-dhis</pre>
+      <p>This will create an instance in a directory called <span class="italic">tomcat-dhis</span>. Note that the tomcat7-user package allows for creating any number
+        of dhis instances if that is desired.</p>
+      <p>Next edit the file <span class="italic">tomcat-dhis/bin/setenv.sh</span> and add
+        the lines below. The first line will set the location of your Java Runtime Environment, the
+        second will dedicate memory to Tomcat and the third will set the location for where DHIS 2
+        will search for the <span class="italic">hibernate.properties</span> configuration
+        file. Please check that the path the Java binaries are correct as they might vary from
+        system to system, e.g. on AMD systems you might see <span class="italic">/java-7-openjdk-amd64</span> Note that you should adjust this to your
+        environment:</p>
+      <pre class="screen">export JAVA_HOME='/usr/lib/jvm/java-8-oracle/'
+export JAVA_OPTS='-Xmx7500m -Xms4000m'
+export DHIS2_HOME='/home/dhis/config'</pre>
+      <p>The Tomcat configiration file is located in <span class="italic">tomcat-dhis/conf/server.xml</span>. The element which defines the connection to DHIS
+        is the <span class="italic">Connector</span> element with port 8080. You can change
+        the port number in the Connector element to a desired port if necessary. If UTF-8 encoding
+        of request data is needed, make sure that the <span class="italic">URIEncoding</span>
+        attribute is set to <span class="italic">UTF-8</span>.</p>
+      <pre class="screen">&lt;Connector port="8080" protocol="HTTP/1.1"
+  connectionTimeout="20000"
+  redirectPort="8443"
+  URIEncoding="UTF-8" /&gt;</pre>
+      <p>The next step is to download the DHIS 2 WAR file and place it into the webapps directory
+        of Tomcat. You can download the DHIS version 2.15 WAR release like this (replace 2.15 with
+        your preferred version if necessary):</p>
+      <pre class="screen">wget https://www.dhis2.org/download/releases/2.21/dhis.war</pre>
+      <p>Move the WAR file into the Tomcat webapps directory. We want to call the WAR file
+        ROOT.war in order to make it available at localhost directly without a context path:</p>
+      <pre class="screen">mv dhis.war tomcat-dhis/webapps/ROOT.war</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e555"></a>8.3.9.&nbsp;Running DHIS2</h3></div></div></div>
+      
+      <p>DHIS 2 can now be started by invoking:</p>
+      <pre class="screen">tomcat-dhis/bin/startup.sh</pre>
+      <p>DHIS 2 can be stopped by invoking:</p>
+      <pre class="screen">tomcat-dhis/bin/shutdown.sh</pre>
+      <p>To monitor the behavior of Tomcat the log is the primary source of information. The log
+        can be viewed with the following command:</p>
+      <pre class="screen">tail -f tomcat-dhis/logs/catalina.out</pre>
+      <p>Assuming that the WAR file is called ROOT.war, you can now access your DHIS instance at
+        the following URL:</p>
+      <pre class="screen">http://localhost:8080</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch08s02.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch08.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch08s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.2.&nbsp;Server specifications&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_implementation_guide_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;8.4.&nbsp;Reverse proxy configuration</td></tr></table></div></body></html>

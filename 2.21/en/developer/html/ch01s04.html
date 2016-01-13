@@ -1,0 +1,27 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.4.&nbsp;Date and period format</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s03.html" title="1.3.&nbsp;Error and info messages"><link rel="next" href="ch01s05.html" title="1.5.&nbsp;Browsing the Web API"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.4.&nbsp;Date and period format</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s03.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s05.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e156"></a>1.4.&nbsp;Date and period format</h2></div></div></div>
+    
+    <p>Throughout the Web API we refer to dates and periods. The date format is:</p>
+    <pre class="screen">yyyy-MM-dd</pre>
+    <p>For instance, if you want to express March 20, 2014 you must use <span class="italic">2014-03-20</span>.</p>
+    <p>The period format is described in the following table. </p>
+    <div class="table"><a name="d5e163"></a><p class="title"><b>Table&nbsp;1.2.&nbsp;Period format</b></p><div class="table-contents">
+      
+      <table summary="Period format" border="1"><colgroup><col width="60pt" class="c1"><col width="80pt" class="c2"><col width="80pt" class="c3"><col width="200pt" class="c4"></colgroup><thead><tr><th> Interval </th><th> Format </th><th> Example </th><th> Description </th></tr></thead><tbody><tr><td>Day</td><td>
+              <span class="emphasis"><em>yyyyMMdd</em></span>
+            </td><td>20040315</td><td>March 15 2004</td></tr><tr><td>Week</td><td><span class="emphasis"><em>yyyy</em></span>W<span class="emphasis"><em>n</em></span></td><td>2004W10</td><td>Week 10 2004</td></tr><tr><td>Month</td><td>
+              <span class="emphasis"><em>yyyyMM</em></span>
+            </td><td>200403</td><td>March 2004</td></tr><tr><td>Quarter</td><td><span class="emphasis"><em>yyyy</em></span>Q<span class="emphasis"><em>n</em></span></td><td>2004Q1</td><td>January-March 2004</td></tr><tr><td>Six-month</td><td><span class="emphasis"><em>yyyy</em></span>S<span class="emphasis"><em>n</em></span></td><td>2004S1</td><td>January-June 2004</td></tr><tr><td>Six-month April</td><td><span class="emphasis"><em>yyyy</em></span>AprilSn</td><td>2004AprilS1</td><td>April-September 2004</td></tr><tr><td>Year</td><td>yyyy</td><td>2004</td><td>2004</td></tr><tr><td>Financial Year April</td><td>yyyyApril</td><td>2004April</td><td>Apr 2004-Mar 2005</td></tr><tr><td>Financial Year July</td><td>yyyyJuly</td><td>2004July</td><td>July 2004-June 2005</td></tr><tr><td>Financial Year Oct</td><td>yyyyOct</td><td>2004Oct</td><td>Oct 2004-Sep 2005</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <p>In some parts of the API, like for the analytics resource, you can utilize relative
+      periods in addition to fixed periods (defined above). The relative periods are relative to the
+      current date, and allows e.g. for creating dynamic reports. The available relative period
+      values are:</p>
+    <pre class="screen">THIS_WEEK, LAST_WEEK, LAST_4_WEEKS, LAST_12_WEEKS, LAST_52_WEEKS, 
+THIS_MONTH, LAST_MONTH, THIS_BIMONTH, LAST_BIMONTH, THIS_QUARTER, LAST_QUARTER, 
+THIS_SIX_MONTH, LAST_SIX_MONTH, MONTHS_THIS_YEAR, QUARTERS_THIS_YEAR,
+THIS_YEAR, MONTHS_LAST_YEAR, QUARTERS_LAST_YEAR, LAST_YEAR, LAST_5_YEARS, LAST_12_MONTHS,
+LAST_3_MONTHS, LAST_6_BIMONTHS, LAST_4_QUARTERS, LAST_2_SIXMONTHS, THIS_FINANCIAL_YEAR,
+LAST_FINANCIAL_YEAR, LAST_5_FINANCIAL_YEARS</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s03.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.3.&nbsp;Error and info messages&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.5.&nbsp;Browsing the Web API</td></tr></table></div></body></html>

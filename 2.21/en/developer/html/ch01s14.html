@@ -1,0 +1,194 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.14.&nbsp;Events</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s13.html" title="1.13.&nbsp;ADX formatted data"><link rel="next" href="ch01s15.html" title="1.15.&nbsp;Forms"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.14.&nbsp;Events</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s13.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s15.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1677"></a>1.14.&nbsp;Events</h2></div></div></div>
+    
+    <p>This section is about sending and reading events.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1680"></a>1.14.1.&nbsp;Sending events</h3></div></div></div>
+      
+      <p>DHIS 2 supports three kinds of events: single events with no registration (also referred
+        to as anonymous events), single event with registration and multiple events with
+        registration. Registration implies that the data is linked to a tracked entity instance
+        which is identified using some sort of identifier.</p>
+      <p>To send events to DHIS 2 you must interact with the <span class="italic">events</span> resource. The approach to sending events is similar to sending
+        aggregate data values. You will need a <span class="italic">program</span> which can
+        be looked up using the <span class="italic">programs</span> resource, an <span class="italic">orgUnit</span> which can be looked up using the <span class="italic">organisationUnits</span> resource, and a list of valid data element identifiers which
+        can be looked up using the <span class="italic">dataElements</span> resource. For
+        events with registration, a <span class="italic">tracked entity instance</span>
+        identifier is required, read about how to get this in the section about the <span class="italic">trackedEntityInstances</span> resource. For sending events to programs
+        with multiple stages, you will need to also include the <span class="italic">programStage</span> identifier, the identifiers for programStages can be found in the
+          <span class="italic">programStages</span> resource.</p>
+      <p>A simple single event with no registration example payload in XML format where we send
+        events from the "Inpatient morbidity and mortality" program for the "Ngelehun
+        CHC" facility in the demo database can be seen below:</p>
+      <pre class="screen">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;event program="eBAyeGv0exc" orgUnit="DiszpKrYNg8" eventDate="2013-05-17" status="COMPLETED" storedBy="admin"&gt;
+  &lt;coordinate latitude="59.8" longitude="10.9" /&gt;
+  &lt;dataValues&gt;
+    &lt;dataValue dataElement="qrur9Dvnyt5" value="22" /&gt;
+    &lt;dataValue dataElement="oZg33kd9taw" value="Male" /&gt;
+    &lt;dataValue dataElement="msodh3rEMJa" value="2013-05-18" /&gt;
+  &lt;/dataValues&gt;
+&lt;/event&gt;</pre>
+      <p>To perform some testing we can save the XML payload as a file called<span class="italic"> event.xml</span> and send it as a POST request to the events resource
+        in the API using curl with the following command:</p>
+      <pre class="screen">curl -d @event.xml "https://play.dhis2.org/demo/api/events" -H "Content-Type:application/xml" -u admin:district -v</pre>
+      <p>The same payload in JSON format looks like this:</p>
+      <pre class="screen">{
+  "program": "eBAyeGv0exc",
+  "orgUnit": "DiszpKrYNg8",
+  "eventDate": "2013-05-17",
+  "status": "COMPLETED",
+  "storedBy": "admin",
+  "coordinate": {
+    "latitude": "59.8",
+    "longitude": "10.9"
+  },
+  "dataValues": [
+    { "dataElement": "qrur9Dvnyt5", "value": "22" },
+    { "dataElement": "oZg33kd9taw", "value": "Male" },
+    { "dataElement": "msodh3rEMJa", "value": "2013-05-18" }
+  ]
+}</pre>
+      <p>To send this you can save it to a file called <span class="italic">event.json</span> and use curl like this:</p>
+      <pre class="screen">curl -d @event.json "localhost/api/events" -H "Content-Type:application/json" -u admin:district -v</pre>
+      <p>We also support sending multiple events at the same time. A payload in XML format might
+        look like this: </p>
+      <pre class="screen">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;events&gt;
+    &lt;event program="eBAyeGv0exc" orgUnit="DiszpKrYNg8" eventDate="2013-05-17" status="COMPLETED" storedBy="admin"&gt;
+      &lt;coordinate latitude="59.8" longitude="10.9" /&gt;
+      &lt;dataValues&gt;
+        &lt;dataValue dataElement="qrur9Dvnyt5" value="22" /&gt;
+        &lt;dataValue dataElement="oZg33kd9taw" value="Male" /&gt;
+      &lt;/dataValues&gt;
+    &lt;/event&gt;
+    &lt;event program="eBAyeGv0exc" orgUnit="DiszpKrYNg8" eventDate="2013-05-17" status="COMPLETED" storedBy="admin"&gt;
+      &lt;coordinate latitude="59.8" longitude="10.9" /&gt;
+      &lt;dataValues&gt;
+        &lt;dataValue dataElement="qrur9Dvnyt5" value="26" /&gt;
+        &lt;dataValue dataElement="oZg33kd9taw" value="Female" /&gt;
+      &lt;/dataValues&gt;
+    &lt;/event&gt;
+&lt;/events&gt;</pre>
+      <p>You will receive an import summary with the response which can be inspected in order to
+        get information about the outcome of the request, like how many values were imported
+        successfully. The payload in JSON format looks like this:</p>
+      <pre class="screen">{
+  "events": [
+  {
+    "program": "eBAyeGv0exc",
+    "orgUnit": "DiszpKrYNg8",
+    "eventDate": "2013-05-17",
+    "status": "COMPLETED",
+    "storedBy": "admin",
+    "coordinate": {
+      "latitude": "59.8",
+      "longitude": "10.9"
+    },
+    "dataValues": [
+      { "dataElement": "qrur9Dvnyt5", "value": "22" },
+      { "dataElement": "oZg33kd9taw", "value": "Male" }
+    ] },
+  {
+    "program": "eBAyeGv0exc",
+    "orgUnit": "DiszpKrYNg8",
+    "eventDate": "2013-05-17",
+    "status": "COMPLETED",
+    "storedBy": "admin",
+    "coordinate": {
+      "latitude": "59.8",
+      "longitude": "10.9"
+    },
+    "dataValues": [
+      { "dataElement": "qrur9Dvnyt5", "value": "26" },
+      { "dataElement": "oZg33kd9taw", "value": "Female" }
+    ] }
+  ]
+}</pre>
+      <p>(From 2.13) As part of the import summary you will also get the identifier <span class="italic">reference</span> to the event you just sent, together with a <span class="italic">href</span> element which points to the server location of this event. </p>
+      <p><span class="bold"><strong>OrgUnit matching</strong></span>: By default the orgUnit parameter will
+        match on the ID (of the orgUnit, but from 2.15 you can also select the orgUnit id matching
+        scheme by using the parameter orgUnitIdScheme=SCHEME, where the options are: <span class="italic">ID</span>, <span class="italic">UID</span>, <span class="italic">UUID</span>, <span class="italic">CODE</span>, and <span class="italic">NAME</span> (ID and UID will both matchUIDs).</p>
+      <p><span class="bold"><strong>Update</strong></span>: To update an existing event, the format of the
+        payload is the same, but the URL you are posting to must add the identifier to the end of
+        the URL string and the request must be PUT.
+        </p><pre class="screen">curl -X PUT -d @updated_event.xml "localhost/api/events/ID" -H "Content-Type:application/xml" -u admin:district -v</pre><pre class="screen">curl -X PUT -d @updated_event.json "localhost/api/events/ID" -H "Content-Type:application/json" -u admin:district -v</pre>
+      <p><span class="bold"><strong>Delete</strong></span>: To delete an existing event, all you need is to
+        send a DELETE request with a identifier reference to the server you are
+        using.</p><pre class="screen">curl -X DELETE "localhost/api/events/ID" -u admin:district -v</pre>
+      <p><span class="bold"><strong>Get</strong></span>: To get an existing event you can issue a GET
+        request including the identifier like
+        this:</p><pre class="screen">curl "localhost/api/events/ID" -H "Content-Type:application/xml" -u admin:district -v</pre>
+      <p>The table below describes the meaning of each element. Most elements should be fairly
+        self-explanatory.</p>
+      <p>
+        </p><div class="table"><a name="d5e1730"></a><p class="title"><b>Table&nbsp;1.23.&nbsp;Events resource format</b></p><div class="table-contents">
+          
+          <table summary="Events resource format" border="1"><colgroup><col width="140pt" class="c1"><col width="88pt" class="c2"><col width="84pt" class="c3"><col width="315pt" class="c4"><col width="394pt" class="c5"></colgroup><thead><tr><th> Parameter </th><th> Type </th><th> Required </th><th> Options (default first)</th><th> Description </th></tr></thead><tbody><tr><td>programId</td><td>string</td><td>true</td><td>&nbsp;</td><td>Identifier of the single event with no registration program</td></tr><tr><td>organisationUnitId</td><td>string</td><td>true</td><td>&nbsp;</td><td>Identifier of the organisation unit where the event took place</td></tr><tr><td>eventDate</td><td>date</td><td>true</td><td>&nbsp;</td><td>The date of when the event occured</td></tr><tr><td>status</td><td>enum</td><td>false</td><td>ACTIVE |&nbsp;COMPLETED |&nbsp;VISITED | SCHEDULE |&nbsp;OVERDUE |&nbsp;SKIPPED</td><td>Whether the event is complete or not</td></tr><tr><td>storedBy</td><td>string</td><td>false</td><td>Defaults to current user</td><td>Who stored this event (can be username, system-name etc)</td></tr><tr><td>coordinate</td><td>double</td><td>false</td><td>&nbsp;</td><td>Refers to wher the event took place geographically (latitude and
+                  longitude)</td></tr><tr><td>dataElementId</td><td>string</td><td>true</td><td>&nbsp;</td><td>Identifier of data element</td></tr><tr><td>value</td><td>string</td><td>true</td><td>&nbsp;</td><td>Data value or measure for this event</td></tr></tbody></table>
+        </div></div><p><br class="table-break">
+      </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1794"></a>1.14.2.&nbsp;CSV Import / Export</h3></div></div></div>
+      
+      <p>In addition to XML and JSON for event import/export, in DHIS 2.17 we introduced support
+        for the CSV format. Support for this format builds on what was described in the last
+        section, so here we will only write about what the CSV specific parts are.</p>
+      <p>To use the CSV format you must either use the <span class="italic">/api/events.csv</span> endpoint, or add <span class="italic">content-type:
+          text/csv</span> for import, and <span class="italic">accept: text/csv</span>
+        for export when using the <span class="italic">/api/events</span> endpoint.</p>
+      <p>The order of column in the CSV which are used for both export and import is as
+        follows:</p>
+      <p>
+        </p><div class="table"><a name="d5e1804"></a><p class="title"><b>Table&nbsp;1.24.&nbsp;CSV column</b></p><div class="table-contents">
+          
+          <table summary="CSV column" border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th>Index</th><th> Key</th><th> Type </th><th> Description </th></tr></thead><tbody><tr><td>1</td><td>event</td><td>identifier</td><td>Identifier of event</td></tr><tr><td>2</td><td>status</td><td>enum</td><td>Status of event, can be ACTIVE | COMPLETED | VISITED | SCHEDULED | OVERDUE
+                  |&nbsp;SKIPPED</td></tr><tr><td>3</td><td>program</td><td>identifier</td><td>Identifier of program</td></tr><tr><td>4</td><td>programStage</td><td>identifier</td><td>Identifier of program stage</td></tr><tr><td>5</td><td>enrollment</td><td>identifier</td><td>Identifier of enrollment (program stage instance)</td></tr><tr><td>6</td><td>orgUnit</td><td>identifier</td><td>Identifier of organisation unit</td></tr><tr><td>7</td><td>eventDate</td><td>date</td><td>Event date</td></tr><tr><td>8</td><td>dueDate</td><td>date</td><td>Due Date</td></tr><tr><td>9</td><td>latitude</td><td>double</td><td>Latitude where event happened</td></tr><tr><td>10</td><td>longitude</td><td>double</td><td>Longitude where event happened</td></tr><tr><td>11</td><td>dataElement</td><td>identifier</td><td>Identifier of data element</td></tr><tr><td>12</td><td>value</td><td>string</td><td>Value / measure of event</td></tr><tr><td>13</td><td>storedBy</td><td>string</td><td>Event was stored by (defaults to current user)</td></tr><tr><td>14</td><td>providedElsewhere</td><td>boolean</td><td>Was this value collected somewhere else</td></tr></tbody></table>
+        </div></div><p><br class="table-break">
+      </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1884"></a>1.14.3.&nbsp;Querying and reading events</h3></div></div></div>
+      
+      <p>This section explains how to read out the events that have been stored in the DHIS2
+        instance. For more advanced uses of the event data, please see the section on event
+        analytics. The output format from the <span class="italic">/api/events</span>
+        endpoint will match the format that is used to send events to it (which the analytics event
+        api does not support). Both XML and JSON are supported, either through adding .json/.xml or
+        by setting the appropriate <span class="italic">Accept</span> header. The query is
+        paged by default and the default page size is 50 events.</p>
+      <p>
+        </p><div class="table"><a name="d5e1890"></a><p class="title"><b>Table&nbsp;1.25.&nbsp;Events resource query parameters</b></p><div class="table-contents">
+          
+          <table summary="Events resource query parameters" border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th> Key </th><th> Type </th><th> Required </th><th> Description </th></tr></thead><tbody><tr><td>program</td><td>identifier</td><td>true (if not programStage is provided)</td><td>Identifier of program</td></tr><tr><td>programStage</td><td>identifier</td><td>false</td><td>Identifier of program stage</td></tr><tr><td>programStatus</td><td>enum</td><td>false</td><td>Status of event in program, ca be ACTIVE | COMPLETED | CANCELLED</td></tr><tr><td>followUp</td><td>boolean</td><td>false</td><td>Whether event is considered for follow up in program, can be true | false or
+                  omitted.</td></tr><tr><td>trackedEntityInstance</td><td>identifier</td><td>false</td><td>Identifier of tracked entity instance</td></tr><tr><td>orgUnit</td><td>identifier</td><td>true</td><td>Identifier of organisation unit</td></tr><tr><td>ouMode</td><td>enum</td><td>false</td><td>Org unit selection mode, can be SELECTED | CHILDREN | DESCENDANTS </td></tr><tr><td>startDate</td><td>date</td><td>false</td><td>Only events newer than this date</td></tr><tr><td>endDate</td><td>date</td><td>false</td><td>Only events older than this date</td></tr><tr><td>status</td><td>enum</td><td>false</td><td>Status of event, can be ACTIVE | COMPLETED | VISITED | SCHEDULED | OVERDUE
+                  |&nbsp;SKIPPED</td></tr><tr><td>lastUpdated</td><td>date</td><td>false</td><td>Filter for events which were updated after this date.</td></tr><tr><td>skipMeta</td><td>boolean</td><td>false</td><td>Exclude the meta data part of response (improves performance)</td></tr><tr><td>page</td><td>integer</td><td>false</td><td>Page number</td></tr><tr><td>pageSize</td><td>integer</td><td>falase</td><td>Number of items in each page</td></tr><tr><td>totalPages</td><td>boolean</td><td>false</td><td>Indicates whether to include the total number of pages in the paging
+                  response.</td></tr><tr><td>skipPaging</td><td>boolean</td><td>false</td><td>Indicates whether to skip paging in the query and return all events.</td></tr><tr><td>dataElementIdScheme</td><td>string</td><td>false</td><td>Data element ID scheme to use for export, valid options are UID and
+                  CODE</td></tr><tr><td>categoryOptionComboIdScheme</td><td>string</td><td>false</td><td>Category Option Combo ID scheme to use for export, valid options are UID and
+                  CODE</td></tr><tr><td>orgUnitIdScheme</td><td>string</td><td>false</td><td>Organisation Unit ID scheme to use for export, valid options are UID and
+                  CODE</td></tr><tr><td>programIdScheme</td><td>string</td><td>false</td><td>Program ID scheme to use for export, valid options are UID and CODE</td></tr><tr><td>programStageIdScheme</td><td>string</td><td>false</td><td>Program Stage ID scheme to use for export, valid options are UID and
+                  CODE</td></tr><tr><td>idScheme</td><td>string</td><td>false</td><td>Allows to set id scheme for data element, category option combo, orgUnit,
+                  program and program stage at once.</td></tr></tbody></table>
+        </div></div><p><br class="table-break">
+      </p>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e2010"></a>1.14.3.1.&nbsp;Examples</h4></div></div></div>
+        
+        <p>Query for all events with children of a certain organisation unit:
+          </p><pre class="screen">api/events.json?orgUnit=YuQRtpLP10I&amp;ouMode=CHILDREN</pre>
+        <p>Query for all events with all descendants of a certain organisation unit, implying all
+          organisation units in the
+          sub-hierarchy:</p><pre class="screen">api/events.json?orgUnit=O6uvpzGd5pu&amp;ouMode=DESCENDANTS</pre>
+        <p>Query for all events with a certain program and organisation unit:
+          </p><pre class="screen">api/events.json?orgUnit=DiszpKrYNg8&amp;program=eBAyeGv0exc</pre>
+        <p>Query for all events with a certain program and organisation unit for a specific
+          tracked entity instance:
+          </p><pre class="screen">api/events.json?orgUnit=DiszpKrYNg8&amp;
+program=eBAyeGv0exc&amp;trackedEntityInstance=gfVxE3ALA9m</pre>
+        <p>Query for all events with a certain program and organisation unit older or equal to
+          2014-02-03:
+          </p><pre class="screen">api/events.json?orgUnit=DiszpKrYNg8&amp;program=eBAyeGv0exc&amp;endDate=2014-02-03</pre>
+        <p>Query for all events with a certain program stage, organisation unit and tracked
+          entity instance in the year 2014:
+          </p><pre class="screen">api/events.json?orgUnit=DiszpKrYNg8&amp;program=eBAyeGv0exc&amp;trackedEntityInstance=gfVxE3ALA9m&amp;startDate=2014-01-01&amp;endDate=2014-12-31</pre>
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s13.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s15.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.13.&nbsp;ADX formatted data&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.15.&nbsp;Forms</td></tr></table></div></body></html>

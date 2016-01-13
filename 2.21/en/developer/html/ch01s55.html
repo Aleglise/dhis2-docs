@@ -1,0 +1,37 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.55.&nbsp;Metadata repository</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s54.html" title="1.54.&nbsp;Data store"><link rel="next" href="ch02.html" title="Chapter&nbsp;2.&nbsp;Apps"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.55.&nbsp;Metadata repository</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s54.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5311"></a>1.55.&nbsp;Metadata repository</h2></div></div></div>
+    
+    <p>DHIS 2 provides a metadata repository containing metadata packages with various content. A
+      metadata package is a </p>
+    <p>To retrieve an index over available metadata packages you can issue a GET request to the
+        <span class="italic">metadataRepo</span>
+      resource:</p><pre class="screen">GET /api/metadatRepo</pre>
+    <p>A metadata package entry contains information about the package and a URL to the relevant
+      package. A metadata package is simply a DXF metadata file. An index could look like
+      this:</p><pre class="screen">{
+  "packages": [ {
+    "id": "sierre-leone-demo",
+    "name": "Sierra Leone demo",
+    "description": "Sierra Leone demo database",
+    "version": "0.1",
+    "href": "https://raw.githubusercontent.com/dhis2/dhis2-metadata-repo/master/repo/221/sierra-leone-demo/metadata.json"
+  }, 
+  {
+    "id": "trainingland-org-units",
+    "name": "Trainingland organisation units",
+    "description": "Trainingland organisation units with four levels",
+    "version": "0.1",
+    "href": "https://raw.githubusercontent.com/dhis2/dhis2-metadata-repo/master/repo/221/trainingland-org-units/metadata.json"
+  }
+ ]
+}</pre>
+    <p>A client can follow the URLs in a RESTful fashion and install a metadata package by
+      supplying POST request as text/plain with the metadata package URL as the payload to the
+        <span class="italic">metadataPull</span>
+      resource:</p><pre class="screen">POST /api/metadataPull</pre>
+    <p>An example curl command looks like
+      this:</p><pre class="screen">curl "localhost:8080/api/synchronization/metadataPull" -X POST 
+-d "https://raw.githubusercontent.com/dhis2/dhis2-metadata-repo/master/repo/221/trainingland-org-units/metadata.json" 
+-H "Content-Type:text/plain" -u admin:district -v</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s54.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.54.&nbsp;Data store&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;2.&nbsp;Apps</td></tr></table></div></body></html>

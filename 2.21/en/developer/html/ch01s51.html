@@ -1,0 +1,32 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.51.&nbsp;UI customization with Javascript and CSS files</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s50.html" title="1.50.&nbsp;Schema Resource"><link rel="next" href="ch01s52.html" title="1.52.&nbsp;Synchronization"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.51.&nbsp;UI customization with Javascript and CSS files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s50.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s52.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5201"></a>1.51.&nbsp;UI customization with Javascript and CSS files</h2></div></div></div>
+    
+    <p>To customize the UI of the DHIS 2 application you can insert custom Javascript and CSS
+      styles through the <span class="italic">files</span> resource. The Javascript and CSS
+      content inserted through this resource will be loaded by the DHIS 2 web application. This can
+      be particularly useful in certain situations:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>Overriding the CSS styles of the DHIS 2 application, such as the login page or main
+          page.</p>
+      </li><li class="listitem">
+        <p>Defining Javascript functions which are common to several custom data entry forms and
+          HTML-based reports.</p>
+      </li><li class="listitem">
+        <p>Including CSS styles which are used in custom data entry forms and HTML-based
+          reports.</p>
+      </li></ul></div>
+    <p>To insert Javascript from a file called <span class="italic">script.js</span> you
+      can interact with the <span class="italic">files/script</span> resource with a
+      POST-request:</p>
+    <pre class="screen">curl --data-binary @script.js "localhost/api/files/script" -H "Content-Type:application/javascript" -u admin:district -v</pre>
+    <p>Note that we use the --data-binary option to preserve formatting of the file content. You
+      can fetch the Javascript content with a GET-request:</p>
+    <pre class="screen">localhost/api/files/script</pre>
+    <p>To insert CSS from a file called <span class="italic">style.css</span> you can
+      interact with the <span class="italic">files/style</span> resource with a
+      POST-request:</p>
+    <pre class="screen">curl --data-binary @style.css "localhost/api/files/style" -H "Content-Type:text/css" -u admin:district -v</pre>
+    <p>You can fetch the CSS content with a GET-request:</p>
+    <pre class="screen">localhost/api/files/style</pre>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s50.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s52.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.50.&nbsp;Schema Resource&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.52.&nbsp;Synchronization</td></tr></table></div></body></html>

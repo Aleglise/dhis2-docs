@@ -1,0 +1,36 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>2.6.&nbsp;Web-API for Apps</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;Apps"><link rel="prev" href="ch02s05.html" title="2.5.&nbsp;Launching Apps"><link rel="next" href="ch02s07.html" title="2.7.&nbsp;Adding the DHIS 2 menu to your app"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.6.&nbsp;Web-API for Apps</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s05.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;2.&nbsp;Apps</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s07.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5384"></a>2.6.&nbsp;Web-API for Apps</h2></div></div></div>
+    
+    <p>From version 2.14 there is also additional support for apps through the web-api. The
+        <span class="italic">/api/apps</span> endpoint can be used for installing, deleting
+      and listing apps. The app key is derived from the name of the ZIP archive, exluding the file
+      extension.</p>
+    <p>You can read the keys for apps by listing all apps from the apps resource and look for the
+        <span class="italic">key</span> property. To list all installed apps in
+      JSON:</p><pre class="screen">curl -X GET -u user:pass -H "Accept: application/json" http://server.com/api/apps</pre>
+    <p>You can also simply point your web browser to the resource URL:</p>
+    <pre class="screen">http://server.com/api/apps</pre>
+    <p>To install an app, the following command can be issued:
+      </p><pre class="screen">curl -X POST -u user:pass -F file=@app.zip http://server.com/api/apps</pre>
+    <p>To delete an app, you can issue the following command:
+      </p><pre class="screen">curl -X DELETE -u user:pass http://server.com/api/apps/&lt;app-key&gt;</pre>
+    <p>To force a reload of currently installed apps, you can issue the following command. This
+      is useful if you added a file manually directly to the file system, instead of uploading
+      through the DHIS 2 user interface.
+      </p><pre class="screen">curl -X PUT -u user:pass http://server.com/api/apps</pre>
+    <p>To let DHIS 2 serve apps from the Web API make sure to set the "App base URL" to point to
+      the apps resource, i.e.:</p><pre class="screen">http://server.com/api/apps</pre>
+    <p>To set the apps configuration you can make a POST request to the <span class="italic">config</span> resourec with a JSON payload:</p>
+    <pre class="screen">{
+  "appFolderPath": "/home/dhis/config/apps",
+  "appBaseUrl": "http://server.com/api/apps"
+}</pre>
+    <pre class="screen">curl -X POST -u user:pass -d @config.json http://server.com/api/apps/config</pre>
+    <p>To restore the default app settings you can make a DELETE request to the config
+      resource:</p>
+    <pre class="screen">curl -X DELETE -u user:pass http://server.com/api/apps/config</pre>
+    <p>Note that by default apps will be served through the apps Web API resource, and the file
+      system folder will be <span class="italic">DHIS2_HOME/apps</span>. These systems should
+      be fine for most situations.</p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s05.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.5.&nbsp;Launching Apps&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;2.7.&nbsp;Adding the DHIS 2 menu to your app</td></tr></table></div></body></html>

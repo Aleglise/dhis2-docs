@@ -1,0 +1,129 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;19.&nbsp;Setting up report functionality</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="prev" href="ch18s02.html" title="18.2.&nbsp;Importing coordinates"><link rel="next" href="ch19s02.html" title="19.2.&nbsp;How to create report tables"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;19.&nbsp;Setting up report functionality</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch18s02.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch19s02.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d5e2737"></a>Chapter&nbsp;19.&nbsp;Setting up report functionality</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="ch19.html#d5e2739">19.1. Data sources for reporting</a></span></dt><dd><dl><dt><span class="section"><a href="ch19.html#d5e2741">19.1.1. Types of data and aggregation</a></span></dt><dt><span class="section"><a href="ch19.html#d5e2801">19.1.2. Resource tables</a></span></dt><dt><span class="section"><a href="ch19.html#reportTable">19.1.3. Report tables</a></span></dt></dl></dd><dt><span class="section"><a href="ch19s02.html">19.2. How to create report tables</a></span></dt><dd><dl><dt><span class="section"><a href="ch19s02.html#d5e2811">19.2.1. General options</a></span></dt><dt><span class="section"><a href="ch19s02.html#d5e2843">19.2.2. Selecting data</a></span></dt><dt><span class="section"><a href="ch19s02.html#d5e2856">19.2.3. Selecting report parameters</a></span></dt><dt><span class="section"><a href="ch19s02.html#d5e2923">19.2.4. Data element dimension tables</a></span></dt><dt><span class="section"><a href="ch19s02.html#d5e2935">19.2.5. Report table - best practices</a></span></dt></dl></dd><dt><span class="section"><a href="ch19s03.html">19.3. Report table outcome</a></span></dt><dt><span class="section"><a href="ch19s04.html">19.4. Standard reports</a></span></dt><dd><dl><dt><span class="section"><a href="ch19s04.html#d5e2989">19.4.1. What is a standard report?</a></span></dt><dt><span class="section"><a href="ch19s04.html#d5e2992">19.4.2. Designing Standard reports in iReport</a></span></dt><dt><span class="section"><a href="ch19s04.html#d5e3505">19.4.3. Designing SQL based standard reports</a></span></dt><dt><span class="section"><a href="ch19s04.html#d5e3528">19.4.4. Designing HTML based standard reports</a></span></dt></dl></dd></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2739"></a>19.1.&nbsp;Data sources for reporting</h2></div></div></div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2741"></a>19.1.1.&nbsp;Types of data and aggregation</h3></div></div></div>
+      
+      <p>In the bigger picture of HIS terminology all data in DHIS are usually called aggregated as they are aggregates (e.g. monthly summaries) of medical records or some kind of service registers reported from the health facilities. Aggregation inside DHIS however, which is the topic here, is concerned with how the raw data captured in DHIS (through data entry or import)are further aggregated over time (e.g. from monthly to quarterly values) or up the organisational hierarchy (e.g. from facility to district values). 
+</p>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e2744"></a>19.1.1.1.&nbsp;Terminology</h4></div></div></div>
+        
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p><span class="emphasis"><em>Raw data</em></span> refers to data that is registered into the DHIS 2 either through data entry or data import, and has not been manipulated by the DHIS aggregation process. All these data are stored in the table (or Java object if you prefer) called DataValue.
+ </p>
+          </li><li class="listitem">
+            <p><span class="emphasis"><em>Aggregated data</em></span> refers to data that has been aggregated by the DHIS 2, meaning it is no longer raw data, but some kind of aggregate of the raw data.</p>
+          </li><li class="listitem">
+            <p><span class="emphasis"><em>Indicator values</em></span> can also be understood as aggregated data, but these are special in the way that they are calculated based on user defined formulas (factor * numerator/denominator). Indicator values are therefore processed data and not raw data, and are located in the aggregatedindicatorvalue table/object. Indicators are calculated at any level of the organisational hierarchy and these calculations are then based on the aggregated data values available at each level. A level attribute in the aggregateddatavalue table refers to the organisational level of the orgunit the value has been calculated for.
+    </p>
+          </li><li class="listitem">
+            <p>
+              <span class="emphasis"><em>Period and Period type</em></span> are used to specify the time dimension of
+              the raw or aggregated values, and data can be aggregated from one period type to
+              another, e.g. from monthly to quarterly, or daily to monthly. Each data value has one
+              period and that period has one period type. E.g. data values for the periods Jan, Feb,
+              and Mar 2009, all of the monthly period type can be aggregated together to an
+              aggregated data value with the period Q1 2009 and period type Quarterly. </p>
+          </li></ul></div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e2759"></a>19.1.1.2.&nbsp;Basic rules of aggregation</h4></div></div></div>
+        
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e2761"></a>19.1.1.2.1.&nbsp;What is added together</h5></div></div></div>
+          
+          <p>Data (raw) can be registered at any organisational level, e.g. at national hospital
+            at level 2, a health facility at level 5, or at a bigger PHC at level 4. This varies
+            form country to country, but DHIS is flexible in allowing data entry or data import to
+            take place at any level. This means that orgunits that themselves have children can
+            register data, sometimes the same data elements as their children units. The basic rule
+            of aggregation in DHIS 2 is that <span class="emphasis"><em>all raw data is aggregated
+              together</em></span>, meaning data registered at a facility on level 5 is added to the
+            data registered for a PHC at level 4.</p>
+          <p>
+It is up to the user/system administrator/designer to make sure that no duplication of data entry is taking place and that e.g. data entered at level 4 are not about the same services/visits that are reported by orgunit children at level 5. NOTE that in some cases you want to have duplication of data in the system, but in a controlled manner. E.g. when you have two different sources of data for population estimates, both level 5 catchment population data and another population data source for level 4 based on census data (because sum of level 5 catchments is not always the same as level 4 census data). Then you can specify using advanced aggregation settings (see further down) that the system should e.g. not add level 5 population data to the level 4 population data, and that level 3,2,1 population data aggregates are only based on level 4 data and does not include level 5 data.</p>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e2766"></a>19.1.1.2.2.&nbsp;How data gets added together</h5></div></div></div>
+          
+          <p>How data is aggregated depends on the dimension of aggregation (see further down).</p>
+          <p>Along the orgunit level dimension data is always summed up, simply added together. Note that raw data is never percentages, and therefore can be summed together. Indicator values that can be percentages are treated differently (re-calculated at each level, never summed up).</p>
+          <p>
+Along the time dimension there are several possibilities, the two most common ways to aggregate are sum and average. The user can specify for each data element which method to use by setting the aggregation operator (see further down). Monthly service data are normally summed together over time, e.g. the number of vaccines given in a year is the sum of the vaccines given for each month of that year. For population, equipment, staff and other kind of what is often called semi-permanent data the average method is often the one to use, as, e.g. 'number of nurses' working at a facility in a year would not be the sum of the two numbers reported in the six-monthly staffing report, but rather the average of the two numbers. More details further down under 'aggregation operators'. 
+</p>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e2771"></a>19.1.1.3.&nbsp;Dimensions of aggregation</h4></div></div></div>
+        
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e2773"></a>19.1.1.3.1.&nbsp;Organisational units and levels</h5></div></div></div>
+          
+          <p>Organisational units are used to represent the 'where' dimension associated with data values. In DHIS 2, organisational units are arranged in a hierarchy, which typically corresponds to the hierarchical nature of the organisation or country. Organisational unit levels correspond to the distinct levels within the hierarchy. For instance, a country may be organized into provinces, then districts, then facilities, and then sub-centers. This organisational hierarchy would have five levels. Within each level, a number of organisational units would exist. During the aggregation process, data is aggregated from the lower organisational unit levels to higher levels. Depending on the aggregation operator, data may be 'summed' or 'averaged' within a given organisational unit level, to derive the aggregate total for all the organisational units that are contained within a higher level organisational unit level. For instance, if there are ten districts contained in a province and the aggregation operator for a given data element has been defined as 'SUM',  the aggregate total for the province would be calculated as the sum of the values of the individual ten districts contained in that province.</p>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e2776"></a>19.1.1.3.2.&nbsp;Period</h5></div></div></div>
+          
+          <p>Periods are used to represent the 'when' dimension associated with data values. Data can easily be aggregated from weeks to months, from months to quarters, and from quarters to years. DHIS 2 uses known rules of how these different intervals are contained within other intervals (for instance Quarter 1 2010 is known to contain January 2010, February 2010 an March 2010) in order to aggregate data from smaller time intervals, e.g. weeks, into longer time intervals, e.g. months. </p>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e2779"></a>19.1.1.3.3.&nbsp;Data Elements and Categories</h5></div></div></div>
+          
+          <p>The data element dimension specifies 'what' is being recorded by a particular data value. Data element categories are actually degenerated dimensions of the data element dimension, and are used to disaggregate the data element dimension into finer categories. Data element categories, such as 'Age' and 'Gender', are used to record a particular data element, typically for different population groups. These categories can then be used to calculate the overall total for the category  and the total of all categories. </p>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e2782"></a>19.1.1.4.&nbsp;Aggregation operators, methods for aggregation</h4></div></div></div>
+        
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e2784"></a>19.1.1.4.1.&nbsp;Sum</h5></div></div></div>
+          
+          <p>The 'sum' operator simply calculates the sum of all data values that are contained within a particular aggregation matrix. For instance, if data is recorded on a monthly basis at the district level and is aggregated to provincial quarterly totals, all data contained in all districts for a given province and all weeks for the given quarter will be added together to obtain the aggregate total.</p>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e2787"></a>19.1.1.4.2.&nbsp;Average</h5></div></div></div>
+          
+          <p>When the average aggregation operator is selected, the unweighted average of all data values within a given aggregation matrix are calculated. </p>
+          <p>It is important to understand how DHIS 2 treats null values in the context of the
+            average operator. It is fairly common for some organisational units not to submit data
+            for certain data elements. In the context of the average operator, the average results
+            from the number of data elements that are actually present (therefore NOT NULL) within a
+            given aggregation matrix. If there are 12 districts within a given province, but only 10
+            of these have submitted data, the average aggregate will result from these ten values
+            that are actually present in the database, and will not take into account the missing
+            values. </p>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e2791"></a>19.1.1.5.&nbsp;Advanced aggregation settings (aggregation levels)</h4></div></div></div>
+        
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e2793"></a>19.1.1.5.1.&nbsp;Aggregation levels</h5></div></div></div>
+          
+          <p>The normal rule of the system is to aggregate all raw data together when moving up the organisational hierarchy, and the system assumes that data entry is not being duplicated by entering the same services provided to the same clients at both facility level and also entering an 'aggregated' (sum of all facilities) number at a higher level. This is to more easily facilitate aggregation when the same services are provided but to different clients/catchment populations at facilities on level 5 and a PHC (the parent of the same facilities) at level 4. In this way a facility at level 5 and a PHC at level 4 can share the same data elements and simply add together their numbers to provide the total of services provided in the geographical area.</p>
+          <p>Sometimes such an aggregation is not desired, simply because it would mean duplicating data about the same population. This is the case when you have two different sources of data for two different orgunit levels. E.g. catchment population for facilities can come from a different source than district populations and therefore the sum of the facility catchment populations do not match the district population provided by e.g. census data. If this is the case we would actually want duplicated data in the system so that each level can have as accurate numbers as possible, but then we do NOT want to aggregate these data sources together.
+</p>
+          <p>In the Data Element section you can edit data elements and for each of them specify how aggregation is done for each level. In the case described above we need to tell the system NOT to include facility data on population in any of the aggregations above that level, as the level above, in this case the districts have registered their population directly as raw data. The district population data should then be used at all levels above and including the district level, while facility level should use its own data.</p>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e2798"></a>19.1.1.5.2.&nbsp;How to edit data element aggregation</h5></div></div></div>
+          
+          <p>This is controlled through something called aggregation levels and at the end of the edit data element screen there is a tick-box called Aggregation Levels. If you tick that one you will see a list of aggregation levels, available and selected. Default is to have no aggregation levels defined, then all raw data in the hierarchy will be added together. To specify the rule described above, and given a hierarchy of Country, Province, District, Facility: select Facility and District as your aggregation levels. Basically you select where you have data. Selecting Facility means that Facilities will use data from facilities (given since this is the lowest level). Selecting District means that the District level raw data will be used when aggregating data for District level (hence no aggregation will take place at that level), and the facility data will not be part of the aggregated District values. When aggregating data at Province level the District level raw data will be used since this is the highest available aggregation level selected. Also for Country level aggregates the District raw data will be used. Just to repeat, if we had not specified that District level was an aggregation level, then the facility data and district data would have been added together and caused duplicate (double) population data for districts and all levels above.</p>
+        </div>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2801"></a>19.1.2.&nbsp;Resource tables</h3></div></div></div>
+      
+      <p>Resource tables provide additional information about the dimensions of the data in a
+        format that is well suited for external tools to combine with the data value table. By
+        joining the data value table with these resource tables one can easily aggregate along the
+        data element category dimension or data element/indicator/organisation unit groups
+        dimensions. E.g. by tagging all the data values with the category option male or female and
+        provide this in a separate column 'gender' one can get subtotals of male and
+        female based on data values that are collected for category option combinations like (male,
+        &lt;5) and (male,&gt;5). See the Pivot Tables section for more examples of how these can be
+        used. orgunitstructure is another important table in the database that helps to provide the
+        hierarchy of orgunits together with the data. By joining the orgunitstructure table with the
+        data values table you can get rows of data values with the full hierarchy, e.g. on the form:
+        OU1, OU2, OU3, OU4, DataElement, Period, Value (Sierra Leone, Bo, Badija, Ngelehun CHC, BCG
+        &lt;1, Jan-10, 32) This format makes it much easier for e.g. pivot tables or other OLAP
+        tools to aggregate data up the hierarchy. </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="reportTable"></a>19.1.3.&nbsp;Report tables</h3></div></div></div>
+      
+      <p>Report tables are defined, cross-tabulated reports which can be used as the basis of further reports, such as Excel Pivot Tables or simply downloaded as an Excel sheet. Report tables are intended to provide a specific view of data which is required, such as "Monthly National ANC Indicators". This report table might provide all ANC indicators for a country, aggregated by month for the entire country.  This data could of course be retrieved from the main datamart, but report tables generally perform faster and present well defined views of data to users. </p>
+    </div>
+  </div>
+  
+  
+  
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch18s02.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch19s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">18.2.&nbsp;Importing coordinates&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;19.2.&nbsp;How to create report tables</td></tr></table></div></body></html>

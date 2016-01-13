@@ -1,0 +1,1089 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>DHIS 2 End-user Manual</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e1"></a>DHIS 2 End-user Manual</h1></div><div><div class="authorgroup">
+    <div class="author"><h3 class="author"><span class="firstname">DHIS2</span> <span class="surname">Documentation Team</span></h3></div>
+</div></div><div><p class="releaseinfo">2.21</p></div><div><p class="copyright">Copyright &copy; 2006-2015 </p></div><div><div class="legalnotice"><a name="d4481e18"></a>
+    <p><a name="warranty"></a>
+        <b>Warranty:&nbsp;</b>
+         THIS DOCUMENT IS PROVIDED BY  THE AUTHORS ''AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHORS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS MANUAL AND PRODUCTS MENTIONED HEREIN, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    </p>
+    <p><a name="license"></a>
+        <b>License:&nbsp;</b>
+         Permission is granted to copy, distribute and/or modify this document
+            under the terms of the GNU Free Documentation License, Version 1.3
+            or any later version published by the Free Software Foundation;
+            with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+            A copy of the license is included in the source of this documentation, and is available here online:<a class="ulink" href="http://www.gnu.org/licenses/fdl.html" target="_top"> http://www.gnu.org/licenses/fdl.html</a>.
+    </p>
+</div></div><div><div class="revhistory"><table style="border-style:solid; width:100%;" summary="Revision History"><tr><th align="left" valign="top" colspan="2"><b>Revision History</b></th></tr><tr><td align="left">Revision Revision  1697</td><td align="left"></td></tr><tr><td align="left" colspan="2">Version 2.21 2015-12-18 09:16:53</td></tr></table></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="chapter"><a href="#d4481e30">1. Getting started with DHIS 2 as end-user</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e32">1.1. Getting started with DHIS2</a></span></dt><dt><span class="section"><a href="#d4481e42">1.2. Opening DHIS 2</a></span></dt><dt><span class="section"><a href="#d4481e47">1.3. Logging in and out of the application</a></span></dt><dt><span class="section"><a href="#d4481e56">1.4. Navigating the application</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e60">1.4.1. The top menu - access to the modules</a></span></dt><dt><span class="section"><a href="#d4481e64">1.4.2. Navigation inside modules</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#d4481e74">2. Data entry</a></span></dt><dd><dl><dt><span class="section"><a href="#dataEntry">2.1. Data entry with DHIS 2</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e81">2.1.1. Selecting the data entry form</a></span></dt><dt><span class="section"><a href="#d4481e97">2.1.2. Entering data</a></span></dt><dt><span class="section"><a href="#d4481e119">2.1.3. Editing and deleting data</a></span></dt><dt><span class="section"><a href="#dataEntry_1">2.1.4. Validating data in the form</a></span></dt><dt><span class="section"><a href="#d4481e132">2.1.5. Offline data entry</a></span></dt><dt><span class="section"><a href="#d4481e155">2.1.6. Multi-organisation unit data entry</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#d4481e158">3. Using Data Quality functionality</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e161">3.1. Overview of data quality checks</a></span></dt><dt><span class="section"><a href="#d4481e177">3.2. Data quality checks</a></span></dt><dt><span class="section"><a href="#validationRuleAnalysis">3.3. Running Validation Rule Analysis</a></span></dt><dt><span class="section"><a href="#stddevoutlierAnalysis">3.4. Std Dev Outlier Analysis</a></span></dt><dt><span class="section"><a href="#minmaxoutlierAnalysis">3.5. Min-Max Outlier Analysis</a></span></dt><dt><span class="section"><a href="#followupAnalysis">3.6. Follow-Up Analysis</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4481e248">4. Using reporting functionality</a></span></dt><dd><dl><dt><span class="section"><a href="#reporting_intro">4.1. Reporting functionality in DHIS 2</a></span></dt><dt><span class="section"><a href="#standard_reports">4.2. Using standard reports</a></span></dt><dt><span class="section"><a href="#dataset_reports">4.3. Using dataset reports</a></span></dt><dt><span class="section"><a href="#resource">4.4. Using resources</a></span></dt><dt><span class="section"><a href="#reporting_reporting_rate_summary">4.5. Using reporting rate summary</a></span></dt><dt><span class="section"><a href="#orgunit_distribution_reports">4.6. Using organisation unit distribution reports</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4481e345">5. Using Pivot Table</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e347">5.1. Pivot Table overview</a></span></dt><dt><span class="section"><a href="#d4481e369">5.2. Selecting dimension items</a></span></dt><dt><span class="section"><a href="#d4481e397">5.3. Arranging the table layout</a></span></dt><dt><span class="section"><a href="#d4481e411">5.4. Using table options</a></span></dt><dt><span class="section"><a href="#d4481e452">5.5. Favorites and sharing</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e454">5.5.1. Managing favorites</a></span></dt><dt><span class="section"><a href="#d4481e463">5.5.2. Sharing pivot tables</a></span></dt></dl></dd><dt><span class="section"><a href="#d4481e485">5.6. Analysis integration</a></span></dt><dt><span class="section"><a href="#d4481e499">5.7. Downloading data</a></span></dt><dt><span class="section"><a href="#d4481e508">5.8. Constraints and tips</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4481e522">6. Using Data Visualizer</a></span></dt><dd><dl><dt><span class="section"><a href="#dvIntro">6.1. Data Visualizer overview</a></span></dt><dt><span class="section"><a href="#dvChartTypes">6.2. Selecting chart type</a></span></dt><dt><span class="section"><a href="#dvSeriesCategoryFilter">6.3. Selecting series, category and filter</a></span></dt><dt><span class="section"><a href="#d4481e593">6.4. Selecting indicators and data elements</a></span></dt><dt><span class="section"><a href="#d4481e597">6.5. Selecting reporting rates</a></span></dt><dt><span class="section"><a href="#d4481e600">6.6. Selecting fixed and relative periods</a></span></dt><dt><span class="section"><a href="#d4481e603">6.7. Selecting organisation units</a></span></dt><dt><span class="section"><a href="#d4481e606">6.8. Selecting organisation unit group sets and data element group sets</a></span></dt><dt><span class="section"><a href="#d4481e609">6.9. Selecting additional data dimensions</a></span></dt><dt><span class="section"><a href="#d4481e612">6.10. Selecting chart options</a></span></dt><dt><span class="section"><a href="#dvDisplayChart">6.11. Displaying a chart</a></span></dt><dt><span class="section"><a href="#dvSaveChart">6.12. Downloading chart as image or PDF</a></span></dt><dt><span class="section"><a href="#dvFavorites">6.13. Saving chart as favorite</a></span></dt><dt><span class="section"><a href="#dvInterpretations">6.14. Sharing interpretations</a></span></dt><dt><span class="section"><a href="#dvEmbed">6.15. Embed charts in any web page</a></span></dt><dt><span class="section"><a href="#d4481e673">6.16. Analysis integration</a></span></dt><dt><span class="section"><a href="#d4481e681">6.17. Exiting the data visualizer module</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4481e684">7. Using GIS</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e686">7.1. GIS module overview</a></span></dt><dt><span class="section"><a href="#d4481e698">7.2. Thematic mapping</a></span></dt><dd><dl><dt><span class="section"><a href="#gisFacilityMap">7.2.1. Facility layer</a></span></dt><dt><span class="section"><a href="#gisBoundaryMap">7.2.2. Boundary layer</a></span></dt><dt><span class="section"><a href="#gisThematicMap">7.2.3. Thematic layer 1-4</a></span></dt><dt><span class="section"><a href="#gisEventMap">7.2.4. Event layer</a></span></dt></dl></dd><dt><span class="section"><a href="#d4481e748">7.3. Tools</a></span></dt><dd><dl><dt><span class="section"><a href="#gisFavoriteMapView">7.3.1. Favorite maps</a></span></dt><dt><span class="section"><a href="#gisLegendSet">7.3.2. Create predefined legend sets</a></span></dt><dt><span class="section"><a href="#gisImageExport">7.3.3. Download map as image</a></span></dt><dt><span class="section"><a href="#gisInterpretation">7.3.4. Share map interpretation</a></span></dt><dt><span class="section"><a href="#gisEmbed">7.3.5. Embed maps in any web page</a></span></dt><dt><span class="section"><a href="#d4481e775">7.3.6. Analysis integration</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#d4481e783">8. Dashboards</a></span></dt><dd><dl><dt><span class="section"><a href="#dashboards_setup">8.1. Setting up the dashboard</a></span></dt><dt><span class="section"><a href="#d4481e812">8.2. Messages and feedback</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4481e827">9. User profiles</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e830">9.1. User settings</a></span></dt><dt><span class="section"><a href="#d4481e834">9.2. User profile</a></span></dt></dl></dd></dl></div>
+  
+  
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e30"></a>Chapter&nbsp;1.&nbsp;Getting started with DHIS 2 as end-user</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d4481e32">1.1. Getting started with DHIS2</a></span></dt><dt><span class="section"><a href="#d4481e42">1.2. Opening DHIS 2</a></span></dt><dt><span class="section"><a href="#d4481e47">1.3. Logging in and out of the application</a></span></dt><dt><span class="section"><a href="#d4481e56">1.4. Navigating the application</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e60">1.4.1. The top menu - access to the modules</a></span></dt><dt><span class="section"><a href="#d4481e64">1.4.2. Navigation inside modules</a></span></dt></dl></dd></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e32"></a>1.1.&nbsp;Getting started with DHIS2</h2></div></div></div>
+    
+    <p>After reading this chapter you will be able to understand:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>How to open the DHIS 2</p>
+      </li><li class="listitem">
+        <p>How to  log in and out of the application</p>
+      </li><li class="listitem">
+        <p>How to navigate the application and access its features</p>
+      </li></ul></div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e42"></a>1.2.&nbsp;Opening DHIS 2</h2></div></div></div>
+    
+    <p>The DHIS 2 is a web-based application and will be available in an Internet  browser when you have Internet connection.</p>
+    <p>Open a browser, we recommend Google Chrome (download installer here: http://www.google.com/chrome) and in the address field you type in the URL of the DHIS 2 (ask your technical support team for this).</p>
+    <p>You will then see the login screen of DHIS 2.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e47"></a>1.3.&nbsp;Logging in and out of the application</h2></div></div></div>
+    
+    <p>Once you can see the blue login screen of DHIS 2 you must enter your user name and password to log in to the application. If the login is not successful you will be notified that the username or password is incorrect and asked to re-enter these credentials. Once you have successfully logged in you will see the DHIS Dashboard where you can immediately monitor the latest data in your selected charts and access your favourite DHIS sites (reports, maps etc).</p>
+    <p>When you have finished your DHIS 2 session we recommend that you log out before closing the browser. Use the log out link in the upper right corner and you will be returned to the log in screen.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/getting_started/login.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e56"></a>1.4.&nbsp;Navigating the application</h2></div></div></div>
+    
+    <p>The DHIS 2 has two menu systems; the top menu, which houses areas for apps and the user profile, and the left side menu inside most modules to navigate between features inside each module.</p>
+    <p>The DHIS 2 symbol in the top left corner is a fast link to the user-defined start page, the home page. Often this is set to the dashboard module.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e60"></a>1.4.1.&nbsp;The top menu - access to the modules</h3></div></div></div>
+      
+      <p>DHIS2 consists of various apps (major components) which each have specific features, such as data entry, reporting, dashboard. You can access these  from the top menu  under Apps. Under profile, details relating to your user account, general user settings and information about DHIS2 can be found.</p>
+      <p>To move to a new app you need to move the mouse pointer to one of the top menu items, Apps or Profile, a sub-menu with additional items will then appear. Click on the item you would like to open.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e64"></a>1.4.2.&nbsp;Navigation inside modules</h3></div></div></div>
+      
+      <p>When you open most of the  apps you will see the app main page which lists the major  features in the middle of the screen with a short description. Simply click on the feature you would like to open. </p>
+      <p>When inside an app you will always see the left side menu with links to its features. Use this menu to jump between features. This is particular useful for navigation within the app. </p>
+      <p>The data entry and dashboard modules do not have a menu system as they only contain one feature, everything is in one page, so there is no need for a menu there. </p>
+      <div class="screenshot">
+        
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/dhis2UserManual/Reports_menu system.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e74"></a>Chapter&nbsp;2.&nbsp;Data entry</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#dataEntry">2.1. Data entry with DHIS 2</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e81">2.1.1. Selecting the data entry form</a></span></dt><dt><span class="section"><a href="#d4481e97">2.1.2. Entering data</a></span></dt><dt><span class="section"><a href="#d4481e119">2.1.3. Editing and deleting data</a></span></dt><dt><span class="section"><a href="#dataEntry_1">2.1.4. Validating data in the form</a></span></dt><dt><span class="section"><a href="#d4481e132">2.1.5. Offline data entry</a></span></dt><dt><span class="section"><a href="#d4481e155">2.1.6. Multi-organisation unit data entry</a></span></dt></dl></dd></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dataEntry"></a>2.1.&nbsp;Data entry with DHIS 2</h2></div></div></div>
+    
+    <p>To open the data entry window hover over the Apps button. A
+    drop down menu will appear listing the apps provided by DHIS 2. Click
+    on the <span class="guibutton">Data Entry</span> option.</p>
+    <p>The data entry module is where aggregated data is manually registered in the DHIS 2 database. Data is registered for an organisation unit, a period, and a set of data elements (data set) at a time. A data set often corresponds to a paper-based data collection tool. </p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e81"></a>2.1.1.&nbsp;Selecting the data entry form</h3></div></div></div>
+      
+      <p>To start entering data the first step is to open the correct form by following these
+        steps:</p>
+      <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+          <p>Locate the orgunit you want to register data for in the tree menu to the left.
+            Expand and close branches by clicking on the +/- symbols. A quick way to find an orgunit
+            is to use the search box just above the tree (the green symbol), but you need to write
+            in the full name to get a match.</p>
+        </li><li class="listitem">
+          <p>Select a data set from the dropdown list of data sets available to your selected orgunit.  </p>
+        </li><li class="listitem">
+          <p>Select a period to register data for. The available periods are controlled by the
+            period type of the data set (reporting frequency). You can jump a year back or forward
+            by using the arrows above the period.</p>
+        </li></ol></div>
+      <p>By now you should see the data entry form. From a form design perspective, there are
+        three types for forms: default forms, section forms and custom forms. If a custom form
+        exists, it will be displayed, followed in order of precedence by a section form, and finally
+        a default form.</p>
+      <div class="screenshot">
+        
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/data_entry/data_entry_overview.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e97"></a>2.1.2.&nbsp;Entering data</h3></div></div></div>
+      
+      <p>Start entering data by clicking inside the first field and type in the value. Move to
+        the next field using the Tab button. Shift+Tab will take you back one step. You can also use
+        the "up" and "down" arrow keys, as well as the Enter key, to navigate between the form cells. The values are saved
+        immediately and do not require to be saved at a later stage. A green field indicates that
+        the value has been saved in the system (on the server).</p>
+      <p><span class="bold"><strong>Input validation:</strong></span> If you type in an invalid value, e.g.
+        a character in a field that only accepts numeric values you will get a pop-up that explains
+        the problem and the field will be coloured yellow (not saved) until you have corrected the
+        value. If you have defined a min/max range for the field (data element+organisation unit
+        combination) a pop-up message will notify you when the value is out of range, and the value
+        will remain unsaved until you have changed the value (or updated the range and then
+        re-entered the value). </p>
+      <p><span class="bold"><strong>Disabled fields:</strong></span> If a field is disabled (grey) it means
+        that the field can and should not be filled. The cursor will automatically jump to the next
+        open field. </p>
+      <p><span class="bold"><strong>Data history:</strong></span> By double-clicking on any input field in the form a data history window opens showing the last 12 values registered for the current field (organisation unit+data element+categoryoptioncombo) in a bar chart. This window also shows the min and max range and allows for adjusting the range for the specific organisation unit and data element combination. </p>
+      <div class="screenshot">
+        
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="50%"><tr><td align="center"><img src="resources/images/data_entry/data_entry_section_history.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+      <p><span class="bold"><strong>Follow Up:</strong></span>  In the data history window there is also a feature to tag or star a value. E.g. a suspicious value that needs further investigation can be kept in the system, but marked for Follow-Up. In the Data Quality module you can run a Follow-Up analysis and view all values marked for Follow-Up, and then later edit the values if proved incorrect.  </p>
+      <p><span class="bold"><strong>Audit trail: </strong></span>The audit trail allows you to view other data values which have been entered prior to the current value. As an example, the following data element was changed from its original value  to 120. The audit trail shows when the data value was altered along with which user made the changes.</p>
+      <div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/data_entry/data_entry_audit_trail.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e119"></a>2.1.3.&nbsp;Editing and deleting data</h3></div></div></div>
+      
+      <p>If you wish to enter data which has already been entered, simply replace the data entry value with the update values. </p>
+      <p>If you want to delete a data value completely, you should select the value of interest, and press "Delete" on your keyboard. If you enter a zero and the data element has been configured to not store zeros, the previous data value (i.e. the one you wish to modify) will not be overwritten with the new value. Therefore, it is better practice to delete the data value completely (waiting for the cell to turn green) and then to enter the new value. </p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="dataEntry_1"></a>2.1.4.&nbsp;Validating data in the form</h3></div></div></div>
+      
+      <p>When all the available values for the form has been filled in you can run a validation check on the data in the form. Click on the "Run Validation" button in the top right (at the beginning of the data entry page) or lower left (at the end of your data entry page) corner. All validation rules which involves data elements in the current form (dataset) will be run against the new data. Upon completion you will be presented with a list of violations or a simply a message that says "The data entry screen successfully passed validation".  See the Data Quality chapter for information on how to define such validation rules.</p>
+      <p>When you have corrected any erroneous values and are done with the form the recommended practice is to click on the Complete button below the form to register the form as complete. This information is used when generating completeness reports for district, county, province or the national level.</p>
+      <div class="screenshot">
+        
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/dhis2UserManual/Validation Rule_Result.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e132"></a>2.1.5.&nbsp;Offline data entry</h3></div></div></div>
+      
+      <p>The data entry module will function even if during data entry the Internet connectivity
+        is not stable. In order to utilize this functionality, you must login to the server while
+        Internet connectivity is present, but if during data entry, the Internet link between your
+        computer and the server becomes unstable, data can still be entered into the data entry
+        form, saved to your local computer, and then pushed to the server once the Internet
+        connectivity has been restored. Data can be entered and stored locally while being offline
+        and uploaded to the central server when on-line. This means that the on-line deployment
+        strategy will be more viable in areas with unstable Internet connectivity. The total
+        bandwidth usage is greatly reduced since forms no longer are retrieved from the server for
+        each rendering.</p>
+      <p>When the server is able to be reached through the Internet connection, a message is displayed  at the top of the data entry screen  below. </p>
+      <div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/data_entry/data_entry_online1.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+      <p>If the Internet connection should disconnect for some reason during the data entry process, this will be detected by the application, and you will be informed that your data will be stored locally. </p>
+      <div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/data_entry/data_entry_offline1.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+      <p>Data entry can proceed as normal. Once you have entered all of the necessary data, and the application detects that the server is back on-line, you will be informed that you have data which needs to be synchronized with the server. </p>
+      <div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/data_entry/data_entry_offline_upload.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+      <p>Once the data has successfully synchronized with the server, you will receive a confirmation message that the data has been successfully uploaded to the server. </p>
+      <div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/data_entry/data_entry_offline_upload_success1.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e155"></a>2.1.6.&nbsp;Multi-organisation unit data entry</h3></div></div></div>
+      
+      <p>In some scenarios it is beneficial to enter data for multiple organisation units in the
+        same data entry form, for instance if there are few data elements in the form and a huge
+        number of organisation units in the hierarchy. In that case you can enable
+        multi-organisation unit data entry by going to "System settings" and tick the "Enable multi
+        organisation unit forms" setting. Then, in data entry, select the organisation unit
+        immediately above the organisation unit you want to enter for in the hierarchy. Note that
+        this only work for the "section" based forms. You should now see the data elements appearing
+        as columns and the organisation units appearing as rows in the form. Note that the data
+        entry forms should still be assigned to the facilities that you actually enter data for,
+        i.e. the organisation units now appearing in the form.</p>
+    </div>
+  </div>
+</div>
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e158"></a>Chapter&nbsp;3.&nbsp;Using Data Quality functionality</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d4481e161">3.1. Overview of data quality checks</a></span></dt><dt><span class="section"><a href="#d4481e177">3.2. Data quality checks</a></span></dt><dt><span class="section"><a href="#validationRuleAnalysis">3.3. Running Validation Rule Analysis</a></span></dt><dt><span class="section"><a href="#stddevoutlierAnalysis">3.4. Std Dev Outlier Analysis</a></span></dt><dt><span class="section"><a href="#minmaxoutlierAnalysis">3.5. Min-Max Outlier Analysis</a></span></dt><dt><span class="section"><a href="#followupAnalysis">3.6. Follow-Up Analysis</a></span></dt></dl></div>
+  
+  <p>The data quality module provides means to improve the accuracy and reliability of the data in the system. This can be done through validation rules and various statistical checks. All the functionality described below can be accessed from the left side menu in the Services-&gt;Data Quality module.</p>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e161"></a>3.1.&nbsp;Overview of data quality checks</h2></div></div></div>
+    
+    <p>Ensuring data quality is a key concern in building an effective HMIS. Data quality has different dimensions including:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p><span class="emphasis"><em>Correctness:</em></span> Data should be within the normal range for data collected at that facility. There should be no gross discrepancies when compared with data from related data elements.</p>
+      </li><li class="listitem">
+        <p><span class="emphasis"><em>Completeness:</em></span> Data for all data elements for all health facilities should have been submitted.</p>
+      </li><li class="listitem">
+        <p><span class="emphasis"><em>Consistency:</em></span> Data should be consistent with data entered during earlier months and years while allowing for changes with reorganization, increased work load, etc. and consistent with other similar facilities.</p>
+      </li><li class="listitem">
+        <p><span class="emphasis"><em>Timeliness:</em></span> All data from all reporting orgunits should be submitted at the appointed time.</p>
+      </li></ul></div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e177"></a>3.2.&nbsp;Data quality checks</h2></div></div></div>
+    
+    <p>Data quality checking can be done through various means, including:</p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p>At point of data entry, the software can check the data entered to see if it falls within the min-max ranges of that data element (based on all previous data registered).</p>
+      </li><li class="listitem">
+        <p>Defining various validation rules, which can be run once the user has finished data entry. The user can also check the entered data for a particular period and Organization Unit(s) against the validation rules, and display the violations for these validation rules. </p>
+      </li><li class="listitem">
+        <p>Analysis of data sets, i.e. examining gaps in data.</p>
+      </li><li class="listitem">
+        <p>Data triangulation which is comparing the same data or indicator from different sources.</p>
+      </li></ol></div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="validationRuleAnalysis"></a>3.3.&nbsp;Running Validation Rule Analysis</h2></div></div></div>
+    
+    <p>You can access Validation Rule Analysis from the Apps-&gt;Data Quality menu.</p>
+    <p>A validation rule is based on an expression which defines a relationship between a number of data elements. The expression has a left side and a right side and an operator  which defines whether the former must be less than, equal to or greater than the latter. The expression forms a condition which should assert that certain logical criteria are met. For instance, a validation rule could  assert that the total number of vaccines given to infants is less than or equal to the total number of infants.</p>
+    <p>The validation rule analysis function will test validation rules against the data
+      registered in the system. Validation violations will be reported in cases where the condition
+      defined through the validation rule expression is not met, i.e. the condition is false.</p>
+    <p><span class="bold"><strong>Selecting what data to validate:</strong></span> </p>
+    <p>First, enter a start date and an end date for which data should be included in the analysis. The date picker widget may be used to select dates. </p>
+    <p>Second, choose between including all validation rules or all validation rules from a single group. </p>
+    <p>Third, choose between including the selected organisation unit only or the selected organisation unit with all children in the analysis. Fourth, select the organisation unit. Finally, click <span class="italic">validate</span>.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/dhis2UserManual/Validation Rule_Analysis.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p><span class="bold"><strong>Validation results:</strong></span></p>
+    <p>The analysis process will run for a while depending on the amount of data that is being analysed. If there were no violations of the validation rules a message saying <span class="italic">validation passed successfully</span> is displayed. </p>
+    <p>If validation violations were found, they will be presented in a list. The organisation unit, period, left side description and value, operator, and right side value and description for each validation violation are displayed. </p>
+    <p>The show details icon can be clicked in order to get more information about a validation violation. This will open a popup screen that provides information about the data elements included in the validation rules and their corresponding data values. This information can be used in order to fix incorrect data.</p>
+    <p>The validation violations can be exported to a PDF document by clicking on the Download as PDF button, and to a Microsoft Excel workbook by clicking on the Download as Excel button.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/dhis2UserManual/Validation Rule_Analysis Result.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="stddevoutlierAnalysis"></a>3.4.&nbsp;Std Dev Outlier Analysis</h2></div></div></div>
+    
+    <p>You can access Outlier analysis from the Apps-&gt;Data Quality menu.</p>
+    <p>The standard deviation based outlier analysis provides a mechanism for revealing values
+      that are numerically distant from the rest of the data. Outliers can occur by chance, but they
+      often indicate a measurement error or a heavy-tailed distribution (leading to very high
+      numbers). In the former case one wishes to discard them while in the latter case one should be
+      cautious in using tools or interpretations that assume a normal distribution. The analysis is
+      based on the standard normal distribution.</p>
+    <p><span class="bold"><strong>Select what data to analyse:</strong></span></p>
+    <p>First, select the from and to date for the data to include in the analysis. </p>
+    <p>Second, select the data set from which to pick data elements from. </p>
+    <p>Third, select all or some of the data elements in the data set by double-clicking or marking them and clicking the add/remove buttons. </p>
+    <p>Fourth, select the parent organisation unit to use. All children of the organisation unit will be included. </p>
+    <p>Fifth, select the number of standard deviations. This refers to the number of standard
+      deviations the data is allowed to deviate from the mean before it is classified as an
+      outlier.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/dhis2UserManual/Data Quality_Std Deviation Analysis.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p><span class="bold"><strong>Analysis result:</strong></span></p>
+    <p>The potential outlier values discovered will be presented in a list after the analysis process is finished. The data element, organisation unit, period, minimum value, actual value, and maximum value will be displayed for each outlier. The minimum and maximum values refer to the border values derived from the number of standard deviations selected for the analysis. </p>
+    <p>Each outlier value can be modified directly in the analysis result page. The value can be modified by clicking inside the corresponding field in the value column, entering a value and then navigate away from that field either by clicking tab or anywhere outside the field. The system will provide an alert if the value is still outside the defined minimum and maximum values, but the value will saved in any case. The field will have a red background color if the value is outside the range, and a green if inside. </p>
+    <p>Each outlier value can be marked for further follow-up by clicking the star icon.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="minmaxoutlierAnalysis"></a>3.5.&nbsp;Min-Max Outlier Analysis</h2></div></div></div>
+    
+    <p>The min-max value based outlier analysis provides a mechanism for revealing values that are outside the  pre-defined minimum and maximum values. Minimum and maximum values can be custom defined or automatically defined by the system in the data administration module. See the section about Std dev outlier analysis for further details on usage.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="followupAnalysis"></a>3.6.&nbsp;Follow-Up Analysis</h2></div></div></div>
+    
+    <p>The follow-up analysis function will list all data values which are marked for follow-up.
+      A data value can be marked for follow-up in the data entry module and in the other validation
+      analysis variants in this module.As can be seen in the screen shot below, simply select an organisation unit from the tree. All data values with a follow-up status will be displayed here for the descendants of the selected organisation unit. </p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="90%"><tr><td align="center"><img src="resources/images/data_quality/data_quality_follow_up.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+</div>
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e248"></a>Chapter&nbsp;4.&nbsp;Using reporting functionality</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#reporting_intro">4.1. Reporting functionality in DHIS 2</a></span></dt><dt><span class="section"><a href="#standard_reports">4.2. Using standard reports</a></span></dt><dt><span class="section"><a href="#dataset_reports">4.3. Using dataset reports</a></span></dt><dt><span class="section"><a href="#resource">4.4. Using resources</a></span></dt><dt><span class="section"><a href="#reporting_reporting_rate_summary">4.5. Using reporting rate summary</a></span></dt><dt><span class="section"><a href="#orgunit_distribution_reports">4.6. Using organisation unit distribution reports</a></span></dt></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="reporting_intro"></a>4.1.&nbsp;Reporting functionality in DHIS 2</h2></div></div></div>
+    
+    <p>The reporting module in DHIS 2 provides a range of reporting alternatives, and this section will explain how to use them to view and analyse data. Another section explains how to configure and set up the various reporting tools.</p>
+    <p><span class="bold"><strong>Standard reports:</strong></span> Standard reports are built on pivot tables, but are more advanced in its design allowing for more cosmetics and styles. These reports can also combine multiple tables and charts in the same report and be made available as one-click reports that are very easy to use. These reports can be downloaded as PDF  files which makes them ideal for printing as well as sharing offline. </p>
+    <p><span class="bold"><strong>Dataset reports:</strong></span> Dataset reports are simply a printer friendly way to look at the data entry forms with either raw or aggregated data (over time or place). The design used in data entry will be used also in the data set reports. This will work only for data sets that has a custom data entry form set up.</p>
+    <p><span class="bold"><strong>Dashboard:</strong></span> The fastest way to view your data. The dashboard can display  up to four updated charts as well as shortcuts to your favourite reports, report tables, and map views. Each user can configure a personal dashboard.</p>
+    <p><span class="bold"><strong>Data Visualizer:</strong></span> Do flexible visualizations of your data
+      as charts and data tables. Any number of indicators and data elements can be included. Several
+      chart types are available, such as column, stacked column, line, area and pie charts. The
+      charts can be saved in order to be easily retrieved later and can also be put on your personal
+      dashboard. Charts can be downloaded as image and PDF files to your local computer. </p>
+    <p><span class="bold"><strong>Orgunit distribution reports:</strong></span> These reports are generated
+      off the orgunit group set information and can show what types (and how many of each type) of
+      health facilities that are located in a given area (any level in the hierarchy). These reports
+      are automatically generated and display the information in both tables and charts, and
+      downloads in PDF, excel, and CSV are available.</p>
+    <p><span class="bold"><strong>Reporting rate summary:</strong></span> These reports provide a nice overview of how many facilities that have submitted their data for a given dataset and period. Here you can get both the counts and the percentages  showing the reporting rate for all or single data sets.</p>
+    <p><span class="bold"><strong>Web-based pivot tables:</strong></span> The built in pivot table tool is a  web-based tool to display indicator data by orgunit and period in a typical pivot table view and allows for pivoting manipulations of the tables. It allows for large amounts of data to be downloaded offline for analysis as well.  </p>
+    <p><span class="bold"><strong>GIS:</strong></span> Present and analyse your data using thematic maps. You can view both data elements and indicators and given that you have coordinates for all your orgunits you can drill down the hierarchy and view maps for all levels from country polygons to facility points.  See the separate chapter on GIS for more details. All the map information is built into DHIS 2 and all you need to do is to register coordinates for your organisation units and the maps will be available.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="standard_reports"></a>4.2.&nbsp;Using standard reports</h2></div></div></div>
+    
+    <p>You access the available reports by navigating to Apps-&gt;Reports. In the report menu in the left bar, click Standard Report. A list of all pre-defined reports will appear in the main window. </p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="50%"><tr><td align="center"><img src="resources/images/dhis2UserManual/standard_reports_ke.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p>You run/view a report by clicking on the name of the report and then selecting "Create" from the contextual menu. If there are any pre-defined paramaters, you will see a report parameter window where you must fill in the values needed for
+      orgunit and/or reporting month, depending on what has been defined in the underlying report
+      table(s). Click on "Get Report" when you are ready. The report will either appear
+      directly in your browser or be available as a PDF file for download, depending on your
+      browser settings for handling PDF files. You can save the file and keep it locally on your
+      computer for later use. </p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dataset_reports"></a>4.3.&nbsp;Using dataset reports</h2></div></div></div>
+    
+    <p>Dataset reports are printer friendly views of the data entry screen filled with either raw or aggregated data. These are only available for data sets that have custom data entry forms and not for default or section forms.</p>
+    <p>You can access data set reports from Apps-&gt;Reports.</p>
+    <p>A Criteria window will appear where you fill in the details for your report:</p>
+    <p><span class="bold"><strong>Dataset:</strong></span> The data set you want to display.</p>
+    <p><span class="bold"><strong>Reporting period: </strong></span>The actual period you want data for. This can be aggregated as well as raw periods. This means that you can ask for a quarterly or annual report even though the data set is collected monthly. A data set's period type (collection frequency) is defined in data set maintenance. First select the period type (Monthly, Quarterly, Yearly etc.) in the drop down next to Prev and Next buttons, and then select one of the available periods from the dropdown list below. Use Prev and Next to jump one year back or forward.</p>
+    <p><span class="bold"><strong>Use data for selected unit only:</strong></span> Use this option if you want a report for an orgunit that has children, but only want the data collected directly for this unit and not the data collected by its children. If you want a typical aggregated report for an orgunit you do not want to tick this option.</p>
+    <p><span class="bold"><strong>Reporting Organisation unit:</strong></span> Here you select the orgunit you want the report for. This can be at any level in the hierarchy as the data will be aggregated up to this level automatically (if you do not tick the option above).</p>
+    <p>When you are done filling in the report criteria you click on "Generate". The report will appear as HTML in a printer-friendly format. Use  the print and save as functions in the browser to print or save (as HTML) the report.You can also export the data set report in Excel and PDF formats.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="resource"></a>4.4.&nbsp;Using resources</h2></div></div></div>
+    
+    <p>The resource tool allows you to upload both files from your local computer to the DHIS
+      server and to add links to other resources on the Internet through URLs. If you want to share
+      a direct link to the DHIS2 resources you can right click on the "view resource" button and
+      copy the link address.</p>
+    <p>To create a resource click on the "Add new" button. Enter a name for the resource, then choose between uploading a file or external URL. If you chose file upload click "Choose file" and select your file your local computer. If you chose URL enter the link to the resource on the Internet. Then click "Save".</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="reporting_reporting_rate_summary"></a>4.5.&nbsp;Using reporting rate summary</h2></div></div></div>
+    
+    <p>Access the reporting rate summary from the Apps-&gt;Reports menu. Reporting rate
+      summaries will show how many datasets (forms) that have been submitted by organisation unit
+      and period. There are two methods available to calculate reporting rates
+      (completeness):</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>Based on complete data set registrations. A complete data set registration refers to a
+          user marking a data entry form as complete, typically by clicking the complete button in
+          the data entry screen, hereby indicating to the system that she considers the form to be
+          complete. This is i.e. a subjective approach to calculating completeness.</p>
+      </li><li class="listitem">
+        <p>Based on compulsory data element: You can define any number of data elements in a data
+          set to be compulsory. This implies that data values must be captured for all data elements
+          which have been marked as compulsory in order for the data set to be considered complete.
+          This is i.e. an objective approach to calculating completeness.</p>
+      </li></ul></div>
+    <p>The reporting rate summary will for each row show a range of measures:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>Actual reports: Indicates the number of data entry complete registrations for the
+          relevant data set.</p>
+      </li><li class="listitem">
+        <p>Expected reports: Indicates how many data entry complete registrations are expected.
+          This number is based on the number of organisation units the relevant data set has been
+          assigned to (enabled for data entry).</p>
+      </li><li class="listitem">
+        <p>Percent: The percentage of reports registered as complete based on the number
+          expected.</p>
+      </li><li class="listitem">
+        <p>Reports on time: Same as actual reports, only reports registered as complete within
+          the maximum number of days after the end of the reporting period. This number of days
+          after reporting period can be defined per data set in the data set management.</p>
+      </li><li class="listitem">
+        <p>Percent on time: Same as percentage, only reports registered as complete on time used
+          as numerator.</p>
+      </li></ul></div>
+    <p>To run the report you can follow these steps:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>Select an orgunit from the tree.</p>
+      </li><li class="listitem">
+        <p>Select one of the completeness methods to use to calculate the reporting rates.</p>
+        <p>Select all or one data set. All will give you a report with all data sets for the
+          selected organisation unit. A single data set will give you a report with completeness for
+          all children of the selected organisation unit.</p>
+      </li><li class="listitem">
+        <p>Select a period type and a period from the list of available periods for that period
+          type. Move back/forward one year by using the prev/next buttons.</p>
+      </li><li class="listitem">
+        <p>The report will then be rendered. Change any of the parameters above and the report
+          will be updated automatically.</p>
+      </li></ul></div>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/dhis2UserManual/completeness_report.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="orgunit_distribution_reports"></a>4.6.&nbsp;Using organisation unit distribution reports</h2></div></div></div>
+    
+    <p>You can access the Orgunit Distribution reports from the left side menu in the Apps-&gt;Reports. </p>
+    <p>Orgunit distribution reports are reports that show how the orgunits are distributed on various properties like type and ownership, and by geographical areas.</p>
+    <p>The result can be presented in a table-based report or in a chart.</p>
+    <p><span class="bold"><strong>Running a report:</strong></span></p>
+    <p>To run a report first select an orgunit in the upper left side orgunit tree. The report will be based on orgunits located under the selected orgunit. The select the orgunit group set that you want to use, typically these are Type, Ownership, Rural/Urban, but can be any user-defined orgunit group set. The you can click on either Get Report to get the table-based presentation or Get chart to get the same result in a chart. You can also download other format such as PDF, Excel and CSV. </p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="60%"><tr><td align="center"><img src="resources/images/dhis2UserManual/orgunit_report.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+</div>
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e345"></a>Chapter&nbsp;5.&nbsp;Using Pivot Table</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d4481e347">5.1. Pivot Table overview</a></span></dt><dt><span class="section"><a href="#d4481e369">5.2. Selecting dimension items</a></span></dt><dt><span class="section"><a href="#d4481e397">5.3. Arranging the table layout</a></span></dt><dt><span class="section"><a href="#d4481e411">5.4. Using table options</a></span></dt><dt><span class="section"><a href="#d4481e452">5.5. Favorites and sharing</a></span></dt><dd><dl><dt><span class="section"><a href="#d4481e454">5.5.1. Managing favorites</a></span></dt><dt><span class="section"><a href="#d4481e463">5.5.2. Sharing pivot tables</a></span></dt></dl></dd><dt><span class="section"><a href="#d4481e485">5.6. Analysis integration</a></span></dt><dt><span class="section"><a href="#d4481e499">5.7. Downloading data</a></span></dt><dt><span class="section"><a href="#d4481e508">5.8. Constraints and tips</a></span></dt></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e347"></a>5.1.&nbsp;Pivot Table overview</h2></div></div></div>
+    
+    <p>The pivot table app enables users to create pivot tables, using all available data
+        dimensions in DHIS 2. A pivot table is a dynamic tool for
+      data analysis which lets you quickly summarize and arrange data according to its dimensions.
+      Examples of data dimensions in DHIS 2 are data dimension itself (e.g data elements, indicators and events ),
+      periods (representing the time period for which the data represents) and the organisational hierarchy (representing the
+      geographical location of the data). From these dimensions you can freely select dimension
+        <span class="italic">items</span> to include in the pivot table. Additional dimensions can be created in DHIS2, using the group set functionality, to allow for different aggregation pathways, such as aggregation by "Partner" or facility type. </p>
+    <p>A pivot table can arrange data dimensions on <span class="italic">columns</span>,
+        <span class="italic">rows</span>, and as <span class="italic">filters</span>.
+      When you place a data dimension on columns, the pivot table will display one column per
+      dimension item. If you place multiple data dimensions on columns, the pivot table will display
+      one column for all combinations of the items in the selected dimensions. When you place a data
+      dimension on rows, the pivot table will display one row per dimension item in a similar
+      fashion. The dimensions you select as filters will not be included in the pivot table, but
+      will aggregate and filter the table data based on the selected filter items.</p>
+    <p>The work-flow for creating a simple pivot table is:</p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p>Select dimension items in the left menu, for instance a few data elements or indicators.</p>
+      </li><li class="listitem">
+        <p>Click "Layout" on the top menu and arrange the data dimensions as columns, rows, and
+          filters. You can leave the selection as it is if desired.</p>
+      </li><li class="listitem">
+        <p>Click "Update".</p>
+      </li></ol></div>
+    <p>Based on the demo database, a pivot table approximately as below will be displayed. Notice
+      how indicators are listed on columns and periods as rows.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/pivot_table/basic_pivot221.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e369"></a>5.2.&nbsp;Selecting dimension items</h2></div></div></div>
+    
+    <p>The left menu will list sections for all available data dimensions. From each section you
+      can select any number of dimension items. As an example, you can open the section for data
+      elements and select any number of data elements from the available list. You can select an
+      item by marking it and clicking on the arrow in the section header or simply double-clicking
+      on the item. Before you can use a data dimension in your pivot table you must at least select
+      one dimension item. If you arrange a dimension as columns or rows but do not select any
+      dimension items, the dimension will be ignored.</p>
+    <p>At least one member of the data dimension is required for all pivot tables. Available types include the following:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>Indicators</p>
+        </li><li class="listitem">
+          <p>Data elements</p>
+        </li><li class="listitem">
+          <p>Reporting rates</p>
+        </li><li class="listitem">
+          <p>Event data items</p>
+        </li><li class="listitem">
+          <p>Program indicators</p>
+        </li></ul></div>
+    <p>These dimensions can be combined together, so that you can display for instance aggregate data with reporting rates, or event data items together with program indicators, all in the same pivot tables. For the "data element" data dimension, you are also able to select "Totals" and "Details", which will allow you to view different category combination options together on the same pivot table. </p>
+    <p>For the period dimension you can choose between using fixed periods or relative periods.
+      An example of a fixed period is "January 2012". To select fixed periods start by selecting a
+      period type from the period type list. You can then select periods from the list of available
+      periods. </p>
+    <p>Relative periods are periods relative to the current date. Examples of relative
+      periods are "Last month", "Last 12 months", "Last 5 years". Relative periods can be selected
+      by ticking the check-boxes next to each period. The main advantage of using relative periods is
+      that when you save a pivot table favorite, it will stay updated with the latest data as time
+      goes by without the need for constantly updating it.</p>
+    <p>For the organisation unit dimension you can select any number of organisation units from
+      the hierarchy. To select all organisation units below a specific parent organisation unit,
+      right click and click "Select all children". To manually select multiple organisation units,
+      click and hold the Ctrl button while clicking on organisation units. You can tick "User
+      org unit", "User sub-units" or "User sub-x2-units"
+      in order to dynamically insert the organisation unit or units associated with your user account.
+      This is useful when you save a pivot table favorite and want to share it with other users, as the
+      organisation units linked with the other user's account will be used when viewing the favorite.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/pivot_table/period_dimension.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p>Dynamic dimensions can consist of organisation unit group sets, data element group sets, or category option group sets which have been configured with the type of of "Disaggregation". Once the group sets have been configured, they will be come available in the pivot tables, and can be used as additional analysis dimensions, for instance to analyze aggregate data by Type of organisational unit or Implementing partner. Dynamic dimensions work the same as fixed dimensions. </p>
+    <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="resources/images/admon/tip.png"></td><th align="left">Tip</th></tr><tr><td align="left" valign="top">
+      <p>Some dynamic dimensions may contain many members. This can cause issues with certain browsers due to the length of the URL when many dimension members are selected. A special "All" checkbox is available for dynamic dimensions, which allows you to include all available dimensions implicitly in your pivot table, without specifying each and every dimension member.</p>
+    </td></tr></table></div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e397"></a>5.3.&nbsp;Arranging the table layout</h2></div></div></div>
+    
+    <p>After selecting data dimensions it is time to arrange your pivot table. Click "Layout" in
+      the top menu to open the layout screen. In this screen you can position your data dimensions
+      as table columns, rows or filters by clicking and dragging the dimensions from the dimensions
+      list to the respective column, row and filter lists. You can set any number of dimensions in
+      any of the lists. For instance, you can click on "Organisation units" and drag it to the row
+      list in order to position the organisation unit dimension as table rows.  Note that
+      indicators, data elements and data set reporting rates are part of the common "Data" dimension
+      and will be displayed together in the pivot table. For instance, after selecting indicators
+      and data elements in the left menu, you can drag "Organisation Unit" from the available dimensions list to
+      the row dimension list in order to arrange them as rows in the pivot table.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="40%"><tr><td align="center"><img src="resources/images/pivot_table/table_layout.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p>After you have set up your pivot table you can click "Update" to render your pivot table,
+      or click "Hide" to hide the layout screen without any changes taking effect. Since we in our
+      example have selected both the period and organisation unit dimension as rows, the pivot table
+      will generate all combinations of the items in these dimensions and produce a table like
+      this:</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/pivot_table/pivot_rows221.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e411"></a>5.4.&nbsp;Using table options</h2></div></div></div>
+    
+    <p>Several table options are available when working with a pivot table. Open the options
+      screen by clicking on "Options" in the top menu. The following options are available:</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p><span class="bold"><strong>Show column/row totals:</strong></span> Display total values in the table for each row and column, as well as a 
+       grand total for all values in the table.</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Show column/row sub-totals: </strong></span>Display subtotals in the table for each dimension. In the screenshot
+          above, notice how subtotals are generated for each of the periods in the period dimension.
+          Note that subtotals will be hidden for columns or rows if there is only one selected
+          dimension, as the values in that case are equal to the subtotals.</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Show dimension labels</strong></span>: Show the dimension names as part of the pivot tables.</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Hide empty rows:</strong></span> Hides empty rows from the table, which is useful when looking at
+          large tables where a big part of the dimension items do not have data in order to keep the
+          table more readable.</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Skip Rounding: </strong></span>Skips the rounding of data values, offering the full precision of data values. Can be useful for finance data where the full dollar amount is required. </p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Aggregation type: </strong></span>The default aggregation operator can be over-ridden here, by selecting a different aggregation operator, e.g. "Count", "Min" or "Max". </p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Show hierarchy:</strong></span> Shows the name of all ancestors for organisation units, e.g.
+    "Sierra Leone / Bombali / Tamabaka / Sanya CHP" for Sanya CHP. The organisation units are then
+    sorted alphabetically which will order the organisation units perfectly according to the hierarchy.</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Include only completed events: </strong></span>Only include completed events in the aggregation process. This is useful e.g. to exclude partial events in indicator calculations</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Display density: </strong></span>Controls the size of the cells in the table. Can be set to
+          "comfortable", "normal" and "compact". The "compact" option is handy in order to fit large
+          tables into the browser screen.</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Font size: </strong></span>Controls the size of the table text font. Can be set to "large", "normal"
+          and "small".</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Digit group separator:</strong></span> Controls which character to separate groups of digits or "thousands". Can
+          be set to "comma", "space" and "none".</p>
+      </li><li class="listitem">
+        <p><span class="bold"><strong>Legend set:</strong></span> Shows a color indicator next to the values. Currently the GIS legend sets are being used.</p>
+      </li></ul></div>
+    <p>Once you have set all options as are required, just press "Update" to generate the new pivot table.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e452"></a>5.5.&nbsp;Favorites and sharing</h2></div></div></div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e454"></a>5.5.1.&nbsp;Managing favorites</h3></div></div></div>
+      
+      <p>When you have set up a pivot table it is convenient to save it as a favorite. To do so, click
+      "Favorites" on the top menu, click "Add new", give the favorite a descriptive name and click "Create".
+      You can search for favorites through the search input field at the top. To load an existing favorite,
+      simply click the name of the favorite in the list.</p>
+      <p>To rename a favorite, click the grey "Rename" icon next to the favorite in the list, change the name
+      and click "Update". To overwrite an existing favorite with the current pivot table, click the green
+      "Overwrite" icon. To share a favorite with everyone or a user group, click the blue "Share" icon. To
+      delete a favorite, click the red "Delete" icon.</p>
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="45%"><tr><td><img src="resources/images/pivot_table/pivot_favorites.png" width="100%"></td></tr></table></div>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e463"></a>5.5.2.&nbsp;Sharing pivot tables</h3></div></div></div>
+      
+      <p>After you have created a pivot table and saved it as a favorite, it is possible to share the pivot in different ways. Click "Share" to reach the menu presented in the screen shot below.</p>
+      <div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="142"><tr><td align="center"><img src="resources/images/pivot_table/pivot_sharing.png" align="middle" width="142"></td></tr></table></div>
+      </div>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p><span class="bold"><strong>Write interpretation:</strong></span> Allows you to create an interpretation of the pivot table and share it with all users of the system.</p>
+          <p>For certain analysis-related resources in DHIS, like pivot tables, charts and maps, one can
+      share a data interpretation. An interpretation is simply a link to the relevant resource
+      together with a text expressing some insight about the data. If you want to share a pivot table
+      interpretation you need to first save the table you want to share as a favorite. Then, without
+      making any changes to the table, click the "Share" button the toolbar. A window will
+      open up and this is where you write your interpretation. When you are done, click share button
+      in the bottom right corner of the window. The window will close automatically and if the
+      interpretation was shared successfully you will find a notification on the bottom
+      toolbar.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Embed in web page:</strong></span> This option will generate a HTML fragment which can be used to display the pivot table in an external web page. </p>
+          <p>Certain analysis-related resources in DHIS, like pivot tables, charts and maps, can be embedded in any web page by using a plugin. If you have created a table in the Pivot Table app you will get the plug-in configuration for this table by clicking the "Share" button the tool bar and then "Embed as webpage". You will find more information about the plugins in the web api chapter.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>Favorite link:</strong></span> Provides a URL for the favorite. This can then be easily shared with other users or colleagues via email or chat.</p>
+        </li><li class="listitem">
+          <p><span class="bold"><strong>API Link:</strong></span>Provides a URL of the API resource. By default this is a HTML resource, but by modifying the suffix of ".html" to ".json" or ".csv", other data types are available. This option is most useful when you need an API link to the pivot table resource. Consult the DHIS2 developers guide for details about the different types which are available. </p>
+        </li></ul></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e485"></a>5.6.&nbsp;Analysis integration</h2></div></div></div>
+    
+    <p>The analysis apps in DHIS 2 are completely integrated, so you can easily switch
+   between pivot table, chart and map visualization of your data. When you have made a pivot table
+   you can click e.g. "Chart" in the top right corner and then select "Open this table as chart".</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="25%"><tr><td><img src="resources/images/pivot_table/pivot_integration.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>If you just want to visualize a small part of your pivot table as a chart, you can click directly on a
+    value in the table instead. A menu will appear. If you mouse hover the "Open selection as chart" option you can see
+    that some of the dimension headers in the table are highlighted, indicating what data will be visualized as a chart.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="90%"><tr><td><img src="resources/images/pivot_table/pivot_integration_table.png" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e499"></a>5.7.&nbsp;Downloading data</h2></div></div></div>
+    
+    <p>You can download the data in the current pivot table by clicking on "Download" in the top
+      menu. The data can be downloaded in various formats including Microsoft Excel, CSV, HTML.  The data table will have one
+      column per dimension and contain names of the dimension items. You can easily create a pivot
+      table in Microsoft Excel from the downloaded Excel file by clicking on "pivot table" in the
+      top panel, then clicking on "create pivot table", then marking the data range in the
+      spreadsheet before clicking "OK".u can </p>
+    <p>Data can also be downloaded in JSON, XML, Excel, and CSV as plain data formats with different identification schemes (ID, Code, and Name).   The data document will use identifiers of the
+      dimension items and will be opened in a new browser window in order to reveal the URL of the
+      request to the Web API in the address bar. This will be useful for developers of apps and 
+      other client modules based on the DHIS 2 Web API or for those who require a plan data source, for instance for import into statistical packages.</p>
+    <p>For advanced users, two additional options are available under "Advanced". JXRML will produce a template of a Jasper Report which can be further customized based on your exact needs and used as the basis for a standard report in DHIS2. The "Raw data SQL" will provide the actual SQL statement used to generate the pivot table. This could then be used as a data source in a Jasper report, or as the basis for an SQL view. </p>
+    <p>Lastly, the pivot table app allows you to download data in CSV format directly without first rendering the data in the Web Browser. This will help overcome any constraint in the system settings  that has been set in regards to the maximum number of analytic recrods. This allows for much larger batches of data to be downloaded and used for later offline analysis. This can be done by clicking on the arrow beside the update button.</p>
+    <div class="mediaobject" align="center"><img src="resources/images/pivot_table/data_dump.png" align="middle"></div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e508"></a>5.8.&nbsp;Constraints and tips</h2></div></div></div>
+    
+    <p>When selecting and arranging dimensions there are a few constraints that apply. All of
+      these constraints are validated and the pivot table module will provide feedback if any
+      constraint is violated.</p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>At least one dimension must be selected on columns or rows.</p>
+      </li><li class="listitem">
+        <p>At least one period must be included in the pivot table.</p>
+      </li><li class="listitem">
+        <p>Data element group sets and reporting rates cannot appear in the same pivot
+          table.</p>
+      </li><li class="listitem">
+        <p>A table cannot contain more than the maximum number of analytics records which have been specified through the system settings. The maximum number of records could also be constrained by the maximum RAM which is available to your browser. Considering making more smaller tables, instead of one table which displays all of your data elements and indicators together.  </p>
+      </li></ul></div>
+    <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="resources/images/admon/tip.png"></td><th align="left">Tip</th></tr><tr><td align="left" valign="top">
+      <p>Pivot tables in DHIS2 are limited to a system set paramater, which controls the number of data values which can be returned. The reason for this is two fold. First, it would be easy to overwhelm the server with a very complicated request for a large pivot table. Second, the amount of data which is able to be rendered in a browser is fairly limited. If you are having problems with very large or complex tables, consider to try and reduce the number of items. It is usually more useful to have smaller, concise tables which are easier to understand and which address a particular analysis. </p>
+    </td></tr></table></div>
+  </div>
+</div>
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e522"></a>Chapter&nbsp;6.&nbsp;Using Data Visualizer</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#dvIntro">6.1. Data Visualizer overview</a></span></dt><dt><span class="section"><a href="#dvChartTypes">6.2. Selecting chart type</a></span></dt><dt><span class="section"><a href="#dvSeriesCategoryFilter">6.3. Selecting series, category and filter</a></span></dt><dt><span class="section"><a href="#d4481e593">6.4. Selecting indicators and data elements</a></span></dt><dt><span class="section"><a href="#d4481e597">6.5. Selecting reporting rates</a></span></dt><dt><span class="section"><a href="#d4481e600">6.6. Selecting fixed and relative periods</a></span></dt><dt><span class="section"><a href="#d4481e603">6.7. Selecting organisation units</a></span></dt><dt><span class="section"><a href="#d4481e606">6.8. Selecting organisation unit group sets and data element group sets</a></span></dt><dt><span class="section"><a href="#d4481e609">6.9. Selecting additional data dimensions</a></span></dt><dt><span class="section"><a href="#d4481e612">6.10. Selecting chart options</a></span></dt><dt><span class="section"><a href="#dvDisplayChart">6.11. Displaying a chart</a></span></dt><dt><span class="section"><a href="#dvSaveChart">6.12. Downloading chart as image or PDF</a></span></dt><dt><span class="section"><a href="#dvFavorites">6.13. Saving chart as favorite</a></span></dt><dt><span class="section"><a href="#dvInterpretations">6.14. Sharing interpretations</a></span></dt><dt><span class="section"><a href="#dvEmbed">6.15. Embed charts in any web page</a></span></dt><dt><span class="section"><a href="#d4481e673">6.16. Analysis integration</a></span></dt><dt><span class="section"><a href="#d4481e681">6.17. Exiting the data visualizer module</a></span></dt></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dvIntro"></a>6.1.&nbsp;Data Visualizer overview</h2></div></div></div>
+    
+    <p>The data visualizer module enables users to easily create dynamic data analysis and visualizations through charts and data tables.  You can freely select content (like indicators, periods and organisation units) for your analysis. This module can be accessed by selecting Data Visualizer from the app menu. The image below shows the viewport of the module. For a quick start:</p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p> Look under the "Indicator" heading and select an indicator group from the list of groups. </p>
+      </li><li class="listitem">
+        <p>Look under "Available indicators" and select a few indicators from the list by double-clicking on them.</p>
+      </li><li class="listitem">
+        <p>Click "Update" in the top bar and see the chart unfold.</p>
+      </li></ol></div>
+    <p>The data visualizer is designed firstly to be easy-to-use - you can simply select the indicators, data elements, periods and organisation units you want to include and click "Update" to get your visualization. Secondly it is designed  to be fast and work well over poor Internet connections - charts are generated in the web browser and very little data is transferred over the Internet.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td align="center"><img src="resources/images/visualizer/column_chart1.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dvChartTypes"></a>6.2.&nbsp;Selecting chart type</h2></div></div></div>
+    
+    <p>The visualizer module provides nine different chart types, each with different characteristics. You can select the type of your chart by clicking on one of the icons  in  top left bar titled "Chart type".</p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p>Column chart: Chart which displays information as vertical rectangular columns with
+          lengths proportional to the values they represent. Useful e.g. for comparing performance
+          of different districts.</p>
+      </li><li class="listitem">
+        <p>Stacked column chart: Chart with vertical rectangular columns where bars representing
+          multiple categories are stacked on top of each other. Useful e.g. for displaying trends or
+          sums of related data elements.</p>
+      </li><li class="listitem">
+        <p>Bar chart: Same as column chart, only with horizontal bars.</p>
+      </li><li class="listitem">
+        <p>Stacked bar chart: Same as stacked column chart, only with horizontal bars.</p>
+      </li><li class="listitem">
+        <p>Line chart: Graph which displays information as a series of points connected by
+          straight lines. Also referred to as time series. Useful e.g. to visualize trends in
+          indicator data over multiple time periods.</p>
+      </li><li class="listitem">
+        <p>Area chart: Chart which is based on line chart, with the space between the axis and the line filled with colors and the lines stacked on top of each other. Useful for comparing the trends of related indicators.</p>
+      </li><li class="listitem">
+        <p>Pie chart: Circular chart divided into sectors (or slices). Useful e.g. to visualize
+          the proportion of data for individual data elements compared to the total sum of all data
+          elements in the chart.</p>
+      </li><li class="listitem">
+        <p>Radar chart: Displaying multivariate data on axes starting from the same point. Also known as spider chart.</p>
+      </li><li class="listitem">
+        <p>Speedometer Chart: Semi-circle chart which displays values out of 100%. Sometimes referred to as a gauge chart.   </p>
+      </li></ol></div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dvSeriesCategoryFilter"></a>6.3.&nbsp;Selecting series, category and filter</h2></div></div></div>
+    
+    <p>The series, category and filter can be defined by selecting the "Layout" option in the data visualizer app. </p>
+    <div class="screenshot">
+        <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/visualizer/chart_layout.png" align="middle" width="100%"></td></tr></table></div>
+      </div>
+    <p>This section lets you define which dimension of the data you want to appear as series, category and filter by dragging and dropping these options to the appropriate space. Only one dimension can be in each section. </p>
+    <p>This asks for a closer explanation. Dimension in this regard refers to the elements which describe the data values in the system. We have three main dimensions in the system:</p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p>Data: Includes data elements, indicators and datasets (reporting rates), describing the phenomena or event of the data.</p>
+      </li><li class="listitem">
+        <p>Periods: Describes when the event took place.</p>
+      </li><li class="listitem">
+        <p>Organisation units: Describes where the event took place.</p>
+      </li></ol></div>
+    <p>The visualization module lets you use these dimensions completely flexible in terms of appearing as series, categories and filter. Understanding these concepts is most easily done by looking at the screenshot from the opening page below: </p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/visualizer/series_category_filter.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p>More formally this can be described as following:</p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p>Series: A series is a set of continuous, related elements (e.g. periods or data
+          elements) which you want to visualize in order to emphasize trends or relations in its
+          data.</p>
+      </li><li class="listitem">
+        <p>Categories: A category is a set of elements (e.g. indicators or organisation units)
+          for which you want to compare its data.</p>
+      </li><li class="listitem">
+        <p>Filter: Since most charts are two-dimensional, a filter must be used on the third dimension  in order to use only a single element for the chart to become meaningful.</p>
+      </li></ol></div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e593"></a>6.4.&nbsp;Selecting indicators and data elements</h2></div></div></div>
+    
+    <p>The visualizer module can display any number of indicators and data elements in a chart and data table. Both indicators and data elements can be selected and appear together in the same chart. You can select indicators by clicking at the "Indicators" header  and selecting an indicator group from the list of groups below it. This will make the indicators in the selected group appear in the list under "Available indicators" to the left. From that list you can double click on any indicator in order to select it, this will move it to the list under "Selected indicators". Alternatively you can mark one or more indicators and click the single-arrow button. To select all indicators you simply click on the double-arrow button. To deselect indicators you can do correspondingly in the "Selected indicators" list.</p>
+    <p>To select data elements click on the "Data elements" header. The same principle for selecting and deselecting applies as for indicators.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e597"></a>6.5.&nbsp;Selecting reporting rates</h2></div></div></div>
+    
+    <p>The visualizer can display reporting rates in a chart, by itself or together with indicators and data elements. Reporting rates can be selected by clicking at the "Reporting rates" header. Reporting rates are defined by data sets. It can be selected by double-clicking in the list of available data sets to the left.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e600"></a>6.6.&nbsp;Selecting fixed and relative periods</h2></div></div></div>
+    
+    <p>Click on the "Periods" header. For fixed periods, select a period type from the combo box. You can select any number of fixed periods from any period type. Below the fixed period you will find the relative period checkboxes and you may select as many as you like. The names should be fairly self-descriptive and they are relative to the current date, meaning that if the current month is March and you select "Last month", the month of February will be included in the chart. You are also free to combine fixed periods and relative periods in the same chart. Overlapping periods will be filtered so that they only appear once.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e603"></a>6.7.&nbsp;Selecting organisation units</h2></div></div></div>
+    
+    <p>You can select which organisation units to include in the chart by clicking the
+      "Organisation units" header. This section features three ways of selecting organisation units, which can be selected by clicking on the gear icon directly below the organisation units header. The default mode is called "Organisation units" and lets you select the organisation units you want to appear in the chart from the tree. This mode also features three checkboxes. Checking "User org unit" will disable the organisation unit tree and give you the organisation unit that is related to the current/logged in user instead. This is also useful for administrators as they can create a meaningful "system" favorite with this option checked and all users will find their respective organisation unit when they open it. The the same concept goes for "User sub-units" and "User sub-x2-units". The second mode is called "Select levels". Here you can select all organisation units at one or more levels. However, at the same time you also have the option to select parent organisation units in the tree, which makes it easy to select e.g. all facilities inside one or more districts. The same thing goes for the third mode called "Select groups". Here you can select all organisation units inside one or more groups and parent organisation units at the same time.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e606"></a>6.8.&nbsp;Selecting organisation unit group sets and data element group sets</h2></div></div></div>
+    
+    <p>Dimension tabs listed below "Organisation units" are organisation unit group sets and data element group sets. You are free to add groups from any of these group sets to your chart. Remember to add the group set in either the series, category or filters combobox.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e609"></a>6.9.&nbsp;Selecting additional data dimensions</h2></div></div></div>
+    
+    <p>Following the organisation unit group sets and data element group sets additional data dimensions which have been configured to be used in analysis are found. Here you can add dimensions such as age, sex, etc. without having to add them in as detailed data element selections. This is useful when you want to separate these categories in your analysis.  </p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e612"></a>6.10.&nbsp;Selecting chart options</h2></div></div></div>
+    
+    <p>You can set various chart options by clicking on the "Options" button the chart toolbar.</p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/visualizer/chart_options2.png" align="middle"></td></tr></table></div>
+    </div>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>Show values: Shows the values above the series in the chart.</p>
+      </li><li class="listitem">
+        <p>Hide empty category items: Hides category items with no data from the chart.</p>
+      </li><li class="listitem">
+        <p>Show trend lines: The trend line will visualize how your data evolves over time - e.g.
+          is performance improving or deteriorating. Makes sense when periods are selected as
+          category. </p>
+      </li><li class="listitem">
+        <p>Target line value/title: Displays a horizontal line at the given domain value. Useful e.g. when you want to compare your performance to the current target.</p>
+      </li><li class="listitem">
+        <p>Base line value/title: Displays a horizontal line at the given domain value. Useful e.g. when you want to visualize how your performance has evolved since the beginning of a process.</p>
+      </li><li class="listitem">
+        <p>Sort order: Allows you to sort the values on your chart from either low to high or high to low. </p>
+      </li><li class="listitem">
+        <p>Aggregation Type: Defines how the data elements or indicators will be aggregated within the chart.</p>
+      </li><li class="listitem">
+        <p>Range axis max/min: Defines the maximum and minium value which will be visible on the
+          range axis.</p>
+      </li><li class="listitem">
+        <p>Range axis tick steps: Defines the number of ticks which will be visible on the range
+          axis.</p>
+      </li><li class="listitem">
+        <p>Range axis decimals: Defines the number of decimals which will be used for range axis
+          values.</p>
+      </li><li class="listitem">
+        <p>Range axis title: Displays a label next to the range axis (also referred to as the Y
+          axis). Can give context information to the chart, e.g. the unit of measure being
+          used.</p>
+      </li><li class="listitem">
+        <p>Domain axis title: Displays a label below the domain axis (also referred to as the X
+          axis). Can give context information to the chart, e.g. the type of periods being
+          listed.</p>
+      </li><li class="listitem">
+        <p>Hide chart legend: Hides the legend and leaves more room for the chart itself.</p>
+      </li><li class="listitem">
+        <p>Hide chart title: Hides the title of your chart.</p>
+      </li><li class="listitem">
+        <p>Chart title: Type any title you like and it will appear above the chart.</p>
+      </li></ul></div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dvDisplayChart"></a>6.11.&nbsp;Displaying a chart</h2></div></div></div>
+    
+    <p>You can display a chart based on your selections simply by clicking the "Update" button on the top centre menu. This requires that you have selected one or more elements from all of the three dimensions - data (indicators, data elements, reporting rates), periods (relative, fixed) and organisation units (units or groups). Note that "Months this year" from the period dimension and the root organisation unit are selected by default.</p>
+    <p>Notice that you can hide and show individual data series in the chart by clicking directly on the series label in the chart - they appear either at the top or to the right of the chart.</p>
+    <p>If you want to give the chart more space on your screen you can click on the triple left-arrow button on the top centre menu. This will collapse the left side menu. You can get this menu back by clicking on the same button again.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dvSaveChart"></a>6.12.&nbsp;Downloading chart as image or PDF</h2></div></div></div>
+    
+    <p>After you have rendered a chart you can download it to your local computer as and image or pdf by clicking on "Download" on the top centre menu. The file will be automatically downloaded to your computer - for instance can you now embed the image file into a text document as part of a report. You can also download the data source behind the chart in json, xml, csv or Microsoft Excel format.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dvFavorites"></a>6.13.&nbsp;Saving chart as favorite</h2></div></div></div>
+    
+    <p>Once you have rendered a chart you can save it as a favorite to able to access it easily at a later point. Click on the
+      "Favorites" button on the top menu to open up the favorites window. Click "Add new" and in the name field enter the desired name for your chart. The chart will be visible only to yourself. For every favorite in the list you have four options to the right. You can rename the chart (grey button), overwrite the chart (green button), modify the sharing settings of the chart (blue button) or delete the chart (red button).</p>
+    <p>These favorite charts can later be included on your personal dashboard. After saving you can navigate to the dashboard module, click on the "Insert" link over the chart areas and select your preferred chart.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/visualizer/chart_favorites.png" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dvInterpretations"></a>6.14.&nbsp;Sharing interpretations</h2></div></div></div>
+    
+    <p>For certain analysis-related resources in DHIS, like pivot tables, charts and maps, one can
+      share a data interpretation. An interpretation is simply a link to the relevant resource
+      together with a text expressing some insight about the data. If you want to share a chart
+      interpretation you need to first save the chart you want to share as a favorite. Then, without
+      making any changes to the chart, click the "Share" button the toolbar. A window will
+      open up and this is where you write your interpretation. When you are done, click share button
+      in the bottom right corner of the window. The window will close automatically and if the
+      interpretation was shared successfully you will find a notification on the bottom
+      toolbar.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dvEmbed"></a>6.15.&nbsp;Embed charts in any web page</h2></div></div></div>
+    
+    <p>Certain analysis-related resources in DHIS, like pivot tables, charts and maps, can be embeded in any web page by using a plugin. If you have created a chart in the Data Visualizer you will get the plugin configuration for this chart by clicking the "Share" button the toolbar and then "Embed as plugin". You will find more information about the plugins in the web api chapter.</p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e673"></a>6.16.&nbsp;Analysis integration</h2></div></div></div>
+    
+    <p>The analysis apps in DHIS 2 are completely integrated, so you can easily switch
+   between pivot table, chart and map visualization of your data. When you have made a chart
+   you can click e.g. "Map" in the top right corner and then select "Open this table as map".</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="25%"><tr><td align="center"><img src="resources/images/visualizer/chart_integration.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e681"></a>6.17.&nbsp;Exiting the data visualizer module</h2></div></div></div>
+    
+    <p>If you want to exit the module and go back to the DHIS start page you can click on the "Home" button to the right side of the top centre menu.</p>
+  </div>
+</div>
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e684"></a>Chapter&nbsp;7.&nbsp;Using GIS</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d4481e686">7.1. GIS module overview</a></span></dt><dt><span class="section"><a href="#d4481e698">7.2. Thematic mapping</a></span></dt><dd><dl><dt><span class="section"><a href="#gisFacilityMap">7.2.1. Facility layer</a></span></dt><dt><span class="section"><a href="#gisBoundaryMap">7.2.2. Boundary layer</a></span></dt><dt><span class="section"><a href="#gisThematicMap">7.2.3. Thematic layer 1-4</a></span></dt><dt><span class="section"><a href="#gisEventMap">7.2.4. Event layer</a></span></dt></dl></dd><dt><span class="section"><a href="#d4481e748">7.3. Tools</a></span></dt><dd><dl><dt><span class="section"><a href="#gisFavoriteMapView">7.3.1. Favorite maps</a></span></dt><dt><span class="section"><a href="#gisLegendSet">7.3.2. Create predefined legend sets</a></span></dt><dt><span class="section"><a href="#gisImageExport">7.3.3. Download map as image</a></span></dt><dt><span class="section"><a href="#gisInterpretation">7.3.4. Share map interpretation</a></span></dt><dt><span class="section"><a href="#gisEmbed">7.3.5. Embed maps in any web page</a></span></dt><dt><span class="section"><a href="#d4481e775">7.3.6. Analysis integration</a></span></dt></dl></dd></dl></div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e686"></a>7.1.&nbsp;GIS module overview</h2></div></div></div>
+    
+    <p>You can access the GIS module from the Services -&gt; GIS link in the top menu. The picture below shows the GIS viewport.</p>
+    <div class="screenshot">
+      
+      <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_main.png" width="100%"></td></tr></table></div>
+    </div>
+    <p>In the top right corner there is a panel called "Layer overview". If you are online you will see Google Streets and Google Hybrid which can be used as background maps/layers. Switch between the two of them by checking the checkbox. By unchecking the box you can hide the background completely. If you want to see the background, but with reduced opacity, you can set the visibility to something lower than 100% in the numberbox to the right. The final four layers are the vector layers which the user has at his disposal for thematic mapping (explained in the next section). The panels below hold the map legends when you create a thematic map. A legend explains the link between values and colors on your map.</p>
+   
+    <p>Lets take a look at the map toolbar. The four icons from the left represent the mentioned vector layers and this is the starting point of the GIS application. Further to the right we have "Favorites": Save your maps to easily restore them later. Saving a map as a favorite also gives you the opportunity of sharing it with other users as an interpretation or put it on the dashboard. "Legend": Create you own legend sets to ensure meaningful maps. "Download": Export the maps as a PNG image. "Share": Share your favorites as map interpretations with other users.</p>
+    
+    <p>In the top right corner of the map viewport you find four buttons: "Zoom in", "zoom out", "zoom to visible extent" (automatically adjusts the zoom level and map center position to put the data on your map in focus) and "measure distances".</p>
+    
+    <p>The current longitude/latitude position of the mouse cursor is displayed in the bottom right corner of the map viewport.</p>
+  </div>
+  
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e698"></a>7.2.&nbsp;Thematic mapping</h2></div></div></div>
+    
+    <p>This section describes the four vector layers which the user has at his disposal for thematic mapping: "Facility layer", "Boundary layer" and "Thematic layer" 1-4.</p>
+
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisFacilityMap"></a>7.2.1.&nbsp;Facility layer</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_facility_layer.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>This layer displays icons that represent facilities based on the facility type. Polygons will not show up on the map, so make sure to select an organisation unit level that has facilities. Click an icon on the map to open the context menu with two options. "Show information sheet" provides you with data for several data elements for this organisation unit. The data element group and period type are "system settings" called "Infrastructural data elements" and "Infrastructural period type". The second option in the context menu is "Relocate" and lets you graphically move the organisation unit to a different location. The new coordinate will be stored permanently. Browser cache must be deleted to see the change if you reload the page.</p>
+      
+      <p>In the "Edit layer" window will find "surrounding areas" in addition to group set, level
+        and parent. This lets you draw a circle around each facility with a desired radius in
+        kilometers.</p>
+    </div>
+
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisBoundaryMap"></a>7.2.2.&nbsp;Boundary layer</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_boundary_layer.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>The purpose of the boundary layer is to display the boundaries/coordinates in the
+        system. No data will be shown. This layer is useful if you are offline and thus have no
+        background map. Click the boundary/globe icon on the toolbar and select "Edit layer". You
+        can select the organisation units you want to show on the map by selecting a level and a
+        parent. That means "show all organisations units at this level that are children of this
+        parent". When there are visible organisation units on the map, you can easily navigate up
+        and down in the hierarchy without using the level/parent user interface. By clicking one of
+        the organisation units a context menu will open, then select "drill down" or
+        "float up". The drill down option will be disabled if you are already on the
+        lowest level or if there are no coordinates available on the level below. Vice versa goes
+        for floating up.</p>
+      
+      <p>The layer menu also offers to put on labels and to locate an organisation unit in the map.</p>
+      
+      <p>The final option in the layer menu is "Close". This completely resets the layer content, the edit layer form and the legend panel.</p>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisThematicMap"></a>7.2.3.&nbsp;Thematic layer 1-4</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_thematic_mapping.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>The four thematic layer panels let you use your data for thematic mapping. All you need to do is selecting your desired combination of indicator/dataelement, period and map combination. Then the organisation unit level and parent to define the boundaries. If your database has coordinates and aggregated data values for these organisation units they will appear on the map. Note that the DHIS2 data mart must be run in order to have aggregated values available.</p>
+      
+      <p>You may choose between legend types: <span class="guimenuitem">automatic</span> and <span class="guimenuitem">predefined</span>. Automatic means that the application will create a legend set for you based on your what method, number of classes, low color and high color you select. Method alludes to the size of the legend classes. Set to <span class="guimenuitem">Equal intervals</span> they will be &#8220;highest map value &#8211; lowest map value / number of classes&#8221;. Set to <span class="guimenuitem">Equal group count</span> the legend creator will try to distribute the organisation units evenly. The legend will appear as an even gradation from the start color to the end color. Predefined legend sets are described in  <a class="xref" href="#gisLegendSet" title="7.3.2.&nbsp;Create predefined legend sets">Section&nbsp;7.3.2, &#8220;Create predefined legend sets&#8221;</a> .</p>
+      
+      <p>Low radius and high radius only have effect on points (facilities) and decides the
+        circle radius for points with the lowest and highest value.</p>
+      
+      <p>Thematic layer 1-4 menu have a "Filter" option in addition to the boundary layer menu options. It lets you apply value filters to the organisation units on the map. The filter is removed when you close the filter window.</p>
+    </div>
+
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisEventMap"></a>7.2.4.&nbsp;Event layer</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_event_layer.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>The purpose of the event layer is to display the geographical location of events
+        registered in the DHIS 2 tracker. This layer enables you to drill down from the aggregated
+        data displayed in the thematic layers to the underlying individual events or cases. </p>
+      <p>To work with this layer, click the event layer icon on the map toolbar and select "Edit
+        layer". Select a program and then select a program stage. If there is only one stage
+        available for the selected program, the stage will be automatically selected. A list of data
+        elements and attributes will appear in the "Available data elements" panel. You are free to
+        select and use any data element or attribute from this list as part of your query. To select
+        you can either double-click a data element or (multi) select and use the single-arrow
+        downward button. The double-arrow button will select all data elements in the list. All
+        selected data elements will get their own row in the "Selected data elements". You can also
+        use an element multiple times in your query by clicking the + button. For data elements of
+        type text you will get two choices: "Contains" implies that the query will match all values
+        which contains your search value, and "Is exact" implies that only values which is
+        completely identical to your search query will be returned. For data elements of type option
+        set, you can select any of the options from the drop down box by using the down-wards arrow
+        or by start typing directly in the box to filter for options.</p>
+      <p>The event layer also requires you to select the time span for when the events took place
+        using the "start date" and "end date" date pickers under the "Periods" section, as well as
+        the organisation units to include in the query under the "Organisation units"
+        section.</p>
+      <p>To get information for an event you can simply click on it. This will open a dialog
+        which displays all available information for that event.</p>
+      
+      <p>The layer menu also offers to put labels on the map and to close the layer, which completely resets the layer content.</p>
+    </div>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e748"></a>7.3.&nbsp;Tools</h2></div></div></div>
+    
+    <p>This section describes the available GIS tools.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisFavoriteMapView"></a>7.3.1.&nbsp;Favorite maps</h3></div></div></div>
+      
+      <div class="screenshot">
+        
+        <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="resources/images/gis/gis_favorites.png" width="100%"></td></tr></table></div>
+      </div>
+      <p>Click the "Favorites" button on the toolbar to open the "Manage favorites" window. To add a new favorite, click the "Add new" button. A new window opens. Enter a name and click the "Create" button. You will find your new favorite in the list.</p>
+      
+      <p>All favorites have four action buttons on the right hand side. Grey: Edit favorite name. Green: Save current map to this favorite (overwrite). Yellow: Add this favorite to dashboard. Red: Delete this favorite.</p>
+      
+      <p>You can search for favorites in the textfield above the favorites. The list will be filtered on every character that is entered. Click the "next" and "prev" buttons in the bottom right corner to navigate between pages.</p>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisLegendSet"></a>7.3.2.&nbsp;Create predefined legend sets</h3></div></div></div>
+      
+      <p>Click the "Legend" button on the map toolbar. To create a new set click the "Add new" button. Example usage (vaccination coverage): Firstly, give the legend set a name. Then create the legends you want in your legend set. The first one could be "Low bad" (name), 0 (start value), 50 (end value), red (color). Click "Add legend" and appears in the list below. Then create "Medium" / 50 / 80 / yellow, "High good" / 80 / 100 / green and finally "Too high" / 100 / 10000 / grey. Now, click the "Create" button in the bottom right corner. If your legend set has overlapping legends (e.g. 0-50 and 40-80) you will not be allowed to proceed. If your legend set has a gap between the legends (e.g. 0-50 and 60-80) you will get a warning, but are allowed to proceed.</p>
+      
+      <p>NOTE! Continuous legends are supposed to end and start on the same value, e.g. 0-50 and
+        50-80. This will automatically be taken care of by the application. Do not try to do this
+        yourself by setting legends to e.g. 0-50 and 51-80. This will cause a usually unwanted gap
+        in your legend set.</p>
+      
+      <p>You can assign a legend set to an indicator or a data element in the Indicator/Data element module. This legend set will then be automatically selected when such an indicator/data element is selected in the GIS.</p>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisImageExport"></a>7.3.3.&nbsp;Download map as image</h3></div></div></div>
+      
+      <p>Click the "Download" button on the map toolbar. Enter a name in the textfield and click "Download". The browser will download a PNG image. If the toolbar "Download" button is disabled you need to create a map first.</p>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisInterpretation"></a>7.3.4.&nbsp;Share map interpretation</h3></div></div></div>
+      
+      <p>Open a favorite or save a new map as a favorite. Then click the "Share" button on the map toolbar. Type in your interpretation and click "Share".</p>
+    </div>
+    
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="gisEmbed"></a>7.3.5.&nbsp;Embed maps in any web page</h3></div></div></div>
+      
+      <p>Certain analysis-related resources in DHIS, like pivot tables, charts and maps, can be embeded in any web page by using a plugin. If you have created a map in the GIS app you will get the plugin configuration for this map by clicking the "Share" button the toolbar and then "Embed as plugin". You will find more information about the plugins in the web api chapter.</p>
+    </div>
+    
+	  <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d4481e775"></a>7.3.6.&nbsp;Analysis integration</h3></div></div></div>
+		
+		<p>The analysis apps in DHIS 2 are completely integrated, so you can easily switch
+		  between pivot table, chart and map visualization of your data. When you have made a map
+		  you can click e.g. "Chart" in the top right corner and then select "Open this map as chart".</p>
+		<div class="screenshot">
+		  
+		  <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="25%"><tr><td><img src="resources/images/gis/chart_integration.png" width="100%"></td></tr></table></div>
+		</div>  
+	  </div>
+  </div>
+</div>
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e783"></a>Chapter&nbsp;8.&nbsp;Dashboards</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#dashboards_setup">8.1. Setting up the dashboard</a></span></dt><dt><span class="section"><a href="#d4481e812">8.2. Messages and feedback</a></span></dt></dl></div>
+  
+  <p>Dashboards are intended to provide quick access to different analytical objects (maps, charts, reports, tables, etc) to an individual user. Dashboards can also be shared with user groups. For instance, a user or administrator could create a dashboard called "Malaria" which might contain all relevant information on malaria. This dashboard could then be shared with the user group called "Malaria control", which might consist of all users of the malaria control programme. All users within this group would then be able to view the same dashboard.</p>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dashboards_setup"></a>8.1.&nbsp;Setting up the dashboard</h2></div></div></div>
+    
+    <p>The dashboard can contain any number of objects (charts, maps, reports, tables, resources, etc). These can be freely arranged on the dashboard as you wish.  </p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="90%"><tr><td align="center"><img src="resources/images/dashboard/dashboard_overview.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+    <p>In this screen shot, the dashboard has already been populated with a number of objects, such as charts, map views, tables and messages. There are several hyperlink options available on each item: </p>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+        <p>Remove</p>
+        <p>Allows you to remove the item from the dashboard when you have the appropriate user rights.</p>
+      </li><li class="listitem">
+        <p>Get as Image</p>
+        <p>Opens up a pop-up window and allows you to download the image to your computer.</p>
+      </li><li class="listitem">
+        <p>Share interpretation</p>
+        <p>Allows you to share an interpretation of the dashboard item. Your interpretation will be shared publicly with other users of the DHIS2 system, in the "Interpretation" section of the dashboard. </p>
+      </li><li class="listitem">
+        <p>Explore</p>
+        <p>Loads the favorite in its corresponding app (ie. a map will open full-sized in the GIS app).</p>
+      </li><li class="listitem">
+        <p>Resize</p>
+        <p>Resizes the dashboard item. There are 3 sizes in which to choose from. </p>
+      </li></ul></div>
+    <p>Maps, charts and tables can be viewed as full size as images (in the case of charts and map views) or as HTML resources (in the case of reports, tables and messages). </p>
+    <p>To reorder how the dashboard appears, simply drag-and-drop any of the objects to a new position. </p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e812"></a>8.2.&nbsp;Messages and feedback</h2></div></div></div>
+    
+    <p>DHIS2 has certain functions to facilitate communication between different users and user groups. This type of communication is important to facilitate feedback regarding data quality,  timeliness of submissions, or to simply answer a question which a particular user may have. </p>
+    <p>Feedback messages are sent to a particular group of users and can be sent by all users who
+      have access to the dashboard module. In order to enable the receipt of feedback messages sent
+      from the dashboard, you must set the system setting "Feedback recipients" which is
+      available from the Maintenance-&gt;System settings dialog. Be sure to define a user group
+      (e.g. "Feedback recipients") with all of the users who should receive feedback
+      messages. Refer to the section in this manual on "User groups" for more information
+      of how to do this. Once the "Feedback recipients" user group has been defined, each
+      time a feedback message is sent, it will appear as a message in each of the "Feedback
+      recipients" message queue within DHIS2. Note that messages will not be sent to users
+      email addresses, but will only appear within the DHIS2 application. </p>
+    <p>To send a new feedback message, simply select "Write feedback" from the dashboard. Provide a subject and text in the respective text boxes. The message will appear in all of the specified users message queue. </p>
+    <p>Messages can be sent to either a specific user, user  group or groups of users who have been assigned to particular organisation units. To write a new message, simply click "Messages" from the dashboard screen and then press the "Write message" button.. Select an organisation unit (or group of organisation units) from the "Recipients" organisational unit tree. In the "To user" box you can select specific users or user groups. Provide a Subject and Text. To send the message, press the "Send" button. You can discard the message by pressing the "Discard" button as seen in the screenshot below.</p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="90%"><tr><td align="center"><img src="resources/images/dashboard/dashboard_message.png" align="middle" width="378"></td></tr></table></div>
+    </div>
+    <p>To read messages which have been sent to you, select "Messages" from the "Dashboard" . You messages will be displayed as a list. Click the desired message to read all of the messages in this particular conversation. </p>
+    <div class="screenshot">
+      <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td align="center"><img src="resources/images/dashboard/dashboard_messages_queue.png" align="middle" width="100%"></td></tr></table></div>
+    </div>
+  </div>
+</div>
+  <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d4481e827"></a>Chapter&nbsp;9.&nbsp;User profiles</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d4481e830">9.1. User settings</a></span></dt><dt><span class="section"><a href="#d4481e834">9.2. User profile</a></span></dt></dl></div>
+  
+  <p>With profiles, users can alter the appearance of their DHIS2, change the interface language, and enabled SMS and email notifications. Users can also enter information into their "Profile". </p>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e830"></a>9.1.&nbsp;User settings</h2></div></div></div>
+    
+    <p>To access the user settings menu, select "Profile-&gt;Settings". You can select the interface language and the database language. The interface language refers to the translation of the user interface of the DHIS2 software.  The database language refers to the translated content of the metadata contained in the system, for instance, data elements and indicators. Different interface styles can be set to alter the apperarnce of the system. </p>
+    <p>User can choose to receive their messages via email and/or SMS by ticking the appropriate check boxes. </p>
+  </div>
+  <div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4481e834"></a>9.2.&nbsp;User profile</h2></div></div></div>
+    
+    <p>Users can choose to enter more data, such as their email and phone number, job title, gender, birthday, etc into their profile. Just select "Profile-&gt;Profile" from the main menu. </p>
+  </div>
+</div>
+</div></body></html>

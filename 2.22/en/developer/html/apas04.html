@@ -1,0 +1,125 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>A.4.&nbsp;Mapping with R and PostgreSQL</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="apa.html" title="Appendix&nbsp;A.&nbsp;R and DHIS 2 Integration"><link rel="prev" href="apas03.html" title="A.3.&nbsp;Using R with MyDatamart"><link rel="next" href="apas05.html" title="A.5.&nbsp;Using R, DHIS2 and the Google Visualization API"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">A.4.&nbsp;Mapping with R and PostgreSQL</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apas03.html">Prev</a>&nbsp;</td><th width="60%" align="center">Appendix&nbsp;A.&nbsp;R and DHIS 2 Integration</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="apas05.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dhis2_r_maps"></a>A.4.&nbsp;Mapping with R and PostgreSQL</h2></div></div></div>
+    
+    <p>A somewhat more extended example, will use the RPostgreSQL library and several other libraries to produce a map from the coordinates stored in the database. We will define a few helper functions to provide a layer of abstraction, which will make the R code more reusable. </p>
+    <pre class="programlisting">#load some dependent libraries
+ library(maps)
+ library(maptools)
+ library(ColorBrewer)
+ library(ClassInt)
+ library(RPostgreSQL)
+
+#Define some helper functions
+ 
+#Returns a dataframe from the connection for a valid statement
+dfFromSQL&lt;-function (con,sql){
+    rs&lt;-dbSendQuery(con,sql)
+    result&lt;-fetch(rs,n=-1)
+    return(result)
+}
+#Returns a list of latitudes and
+ longitudes from the orgunit table
+dhisGetFacilityCoordinates&lt;- function(con,levelLimit=4) {
+sqlCoords&lt;-paste("SELECT ou.organisationunitid, ou.name,
+substring(ou.coordinates from E'(?=,?)-[0-9]+\\.[0-9]+')::double precision as latitude,
+substring(ou.coordinates from E'[0-9\\.]+')::double precision as
+ longitude FROM organisationunit ou where ou.organisationunitid
+ in (SELECT DISTINCT idlevel",levelLimit, " from _orgunitstructure)
+ and ou.featuretype = 'Point'
+ ;",sep="")
+ result&lt;-dfFromSQL(con,sqlCoords)
+ return(result)
+ }
+
+#Gets a dataframe of IndicatorValues,
+# provided the name of the indicator,
+# startdate, periodtype and level
+dhisGetAggregatedIndicatorValues&lt;-function(con,
+indicatorName,
+startdate,
+periodtype="Yearly",
+level=4)
+{
+  sql&lt;-paste("SELECT organisationunitid,dv.value FROM aggregatedindicatorvalue dv
+where dv.indicatorid  =
+(SELECT indicatorid from indicator where name = \'",indicatorName,"\') and dv.level
+ =", level,"and
+ dv.periodid  = 
+(SELECT periodid from period where 
+startdate = \'",startdate,"\'
+and periodtypeid = 
+(SELECT periodtypeid from periodtype
+ where name = \'",periodtype,"\'));",sep="")
+   result&lt;-dfFromSQL(con,sql)
+ return(result)
+ }
+
+#Main function which handles the plotting.
+#con is the database connection
+#IndicatorName is the name of the Indicator
+#StartDate is the startdate
+#baselayer is the baselayer
+plotIndicator&lt;-function(con,
+IndicatorName,
+StartDate,
+periodtype="Yearly",
+level=4,baselayer) 
+{
+#First, get the desired indicator data
+myDF&lt;-dhisGetAggregatedIndicatorValues(con,
+IndicatorName,StartDate,periodtype,level)
+#Next, get the coordinates
+coords&lt;-dhisGetFacilityCoordinates(con,level)
+#Merge the indicataors with the coordinates data frame
+myDF&lt;-merge(myDF,coords)
+#We need to cast the new data fram to a spatial data
+#frame in order to utilize plot
+myDF&lt;-SpatialPointsDataFrame(myDF[,
+c("longitude","latitude")],myDF)
+#Define some color scales
+IndColors&lt;-c("firebrick4","firebrick1","gold"
+,"darkolivegreen1","darkgreen")
+#Define the class breaks. In this case, we are going
+#to use 6 quantiles
+class&lt;-classIntervals(myDF$value,n=6,style="quantile"
+,pal=IndColors)
+#Define a vector for the color codes to be used for the
+#coloring of points by class
+colCode&lt;-findColours(class,IndColors)
+#Go ahead and make the plot
+myPlot&lt;-plot.new()
+#First, plot the base layer
+plot(baselayer)
+#Next, add the points data frame
+points(myDF,col=colCode,pch=19)
+#Add the indicator name to the title of the map
+title(main=IndicatorName,sub=StartDate)
+#Finally, return the plot from the function
+return(myPlot) }
+
+
+</pre>
+    <p>Up until this point, we have defined a few functions to help us make a map. We need to get the coordinates stored in the database and merge these with the indicator which we plan to map. We then retrieve the data from the aggregated indicator table, create a special type of data frame (SpatialPointsDataFrame), apply some styling to this, and then create the plot. </p>
+    <pre class="programlisting">
+#Now we define the actual thing to do
+#Lets get a connection to the database
+con &lt;- dbConnect(PostgreSQL(), user= "dhis", password="SomethingSecure", dbname="dhis")
+#Define the name of the indicator to plot
+MyIndicatorName&lt;-"Total OPD Attendance"
+MyPeriodType&lt;-"Yearly"
+#This should match the level where coordinates are stored
+MyLevel&lt;-4
+#Given the startdate and period type, it is enough
+#to determine the period
+MyStartDate&lt;-"2010-01-01"
+#Get some Some Zambia district data from GADM
+#This is going to be used as the background layer
+con &lt;- url("http://www.filefactory.com/file/c2a3898/n/ZMB_adm2_RData")
+print(load(con))#saved as gadm object
+#Make the map
+plotIndicator(con,MyIndicatorName,MyStartDate,MyPeriodType,MyLevel,gadm)</pre>
+    <p>The results of the plotIndicator function are shown below.</p>
+    <div class="mediaobject"><img src="resources/images/r/OPDAttendance.png"></div>
+    <p>In this example, we showed how to use the RPostgreSQL library and other helper libraries(Maptools, ColorBrewer) to create a simple map from the DHIS2 data mart. </p>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apas03.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="apa.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="apas05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A.3.&nbsp;Using R with MyDatamart&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;A.5.&nbsp;Using R, DHIS2 and the Google Visualization API</td></tr></table></div></body></html>

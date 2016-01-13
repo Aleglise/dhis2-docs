@@ -1,0 +1,124 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.13.&nbsp;ADX formatted data</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s12.html" title="1.12.&nbsp;Data values"><link rel="next" href="ch01s14.html" title="1.14.&nbsp;Events"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.13.&nbsp;ADX formatted data</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s12.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s14.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1632"></a>1.13.&nbsp;ADX formatted data</h2></div></div></div>
+    
+    <p>From version 2.20 we have included support for an upcoming international standard for
+      aggregate data exchange called ADX. ADX is developed and maintained by the Quality Research
+      and Public Health committee of the IHE (Integerating the HealthCare Enterprise). The wiki page
+      detailing QRPH activity can be found at <a class="ulink" href="http://wiki.ihe.net/index.php?title=Quality,_Research_and_Public_Health#Current_Domain_Activities" target="_top">wiki.ihe.net</a>. ADX is still under active development and is due to be published
+      before the end of 2015. Nevertheless, the data format for aggregate datavalues is currently
+      fairly stable and is unlikely to change much from what is described here. Note that what is
+      implemented currently in DHIS 2 is the functionality to read adx formatted data, i.e. what is
+      described as a Content Consumer actor in the ADX profile.</p>
+    <p>The structure of an ADX data message is quite similar to what you might already be
+      familiar with from DXF 2 data described earlier. There are a few important differences. We
+      will describe these differences with reference to a small example:
+      </p><pre class="screen">&lt;adx xmlns="urn:ihe:qrph:adx:2015" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="urn:ihe:qrph:adx:2015 ../schema/adx_loose.xsd" exported="2015-02-08T19:30:00Z"&gt;
+
+  &lt;group orgUnit="OU_559" period="2015-06-01/P1M" completeDate="2015-07-01" dataSet="(TB/HIV)VCCT"&gt;
+
+    &lt;dataValue dataElement="VCCT_0" GENDER="FMLE" HIV_AGE="AGE0-14" value="32"/&gt;
+    &lt;dataValue dataElement="VCCT_1" GENDER="FMLE" HIV_AGE="AGE0-14" value="20"/&gt;
+    &lt;dataValue dataElement="VCCT_2" GENDER="FMLE" HIV_AGE="AGE0-14" value="10"/&gt;
+    &lt;dataValue dataElement="PLHIV_TB_0" GENDER="FMLE" HIV_AGE="AGE0-14" value="10"/&gt;
+    &lt;dataValue dataElement="PLHIV_TB_1" GENDER="FMLE" HIV_AGE="AGE0-14" value="10"/&gt;
+        
+    &lt;dataValue dataElement="VCCT_0" GENDER="MLE" HIV_AGE="AGE0-14" value="32"/&gt;
+    &lt;dataValue dataElement="VCCT_1" GENDER="MLE" HIV_AGE="AGE0-14" value="20"/&gt;
+    &lt;dataValue dataElement="VCCT_2" GENDER="MLE" HIV_AGE="AGE0-14" value="10"/&gt;
+    &lt;dataValue dataElement="PLHIV_TB_0" GENDER="MLE" HIV_AGE="AGE0-14" value="10"/&gt;
+    &lt;dataValue dataElement="PLHIV_TB_1" GENDER="MLE" HIV_AGE="AGE0-14" value="10"/&gt;
+        
+    &lt;dataValue dataElement="VCCT_0" GENDER="FMLE" HIV_AGE="AGE15-24" value="32"/&gt;
+    &lt;dataValue dataElement="VCCT_1" GENDER="FMLE" HIV_AGE="AGE15-24" value="20"/&gt;
+    &lt;dataValue dataElement="VCCT_2" GENDER="FMLE" HIV_AGE="AGE15-24" value="10"/&gt;
+    &lt;dataValue dataElement="PLHIV_TB_0" GENDER="FMLE" HIV_AGE="AGE15-24" value="10"/&gt;
+    &lt;dataValue dataElement="PLHIV_TB_1" GENDER="FMLE" HIV_AGE="AGE15-24" value="10"/&gt;
+        
+    &lt;dataValue dataElement="VCCT_0" GENDER="MLE" HIV_AGE="AGE15-24" value="32"/&gt;
+    &lt;dataValue dataElement="VCCT_1" GENDER="MLE" HIV_AGE="AGE15-24" value="20"/&gt;
+    &lt;dataValue dataElement="VCCT_2" GENDER="MLE" HIV_AGE="AGE15-24" value="10"/&gt;
+    &lt;dataValue dataElement="PLHIV_TB_0" GENDER="MLE" HIV_AGE="AGE15-24" value="10"/&gt;
+    &lt;dataValue dataElement="PLHIV_TB_1" GENDER="MLE" HIV_AGE="AGE15-24" value="10"/&gt;
+        
+  &lt;/group&gt;
+&lt;/adx&gt;</pre><p>
+    </p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1638"></a>1.13.1.&nbsp;The adx root element</h3></div></div></div>
+      
+      <p>The adx root element has only one manadatory attribute, which is the
+          <span class="emphasis"><em>exported</em></span> timestamp. In common with other adx elements, the schema is
+        extensible in that it does not restrict additional application specific attributes.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1642"></a>1.13.2.&nbsp;The group element</h3></div></div></div>
+      
+      <p>Unlike dxf2, adx requires that the datavalues are grouped according to orgUnit, period
+        and dataSet. The example above shows a data report for the "(TB/HIV) VCCT" dataset from the
+        online demo database. This example is using codes as identifiers instead of dhis2 uids (An
+        adx message can also be coded using uids using the same idScheme mechanism used with dxf2.
+        More on this when we describe posting the data below).</p>
+      <p>The orgUnit, period and dataSet attributes are mandatory in adx. The group element may
+        contain additional attributes. In our DHIS2 implementation any additional attributes are
+        simply passed through to the underlying importer. This means that all attributes which
+        currently have meaning in dxf2 (such as completeDate in the example above) can continue be
+        used in adx and they will be processed in the same way.</p>
+      <p>A significant difference between adx and dxf2 is in the way that periods are encoded.
+        Adx makes strict use of ISO8601 and encodes the reporting period as
+        (date|datetime)/(duration). So the period in the example above is a period of 1 month (P1M)
+        starting on 2015-06-01. So it is the data for June 2015. The notation is a bit more verbose,
+        but it is very flexible and allows us to support all existing period types in DHIS2</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1647"></a>1.13.3.&nbsp;Data values</h3></div></div></div>
+      
+      <p>The dataValue element in adx is very similar to its equivalent in DXF. The mandatory
+        attributes are <span class="emphasis"><em>dataElement</em></span> and <span class="emphasis"><em>value</em></span>.
+          <span class="emphasis"><em>orgUnit</em></span> and <span class="emphasis"><em>period</em></span> attributes don't appear in
+        the dataValue as they are required at the <span class="emphasis"><em>group</em></span> level.</p>
+      <p>The most significant difference is the way that disaggregation is represented. DXF uses
+        the categoryOptionCombo to indicate disaggregation of data. In adx the disaggregations (eg
+        AGE_GROUP and SEX) are expressed explicitly as attributes. One important constraint on using
+        adx is that the categories used for dataElements in the dataSet MUST have a code assigned to
+        them, and further, that code must be of a form which is suitable for use as an XML
+        attribute. The exact constraint on an XML attribute name is described in the W3C XML
+        standard - in practice this means no spaces, no non-alphanumeric chracters other than '_'
+        and it may not start with a letter. The example above shows examples of 'good' category
+        codes ('GENDER' and 'HIV_AGE').</p>
+      <p>This restriction on the form of codes applies only to categories. Currently the
+        convention is not enforced by DHIS2 when you are assigning codes, but you will get an
+        informative error message if you try to import adx data and the category codes are either
+        not assigned or not suitable.</p>
+      <p>The main benefits of using explicit dimensions of disaggregated data are that </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>The system producing the data does not have to be synched with the
+              categoryOptionCombo within DHIS2.</p>
+          </li><li class="listitem">
+            <p>The producer and consumer can match their codes to a 3rd party authoritative
+              source, such as a vterminology service. Note that in the example above the Gender and
+              AgeGroup codes are using code lists from the <a class="ulink" href="http://apps.who.int/gho/data/node.resources.api" target="_top">WHO Global Health
+                Observatory</a>.</p>
+          </li></ul></div>
+      <p>Note that this feature may be extremely useful, for example when producing disaggregated
+        data from an EMR system, but there may be cases where a
+          <span class="emphasis"><em>categoryOptionCombo</em></span> mapping is easier or more desirable. The DHIS2
+        implementation of adx will check for the existence of a
+          <span class="emphasis"><em>categoryOptionCombo</em></span> attribute and, if it exists, it will use that it
+        preference to exploded dimension attributes. Similarly, an
+          <span class="emphasis"><em>attributeOptionCombo</em></span> attribute on the <span class="emphasis"><em>group</em></span>
+        element will be processed in the legacy way. Otherwise the attributeOptionCombo can be
+        treated as exploded categories just as on the <span class="emphasis"><em>dataValue</em></span>.</p>
+      <p>In the simple example above, each of the dataElements in the dataSet have the same
+        dimensionality (categorycombo) so the data is neatly rectangular. This need not be the case.
+        dataSets may contain dataElements with different categoryCombos, resulting in a
+          <span class="emphasis"><em>ragged-right</em></span> adx data message.</p>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1672"></a>1.13.4.&nbsp;POSTing data</h3></div></div></div>
+      
+      <p>DHIS2 exposes an endpoint for POST adx data at <span class="emphasis"><em>/ohie/dataValueSets</em></span>.
+        So, for example, the following curl command can be used to POST the example data above to
+        the DHIS2 demo server:
+        </p><pre class="screen">curl -u admin:district -X POST -H "Content-Type: application/xml" 
+  -d @data.xml "https://play.dhis2.org/demo/ohie/dataValueSets?dataElementIdScheme=code&amp;orgUnitIdScheme=code"</pre><p>
+        Note the query parameters are the same as are used with DXF data. The adx endpoint should
+        interpret all the existing DXF parameters with the same semantics as DXF.</p>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s12.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s14.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.12.&nbsp;Data values&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.14.&nbsp;Events</td></tr></table></div></body></html>

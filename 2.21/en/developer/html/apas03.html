@@ -1,0 +1,56 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>A.3.&nbsp;Using R with MyDatamart</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="apa.html" title="Appendix&nbsp;A.&nbsp;R and DHIS 2 Integration"><link rel="prev" href="apas02.html" title="A.2.&nbsp;Using ODBC to retrieve data from DHIS2 into R"><link rel="next" href="apas04.html" title="A.4.&nbsp;Mapping with R and PostgreSQL"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">A.3.&nbsp;Using R with MyDatamart</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apas02.html">Prev</a>&nbsp;</td><th width="60%" align="center">Appendix&nbsp;A.&nbsp;R and DHIS 2 Integration</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="apas04.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dhis2_r_mydatamart"></a>A.3.&nbsp;Using R with MyDatamart</h2></div></div></div>
+    
+    <p>MyDatamart provides  useful interface to the DHIS2 database by making a local copy of the database available on a users desktop. This means that the user does not need direct access to the database and the data can be worked with offline on the users local machine. In this example, we will have used the <a class="ulink" href="http://play.dhis2.org/demo" target="_top">demo database</a>. Data was downloaded at the district level for Jan 2011-Dec 201l. Consult the MyDatamart section in this manual for more detailed information. </p>
+    <p>First, lets load some required R packages. If you do not have these packages already installed in your version of R, you will need to do so before proceeding with the example.</p>
+    <pre class="screen">library("DBI")
+library("RSQLite")
+library("lattice")
+library("latticeExtra")</pre>
+    <p>Next, we are going to connect to the local copy of the MyDatamart database. In this case, it was located at C:\dhis2\sl.dmart. </p>
+    <pre class="screen">dbPath&lt;-"C:\\dhis2\\sl.dmart"
+drv&lt;-dbDriver("SQLite")
+db&lt;-dbConnect(drv,dbPath)</pre>
+    <p>Let suppose we have been asked to compare ANC 1, 2, 3 coverage rates for each district for 2011. We can define an SQL query to retrieve data from the MyDatamart database into an R data frame as follows.</p>
+    <pre class="screen">#An SQL query which will retreive all indicators 
+#at OU2 le
+sql&lt;-"SELECT * FROM pivotsource_indicator_ou2_m 
+WHERE year = '2011'"
+#Execute the query into a new result set
+rs&lt;-dbSendQuery(db,sql)
+#Put the entire result set into a new data frame
+Inds&lt;-fetch(rs,n=-1)
+#Clean up a bit
+dbClearResult(rs)
+dbDisconnect(db)</pre>
+    <p>We used one of the pre-existing Pivot Source queries in the database to get all of the indicator values. Of course, we could have retrieved only the ANC indicators, but we did not exactly know how the data was structured, or how the columns were named, so lets take a closer look. </p>
+    <pre class="screen">#Get the name of the columns
+colnames(Inds)
+#output not shown for brevity
+levels(as.factor(Inds$indshort)) </pre>
+    <p>We see from the <span class="command"><strong>colnames</strong></span> command that there is an column called "indshort" which looks like it contains some indicator names. We can see the names using the second command. After we have determined which ones we need (ANC 1, 2, and 3), lets further subset the data so that we only have these. </p>
+    <pre class="screen">#Subset the data for ANC
+ANC&lt;-Inds[grep("ANC (1|2|3) Coverage",as.factor(Inds$indshort)),]</pre>
+    <p>We just used R's grep function to retrieve all the rows and columns of the Inds data frame which matched the regular expression "ANC (1|2|3) Coverage" and put this into a new data frame called "ANC". </p>
+    <p>By looking at the data with the <span class="command"><strong>str(ANC)</strong></span> command, we will notice that the time periods are not ordered correctly, so lets fix this before we try and create a plot of the data.  </p>
+    <pre class="screen">#Lets reorder the months
+MonthOrder&lt;-c('Jan','Feb','Mar','Apr',
+'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
+ANC$month&lt;-factor(ANC$month,levels=MonthOrder)</pre>
+    <p>Next, we need to actually calculate the indicator value from the numerator, factor and denominator. </p>
+    <pre class="screen">#Calculate the indicator value
+ANC$value&lt;-ANC$numxfactor/ANC$denominatorvalue</pre>
+    <p>Finally, lets create a simple trellis plot which compares ANC 1, 2, 3 for each district by month and save it to our local working directory in a file called "District_ANC.png". </p>
+    <pre class="screen">png(filename="District_ANC.png",width=1024,height=768)
+plot.new()
+ xyplot(value ~ month | ou2, data=ANC, type="a", main="District ANC Comparison Sierra Leone 2011",
+ groups=indshort,xlab="Month",ylab="ANC Coverage",
+ scales = list(x = list(rot=90)),
+ key = simpleKey(levels(factor(ANC$indshort)),
+ points=FALSE,lines=TRUE,corner=c(1,1)))
+ mtext(date(), side=1, line=3, outer=F, adj=0, cex=0.7)
+dev.off()</pre>
+    <p>The results of which are displayed below.</p>
+    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/r/District_ANC.png" width="100%"></td></tr></table></div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apas02.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="apa.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="apas04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A.2.&nbsp;Using ODBC to retrieve data from DHIS2 into R&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;A.4.&nbsp;Mapping with R and PostgreSQL</td></tr></table></div></body></html>

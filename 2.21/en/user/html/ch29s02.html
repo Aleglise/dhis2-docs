@@ -1,0 +1,958 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>29.2.&nbsp;User guide</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_user_manual_en.html" title="DHIS 2 User Manual"><link rel="up" href="ch29.html" title="Chapter&nbsp;29.&nbsp;Tracker"><link rel="prev" href="ch29.html" title="Chapter&nbsp;29.&nbsp;Tracker"><link rel="next" href="ch30.html" title="Chapter&nbsp;30.&nbsp;Program Indicators"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">29.2.&nbsp;User guide</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch29.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;29.&nbsp;Tracker</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch30.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e5777"></a>29.2.&nbsp;User guide</h2></div></div></div>
+    
+    <p>There are two additions for tracker module. </p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p><span class="italic">Programs / Attributes </span>- Definition  meta data, include  attributes,  attribute groups,  relationships, custom registration form, program and program-stages, validation for program and formula to generate aggregate data value.</p>
+      </li><li class="listitem">
+        <p><span class="italic">Individual records </span> - Support main functions for entity registration, tracking information and individual reports.</p>
+      </li></ol></div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e5787"></a>29.2.1.&nbsp;Programs / Attributes</h3></div></div></div>
+      
+      <p>The content in this part is for the expert users or administrative users who are capable and responsible for development and change.</p>
+      <p>Each of the options for the maintenance will be described in the following section. The options for the maintenance will be described in the following section - </p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p> Attribute</p>
+          <p>Create, modify and view entity attributes. An attribute can be used to register extra information for a entity and shared to one/many health programmes.</p>
+        </li><li class="listitem">
+          <p>Attribute Group</p>
+          <p>Create, modify and view entity attribute groups. Groups makes it more convenient to display attributes into default registration form by groups.</p>
+        </li><li class="listitem">
+          <p>Relationship Type</p>
+          <p>Create, modify and view relationship types. A relationship is typically wife and husband or mother and child.</p>
+        </li><li class="listitem">
+          <p>Tracked entity</p>
+          <p>Create, modify types of entities which can be tracked through the system, which can be anything from persons to commodities, e.g medicine, person, &#8230;
+</p>
+          <p>
+A program must have one tracked entity. And entity registered must be specified an tracked entity. To enrol a tracked entity instance into a program, the tracked entity of an  entity  and tracked entity of a program must be the same.</p>
+        </li><li class="listitem">
+          <p>Tracked Entity  Form</p>
+          <p>Create custom tracked entity data capture forms with tracked entity attributes.</p>
+        </li><li class="listitem">
+          <p>Program</p>
+          <p>Create, modify and view programs. A program has program stages and defines which actions should be taken at each stage.</p>
+        </li><li class="listitem">
+          <p>Aggregation Query Builder</p>
+          <p>Set up aggregation rules for the process of aggregating tracked entity data to statistical data.</p>
+        </li><li class="listitem">
+          <p>Automated Message Reminder </p>
+          <p>Set reminders to be automatically sent to enrolled tracked entity instances before scheduled appointments and after missed visits.</p>
+        </li><li class="listitem">
+          <p>Automated Aggregation</p>
+          <p>Schedule an automated tracked entity aggregation process, e.g. to run all pre-defined aggregation queries every midnight. </p>
+        </li></ul></div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="tracked_entity_attribute"></a>29.2.1.1.&nbsp;Attribute</h4></div></div></div>
+        
+        <p>Create, modify and view entity attributes. An attribute can be used to register extra private information for a entity or information when that entity enrolled into a certain program.</p>
+        <p>After, click on <span class="italic">Add new </span>button into <span class="italic">Tracked entity attribute management</span> window to go to <span class="italic">Create new tracked entity attribute</span> window.</p>
+        <p>From <span class="italic">App</span> menu, go to <span class="italic">Programs / Attributes</span> option and click on it. Select <span class="italic">Attribute</span> option to create a new attribute for entities. </p>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="tracked_entity_attribute_information"></a>29.2.1.1.1.&nbsp;Basic information</h5></div></div></div>
+          
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              <p><span class="italic">Name</span> - Name of  attribute.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Short name</span> - Short name of  attribute.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Code</span> - Code of attribute.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Description</span> - Description of  attribute.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Unique</span> - Specify the values of this attribute is unique. There are four options for unique property:
+</p>
+              <p>- &#8220;Whole system&#8221; : The values of this attribute can duplicate with values which belong to other attributes. But the values in this attribute must not duplicate.</p>
+              <p>- &#8220;Organisation unit&#8221; : The values of this attribute must not duplicate in the same orgunit.</p>
+              <p>- &#8220;Program&#8221; : The values of this attribute must not duplicate in the same program.
+</p>
+              <p>- &#8220;Program within Organisation unit&#8221; : The values of this attribute must not duplicate in the same program in the same orgunit.
+
+</p>
+            </li><li class="listitem">
+              <p><span class="italic">Inherit</span> - When to registry a new entity for relationship with an available entity, all inherit entity attribute values of the entity will be pre-filled in the registration form. </p>
+            </li><li class="listitem">
+              <p><span class="italic">Value Type</span> - There are value types as follows : </p>
+              <p>- &#8220;<span class="italic">Date</span>&#8221;
+</p>
+              <p>- &#8220;<span class="italic">String</span>&#8221;
+</p>
+              <p>- &#8220;<span class="italic">Number</span>&#8221;
+</p>
+              <p>- &#8220;<span class="italic">Letter</span>&#8221; - Just accept values with alphabet only ( a-z ) </p>
+              <p>- &#8220;<span class="italic">Yes/No</span>&#8221; - There are three options, include null, false, true.</p>
+              <p>- &#8220;<span class="italic">Yes Only</span>&#8221; - There are only one true value.
+</p>
+              <p>- &#8220;<span class="italic">Option Set</span>&#8221; - Link to a optionset. The options of the optionset will be displayed on registration form. User can select only one option in option-set list as attribute value.
+</p>
+              <p>- &#8220;<span class="italic">Phone number</span>&#8221;
+- To make it more flexible to define new recipients to reminders and other messages in Tracker we will add a new Attribute Type called "Phone Number". Here the user can put any recipient name (attribute name) and collect the phone number (the value). All attributes of this type "phone number" will be available in the recipient lists for reminder templates or manual reminders/messages in Tracker.</p>
+              <p>- &#8220;<span class="italic">Tracker associate</span>&#8221;- A checkbox will be displayed on data entry form. When user checks this chekcbox, a form will be shown, user can seach an TEI existed or add new TEI. The id of TEI searched/added will be saved as value of this attribute. </p>
+              <p>
+- &#8221;<span class="italic">Users</span>&#8221; : In theTEI registration form,this attribute is rendered as a dropdown box with option as user-list who belongs to the selected orgunit. The id of user selected will be saved into database as value of this attribue. </p>
+            </li></ul></div>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="tracked_entity_attribute_configuration"></a>29.2.1.1.2.&nbsp;Some configuration</h5></div></div></div>
+          
+          <p>An attribute can be set to display values of its in entity list search result by configuring in <span class="italic">Manage attributes with no program</span> function.</p>
+          <p>The <span class="italic">Manage attributes for visit schedule</span> supports configuration for entity attributes that are added to the visit schedule.This is very useful when the list is printed and used for tracking in the community. </p>
+          <p>Select patient attributes on the left section and move them to the right section and click <span class="italic">Save</span> button.</p>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="tracked_entity_attribute_group"></a>29.2.1.2.&nbsp;Attribute group</h4></div></div></div>
+        
+        <p>To access the entity attribute group maintenance module, from <span class="italic">App</span> menu, go to <span class="italic">Programs / Attributes</span> icon and click on it and select <span class="italic">Attribute Group</span> option.</p>
+        <p>To create a new attribute group, click the <span class="italic">Add</span> button into <span class="italic">Tracked entity attribute group management</span> window to go to <span class="italic">Create new tracked entity attribute group</span> window , click the <span class="italic">Add new</span> button. Fill in the <span class="italic">Name</span> and <span class="italic">Description</span> fields and then select attributes that should belong to the group from the left panel. </p>
+        <p>Click the <span class="italic">Move selected items</span> button to add the selected attributes to the attribute group. Click the <span class="italic">Remove selected items</span> button to remove attributes from the group that have been selected in the right panel. </p>
+        <p>Finally, click the <span class="italic">Add</span> button to save changes, or
+          the <span class="italic">Cancel</span> button to discard any changes. The created
+          attribute members will be displayed by the attribute groups into entity registration
+          form.</p>
+        <p>To sort order of attribute groups for displaying  in entity registration form, click <span class="italic">Move up</span> and <span class="italic">Move down </span>button next to <span class="italic">Selected attributes</span> section.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="relationship_type"></a>29.2.1.3.&nbsp;Relationship type</h4></div></div></div>
+        
+        <p>Relationship type section provides a mechanism for defining  relationship types and link entities through these relationship types by creating specific relationships.</p>
+        <p>To access the relationship type maintenance module, from <span class="italic">Apps</span> menu, go to <span class="italic">Programs / Attributes</span> option and click on it and select <span class="italic">Relationship Type</span> option.</p>
+        <p>To define a new relationship type, click <span class="italic">Add new</span> button into <span class="italic">Relationship Type Management </span>window to go to <span class="italic">Create new relationship type</span> window.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="tracked_entity"></a>29.2.1.4.&nbsp;Tracked entity</h4></div></div></div>
+        
+        <p>This function supports to define types of entities which can be tracked through the system, which can be anything from persons to commodities, e.g medicine, person, &#8230;
+</p>
+        <p>
+A program must have one tracked entity. And the entity registered must be specified an tracked entity. To enrol an entity  into a program, the tracked entity of an entity and tracked entity of program must be the same.</p>
+        <p>To access the tracked entity maintenance module, from <span class="italic">Apps</span> menu, go to <span class="italic">Programs / Attributes</span> option and click on it and select <span class="italic">Tracked Entity</span> menu.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="tracked_entity_form_management"></a>29.2.1.5.&nbsp;Tracked entity form</h4></div></div></div>
+        
+        <p>The tracked entity form section provides a mechanism for defining custom registration form for each available program in system or for normal registration form which is used to register any entity without having program information and this entity can enroll into a certain program after that.</p>
+        <p>To access the entity registration form maintenance module, from <span class="italic">Apps</span> menu, go to <span class="italic">Programs / Attributes</span> option and click on it and select <span class="italic">Tracked Entity Form</span> option.</p>
+        <p>To define a custom  registration form, please select a program in list and click on the row corresponding the program you want to design. Then select <span class="italic">Design registration form</span> link on context menu.</p>
+        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="resources/images/admon/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+          <p>Check on<span class="italic"> Auto save registration form</span> checkbox in <span class="italic">Design tracked entity form </span>to save the custom registration form to being designed automatically.</p>
+        </td></tr></table></div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="program_program_stage"></a>29.2.1.6.&nbsp;Program and Program stage</h4></div></div></div>
+        
+        <p>The section provides a mechanism for defining health programmes and action for each stage  of the programme. </p>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="program"></a>29.2.1.6.1.&nbsp;Program</h5></div></div></div>
+          
+          <p>A program must be specified with only one tracked entity. And just entities what/who have the tracked entity as same as the tracked entity of program can enroll into that program.</p>
+          <p>There are three type of program, include -</p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p>Multi events with registration program (MEWR) - Used for health program with many stages, e.g Mother Health Program with stages such as ANC Visit (2-4+), Delivery, PNC Visit&#8230;.
+</p>
+            </li><li class="listitem">
+              <p>Single event with registration program (SEWR) : used for birth cerficate and death certificate. This type of programs have only one stage. An TEI just can enroll into the program one time.</p>
+            </li><li class="listitem">
+              <p>Single event without registration program ( anonymous program or SEWoR) : used for saving health cases without registering any information into the system. This type of programs have only one stage.</p>
+            </li></ol></div>
+          <p>To access the program maintenance module, from <span class="italic">Apps</span> menu, go to <span class="italic">Programs / Attributes</span> option and click on it. Select <span class="italic">Program</span> menu.</p>
+          <p>To define a new program, click the <span class="italic">Add new</span> button on the main page. Fill all fields with read asterisk, and then click the <span class="italic">Add</span> button.</p>
+          <div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="program_information"></a>29.2.1.6.1.1.&nbsp;Basic information</h6></div></div></div>
+            
+            <p><span class="italic">Program details<span class="italic"> section</span></span> - </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Name</span> - The name of the program</p>
+              </li><li class="listitem">
+                <p><span class="italic">Description</span> - Descriptions, meanings, explanation, etc. of/about the program.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Type</span> - There are three types of program: multi events with registration, single event with registration and single event without registration.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Data entry method</span> - Used for displaying option-set data elements in case entry form as drop down list or radio buttons. If this option is selected as radio buttons, just option-set  data elements which  the number of option values is less then 8 are displayed as radio buttons. Others are displayed as drop down lists</p>
+              </li><li class="listitem">
+                <p><span class="italic">Tracked Entity</span> - Specify an tracked entity for the program.</p>
+              </li></ul></div>
+            <p><span class="italic">Enrollment details </span>section - </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Allow future enrollment dates</span></p>
+              </li><li class="listitem">
+                <p><span class="italic">Allow future incidence dates</span></p>
+              </li><li class="listitem">
+                <p><span class="italic">Only enroll once (per tracked entity instance lifetime)</span> - Check on it if a entity only can enroll the program one time. For example, Child Vaccination Program, Post-mortem examination, PSI's IPC process. This will avoid a entity enrolling more than one into a program when it doesn't make sense.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Show incident date</span> - Set show/hide incident date field when a entity enroll in this program.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Description of incident date</span> - The date when the entity got the disease or he/she has just been committed to an equivalent program for being followed-up. E.g. In the Immunization program for child under 1yr old, the incident date is the birthday; in the maternal program, the incident date is the date of last menstrual period (LMP).</p>
+              </li><li class="listitem">
+                <p><span class="italic">Description of enrollment date</span> - The date in which a entity is registered to the system.
+For example: the date in which a entity enrolls to the system.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Allow enrollment at all orgunits </span>- Check on it if user want to use  the program on all  organisation units no mater what the program is assigned to the organisation unit or not. Unchecnk if the program is only used on organisation units assigned.</p>
+              </li></ul></div>
+            <p><span class="italic">Dashboard shortcut to add relative</span> section - Define a program and a relationship type which has related to the program. It's used for registering a new entity,  enroll into an other program and create relationship between entity who user is working on and the new entity. E.g after delivery, a baby is born, then in the Delivery  event of  the mother, user can register this baby and enroll him/her into the Child program. After that, create a relationship as Mother/Child for this mother and her baby.</p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Shortcut link label (e.g. Add Child)</span> - The label for this shortcut link which is displayed in Relation tab of entity dashboard.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Relationship</span> - Select a relationship type defined, e.g Mother/Child, ...</p>
+              </li><li class="listitem">
+                <p><span class="italic">Who is the new relative to the existing entity? </span></p>
+              </li><li class="listitem">
+                <p><span class="italic">Program for new relative to be enrolled in</span> - Specify a program that  new relatives of the entity who was enrolled in the program will be enrolled into this program when this relative registers the information.</p>
+              </li></ul></div>
+            <p><span class="italic">Scheduling of events</span> section - </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Skip generation of events that are overdue (before enrollment date)</span> - When a entity enrolls into the program, the  events corresponding to the program-stages are created. If this field is checked, the system will ignore to generate overdue events.</p>
+              </li></ul></div>
+            <p><span class="italic">Attributes <span class="italic">section</span></span> - Specify the dynamic attributes need for the program.
+
+There is a column in Select attribute section called Display in list. This is the required field. So please make sure that at least one attribute is set this property. 
+
+For the attributes set Display in list, the values of these attributes are displayed in entity list in functionalities of Individual records module ( such as Find/Add Instance, Visit Schedule, Lost to follow up, &#8230; ).</p>
+            <p>To assign a program for organisation units, click on the program which you would like and select<span class="italic"> Assign program to organisation units</span> menu. Then select organisation units where provide the program.</p>
+            <p>To assign a program for user roles, click on the program which you would like and select <span class="italic">Assign program to userroles</span> menu. Then select user roles which you want in <span class="italic">Available</span> section and click <span class="italic">Move selected items</span> button or double click on the user role to move to <span class="italic">Selected</span> section. Finally, click <span class="italic">OK</span> to finish.</p>
+            <p>Besides, you can search user groups by typing a key in text field to set authorities. The result will loaded and you can select the group you want. Then click (+) button and the selected one will be displayed in below.</p>
+            <p>To translate the name of a program, click <span class="italic">Translation</span> icon, the seventh icon under Operations, corresponding to the program you would like.</p>
+          </div>
+          <div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="program_validation_rule"></a>29.2.1.6.1.2.&nbsp;Program validation rule</h6></div></div></div>
+            
+            <p>To create validation rules for programs, click on the program which you would like and select <span class="italic">Program validation rule management</span> menu. Then click <span class="italic">Add</span> button and enter values for the fields in form to create a new one. A validation rule is based on an expression which defines a relationship between data element values. The expression has a left side and a right side and an operator  which defines whether the former must be less than, equal to or greater than the latter. The expression forms a condition which should assert that certain logical criteria are met. For instance, a validation rule could  assert that an  admitted date  given is before the discharged date. </p>
+          </div>
+          <div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="program_indicator"></a>29.2.1.6.1.3.&nbsp;Program Indicator</h6></div></div></div>
+            
+            <p>To define a program indicator, click on the program which you would like and select <span class="italic">Program Indicator management </span>menu. </p>
+            <p>Basic information-</p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Name</span> - Name of program indicator</p>
+              </li><li class="listitem">
+                <p><span class="italic">Short name</span> - Short name of program indicator</p>
+              </li><li class="listitem">
+                <p><span class="italic">Code</span> - Code of program indicator</p>
+              </li><li class="listitem">
+                <p><span class="italic">Description</span> - Description of program indicator</p>
+              </li><li class="listitem">
+                <p><span class="italic">Value Type</span> - The value type of indicator. It specifies the value of  the indicator as a Number or Date.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Program Stage</span> - Select an program stage to load the data elements which belong to the program selected. These data elements are used to define an indicator formula.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Data element</span> tab - The data elements which belongs to the selected program. They are used to define an formula. By double clicking on the data element you want in the box, the formula of the selected data element will be displayed into Expression field.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Program</span> tab - Includes three parameters for the program:</p>
+                <p>1) <span class="italic">Incident date</span> - The incident date of an entity ( the entity registered this date when this entity enrols into the program ).</p>
+                <p>2) <span class="italic">Date of enrollment</span> - The enrollment date of an entity ( the entity registered this date when this entity enrols into the program ).</p>
+                <p>3) <span class="italic">Current date</span> - The system date when this indicator is run.</p>
+              </li></ul></div>
+          </div>
+          <div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="program_template_reminder"></a>29.2.1.6.1.4.&nbsp;Program template reminder</h6></div></div></div>
+            
+            <p>This module also supports to define template message reminders which are sent to users/entities for multi events registration and single event with registration programs. To access to this function, click on the program which you would like to define template message reminder and select <span class="italic"> View template reminder message</span> link.   </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Name</span> - Name of description</p>
+              </li><li class="listitem">
+                <p><span class="italic">Send base on</span> - There are three options, include :</p>
+                <p>1) <span class="italic">Days scheduled</span> - The message is sent in day.
+</p>
+                <p>2) <span class="italic">Complete program</span> - The message is sent when the program of TEI is completed.
+</p>
+                <p>3) <span class="italic">Program enrollment</span> - The message is sent when TEI enrols into the program.
+</p>
+              </li><li class="listitem">
+                <p><span class="italic">Date to compare</span> - This is the date used for calculating the date to send the message. There are 2 options, include - </p>
+                <p>1) Enrollment Date</p>
+                <p>2) Incident Date </p>
+              </li><li class="listitem">
+                <p><span class="italic">Send message X days before/after scheduled date </span>- The number of days needs to calculate the date for sending the message by scheduled. Just enter a number for this field in the case <span class="italic">Send base on</span> with value as Days schedule.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Recipients</span> - Specify the kind of persons who  will receive the message. There are 5 options, include
+- </p>
+                <p>1) Tracked entity instance (SMS only)</p>
+                <p>2) Attribute users </p>
+                <p>3) Organisation unit phone number (SMS only)</p>
+                <p>4) All users in organisation unit</p>
+                <p>5) User group</p>
+              </li><li class="listitem">
+                <p><span class="italic">User group</span> - Select one user group if <span class="italic">Recipients</span> field is selected as User group.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Message type</span> - This is the types of message. There are 3 options, include - </p>
+                <p>1) Direct SMS - This kind of SMS message is linked to the program of an entity after sending to recipients.</p>
+                <p>2) Message</p>
+                <p>3) Both</p>
+              </li><li class="listitem">
+                <p><span class="italic">Parameters</span> - Provide parameters  which are used for generating a message for each entity. The parameters include <span class="italic">entity name</span>,<span class="italic"> program name</span>, <span class="italic">incident date, days since incident date, enrollment date, days since enrollment date, organisation unit name</span>. Double-click on an option to insert it into template message field below.
+</p>
+              </li><li class="listitem">
+                <p><span class="italic">Message</span> - Content of template message. E.g.
+            Dear {patient-name}, please come to your appointment at {due-date}.
+</p>
+              </li></ul></div>
+          </div>
+          <div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="program_sharing"></a>29.2.1.6.1.5.&nbsp;Program sharing</h6></div></div></div>
+            
+            <p>To set authority for sharing the program, click on the program which you would like and select Sharing Settings menu. You can see  two parameters for authority, include <span class="italic">External access (without login)</span> and <span class="italic">Public Access</span> in the form with three authorities. There are three options for the public access as follows -</p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">None</span> - The program is private one. Just the user who created it can see and use it.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Read Only </span>- The user who are not owner of this program only can see it, not edit and delete it. </p>
+              </li><li class="listitem">
+                <p><span class="italic">Read and Write</span> - All users can edit and delete it.</p>
+              </li></ul></div>
+          </div>
+          <div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="validation_criteria"></a>29.2.1.6.1.6.&nbsp;Validation criteria</h6></div></div></div>
+            
+            <p>Validation criteria section provides a mechanism for defining criteria which validate if an entity can  enrol into the program.</p>
+            <p>To access the validation criteria maintenance module, click on the program  which you would like and select <span class="italic">View validation criteria</span> link on context menu to open <span class="italic">Validation criteria management</span> form.</p>
+            <p>To create a new validation criterion, click the <span class="italic">Add new</span> button. Fill all fields with read asterisk, and click <span class="italic">Add</span> button.</p>
+            <p>To translate the name of a validate criteria, click on the program stage which you would like and select <span class="italic">Translation</span> link.</p>
+          </div>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="program_stage"></a>29.2.1.6.2.&nbsp;Program stage</h5></div></div></div>
+          
+          <p>To define a program stage, click the row corresponding to the program you would like, then <span class="italic">View program stages</span> link in context menu. In <span class="italic">Program stage management</span> form, click <span class="italic">Add new</span> button.</p>
+          <p>To sort program stages by scheduled days, click <span class="italic">Sort by scheduled</span> days button.</p>
+          <div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="program_stage_information"></a>29.2.1.6.2.1.&nbsp;Base information</h6></div></div></div>
+            
+            <p><span class="italic">Program stage details</span> section - </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Name</span> - Name of the program stage</p>
+              </li><li class="listitem">
+                <p><span class="italic">Description</span> - The description of the program stage</p>
+              </li><li class="listitem">
+                <p><span class="italic">Scheduled days from start</span> - The minimum number of days to wait for starting the program stage.</p>
+              </li></ul></div>
+            <p><span class="italic">Repeatable program stage details</span> section - </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Repeatable</span> - specify the program stage as repeatable or not.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Display generate event box after completed</span> -
+                Uncheck on it if you don't want to display <span class="italic">Create new event box </span>to create new event for a repeatable stage after clicking
+                  <span class="italic">Complete</span> button for an event of the stage in
+                data entry form. This field is checked as default.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Standard interval days</span> - Specify the number of days to repeat the repeatable program stage.</p>
+              </li></ul></div>
+            <p><span class="italic">Form details</span> section - </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Auto-generate event</span> - Uncheck this to prevent
+                for creating an event of this program stage automatically when a entity enroll into
+                the program.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Open data entry form after enrollment</span>  - Automatically open the event of this stage as soon as the entity has enrolled into the program.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Report Date to use</span> - The date is used for report date of the event opened automatically. There are two options , include <span class="italic">Incident date</span> or <span class="italic">Enrollment date</span>. </p>
+                <p>If the Report date to use is selected as one of those two('incident date'/'enrollment date'), in Dashboard, the 'Report date' of the event will be set as one of those two.
+</p>
+              </li><li class="listitem">
+                <p><span class="italic">Block entry form after completed</span> - Check on it for blocking entry form after completed the event of this stage. The data values in the entry form cannot be changed until the status of the event is reset as incomplete.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Ask user to complete program when stage is completed</span> - If this property is set, a popup will come up to ask if user wants to create the event of next stage.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Ask user to create new event when stage is complete</span> - If this property is set, a popup will come up to ask if user wants to create a new event of this stage when an event of this stage completed. This property is active only when Repeatable field is set.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Generate events by enrollment date</span> - Check on it for auto-generating due dates of events from program-stages of this program    based on the enrollment date. If it is not checked, the due dates are generated based on incident date.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Capture coordinates</span> - Many types of events may be recorded at a facility or be <span class="italic">owned-by</span> a health worker at a facility, but actually take place somewhere in the community. This field is checked to get coordinates of the place.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Complete allowed only if validation passes</span> - The event created by this program stage is completed only when all validation rules are passed.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Description of report date</span> - The description for report date which is displayed in case entry form.</p>
+              </li></ul></div>
+            <p><span class="italic">Data elements <span class="italic">section</span></span> - Select entity data elements which belong to the program stage. There are four properties for each data element selected-</p>
+            <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                <p><span class="italic">Compulsory</span> - The value of this data element must be filled into data entry form before completing the event.
+</p>
+              </li><li class="listitem">
+                <p><span class="italic">Allow provided elsewhere</span> - Specify if the value of this data element comes from other facility, not in the facility where this data is entered.
+</p>
+              </li><li class="listitem">
+                <p><span class="italic">Display in reports </span>- Display the value of this data element into the SEWoR data entry function.
+</p>
+              </li><li class="listitem">
+                <p><span class="italic">Date in future</span> - Allow to select a date in future for date data elements.</p>
+              </li></ol></div>
+          </div>
+          <div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="program_stage_entry_form"></a>29.2.1.6.2.2.&nbsp;Program stage entry form</h6></div></div></div>
+            
+            <p>A program stage has  three types of  data entry form - </p>
+            <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                <p><span class="italic">Custom data entry form</span> - Define a data entry form as HTML page. click on the program stage which you would like and select  to define custom data entry form. The system supports to define a custom entry form with multi stages. So this form can be re-used in other stages of the same program.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Section data entry form</span> - Group some data elements which belong to the program stage as sections and display data elements by each section. Click on the program stage which you would like and select  <span class="italic">Section management</span> link to define section data entry form.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Default data entry form</span> - List all data elements which belong to the program stage.</p>
+              </li></ol></div>
+          </div>
+          <div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="program_stage_template_reminder"></a>29.2.1.6.2.3.&nbsp;Program stage template reminder</h6></div></div></div>
+            
+            <p>This module also supports to define template message reminders which are sent to users/entities. To access to this function, click on the program stage which you would like to define template message reminder and select <span class="italic"> View template reminder message</span> link.   </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Name</span> - Name of description</p>
+              </li><li class="listitem">
+                <p><span class="italic">Send base on</span> - There are two options, include :</p>
+                <p>1) <span class="italic">Days scheduled</span> - The message is sent in day.
+</p>
+                <p>2) <span class="italic">Complete event </span>-  The message is sent when the event of an entity is completed.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Date to compare</span> - This is the date used for calculating the date to send the message. There are 2 options, include:</p>
+                <p>1) Enrollment Date</p>
+                <p>2) Incident Date </p>
+              </li><li class="listitem">
+                <p><span class="italic">Send message X days before/after scheduled date </span>- The number of days needs to calculate the date for sending the message by scheduled. Just enter a number for this field in the case <span class="italic">Send base on</span> with value as Days schedule.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Recipients</span> - Specify the kind of persons who  will receive the message. There are 5 options, include
+- </p>
+                <p>1) Tracked entity instance (SMS only)</p>
+                <p>2) Attribute users </p>
+                <p>3) Organisation unit phone number (SMS only)</p>
+                <p>4) All users in organisation unit</p>
+                <p>5) User group</p>
+              </li><li class="listitem">
+                <p><span class="italic">User group</span> - Select one user group if <span class="italic">Recipients</span> field is selected as User group.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Message type</span> - This is the types of message. There are 3 options, include - </p>
+                <p>1) Direct SMS - This kind of SMS message is linked to the program of an entity after sending to recipients.</p>
+                <p>2) Message</p>
+                <p>3) Both</p>
+              </li><li class="listitem">
+                <p><span class="italic">Parameters</span> - Provide parameters  which are used for generating a message for each entity. The parameters include <span class="italic">entity name</span>,<span class="italic"> program name</span>, <span class="italic">incident date, days since incident date, enrollment date, days since enrollment date, organisation unit name</span>. Double-click on an option to insert it into template message field below.
+</p>
+              </li><li class="listitem">
+                <p><span class="italic">Message</span> - Content of template message. E.g.
+            Dear {patient-name}, please come to your appointment at {due-date}.
+</p>
+              </li></ul></div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="resources/images/admon/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+              <p>A custom data entry form can have data elements which belong to other stages of the program. This form can be reused for the stages of program. When the form is opened to enter data, the data values which belong to other events will be displayed if any, but user can not modify them. Just only data values with data elements which belong to the stage selected are editable.</p>
+            </td></tr></table></div>
+          </div>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="tracked_entity_aggregation_query_builder"></a>29.2.1.7.&nbsp;Aggregation query builder</h4></div></div></div>
+        
+        <p>This is the core functionality for linking data between tracker module and aggregate management module by defining the linking/aggregating rules. The purpose  is to produce aggregated data / statistics based on the low-level case based data. It is based around flexible aggregation query definitions which maps the data elements used for case based data management to data elements used for aggregate data.</p>
+        <p>This provides two functions - </p>
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p><span class="italic">Apps &gt; Programs / Attributes &gt; Aggregation query builder</span> is a tool for defining formulas, expressions, rules for aggregation data from tracker to aggregation module. </p>
+          </li><li class="listitem">
+            <p><span class="italic">Apps &gt; Individual Records &gt; Manual Aggregation</span> is used for generating routine data values from individual data by period and organization unit.</p>
+          </li></ul></div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="tracked_entity_aggregation_query_builder_information"></a>29.2.1.7.1.&nbsp;Basic information </h5></div></div></div>
+          
+          <p>To access <span class="italic">Aggregation Query Builder</span> module, from the <span class="italic">Apps</span> menu, go to the <span class="italic">Programs / Attributes</span> option. Select <span class="italic">Aggregation Query Builder</span> option on left menu to proceed.</p>
+          <p>To define a formula, click the <span class="italic">Add new</span> button.</p>
+          <div class="screenshot">
+            <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/example_query.png" width="100%"></td></tr></table></div>
+          </div>
+          <p>Basic information -</p>
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              <p><span class="italic">Name</span> - Provide name of query,  this name is usually same with the name of aggregate data element. For example Number of mothers got VAT, Number of children got BCG vaccine,...</p>
+            </li><li class="listitem">
+              <p><span class="italic">Dataset</span> - Select dataset contains data elements which will be used to link with individual data.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Data element</span> - Select aggregate data element which will be used to link with individual data.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Operator</span> - There are six operators</p>
+              <p>1) Select <span class="italic">Number of tracked entity instances</span> if aggregate based on entities;</p>
+              <p>2) Select <span class="italic">Number of visits</span> if aggregate data based on  times that entitys received services.</p>
+              <p>3) Select <span class="italic">Sum of data element values </span>to get sum of data values of data element in <span class="italic">Data element for sum/average</span> field with the criteria in the condition field.</p>
+              <p>4) Select <span class="italic">Average of data element values </span>to get average of data values of data element in <span class="italic">Data element for sum/average</span> field with the criteria in the condition field.</p>
+              <p>5) Select <span class="italic">Minimum of data element values </span>to get min of data values of data element in <span class="italic">Data element for sum/average</span> field with the criteria in the condition field.</p>
+              <p>6) Select <span class="italic">Maximum of data element values </span>to get max of data values of data element in <span class="italic">Data element for sum/average</span> field with the criteria in the condition field.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Program</span> - Select program   needed for aggregation.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Program Stage</span> - Select program stage from the selected program above.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Data element for sum/average/min/max</span>  - Select an data element for operator as Sum / Average / Min / Max.</p>
+            </li></ul></div>
+          <p>Next section included 3 tabs: <span class="italic">Data elements</span>, <span class="italic">entity attributes</span> and <span class="italic">Program</span>. Depend on the requirement of data aggregation, data element, entity attributes, and number of programs are selected. </p>
+          <p><span class="bold"><strong>
+              <span class="underline"><span class="italic">Data elements tab</span>:</span>
+            </strong></span> List all available data elements  from selected program stage. To create a formula related to each data element, double click on the   data element. The formula of the data element is filled on the condition field,  like [DE:1.2.3], in with: </p>
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              <p>1 - id of  the selected program.</p>
+            </li><li class="listitem">
+              <p>2 - id of the selected program stage.</p>
+            </li><li class="listitem">
+              <p>3 - id of the selected data element.</p>
+            </li></ul></div>
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="resources/images/admon/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+            <p>The formula can be created without any program stage, like [DE:1.*.3]</p>
+          </td></tr></table></div>
+          <p><span class="bold"><strong>
+              <span class="underline">
+                <span class="italic">Attribute tab</span>
+              </span>
+            </strong></span>- List all available fixed attributes, such as gender, DOB type, Age (days), .. and user-defined attributes. Besides, provide a formula for calculating number of entities who registered in system. However, if a program without registration is selected, entity attributes aren't displayed.</p>
+          <p><span class="bold"><strong>
+              <span class="underline">
+                <span class="italic">Program tab</span>
+              </span>
+            </strong></span> - Provide formulas for calculating data value related to the selected program and program stage - </p>
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              <p>The number of entities who enrolled the selected program.</p>
+            </li><li class="listitem">
+              <p>The number of entities / times that ( Date of enrollment - Date of incident ) is greater then a certain number.</p>
+            </li><li class="listitem">
+              <p>The number of entities who visited the selected program stage OR the number of visits what are registered in the system.</p>
+            </li><li class="listitem">
+              <p>The number of entities  by age at the report-time.</p>
+            </li></ul></div>
+          <p><span class="bold"><strong>
+              <span class="italic">
+                <span class="italic">
+                  <span class="underline">Condition section </span>
+                </span>
+              </span>
+            </strong></span>- This section contains comparing operations (&lt;, &lt;=, &gt;, &gt;=, =, != ), calculation operation (+), priority operation ( ( ) ), boolean values (Yes, No), status operations (=NULL, != NULL, DateDiff(xxx, Incident date), DateDiff(xxx, Enrollment date), DateDiff(xxx, Report date)  ), relation operations (AND, OR, COMBINE). These operations are used for supporting in setting condition for query. </p>
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="resources/images/admon/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+            <p>COMBINE operator is used for calculate number of children organidation units completed all program-stage-instances. E.g For the formula like this [PSIC:1149293]  COMBINE [PSIC:1150010]. The system will calculated the number of children orgunits of the selected orgunit which have all program-stage-instances with stage-id as <span class="italic">1149293</span> and <span class="italic">1150010</span> completed. You can find this special formula [PSIC:xxx] by clicking on <span class="italic">Completed</span> option in <span class="italic">Program</span> tab.</p>
+          </td></tr></table></div>
+          <p><span class="italic">
+              <span class="bold"><strong>
+                <span class="underline">Description section</span>
+              </strong></span>
+            </span> - Show description for the condition above. </p>
+          <p>E.g. To get number of <span class="italic">girls</span> who got <span class="italic">Vitamin A dose 6</span> enrolled <span class="italic">Child Health program</span> on <span class="italic">January 2012</span>. Then
+            query is created as in the figure below. Note that January 2012 is period parameter
+            which user will select when generate report. It is not set in the query.</p>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e6436"></a>29.2.1.7.2.&nbsp;Sample of aggregation query builder</h5></div></div></div>
+          
+          <p>E.g.  Find the number of the children vaccinated BCG by defining a linking rule between the data elements of aggregate dataset named <span class="italic">Number of children - BCG</span>  and the data element of a program stage named <span class="italic">BCG dose given</span>.</p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p>From <span class="italic">Apps</span> menu, go to <span class="italic">Data Element and Indicators</span> option and click on it. Select <span class="italic">Data Element</span> option to define two new data elements -</p>
+              <p>1) Define a new data element named <span class="italic">Number of children - BCG</span> with  <span class="italic">Aggregate</span> option for Domain Type.</p>
+              <p>2) Define a new data element named <span class="italic">BCG dose give date</span> with  <span class="italic">Patient</span> option for Domain Type.</p>
+            </li><li class="listitem">
+              <p>From <span class="italic">Apps</span> menu, go to <span class="italic">Datasets</span> option and click on it. Select <span class="italic">Dataset</span> option to create a new dataset named <span class="italic">BCG Report</span> and add <span class="italic">Number of children - BCG</span> data element into the dataset.</p>
+            </li><li class="listitem">
+              <p>From <span class="italic">Apps</span> menu, go to <span class="italic">Programs / Attributes</span> option   and click on it. Select <span class="italic">Program</span> option to create a program named <span class="italic">Child Health Program</span> with a stage named <span class="italic">Birth Details</span> and add the <span class="italic">BCG dose given</span> data element into this stage.</p>
+            </li><li class="listitem">
+              <p>Create a new aggregation query builder named <span class="italic">Number of children - BCG Builder </span>to linking between the data elements.</p>
+            </li><li class="listitem">
+              <p>From <span class="italic">Services</span> menu, go to <span class="italic">Individual Records </span>option and click on it. Select <span class="italic">entity</span> option below <span class="italic">Registration</span> header in the left menu to register three entities named <span class="italic">Micheal</span>, <span class="italic">Alice</span> and <span class="italic">Tom</span> in <span class="italic">Ngelehun CHC</span> and enroll them into <span class="italic">Child Health Program</span>.</p>
+              <p>1) For  <span class="italic">Micheal</span>, open the <span class="italic">Birth Details</span> stage into <span class="italic">Child Health Program</span>. Enter value for <span class="italic">BCG dose give date</span> data element as "<span class="italic">2012-01-18</span>".</p>
+              <p>2) For <span class="italic">Alice</span>, open the <span class="italic">Birth Details</span> stage into Child Health Program. Enter
+                value for <span class="italic">BCG dose give date</span> data element as
+                  "<span class="italic">2012-01-18</span>".</p>
+              <p>3) For    <span class="italic">Tom</span>,  no enter any data value for <span class="italic">Birth Details</span> stage.</p>
+              <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="resources/images/admon/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top">
+                <p>Before entering data value for the stage, choose <span class="italic">Report Date</span> as "<span class="italic">2012-01-18</span>".</p>
+              </td></tr></table></div>
+            </li><li class="listitem">
+              <p>From <span class="italic">Services</span> menu, go to <span class="italic">Individual Records</span> option and click on it. Select <span class="italic">Manual entity aggregation</span> option to run<span class="italic"> Number of children - BCG Builder</span> to get data value  and save it into database.</p>
+              <div class="screenshot">
+                <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/person_aggregation_form.png" width="100%"></td></tr></table></div>
+              </div>
+              <div class="screenshot">
+                
+                <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/example_person_aggregation_result.png" width="100%"></td></tr></table></div>
+              </div>
+              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="resources/images/admon/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+                <p>You can click  <span class="italic">Aggregate and Save</span> button to save data values aggregated into the database directly.</p>
+              </td></tr></table></div>
+            </li></ol></div>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="schedule_sending_message"></a>29.2.1.8.&nbsp;Schedule automated message reminder</h4></div></div></div>
+        
+        <p>This function is used for scheduling message reminders to be automatically sent to enrolled entities XX days before scheduled appointments and/or XX days after a missed visit. When the schedule is started, messages for each entity are generated based on templates defined in each stage at midnight (Ref.<span class="italic"> Add program stage </span>section for defining a template message). On the time, the scheduled messages are sent.</p>
+        <p>Click <span class="italic">Start</span> button will enable the scheduled job to run the task. Messages are generated based on templates defined in each stages at mid-night and sent at a pre-determined time  or can be run immediately by pressing <span class="italic">Execute</span> button.</p>
+        <p>Click <span class="italic">Execute</span> button to generate and send each message for each entity at the time the button clicked.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="scheduling_aggregation_query_builder"></a>29.2.1.9.&nbsp;Schedule automated aggregation</h4></div></div></div>
+        
+        <p>The aggregation query builder jobs can be automatically scheduled to run on regular
+          intervals. At midnight, this job runs and get all datasets which have data elements
+          defined into Aggregate Query Builder formulas. Based on the period types of datasets, the
+          system runs formulas at the end of end-date of current period. E.g. if today is on 1A.M.
+          in 2013-02-01, the system gets a monthly dataset and other period-type datasets with
+          aggregate formulas, then system will only run aggregate formulas of the monthly dataset
+          with period as Jan 2013.</p>
+        <p>Select an option in <span class="italic">Task strategy </span>to set way to get period list for aggregating. There four options - </p>
+        <p>1) <span class="italic">Last month</span> - Get period list by period-types of
+          data sets from last month to current date. E.g. for daily datasets, if current date is
+            <span class="italic">2013-03-09</span>, period list is get from <span class="italic"> 2013-02-09</span> to <span class="italic"> 2013-03-09</span>.
+          For month datasets, periods list is <span class="italic">Feb 2013</span> and
+            <span class="italic">Mar 2013.</span></p>
+        <p>2) <span class="italic">Last 3 month</span> - Get periods by from last 3 month to current date.</p>
+        <p>3) <span class="italic">Last 6 month</span> - Get periods by from last 6 month to current date</p>
+        <p>4) <span class="italic">Last 12 month</span> - Get periods by from last 12 month to current date</p>
+        <p><span class="italic"><span class="italic">Click</span> Start</span> button to enable the scheduled job to run at mid-night or can be run immediately by pressing <span class="italic">Execute</span> button.</p>
+      </div>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e6549"></a>29.2.2.&nbsp;Individual records </h3></div></div></div>
+      
+      <p>Each of the options for the services will be described in the following section -</p>
+      <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <p>Find/Add Instance</p>
+          <p>Register, edit and search private information of entities. Support entity dashboard for managing relationships, program enrollment, entering case entry form, ....
+    </p>
+        </li><li class="listitem">
+          <p>Visit Schedule</p>
+          <p>Visit Schedule provides for the user at a facility or in an area a list of upcoming visits to better plan for daily/weekly activities.</p>
+        </li><li class="listitem">
+          <p>Lost To Follow-Up</p>
+          <p>Support the work practices around tracking entities within a health program that have not shown up for a scheduled visit (stage), e.g. that are lost to follow-up. </p>
+        </li><li class="listitem">
+          <p>Single Event With Registration </p>
+          <p>The data to register is defined by a single event with registration program.</p>
+        </li><li class="listitem">
+          <p>Program summary</p>
+          <p>View the summary report to get an overview of the services provided for a program.
+    </p>
+        </li><li class="listitem">
+          <p>Program Statistics </p>
+          <p>Program statistics on program performance, e.g. drop-out rates, how many completed every month/year - counts/percentages etc.  </p>
+        </li><li class="listitem">
+          <p>Program stage completeness</p>
+          <p>Monitor the completeness of events and produce completeness reports for each program </p>
+        </li><li class="listitem">
+          <p>Manual  Aggregation</p>
+          <p>Generate routine data values from patient data by month (or other intervals if desired) and organisation unit.
+</p>
+        </li></ul></div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="patient"></a>29.2.2.1.&nbsp;Find/Add instance</h4></div></div></div>
+        
+        <p>The first step in the tracking is the registration of entity/case in the application. In the registration process, the details - which are related to the entityal information, identification, contract and location details &amp; health provider details, are entered in the application. In the registration itself, entity is provided with the unique identification number. This number will be unique and will not match with the identification number of any entity in the state jurisdiction. The issue of identification number will be the responsibility of facility where entity is registered first time.</p>
+        <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="resources/images/admon/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top">
+          <p>No matter what program entities need  to enroll, they must register into the system first. Then health providers will enroll the entities into relevant  programs. E.g. every pregnant women and the child need to be registered first as a entity, then they will be enrolled in Mother Care program or Child Health program.</p>
+        </td></tr></table></div>
+        <p>To access <span class="italic">Tracked entity instance management </span>function, from the
+            <span class="emphasis"><em>Apps</em></span> menu, click <span class="emphasis"><em>Individual Records </em></span>and click on it. Select <span class="emphasis"><em>Find/Add Instance</em></span> option on
+          the left menu to proceed. Then, after to select organisation unit.</p>
+        <p>Click the<span class="italic"> List All instances</span> button to list all
+entities in the selected organisation unit. If a program in list on the right side is
+          selected, the system will load entities who enrolled into the program.</p>
+        <p>The registration process is below - </p>
+        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+            <p>To register a entity, go to the <span class="italic">Apps</span> menu, select  <span class="italic">Individual Records</span>.</p>
+          </li><li class="listitem">
+            <p>Click the <span class="italic">
+                <span class="emphasis"><em>
+                  <span class="italic">Find/Add Instance</span>
+                </em></span>
+              </span> menu below <span class="italic">Tracked entity instance</span> header to go to <span class="emphasis"><em>Tracked entity instance management</em></span> window.</p>
+          </li><li class="listitem">
+            <p>Select  a  facility from the facilities hierarchy displayed on the left side of the screen. Then click the <span class="italic">Add new</span> button on the right side.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="resources/images/admon/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+              <p>To register new entity and enroll him/her into a certain program, please select a program in list on main page and click <span class="italic">Add new</span> button. The entity attributes and entity identifier types which belong to the selected program will be displayed on the registration form.</p>
+            </td></tr></table></div>
+          </li><li class="listitem">
+            <p>Fill data into the registration form.  Then  click the <span class="italic">Add</span> button  to complete to process of registration. </p>
+            <p>To continue to register other new entity, click the <span class="italic">Add &amp;&amp; Register new </span>button.</p>
+            <div class="screenshot">
+              <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/register_person_page.PNG" width="100%"></td></tr></table></div>
+            </div>
+            <p>For tracked association attribute which is used to register  representative for the registering entity, in registration form, check on the checkbox of this attribute, the sub-function has two tab -</p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><span class="italic">Search existing entity</span> tab is used for searching  available entities and users can select one entity in the result list to set relationship. The criteria to search is based on attribute of entities.</p>
+              </li><li class="listitem">
+                <p><span class="italic">Add new entity</span> tab is used for  registering a new entity for relationship. When adding a entity in this form, you need to select one user-defined relationship type in the list. Finally, click <span class="italic">Add</span> button.</p>
+              </li></ul></div>
+            <div class="screenshot">
+              <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/representative.png" width="100%"></td></tr></table></div>
+            </div>
+          </li></ol></div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e6630"></a>29.2.2.1.1.&nbsp;Tracked entity instance dashboard</h5></div></div></div>
+          
+          <p>The function  provides quick access to individual data of an entity. Dashboards consist of several sections, some of which provide links to activity programs or relationships of the entity . Other sections of the dashboard allow users to enter data values into case entry form, reschedule and set status for each events of activity plan and show messages and report of the program.</p>
+          <p>The dashboard of an entity is opened after register successfully or click the <span class="italic">first icon</span> under <span class="italic">Operations</span>, corresponding to the entity who you would like.</p>
+          <div class="screenshot">
+            <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td><img src="resources/images/patients_programs/person_dashboard.png" width="100%"></td></tr></table></div>
+          </div>
+          <p>Click on the<span class="italic"> View access log link </span>in the top-right of the dashboard to open history of access log to this entity.</p>
+          <p>The <span class="italic">Tracked entity instance profile</span> section provides links for editing profile  and changing other location of the entity. Click on <span class="italic">Edit profile</span> link to update individual information of entity. Click on <span class="italic">Change location</span> link to change other location for the entity.</p>
+          <p>Click on a program link in <span class="italic">Active programs</span> section to open the data entry form for the next visit of the selected program. A form is opened below with five tab - </p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p><span class="italic">Data entry screen </span>tab - Where data is manually registered for each entity. Click on a event box in  tab. Then   fill  a report date to open data entry form of the selected event. </p>
+              <p>After entering data values into the data entry form, user should click on <span class="italic">Run validation </span> button before clicking on <span class="italic">Complete</span> button to check reality of data. The event is  only  completed successfully if all validation is valid.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Attribute</span> tab - Load identifier-types and entity-attributes which belong to the selected program for users to enter values for this program.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Reschedule and set status</span> tab - Provides function for re-scheduling, setting status and sending messages/comments or deleting for each events.</p>
+              <p>Click <span class="italic">Update</span> button to update enrollment date and incident date and re-schedule visit plan by the new incident date.</p>
+              <p>Click <span class="italic">Complete</span> button to complete the active program.</p>
+              <p>Click <span class="italic">Quit</span> button to quite the active program. At that time, the status of over-due events are set as skipped. And events scheduled in the future are removed.</p>
+              <p>Click <span class="italic">Re-enroll </span>button to re-enroll a completed program.</p>
+              <p>If the program enrollment which no stage has data values, you can see  button <span class="italic">Remove</span> next to <span class="italic">Re-enroll</span> button. Click on it to delete this program enrollment.</p>
+              <p>After entering a comment in the Comment field, click <span class="italic">Save</span> button to save a comment for the event. For sending a reminder message, click on <span class="italic">Send message</span> icon, the <span class="italic">first icon</span> under <span class="italic">Operations</span> column.</p>
+              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="resources/images/admon/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+                <p>Only allow to edit due dates of events with status as overdue or scheduled in future.</p>
+              </td></tr></table></div>
+            </li><li class="listitem">
+              <p><span class="italic">Messages</span> tab - Displays a comment/message list of the program.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Program report </span>tab - Summary report for the program.</p>
+            </li></ol></div>
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="resources/images/admon/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+            <p>Belong to the authorities of the user logged, some tabs can be hidden.</p>
+          </td></tr></table></div>
+          <p>The <span class="italic">Active programs</span> section in Dashboard consists of active programs of the entity. Click on a program to show detail information below. Besides, there are two link in this tab - </p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p>The <span class="italic">Active programs</span> section provides links for  activity program and the next visit of entity for this program. </p>
+            </li><li class="listitem">
+              <p>The <span class="italic">Completed programs</span> section provides a completed program list with links to load events flow of the program.</p>
+            </li><li class="listitem">
+              <p>To enroll the entity into a program, click <span class="italic">Enroll</span> link.</p>
+            </li></ol></div>
+          <p>The <span class="italic">Relationship</span> section consists of relationships of the entity. Click on an entity in list to open his/her dashboard. Besides, there are two link in this tab - </p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p>To open <span class="italic">Relationship management</span> section, click <span class="italic">Add relative</span> link.</p>
+            </li><li class="listitem">
+              <p>If the selected program in <span class="italic">Program</span> section has a related program defined, the link name of this related program is displayed next to Add relative link. Click on this link to register a entity who/which has relationship of the entity we are working on and enrol the new entity into the related program.</p>
+            </li></ol></div>
+          <p>Besides, the system audits user's information who accessed on the dashboard. Click on the <span class="italic">View access log</span> link on the top right of Dashboard.</p>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e6711"></a>29.2.2.1.2.&nbsp;Enrollment</h5></div></div></div>
+          
+          <p>After the  registration, the entity needs to be enrolled in any available program. To enroll -</p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p>Click on <span class="italic">Enroll</span> link from Dashboard of the entity to open the Enrollment form.</p>
+            </li><li class="listitem">
+              <p>Select a program from the list.</p>
+              <div class="screenshot">
+                <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/select_program_for_person.PNG" width="100%"></td></tr></table></div>
+              </div>
+            </li><li class="listitem">
+              <p>After the selection of program, you need to provide two dates:</p>
+              <p>1) <span class="italic">Date of enrollment ( the first field )</span> - The date when entity enrolls into the selected program.</p>
+              <p>2) <span class="italic">Date of incident ( the second field )</span> - The date when the entity got the disease or he/she has just been committed to an equivalent program for being followed-up.</p>
+              <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="resources/images/admon/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top">
+                <p>If the selected program has any attributes, they are displayed below. Users can enter  values for them at this time.</p>
+                <p>The <span class="italic">date of incident</span> are  important to generate the activity plan for  each entity. Health provider  needs to ensure  recording and reporting date of incidence with each case of multi events with registration. However, when to define a program, if it can be set <span class="italic">Generated by enrollment date</span> property as true, the activity plan is generated based on the enrollment date, not incident date. </p>
+                <p>However,  the <span class="italic">date of incident </span>is ignored with single event programs. </p>
+              </td></tr></table></div>
+            </li><li class="listitem">
+              <p>Click  the <span class="italic">Enroll</span> button to complete the enrollment process.</p>
+              <p>The system will automatically calculate  due-date for each event of program and will show it in the <span class="italic">Re-schedule and set status</span> tab. In  health programme, an entity  registered and enrolled, needs to be checked from time to time by health providers.
+The case update  is designed in the same manner so that services which are received by the entities can be updated from time to time  when they visit the facility  or  whenever the health providers need to <span class="italic">track</span>.</p>
+              <p>The system will automatically calculate  due-date for each the program stage  and will show same the below enrollment. In  health program, an entity  registered and enrolled, needs to be checked from time to time by health providers.
+The case update  is designed in the same manner so that services which are received by the entities can be updated from time to time  when they visit the facility  or  whenever the health providers need to track.</p>
+            </li></ol></div>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e6744"></a>29.2.2.1.3.&nbsp;Editing entity profile</h5></div></div></div>
+          
+          <p>After registering an entity to a certain program, you can edit profile for that entity.</p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p>Click the second icon under <span class="emphasis"><em>Operations</em></span>, corresponding to the entity you would like to edit. Or click the <span class="emphasis"><em>Edit profile</em></span> link in Dashboard of entity.</p>
+            </li><li class="listitem">
+              <p>Fill data into the fields.</p>
+            </li><li class="listitem">
+              <p>Click <span class="italic">Update</span> button to update data and go to the entity's dashboard.</p>
+            </li></ol></div>
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="resources/images/admon/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+            <p>If a program in list is selected, the registration form with attributes belongs to the selected program will be displayed. If no program is selected, a common form will be displayed with attributes which are configured in <span class="italic">Attribute management</span> will be display.</p>
+          </td></tr></table></div>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e6760"></a>29.2.2.1.4.&nbsp;Adding relationship</h5></div></div></div>
+          
+          <p>To open <span class="italic">relationship management</span> for an entity, click on the <span class="emphasis"><em>Relationship management</em></span> icon under <span class="emphasis"><em>Operations</em></span> or click on the <span class="italic">Management</span> link on <span class="italic">Relationships</span> section in Dashboard. The management page appears...</p>
+          <div class="screenshot">
+            <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70"><tr><td><img src="resources/images/patients_programs/management_page.PNG" width="70"></td></tr></table></div>
+          </div>
+          <p>To add relationship for an entity, you have to click on <span class="emphasis"><em>Search available entity</em></span> link to navigate to <span class="emphasis"><em>search page.</em></span></p>
+          <p>To register a new entity and create relationship with the selected entity, click <span class="italic">Register new entity</span> link.</p>
+          <p>To set a relative entity as representative, click on the <span class="italic">Set as representative</span> icon, the first icon under <span class="emphasis"><em>Operations</em></span> according to the entity you would like.</p>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e6780"></a>29.2.2.1.5.&nbsp;Change entity location and View entity details and history</h5></div></div></div>
+          
+          <p>You can change entity location by clicking the <span class="emphasis"><em>Change entity location</em></span> icon under <span class="emphasis"><em>Operations</em></span> or click on <span class="italic">Change location</span> link on <span class="italic">Demographics</span> section in Dashboard. </p>
+          <p>In addition, you can view all entity details and history by click on <span class="emphasis"><em>entity details and history</em></span>  icon under <span class="emphasis"><em>Operations</em></span>.</p>
+          <p>Furthermore, you can download all entity details and history in the format of <span class="italic"> XLS</span> or <span class="italic">PDF</span> by clicking <span class="emphasis"><em>Download as Excel</em></span> or <span class="emphasis"><em>Download as PDF </em></span>button.</p>
+          <div class="screenshot">
+            <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70"><tr><td><img src="resources/images/patients_programs/change_person_location_and_view_details.PNG" width="70"></td></tr></table></div>
+          </div>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="d5e6799"></a>29.2.2.1.6.&nbsp;Advanced search entities</h5></div></div></div>
+          
+          <p>The <span class="emphasis"><em>Advanced search</em></span> function is used for searching available entities based on  full-name, identifiers and entity attribute values.</p>
+          <p>To access <span class="italic">Advanced search</span> function, from the
+              <span class="emphasis"><em>Services</em></span> menu, go the <span class="emphasis"><em>Individual Records </em></span>option and click on it. Select <span class="emphasis"><em>Find/Add entity</em></span> option on
+            the left menu to proceed. Then, after selecting organisation unit, click on the
+              <span class="emphasis"><em>Search</em></span> button on the right side.</p>
+          <p> A search form is appeared after clicking. User  has to select  criteria and input values into the function.</p>
+          <div class="screenshot">
+            <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70"><tr><td><img src="resources/images/patients_programs/search_guide.PNG" width="70"></td></tr></table></div>
+          </div>
+          <p>After selecting a type for searching, entering keyword and clicking on <span class="italic">Search</span> button, the search result will display on the screen, and then user can interact with these entities.</p>
+          <div class="screenshot">
+            <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/search_result.PNG" width="100%"></td></tr></table></div>
+          </div>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="visit_schedule"></a>29.2.2.2.&nbsp;Visit Schedule</h4></div></div></div>
+        
+        <p>This will be used to provide the user at a facility or in an area with a list of upcoming visits to better plan for daily/weekly activities. This can also be used as quick navigation to the data entry screen when using the system as a live/real-time data entry system.</p>
+        <p>To access <span class="italic">Visit Schedule </span>module, from the <span class="italic">Apps</span> menu, go to the<span class="italic"> Individual Records</span>. Select <span class="italic">Visit Schedule</span> option on left menu. Visit schedule management form  is opened. </p>
+        <p>To get visit schedule for a program, please do as follows - </p>
+        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+            <p>Select a program - Specify program for getting events.</p>
+          </li><li class="listitem">
+            <p>Select start-date and end-date - The system gets active events based on the these dates</p>
+          </li><li class="listitem">
+            <p>Use data from level(s) - Specify the level which you need to get events. If the option is Children only, individual data will be get  from the children of the selected organisation unit. If the option is Selected, individual data will be get from the selected organisation unit. If the option is All, individual data will be get from both selected organisation unit and its children.</p>
+          </li><li class="listitem">
+            <p>Click <span class="italic">Show Event List</span> button to generate visit schedule. The result is displayed below.</p>
+          </li></ol></div>
+        <p>Click  <span class="italic">Events <span class="italic">icon</span>,</span> <span class="italic">first icon</span> under <span class="italic">Operations</span>, corresponding to the entity which you would like to open event list according to the search  criteria. Then click on a date in event list to open the data entry screen.</p>
+        <p>Click <span class="italic">Dashboard</span> icon, the <span class="italic">secord icon</span> under <span class="italic">Operations</span>, corresponding to the entity which you would like to open dashboard of the entity.</p>
+        <p>Click <span class="italic">Tracked entity instance details and history</span> icon, the <span class="italic">third icon</span> under <span class="italic">Operations</span>, corresponding to the entity which you would like to open the entity history.</p>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="program_tracking"></a>29.2.2.3.&nbsp;Lost to follow-up</h4></div></div></div>
+        
+        <p>This function supports the work practices around tracking entities within a health program that have not shown up for a scheduled visit, e.g. that are lost to follow-up.</p>
+        <p>To access <span class="italic">Lost to follow up </span>module, from the <span class="italic">Apps</span> menu, go to the<span class="italic"> Individual Records </span>option and select <span class="italic">Lost to follow up</span> option on left menu. </p>
+        <p>To get tracking for a program, please do as follows - </p>
+        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+            <p>Select organisation unit on the left panel.</p>
+          </li><li class="listitem">
+            <p>Select a program in list on the main panel.</p>
+          </li><li class="listitem">
+            <p>Select  a status event you want to get.</p>
+          </li><li class="listitem">
+            <p>Check on Show only Risk cases if you only want to show risk cases in result.</p>
+          </li><li class="listitem">
+            <p>Click <span class="italic">Show Event List </span>button.</p>
+          </li></ol></div>
+        <div class="screenshot">
+          <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/tracking_program.png" width="100%"></td></tr></table></div>
+        </div>
+        <p>Click <span class="italic">Events</span> icon, <span class="italic">first icon</span> under <span class="italic">Operations</span>, corresponding to the entity which you would like to open event list according to the search  criteria. Then click on a date in event list to open the data entry screen.</p>
+        <p>Click on <span class="italic">Dashboard</span> icon, the<span class="italic"> second ico</span>n under <span class="italic">Operations</span> to open his/her dashboard.</p>
+        <p>Click on Edit icon, the <span class="italic">third icon</span> under <span class="italic">Operations</span> to edit program tracking information.</p>
+        <p>Click <span class="italic">Tracked entity instance details and history</span> icon, the <span class="italic">forth icon</span> under <span class="italic">Operations</span>, corresponding to the event which you would like to open the entity history.</p>
+        <p>To search events by due date, click on <span class="italic">Advanced Search</span> button. A advanced search criteria is shown. After selecting the organisation unit type and filling the due date range which you would like, click on <span class="italic">Search</span> button on this form to display result.</p>
+        <div class="screenshot">
+          <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/program_tracking_search_function.png" width="100%"></td></tr></table></div>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e6899"></a>29.2.2.4.&nbsp;Data entry</h4></div></div></div>
+        
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="single_event_with_registration"></a>29.2.2.4.1.&nbsp;Single event with registration</h5></div></div></div>
+          
+          <p>The data to register is defined by a single event with registration program. The functionality supports health providers to register entity information and input data values for a program into one form.</p>
+          <p>In order to register an event, from the <span class="italic">Apps</span> option, go to the <span class="italic">Individual Records</span> and click it. Then select <span class="italic">Single event with registration</span> option on left menu to proceed.</p>
+          <p>To list all entities in the selected facility, click <span class="italic">List All entities</span> button.</p>
+          <p>To register  new entity, enroll this entity into the program and fill data values for the event of the entity and the selected program, select a program in the combo box. And then click <span class="italic">Add new</span> button.</p>
+          <div class="screenshot">
+            <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70"><tr><td><img src="resources/images/patients_programs/create_new_person_single_event_with_registration.PNG" width="70"></td></tr></table></div>
+          </div>
+          <p>To update event of a registered entity:</p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p>Click <span class="italic">Advanced search</span> button. Then enter criterion for searching available entities. The search result is displayed below. User can read the user guide for <span class="emphasis"><em>Advanced search</em></span> function in <span class="emphasis"><em>entity registration</em></span> section.</p>
+            </li><li class="listitem">
+              <p>Click on <span class="italic">Data entry</span> icon - the first icon  under <span class="emphasis"><em>Operations</em></span>, corresponding to the entity you would like to edit, to update data values for the event.</p>
+            </li></ol></div>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e6927"></a>29.2.2.5.&nbsp;Reports</h4></div></div></div>
+        
+        <p>The sub module provides two functions for individual reports -</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              <p><span class="italic">Program Summary</span> - View the summary report to get an overview of the services provided for a program.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Statistical Program</span> - Statistical reports on program performance, e.g. drop-out rates, how many completed every month/year - counts/percentages etc.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Program stage completeness</span> - Monitor the completeness of events and produce completeness reports for each program. </p>
+            </li></ul></div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="program_summary_report"></a>29.2.2.5.1.&nbsp;Program summary</h5></div></div></div>
+          
+          <p>The function provides a tool for   generating summary list of individual information with  color shown on program stages to identify status of receiving services in each stage.</p>
+          <p>To access the program summary report, choose  <span class="italic">Apps</span> &gt; <span class="italic">Individual Records</span> &gt;  <span class="italic">Program summary</span>.</p>
+          <p>Select a <span class="italic">organisation unit</span>  which provides services on the left menu. Then on the main page, select <span class="italic">Program</span>, <span class="italic">Start date</span>, <span class="italic">End date </span>to get period. After, select Use data from level(s). There are three levels <span class="italic">Selected</span>, <span class="italic">Children Only</span> and <span class="italic">All</span>. Finally, click <span class="italic">Generate</span> button. </p>
+          <p>The result is get based on the date of enrollment of each entity who registered the selected organisation unit and enrolled in the selected program in the interval from start-date and end-date what health provider entered.</p>
+          <div class="screenshot">
+            <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/program_summary_report.png" width="100%"></td></tr></table></div>
+          </div>
+          <p>Click on an event box to display records for this event.</p>
+          <p>Click on the entity box to display the  details and history of the selected entity.</p>
+          <p>The color highlight the status of the stages -</p>
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              <p>PURPLE - Data entered and uncompleted stages.</p>
+            </li><li class="listitem">
+              <p>RED - Stages open but no data entered while the date estimated for closing/completing is over.</p>
+            </li><li class="listitem">
+              <p>YELLOW - Coming stages.</p>
+            </li><li class="listitem">
+              <p>GREEN- Compete stages.</p>
+            </li><li class="listitem">
+              <p>GREY - Skipped stages.</p>
+            </li></ul></div>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="program_statistics"></a>29.2.2.5.2.&nbsp;Program Statistics </h5></div></div></div>
+          
+          <p>The tool provides a tool for generating a statistics  report by program.</p>
+          <p>To access <span class="italic">Program Statistics</span> module, from the <span class="italic">Apps</span> menu, go to the <span class="italic">Individual Records</span>. Select <span class="italic">Program Statistics </span>option on left menu. Program statistics form is opened. </p>
+          <p>To get statistics report for a program, please do as follows -</p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p><span class="italic">Program </span>-  Specify program for generating report.</p>
+            </li><li class="listitem">
+              <p>Select <span class="italic">start-date</span> and <span class="italic">end-date</span> - The system will aggregate report based on start-date and end-date.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Use data from level(s)</span> -  Specify the level which you need to get events. If the option is <span class="italic">Children only</span>, individual data will be aggregated from the children of the selected organisation unit. If the option is <span class="italic">Selected</span>, individual data  will be aggregated from the selected organisation unit. If the option is <span class="italic">All</span>, individual data will be aggregated  from both selected organisation unit and its children.</p>
+            </li><li class="listitem">
+              <p>Click <span class="italic">Generate</span> button to generate report. The result is displayed below. And click <span class="italic">Export XLS</span> button to export the result to excel file.</p>
+            </li></ol></div>
+          <div class="screenshot">
+            <div class="mediaobject" align="center"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="80%"><tr><td align="center"><img src="resources/images/patients_programs/statistical_program_summary_report.png" align="middle" width="100%"></td></tr></table></div>
+          </div>
+          <p><span class="italic">In result -</span></p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p><span class="italic">Total new enrollments in this period</span> - The number of entities who enrolled the selected program from start-date to end-date.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Total programs completed in this period </span>- The number of programs completed.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Total programs discontinued (un-enrollments)</span> - The number of programs un-enrolled.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Average number of stages for complete programs</span> - The average number of stages per completed programs.</p>
+            </li></ol></div>
+          <p>From<span class="italic"> Summary by stage</span> section -</p>
+          <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+              <p><span class="italic">Visits scheduled (All)</span> column is the number of events of all stages, includes overdue, skipped,  incomplete and complete events.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Visits done (#)</span> column is the number of events  incomplete and complete.
+</p>
+            </li><li class="listitem">
+              <p><span class="italic">Visits done (%)</span> column is percent of  visits done (#) events / the number of all visits scheduled.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Forms completed</span> column are the number of events completed.
+</p>
+            </li><li class="listitem">
+              <p><span class="italic">Forms completed (%) </span>column is percent of completed events / the number of all visits scheduled.</p>
+            </li><li class="listitem">
+              <p><span class="italic">Visits overdue (#)</span> column is the number of overdue visits</p>
+            </li><li class="listitem">
+              <p><span class="italic">Visits overdue (%)</span> column is percent of visits overdue (#) / the number of all visits scheduled.</p>
+            </li></ol></div>
+        </div>
+        <div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="program_stage_completeness"></a>29.2.2.5.3.&nbsp;Program stage completeness</h5></div></div></div>
+          
+          <p>To generate the completeness of events, select an organisation unit on the left panel. Then select a program which you would like. After to select two dates for Start date  and End date field. Finally, click Generate button. The result is children organisation units where finished all events of the selected program by the date range you selected.</p>
+        </div>
+      </div>
+      <div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="run_case_aggregation"></a>29.2.2.6.&nbsp;Manual aggregation</h4></div></div></div>
+        
+        <p>The <span class="italic">Manual Aggregation</span> module is used for aggregating individual data and import into aggregated data element. </p>
+        <p>To access <span class="emphasis"><em>Manual aggregation</em></span> module, from the <span class="italic">Apps</span> menu, go to the <span class="italic">Individual Records</span>. Select <span class="italic">Manual Aggregation</span> option on left menu.  <span class="emphasis"><em>Manual aggregation form</em></span> is opened as below -</p>
+        <div class="screenshot">
+          <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/person_aggregation_form.png" width="100%"></td></tr></table></div>
+        </div>
+        <p>In the <span class="emphasis"><em>Manual aggregation</em></span> form above - </p>
+        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+            <p>Select <span class="italic">dataset</span> from Dataset List to get aggregate values. Note that only datasets which were assigned to at least one organisation unit will be shown in this list.</p>
+          </li><li class="listitem">
+            <p>Select a date range  from <span class="italic">From</span> and <span class="italic">To</span> fields.</p>
+          </li><li class="listitem">
+            <p>Select <span class="italic">organisation unit level</span> where entity data will be select to aggregate. There are 3 options - </p>
+            <p>- <span class="italic">All</span>: Individual data  will be aggregated from both selected organisation unit and its children.</p>
+            <p>- <span class="italic">Children only</span>: Individual data will be aggregated from the children of  the selected organisation unit .</p>
+            <p>- <span class="italic"> Selected</span>: Individual  data will be aggregated from the selected organisation unit. </p>
+          </li><li class="listitem">
+            <p>Click on the 
+<span class="italic">Aggregate and Save</span> button to execute aggregate function and save data values into database directly. Besides, click Preview button to preview data values and you can check/select any data values you want to input them into database. The <span class="emphasis"><em>entity aggregation result </em></span>page is shown after running successfully.</p>
+          </li></ol></div>
+        <div class="screenshot">
+          
+          <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="70%"><tr><td><img src="resources/images/patients_programs/example_person_aggregation_result.png" width="100%"></td></tr></table></div>
+        </div>
+        <p>In <span class="emphasis"><em>Manual entity aggregation result</em></span><span class="italic"> preview</span> page -</p>
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p>Click <span class="italic">Save all values</span> button to save all aggregated data values .</p>
+          </li><li class="listitem">
+            <p><span class="italic"><span class="italic">Click</span> Orange arrow</span> icon next to period name for showing list of aggregated data values at this period. Select only necessary data values and click <span class="italic">Save</span> selected values to save them</p>
+          </li><li class="listitem">
+            <p><span class="emphasis"><em><span class="italic">Click </span>Show details</em></span> icon  to view detail  information which aggregated.</p>
+          </li></ul></div>
+      </div>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch29.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch29.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch30.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;29.&nbsp;Tracker&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_user_manual_en.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;30.&nbsp;Program Indicators</td></tr></table></div></body></html>

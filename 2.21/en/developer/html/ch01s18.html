@@ -1,0 +1,73 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>1.18.&nbsp;Indicators</title><link rel="stylesheet" type="text/css" href="resources/css/docbook_bsd.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><meta name="keywords" content="DHIS2, HMIS, aggregate data, Health Management Information System, Integrated data repository, Health Information System"><link rel="home" href="dhis2_developer_manual.html" title="DHIS2 Developer Manual"><link rel="up" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Web API"><link rel="prev" href="ch01s17.html" title="1.17.&nbsp;Data integrity"><link rel="next" href="ch01s19.html" title="1.19.&nbsp;Complete data set registrations"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.18.&nbsp;Indicators</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch01s17.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Web API</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch01s19.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e2139"></a>1.18.&nbsp;Indicators</h2></div></div></div>
+    
+    <p>This section describes indicators and indicator expressions.</p>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2142"></a>1.18.1.&nbsp;Aggregate indicators</h3></div></div></div>
+      
+      <p>To retrieve indicators you can make a GET request to the indicators resource like
+        this:</p><pre class="screen">api/indicators</pre>
+      <p>Indicators represent expressions which can be calculated and presented as a result. The
+        indicator expressions are split into a numerator and denominator. The numerators and
+        denominators are mathematical expressions which can contain references to data elements,
+        constants and organisation unit groups. The variables will be substituted with data values
+        when used e.g. in reports. Variables which are allowed in expressions are described in the
+        following table.</p>
+      <p>
+        </p><div class="table"><a name="d5e2148"></a><p class="title"><b>Table&nbsp;1.29.&nbsp;Indicator variables</b></p><div class="table-contents">
+          
+          <table summary="Indicator variables" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Variable</th><th>Description</th></tr></thead><tbody><tr><td>${&lt;dataelement-id&gt;.&lt;catoptcombo-id&gt;}</td><td>Refers to a combination of a data element and a category option
+                  combination.</td></tr><tr><td>${&lt;dataelement-id&gt;}</td><td>Refers to the total value of a data element across all category option
+                  combinations.</td></tr><tr><td>C{&lt;constant-id&gt;}</td><td>Refers to a constant.</td></tr><tr><td>OUG{&lt;orgunitgroup-id&gt;}</td><td>Refers to the count of organisation units in an organisation unit
+                  group.</td></tr></tbody></table>
+        </div></div><p><br class="table-break">
+      </p>
+      <p>The syntax looks like
+        this:</p><pre class="screen">${&lt;dataelement-id&gt;.&lt;catoptcombo-id&gt;} + C{&lt;constant-id&gt;} + OUG{&lt;orgunitgroup-id&gt;}</pre>
+      <p>A corresponding example looks like
+        this:</p><pre class="screen">#{P3jJH5Tu5VC.S34ULMcHMca} + C{Gfd3ppDfq8E} + OUG{CXw2yu5fodb}</pre>
+      <p>Note that for data element variables the category option combo identifier can be
+        omitted. The variable will then represent the total for the data element, e.g. across all
+        category option combos. Example:</p><pre class="screen">#{P3jJH5Tu5VC} + 2</pre>
+      <p>Expressions can be any kind of valid mathematical expression, as an
+        example:</p><pre class="screen">( 2 * #{P3jJH5Tu5VC.S34ULMcHMca} ) / ( #{FQ2o8UBlcrS.S34ULMcHMca} - 200 ) * 25</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2178"></a>1.18.2.&nbsp;Program indicators</h3></div></div></div>
+      
+      <p>To retrieve program indicators you can make a GET request to the program indicators
+        resource like this:</p><pre class="screen">api/programIndicators</pre>
+      <p>Program indicators can contain information collected in a program. Indicators have an
+        expression which can contain references to data elements, attributes, constants and program
+        variables. Variables which are allowed in expressions are described in the following
+        table.</p>
+      <p>
+        </p><div class="table"><a name="d5e2184"></a><p class="title"><b>Table&nbsp;1.30.&nbsp;Program indicator variables</b></p><div class="table-contents">
+          
+          <table summary="Program indicator variables" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Variable</th><th>Description</th></tr></thead><tbody><tr><td>#{&lt;programstage-id&gt;.&lt;dataelement-id&gt;}</td><td>Refers to a combination of program stage and data element id.</td></tr><tr><td>#{&lt;attribute-id&gt;}</td><td>Refers to a tracked entity attribute.</td></tr><tr><td>V{&lt;varible-id&gt;}</td><td>Refers to a program variable.</td></tr><tr><td>C{&lt;constant-id&gt;}</td><td>Refers to a constant.</td></tr></tbody></table>
+        </div></div><p><br class="table-break">
+      </p>
+      <p>The syntax looks like
+        this:</p><pre class="screen">#{&lt;programstage-id&gt;.&lt;dataelement-id&gt;} + #{&lt;attribute-id&gt;} + V{&lt;varible-id&gt;} + C{&lt;constant-id&gt;}</pre>
+      <p>A corresponding example looks like this:
+        </p><pre class="screen">#{A03MvHHogjR.a3kGcGDCuk6} + A{OvY4VVhSDeJ} + V{incident_date} + C{bCqvfPR02Im}</pre>
+    </div>
+    <div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d5e2210"></a>1.18.3.&nbsp;Expressions</h3></div></div></div>
+      
+      <p>Expressions are mathematical formulas which can contain references to data elements,
+        constants and organisation unit groups. To validate and get the textual description of an
+        expression you can make a GET request to the expressions
+        resource:</p><pre class="screen">api/expressions/description?expression=&lt;expression-string&gt;</pre>
+      <p>The response follows the standard JSON web message format. The <span class="italic">status</span> property indicates the outcome of the validation and will be "OK" if
+        successful and "ERROR" if failed. The <span class="italic">message</span> property
+        will be "Valid" if successful and provide a textual description of the reason why the
+        validation failed if not. The <span class="italic">description</span> provides a
+        textual description of the
+        expression.</p><pre class="screen">{
+    "httpStatus": "OK",
+    "httpStatusCode": 200,
+    "status": "OK",
+    "message": "Valid",
+    "description": "Acute Flaccid Paralysis"
+}</pre>
+    </div>
+  </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch01s17.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch01.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch01s19.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.17.&nbsp;Data integrity&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="dhis2_developer_manual.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;1.19.&nbsp;Complete data set registrations</td></tr></table></div></body></html>
